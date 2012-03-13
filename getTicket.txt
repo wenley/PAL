@@ -1,0 +1,5 @@
+Log out of CAS
+Go to:
+https://fed.princeton.edu/cas/login?service=https%3A%2F%2Fblackboard.princeton.edu%2Fwebapps%2Fportal%2Fframeset.jsp%3FuseCas%3D1
+Log in
+Ticket should be in BB URL
