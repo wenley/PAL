@@ -1,34 +1,41 @@
 
 
+# ---------------------------------------------------
+# Clean-up
+# ---------------------------------------------------
+
+clean:
+	rm *.txt
+
 # ------------------------------------------------
 # BLACKBOARD RECIPES
 # -------------------------------------------------
 BB=https://blackboard.princeton.edu
+BBLEGIT=bblegit.txt
 
+BBsource:
+	mkdir $@
+	cp other/$(BBLEGIT) $@/
 
-jsfiles: jsnames1.txt jsnames2.txt
-	mkdir jsfiles
+BBjsfiles: BBsource jsnames1.txt jsnames2.txt
 	for o in `cat jsnames1.txt`; \
 	do\
 		a=$${o##*/}; \
-		curl $(BB)/javascript/$$a > $@/$$a; \
+		curl $(BB)/javascript/$$a > $</$$a; \
 	done;
 	for o in `cat jsnames2.txt`; \
 	do\
 		a=$${o##*/}; \
-		curl $(BB)/webapps/gradebook/js/$$a > $@/$$a; \
+		curl $(BB)/webapps/gradebook/js/$$a > $</$$a; \
 	done;
 
-jsnames1.txt: bblegit.txt
-	grep /javascript/ bblegit.txt | cut -d'"' -f4 | cut -d'?' -f1 > jsnames1.txt
+jsnames1.txt: BBsource
+	grep /javascript/ $</$(BBLEGIT) | cut -d'"' -f4 | cut -d'?' -f1 > jsnames1.txt
 
-jsnames2.txt: bblegit.txt
-	grep /webapps/ bblegit.txt | cut -d'"' -f4 | cut -d'?' -f1 > jsnamesTEMP.txt
+jsnames2.txt: BBsource
+	grep /webapps/ $</$(BBLEGIT) | cut -d'"' -f4 | cut -d'?' -f1 > jsnamesTEMP.txt
 	head -n 7 jsnamesTEMP.txt > jsnames2.txt
 	rm -f jsnamesTEMP.txt
-
-bblegit.txt:
-	echo "Need to figure out how to automatically get ticket"
 
 # ------------------------------------------------
 # ICE RECIPES
