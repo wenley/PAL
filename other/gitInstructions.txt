@@ -1,0 +1,19 @@
+Always work in a local branch. (i.e. NOT MASTER)
+
+To commit changes:
+- git add [all modified files you want to commit]
+- git commit
+  - Make sure you have already run git config 
+OR
+- git commit -m "[Your message here]"
+
+To push to the GitHub Repository:
+- Commit changes to your local branch
+- git checkout master
+- git pull
+- git merge -d [nameOfYourBranch]
+(- git diff )
+(- Modify appropraite files )
+(- git merge -d [name] again)
+- git push
+- git branch [newBranchName]
