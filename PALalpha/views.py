@@ -14,13 +14,9 @@ def toCAS(request):
 def fromCAS(request):
     try:
         ticket = request.GET['ticket']
-        print ticket
-        print Ticket.objects.all()
         try:
             t = Ticket.objects.get(ticket=ticket)
-            print "Found existing ticket"
         except Ticket.DoesNotExist:
-            print "Making new ticket"
             t = Ticket(ticket=ticket, orig_date=datetime.datetime.now())
             t.save()
     except KeyError:
