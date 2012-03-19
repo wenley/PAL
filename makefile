@@ -28,6 +28,7 @@ BBjsfiles: BBsource jsnames1.txt jsnames2.txt
 		a=$${o##*/}; \
 		curl $(BB)/webapps/gradebook/js/$$a > $</$$a; \
 	done;
+	rm jsnames1.txt jsnames2.txt
 
 jsnames1.txt: BBsource
 	grep /javascript/ $</$(BBLEGIT) | cut -d'"' -f4 | cut -d'?' -f1 > jsnames1.txt
