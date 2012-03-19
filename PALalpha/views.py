@@ -7,7 +7,9 @@ from tickets.models import Ticket, CASClient
 import datetime
 
 def toCAS(request):
-    return HttpResponseRedirect('https://fed.princeton.edu/cas/login?service=http://localhost:8080/fromCAS/')
+    C = CASClient()
+    url = C.cas_url + ('login?service=%s' % C.service)
+    return HttpResponseRedirect(url)
 
 def fromCAS(request):
     try:
@@ -29,8 +31,7 @@ def fromCAS(request):
 def front(request, ticket_id):
     t = get_object_or_404(Ticket, pk=ticket_id)
     C = CASClient()
-    netid = 'unknown'
-#    netid = C.validate(t.ticket)
+    netid = C.validate(t.ticket)
     if netid is None:
         return HttpResponse("Invalid ticket?")
     content = "Your netid is %s.<p>Your ticket number is %s." % (netid, t.ticket)
