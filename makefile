@@ -29,12 +29,23 @@ BBjsfiles: BBsource jsnames1.txt jsnames2.txt
 		curl $(BB)/webapps/gradebook/js/$$a > $</$$a; \
 	done;
 	rm jsnames1.txt jsnames2.txt
+	touch $@
+
+BBjsall.js: BBsource BBjsfiles
+	rm -f $</$@
+	for o in `ls $</*.js`; \
+	do\
+		echo "\\n//$$o" >> $</$@; \
+		cat $$o >> $</$@; \
+	done;
+	touch $@
 
 jsnames1.txt: BBsource
 	grep /javascript/ $</$(BBLEGIT) | cut -d'"' -f4 | cut -d'?' -f1 > jsnames1.txt
 
-jsnames2.txt: BBsource
+jsnames2.txt: BBsource jsnames1.txt
 	grep /webapps/ $</$(BBLEGIT) | cut -d'"' -f4 | cut -d'?' -f1 > jsnamesTEMP.txt
+	# !!! Has hard coded 7
 	head -n 7 jsnamesTEMP.txt > jsnames2.txt
 	rm -f jsnamesTEMP.txt
 
