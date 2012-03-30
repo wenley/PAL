@@ -1,0 +1,16 @@
+{
+   "name": "My First Extension",
+   "version": "0.1",
+   "manifest_version": 2,
+   "description": "First extension evar",
+   "content_scripts": [
+      {
+        "matches": ["https://blackboard.princeton.edu/*"],
+	"exclude_matches": ["https://blackboard.princeton.edu"],
+	"js": ["BBclick.js"]
+      }
+   ],
+   "permissions": [
+      "https://blackboard.princeton.edu/*"
+   ]
+}
