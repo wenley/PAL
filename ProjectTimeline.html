@@ -43,8 +43,17 @@ PAL (Princeton Academic Linker) Project Timeline Document
 <b> March 30th </b><br>
 </font>
 <font size="2" face="helvetica">
-  Met with Kevin Perry and Dennis Hood. Realized original model of information flow was not feasible due to the lack of proper credientials for the Miner. We decided to switch to writing a Chrome Extension with the same functionality: representing the information on Blackboard to a student user in a nicer format.
+  Met with Kevin Perry and Dennis Hood. Realized original model of information flow was not feasible due to the lack of proper credientials for the Miner. We decided to switch to writing a Chrome Extension with the same functionality: representing the information on Blackboard to a student user in a nicer format. We beta-tested simulating user actions in javascript through a primitive extension. Unfortunately, we ran into problems getting XMLHttpRequest to work.
 </font>
+
+<br/><br/>
+<font size="3" face="helvetica">
+<b> March 31st </b><br>
+</font>
+<font size="2" face="helvetica">
+  Met with Emily Lancaster, with whom we made the tragic discovery that Blackboard has ill-formed XML/HTML pages that sometimes don't close tags. Given this, we decided to skip XML parsing and just use regular expressions to extract information from Blackboard pages.
+</font>
+
 
 
 </center>
