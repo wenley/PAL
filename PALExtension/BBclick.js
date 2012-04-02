@@ -1,20 +1,23 @@
-function delay() {
-	var y = setTimeout("reportLoad();", 2000);
-}
 
 function reportLoad() {
+	while (req.status < 4);
+	
 	console.log("Loaded MBB");
-	console.log(req.responseXML);
-	mbbBodyDoc = req.responseXML.getElementsByName("content")[0].contentDocument;
+//	console.log(req.readyState);
+//	console.log(req.status);
+//	console.log(req.responseText);
+	
+	var parser = new DOMParser();
+	xmlDoc = parser.parseFromString(req.responseText, "text/xml");
+	mbbBodyDoc = xmlDoc.getElementsByName("content")[0].getChildren;
 	console.log(mbbBodyDoc);
 }
 
-var req;
+var req = new XMLHttpRequest();
 function loadLink(link) {
-	req = new XMLHttpRequest();
 	req.open("GET", link, true);
-	req.onload = delay;
-	req.send(null);
+	req.onload = reportLoad;
+	req.send();
 }
 
 var link;
@@ -30,10 +33,11 @@ function clickCourses() {
 	
 	var MBBtab = headDoc.getElementById("My Blackboard");
 	var mbbLink = MBBtab.getElementsByTagName("a")[0].getAttribute("href");
+//	link = mbbLink; //  Verify mbbLink is proper
 	
 	loadLink(mbbLink);
 	
-	var x = setTimeout("document.location.href = link;", 2000);
+//	var x = setTimeout("document.location.href = link;", 10000);
 }
 
 console.log("In script");
