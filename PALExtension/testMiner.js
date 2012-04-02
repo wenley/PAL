@@ -21,7 +21,7 @@ function mineSidebar() {
 
 
 //  Given a course page document, mines the course page
-function mineClass(contentText) {
+function mineCourse(contentText) {
     console.log('In class');
     
     //  Show uniqueness of contentTexts
@@ -65,7 +65,7 @@ function writeArray(a) {
       if (this.readyState == 4 && this.status == 200) {
          //  Show part of text; Eventually replace with Get document
 //         console.log(this.responseText.substr(150,40));
-         getContentDoc(this.responseText, mineClass);
+         getContentDoc(this.responseText, mineCourse);
          
          //  Check to see if need to do more
          this.i = this.i + 1;
