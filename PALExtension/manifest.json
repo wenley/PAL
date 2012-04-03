@@ -7,7 +7,7 @@
       {
         "matches": ["https://blackboard.princeton.edu/*"],
 	"exclude_matches": ["https://blackboard.princeton.edu/"],
-	"js": ["testMiner.js"]
+	"js": ["pythonLib.js", "testMiner.js"]
       }
    ],
    "permissions": [
