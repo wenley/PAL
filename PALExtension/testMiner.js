@@ -1,4 +1,4 @@
-//  GLOBAL LINK VARIABLES
+//  - - - - - GLOBAL LINK VARIABLES - - - - -
 var MasterCourseListClass = "portletList-img courseListing coursefakeclass";
 var CoursesTabLink = "https://blackboard.princeton.edu/webapps/portal/frameset.jsp?tab_tab_group_id=_2_1";
 var CoursesTabContentSrc = "/webapps/portal/execute/tabs/tabAction?tab_tab_group_id=_2_1";
@@ -6,6 +6,7 @@ var CoursesTabContentSrc = "/webapps/portal/execute/tabs/tabAction?tab_tab_group
 var parser = new DOMParser();
 
 
+//  - - - - - USEFUL FUNCTIONS - - - - -
 
 //  Redirects the user to Courses tab
 function redirectToCourses() {
@@ -13,47 +14,78 @@ function redirectToCourses() {
     document.location.href = CoursesTabLink
 }
 
-
-//  Mines content from an element of the sidebar of a course page
-function mineSidebar() {
-    console.log('In sidebar');
-}
-
-
-//  Given a course page document, mines the course page
-function mineCourse(contentText) {
-    console.log('In class');
-    
-    //  Show uniqueness of contentTexts
-    //  Can be verified
-    console.log(contentText.match(/var course_id = ".*";/g));
+//  Takes a link to a page and a callback to continueFunc
+//  Will call continueFunc on the contents of the page's
+//  Content document
+function getPageContentDoc(pageLink, continueFunc) {
+   var req = new XMLHttpRequest();
+   req.open("GET", pageLink, true);
+   req.onreadystatechange = function () {
+      var frameTag = req.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
+      var frameLink = frameTag.match(/src=\"[^ \"]*/g)[0].slice(5);
+      getContentDoc(frameLink, continueFunc);
+   }
+   req.send();
 }
 
 //  Extracts the content document text from a generic Blackboard page
 //  Requires String pageText and callback to continueFunc which will
 //  be called when the page finishes loading
-function getContentDoc(pageText, continueFunc) {
-   //  Get proper source link
-    var contentFrameTag = pageText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
-    var contentFrameSrc = contentFrameTag.match(/src=\"[^ \"]*/g)[0].slice(5);
-    //  Slice chops off src="
-
-    //  Form link to desired page
-    var link = "https://blackboard.princeton.edu";
-    if (contentFrameSrc.substr(0, 5) == "https")
-       link = contentFrameSrc;
-    else
-       link += contentFrameSrc;
-
+function getContentDoc(docLink, continueFunc) {
     // Make request
     var req = new XMLHttpRequest();
-    req.open("GET", contentFrameSrc, true);
+    req.open("GET", docLink, true);
     req.onreadystatechange = function () {
        if (req.readyState == 4 && req.status == 200) {
           continueFunc(req.responseText);
        }
     }
     req.send();
+}
+
+
+//  - - - - - TAILORED FUNCTIONS - - - - -
+
+//  Takes course content document's sidebar link for Course Description
+//  Gets link to registrar's course description page
+function mineCourseDescription(sidebarLink) {
+   var req = new XMLHttpRequest();
+   req.onreadystatechange = function () {
+      if (req.readyState == 4 && req.status == 200) {
+         var line = req.responseText.match(/window.open(.*);/g)[0];
+         var link = link.match(/"https:[^\"]*"/g)[0];
+         console.log(link);
+      }
+   }
+   req.send();
+}
+
+//  Given a course's web page link, mine it
+function mineCourseFromLink(contentPageLink) {
+   var req = new XMLHttpRequest();
+   req.open("GET", contentPageLink, true);
+   req.onreadystatechange = function () {
+      if (req.readyState == 4 && req.status == 200) {
+         mineCourse(req.responseText);
+      }
+   }
+   req.send();
+}
+
+//  Given a course content document, mines the course page
+function mineCourse(contentText) {
+    console.log('In class');
+    
+    //  Find sidebar list elements
+    var listElems = contentText.match(/<li[^>]*paletteItem[^>]*>/g);
+//    var listElems = contentText.match(/<li id="paletteItem:.*"[^>]*>(.|\s)*<\/li>/g);
+    for (i = 0; i < listElems.length; i++) {
+       console.log(listElems[i]);
+    }
+
+    //  Show uniqueness of contentTexts
+    //  Can be verified
+    console.log(contentText.match(/var course_id = ".*";/g));
 }
 
 //  Takes an array of [Course Title, Course page link] arrays
@@ -63,9 +95,19 @@ function writeArray(a) {
    //  Funky way of getting all the pages
    function nextRequest() {
       if (this.readyState == 4 && this.status == 200) {
-         //  Show part of text; Eventually replace with Get document
-//         console.log(this.responseText.substr(150,40));
-         getContentDoc(this.responseText, mineCourse);
+         //  Get document
+         var contentFrameTag = this.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
+         var contentFrameSrc = contentFrameTag.match(/src=\"[^ \"]*/g)[0].slice(5);
+         //  Slice chops off src="
+
+         //  Form link to desired page
+         var link = "https://blackboard.princeton.edu";
+         if (contentFrameSrc.substr(0, 5) == "https")
+            link = contentFrameSrc;
+         else
+            link += contentFrameSrc;
+         
+         getContentDoc(link, mineCourse);
          
          //  Check to see if need to do more
          this.i = this.i + 1;
@@ -90,7 +132,6 @@ function writeArray(a) {
    //  Get all pages sequentially
    var req2 = new XMLHttpRequest();
    req2.i = 0;
-   req2.docs = new Array();
    link = "https://blackboard.princeton.edu" + a[req2.i][1];
    req2.open("GET", link, true);
    
