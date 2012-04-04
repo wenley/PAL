@@ -43,6 +43,11 @@ function getContentDoc(docLink, continueFunc) {
     req.send();
 }
 
+//  Removes & from strings
+function cleanLink(s) {
+   return s.replace(/&/g, "&amp;");
+}
+
 
 //  - - - - - TAILORED FUNCTIONS - - - - -
 
@@ -77,10 +82,14 @@ function mineCourse(contentText) {
     console.log('In class');
     
     //  Find sidebar list elements
-    var listElems = contentText.match(/<li[^>]*paletteItem[^>]*>/g);
-//    var listElems = contentText.match(/<li id="paletteItem:.*"[^>]*>(.|\s)*<\/li>/g);
+    var listElems = contentText.match(/<li[^>]*paletteItem[^>]*>\s*<a[^>]*>\s*<span[^>]*>.*<\/span>\s*<\/a>\s*<\/li>/g);
     for (i = 0; i < listElems.length; i++) {
-       console.log(listElems[i]);
+       s = cleanLink(listElems[i]);
+       var miniDoc = parser.parseFromString(s, "text/xml");
+       var link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
+       var name = miniDoc.getElementsByTagName("span")[0].textContent;
+       console.log(link);
+       console.log(name);
     }
 
     //  Show uniqueness of contentTexts
@@ -112,7 +121,8 @@ function writeArray(a) {
          //  Check to see if need to do more
          this.i = this.i + 1;
 //         console.log(this.i);
-         if (this.i >= a.length) {
+//         if (this.i >= a.length) {
+         if (this.i >= 3) {
             console.log("Stopping page loading process...");
             return;
          }
