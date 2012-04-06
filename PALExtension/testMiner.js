@@ -84,6 +84,7 @@ function mineSidebar(a) {
             break;
          case "Assignments":
             console.log("Will mine Assignments later");
+            mineMasha(a[i][1]);
             break;
          case "Contacts":
             console.log("Will mine Contacts later");
@@ -216,6 +217,31 @@ function mineBB() {
         classesAndLinks[i] = a;
     }
     writeArray(classesAndLinks);
+}
+
+function mineMasha(link) {
+	var txt;
+	req = new XMLHttpRequest();
+	req.open("GET", link, true);
+	req.send();
+	text = req.responseText;
+	text2 = new Array();
+	NameFinal = new Array();
+	text4 = new Array();
+	LinkFinal = new Array();
+	text2 = text.match(/<h3>[.|\s]*<span[^<]*<img[^<]*<\/span>[.|\s]*(<a href[^>]*>)?<span[^>]*>[^<]*/g);
+	for (i = 0, txt; txt = text2[i]; i++)
+	{NameFinal[i] = txt.match(/>[^<]*$/g)[0].slice(1);}
+	text4 = text.match(/((<div class="details" >[.|\s]*<table [^>]*>[.|\s]*(<tr>[.|\s]*)?<th[^<]*<\/th>[.|\s]*(<td>[.|\s]*)?<ul[^<]*(<li>[.|\s]*)?<a href[^<]*<img[^<]*>[^<]*<\/a>)|(<h3>[.|\s]*<span[^<]*<img[^<]*<\/span>[.|\s]*<a href[^>]*><span[^>]*>[^<]*))/g);
+	for (i = 0, txt; txt = text2[i]; i++)
+	{LinkFinal[i] = text4[i].match(/((<a href[^<]*<img[^>]*>[^<]*<\/a>)|(<a href[^<]*>))/g)[0];}
+	Assigninfo = new Array();
+	Assigninfo = zip(NameFinal, LinkFinal);
+	console.log("THIS SHOULD BE THE ASSIGNMENT INFO BY MASHA");
+	console.log(Assigninfo);
+	console.log("THIS IS THE END OF ASSIGNMENT INFO BY MASHA");
+	
+	
 }
 
 var t = setTimeout("mineBB();", 3000);
