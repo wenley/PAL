@@ -31,3 +31,9 @@ function Course() {
    this.toolLinks = null;
    this.otherLinks = new Array();
 }
+
+function Announcements() {
+    this.postedBy = "";
+    this.postedTo = "";
+    this.message = "";
+}
