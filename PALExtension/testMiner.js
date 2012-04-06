@@ -221,6 +221,7 @@ function mineBB() {
 
 function mineMasha(link) {
 	var txt;
+	var working;
 	req = new XMLHttpRequest();
 	req.open("GET", link, true);
 	req.send();
@@ -230,11 +231,54 @@ function mineMasha(link) {
 	text4 = new Array();
 	LinkFinal = new Array();
 	text2 = text.match(/<h3>[.|\s]*<span[^<]*<img[^<]*<\/span>[.|\s]*(<a href[^>]*>)?<span[^>]*>[^<]*/g);
-	for (i = 0, txt; txt = text2[i]; i++)
-	{NameFinal[i] = txt.match(/>[^<]*$/g)[0].slice(1);}
+	for (i = 0;i < text2.length; i++)
+	{
+		if (text2 == null)
+			{
+			NameFinal[i] = "NOT A THING TYPE 1A";
+			console.log("This course did not have assignments");
+			break;
+			}
+		else 
+		{
+			txt = text2[i];
+			working = txt.match(/>[^<]*$/g)[0];
+			if (working == null)
+			{
+			NameFinal[i] = "NOT A THING TYPE 1B";
+			console.log("We really shouldn't be in here");
+			break;
+			}
+		else
+			{
+		NameFinal[i] = txt.match(/>[^<]*$/g)[0].slice(1);
+		}
+		}
+	}
 	text4 = text.match(/((<div class="details" >[.|\s]*<table [^>]*>[.|\s]*(<tr>[.|\s]*)?<th[^<]*<\/th>[.|\s]*(<td>[.|\s]*)?<ul[^<]*(<li>[.|\s]*)?<a href[^<]*<img[^<]*>[^<]*<\/a>)|(<h3>[.|\s]*<span[^<]*<img[^<]*<\/span>[.|\s]*<a href[^>]*><span[^>]*>[^<]*))/g);
-	for (i = 0, txt; txt = text2[i]; i++)
-	{LinkFinal[i] = text4[i].match(/((<a href[^<]*<img[^>]*>[^<]*<\/a>)|(<a href[^<]*>))/g)[0];}
+	for (i = 0; i < text4.length ; i++)
+		{
+		if (text4 == null)
+			{
+			LinkFinal[i] = "NOT A THING TYPE 2A";
+			console.log("This course does not have assignment links");
+			break;
+			}
+		else {
+			txt = text4[i];
+			working = txt.match(/((<a href[^<]*<img[^>]*>[^<]*<\/a>)|(<a href[^<]*>))/g)[0];
+			if (working == null)
+				{
+				LinkFinal[i] = "NOT A THING TYPE 2B";
+				console.log("REALLY shouldn't be here");
+				break;
+				}
+			else
+				{
+				LinkFinal[i] = working;
+				}		
+		}
+		}
 	Assigninfo = new Array();
 	Assigninfo = zip(NameFinal, LinkFinal);
 	console.log("THIS SHOULD BE THE ASSIGNMENT INFO BY MASHA");
