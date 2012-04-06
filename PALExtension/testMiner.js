@@ -31,13 +31,13 @@ function getPageContentDoc(pageLink, continueFunc) {
 //  Extracts the content document text from a generic Blackboard page
 //  Requires String pageText and callback to continueFunc which will
 //  be called when the page finishes loading
-function getContentDoc(docLink, continueFunc) {
+function getContentDoc(docLink, continueFunc, course) {
     // Make request
     var req = new XMLHttpRequest();
     req.open("GET", docLink, true);
     req.onreadystatechange = function () {
        if (req.readyState == 4 && req.status == 200) {
-          continueFunc(req.responseText);
+          continueFunc(req.responseText, course);
        }
     }
     req.send();
@@ -187,6 +187,8 @@ function writeArray(a) {
    function nextRequest() {
       if (this.readyState == 4 && this.status == 200) {
          Courses[this.i] = new Course();
+         console.log("The new course:");
+         console.log(Courses[this.i]);
 
          //  Get document
          var contentFrameTag = this.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
@@ -265,6 +267,6 @@ function mineBB() {
     writeArray(classesAndLinks);
 }
 
-var Courses = null;
+var Courses = new Array();
 
 var t = setTimeout("mineBB();", 3000);
