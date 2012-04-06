@@ -24,10 +24,16 @@ function Course() {
    this.sidebarElements = null;
    this.announcements = null;
    this.syllabusDoc = null;
-   this.descriptionLink = "";
+   this.descriptionLink = null;
    this.courseMaterials = null;
    this.assignments = null;
    this.contacts = null;
    this.toolLinks = null;
    this.otherLinks = new Array();
+}
+
+function Announcements() {
+    this.postedBy = "";
+    this.postedTo = "";
+    this.message = "";
 }
