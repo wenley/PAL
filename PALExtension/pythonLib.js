@@ -1,10 +1,16 @@
 
 //  Mimics the behavior of Python's zip
 function zip(x, y) {
-   if (Object.prototype.toString.apply(x) != "[object Array]")
+   if (arguments.length != 2) {
+      throw "Wrong number of arguments.";
+   }
+ 
+   if (Object.prototype.toString.apply(x) != "[object Array]") {
       throw "First argument is not an Array";
-   if (Object.prototype.toString.apply(y) != "[object Array]")
+   }
+   if (Object.prototype.toString.apply(y) != "[object Array]") {
       throw "Second argument is not an Array";
+   }
 
    var a = new Array();
 

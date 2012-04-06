@@ -24,7 +24,7 @@ function Course() {
    this.sidebarElements = null;
    this.announcements = null;
    this.syllabusDoc = null;
-   this.descriptionLink = "";
+   this.descriptionLink = null;
    this.courseMaterials = null;
    this.assignments = null;
    this.contacts = null;
