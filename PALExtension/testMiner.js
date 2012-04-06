@@ -73,8 +73,53 @@ function mineCourseDescription(sidebarLink, course) {
    req.send();
 }
 
-function extractContacts(textArea) {
+function extractContacts(textArea, course) {
+   //  Alternate h3 and div class details tags
+   var hStart = 0;
+   var hEnd = 0;
+   var divStart = 0;
+   var divEnd = 0;
+   var miniDoc;
+   var instructorP;
+   var detailP;
+   do {
+      hStart = textArea.indexOf("<h3>", divEnd);
+      if (hStart == -1)
+         break;
+      hEnd = textArea.indexOf("</h3>", hStart);
+      if (hEnd == -1)
+         break;
 
+      //  Log Instructor
+      instructorP = textArea.slice(hStart, hEnd) + "</h3>";
+      miniDoc = parser.parseFromString(instructorP, "text/xml");
+
+      var i = new Instructor();
+      i.name = miniDoc.getElementsByTagName("h3")[0].innerText;
+
+      divStart = textArea.indexOf("<div class=\"details", hEnd);
+      if (divStart == -1)
+         continue;
+      divEnd = textArea.indexOf("</div>");
+      if (divEnd == -1)
+         throw "No end of div";
+
+      detailP = textArea.slice(divStart, divEnd) + "</div>";
+      miniDoc = parser.parseFromString(detailP, "text/xml");
+      email = miniDoc.getElementsByTagName("a")[0];
+      if (email != undefined)
+         i.email = email.innerText;
+      office = detailP.match(/<strong>Office Location<\/strong>\s*\".*\"\s*<br>/);
+      if (office != null) {
+         office = strip(office.split("\"")[1]);
+         i.office = office;
+      }
+
+      course.contacts[course.contacts.length] = i;
+   } while (true);
+
+   console.log("Updated course:");
+   console.log(course);
 }
 
 
@@ -101,8 +146,7 @@ function mineContacts(sidebarLink, course) {
          console.log(listEnd);
 
          var list = req.responseText.slice(listStart, listEnd);
-         console.log(list);
-         
+         console.log(list);         
       }
    }
    req.send();
@@ -187,6 +231,7 @@ function writeArray(a) {
    function nextRequest() {
       if (this.readyState == 4 && this.status == 200) {
          Courses[this.i] = new Course();
+         Courses[this.i].title = a[this.i][0];
          console.log("The new course:");
          console.log(Courses[this.i]);
 

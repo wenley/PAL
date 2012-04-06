@@ -21,13 +21,14 @@ function Assignment() {
 
 //  Huge container for information on a particular Course
 function Course() {
+   this.title = null;
    this.sidebarElements = null;
    this.announcements = null;
    this.syllabusDoc = null;
    this.descriptionLink = null;
    this.courseMaterials = null;
    this.assignments = null;
-   this.contacts = null;
+   this.contacts = new Array();
    this.toolLinks = null;
    this.otherLinks = new Array();
 }

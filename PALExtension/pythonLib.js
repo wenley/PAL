@@ -1,4 +1,21 @@
 
+//  Mimics the behavior of Python's strip
+function strip(s) {
+   if (s == undefined) {
+      throw "Argument not defined";
+   }
+
+   if (Object.prototype.toString.apply(s) != "[object String]") {
+      throw "Argument not a string";
+   }
+
+   var lead = s.match(/^\s*/)[0].length;
+   var tail = s.match(/\s*$/)[0].length;
+
+   return s.slice(lead, -tail);
+}
+
+
 //  Mimics the behavior of Python's zip
 function zip(x, y) {
    if (arguments.length != 2) {
