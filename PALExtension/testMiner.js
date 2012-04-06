@@ -52,21 +52,64 @@ function cleanLink(s) {
 //  - - - - - SIDEBAR FUNCTIONS - - - - -
 //  Takes course content document's sidebar link for Course Description
 //  Gets link to registrar's course description page
-function mineCourseDescription(sidebarLink) {
+function mineCourseDescription(sidebarLink, course) {
    var req = new XMLHttpRequest();
    req.open("GET", sidebarLink, true);
    req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
-         var line = req.responseText.match(/window.open(.*);/g)[0];
-         var link = line.match(/"https:[^\"]*"/g)[0];
+         var line = req.responseText.match(/window.open(.*);/g);
+         if (line == null) {
+            line = req.responseText.match(/window.location(.*);/g);
+            if (line == null) {
+               console.log(req.responseText);
+               return;
+            }
+         }
+         var link = line[0].match(/"https:[^\"]*"/g)[0];
          console.log(link);
+         course.descriptionLink = link;
+      }
+   }
+   req.send();
+}
+
+function extractContacts(textArea) {
+
+}
+
+
+//  Takes course content document's sidebar link for Contacts
+//  Gets array of instructor's names and detailed information
+function mineContacts(sidebarLink, course) {
+   console.log("In contacts");
+   var req = new XMLHttpRequest();
+   req.open("GET", sidebarLink, true);
+   req.onreadystatechange = function () {
+      if (req.readyState == 4 && req.status == 200) {
+         var listStart = req.responseText.indexOf("contentList staffInfoList");
+         if (listStart == -1) {
+            console.log("No match");
+            return;
+         }
+         console.log(listStart);
+
+         var listEnd = req.responseText.indexOf("ul>", listStart);
+         if (listEnd == -1) {
+            console.log("Couldn't find end");
+            return;
+         }
+         console.log(listEnd);
+
+         var list = req.responseText.slice(listStart, listEnd);
+         console.log(list);
+         
       }
    }
    req.send();
 }
 
 //  Mines a particular sidebar element
-function mineSidebar(a) {
+function mineSidebar(a, course) {
    for (i = 0; i < a.length; i++) {
       switch(a[i][0]) {
          case "Announcements":
@@ -77,7 +120,7 @@ function mineSidebar(a) {
             break;
          case "Course Description":
             console.log("Mining Course Description");
-            mineCourseDescription(a[i][1]);
+            mineCourseDescription(a[i][1], course);
             break;
          case "Course Materials":
             console.log("Will mine Course Materials later");
@@ -86,7 +129,7 @@ function mineSidebar(a) {
             console.log("Will mine Assignments later");
             break;
          case "Contacts":
-            console.log("Will mine Contacts later");
+            mineContacts(a[i][1], course);
             break;
          case "Tools":
             console.log("Will mine Tools later");
@@ -100,19 +143,20 @@ function mineSidebar(a) {
 //  - - - - - COURSE CONTENT DOC FUNCTIONS - - - - -
 
 //  Given a course's web page link, mine it
-function mineCourseFromLink(contentPageLink) {
+function mineCourseFromLink(contentPageLink, course) {
    var req = new XMLHttpRequest();
    req.open("GET", contentPageLink, true);
    req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
-         mineCourse(req.responseText);
+         mineCourse(req.responseText, course);
       }
    }
    req.send();
 }
 
-//  Given a course content document, mines the course page
-function mineCourse(contentText) {
+//  Given a course content document, mines the course page and
+//  puts content into course
+function mineCourse(contentText, course) {
     console.log('In class');
     
     //  Find sidebar list elements
@@ -138,10 +182,11 @@ function mineCourse(contentText) {
 //  Takes an array of [Course Title, Course page link] arrays
 //  Does sanity check, then gets the texts of all course pages
 function writeArray(a) {
-
    //  Funky way of getting all the pages
    function nextRequest() {
       if (this.readyState == 4 && this.status == 200) {
+         Courses[this.i] = new Course();
+
          //  Get document
          var contentFrameTag = this.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
          var contentFrameSrc = contentFrameTag.match(/src=\"[^ \"]*/g)[0].slice(5);
@@ -154,13 +199,13 @@ function writeArray(a) {
          else
             link += contentFrameSrc;
          
-         getContentDoc(link, mineCourse);
+         getContentDoc(link, mineCourse, Courses[this.i]);
          
          //  Check to see if need to do more
          this.i = this.i + 1;
 //         console.log(this.i);
-//         if (this.i >= a.length) {
-         if (this.i >= 3) {
+         if (this.i >= a.length) {
+//         if (this.i >= 3) {
             console.log("Stopping page loading process...");
             return;
          }
@@ -215,7 +260,10 @@ function mineBB() {
         a[1] = classLinkList[i].getAttribute("href").substr(1);
         classesAndLinks[i] = a;
     }
+    classesAndLinks.i = 0;
     writeArray(classesAndLinks);
 }
+
+var Courses = null;
 
 var t = setTimeout("mineBB();", 3000);
