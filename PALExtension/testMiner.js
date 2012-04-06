@@ -49,21 +49,55 @@ function cleanLink(s) {
 }
 
 
-//  - - - - - TAILORED FUNCTIONS - - - - -
-
+//  - - - - - SIDEBAR FUNCTIONS - - - - -
 //  Takes course content document's sidebar link for Course Description
 //  Gets link to registrar's course description page
 function mineCourseDescription(sidebarLink) {
    var req = new XMLHttpRequest();
+   req.open("GET", sidebarLink, true);
    req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
          var line = req.responseText.match(/window.open(.*);/g)[0];
-         var link = link.match(/"https:[^\"]*"/g)[0];
+         var link = line.match(/"https:[^\"]*"/g)[0];
          console.log(link);
       }
    }
    req.send();
 }
+
+//  Mines a particular sidebar element
+function mineSidebar(a) {
+   for (i = 0; i < a.length; i++) {
+      switch(a[i][0]) {
+         case "Announcements":
+            console.log("Will mine announcements later");
+            break;
+         case "Syllabus":
+            console.log("Will mine Syllabus later");
+            break;
+         case "Course Description":
+            console.log("Mining Course Description");
+            mineCourseDescription(a[i][1]);
+            break;
+         case "Course Materials":
+            console.log("Will mine Course Materials later");
+            break;
+         case "Assignments":
+            console.log("Will mine Assignments later");
+            break;
+         case "Contacts":
+            console.log("Will mine Contacts later");
+            break;
+         case "Tools":
+            console.log("Will mine Tools later");
+            break;
+         default:
+            console.log("Unhandled: Will mine " + a[i][0] + " later");
+            break;
+      }
+   }
+}
+//  - - - - - COURSE CONTENT DOC FUNCTIONS - - - - -
 
 //  Given a course's web page link, mine it
 function mineCourseFromLink(contentPageLink) {
@@ -83,19 +117,23 @@ function mineCourse(contentText) {
     
     //  Find sidebar list elements
     var listElems = contentText.match(/<li[^>]*paletteItem[^>]*>\s*<a[^>]*>\s*<span[^>]*>.*<\/span>\s*<\/a>\s*<\/li>/g);
+    var a = new Array();
     for (i = 0; i < listElems.length; i++) {
        s = cleanLink(listElems[i]);
        var miniDoc = parser.parseFromString(s, "text/xml");
        var link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
        var name = miniDoc.getElementsByTagName("span")[0].textContent;
-       console.log(link);
-       console.log(name);
+       a[i] = new Array();
+       a[i][0] = name;
+       a[i][1] = link;
     }
 
-    //  Show uniqueness of contentTexts
-    //  Can be verified
-    console.log(contentText.match(/var course_id = ".*";/g));
+    mineSidebar(a);
 }
+
+
+
+//  - - - - - General Functions - - - - -
 
 //  Takes an array of [Course Title, Course page link] arrays
 //  Does sanity check, then gets the texts of all course pages
