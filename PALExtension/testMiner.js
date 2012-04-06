@@ -139,6 +139,7 @@ function mineSidebar(a, course) {
             break;
       }
    }
+   console.log(course);
 }
 //  - - - - - COURSE CONTENT DOC FUNCTIONS - - - - -
 
@@ -172,7 +173,7 @@ function mineCourse(contentText, course) {
        a[i][1] = link;
     }
 
-    mineSidebar(a);
+    mineSidebar(a, course);
 }
 
 
