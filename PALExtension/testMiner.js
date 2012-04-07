@@ -74,6 +74,8 @@ function mineCourseDescription(sidebarLink, course) {
 }
 
 function extractContacts(textArea, course) {
+   console.log("Extracting...");
+
     //  Alternate h3 and div class details tags
     var hStart = 0;
     var hEnd = 0;
@@ -82,44 +84,64 @@ function extractContacts(textArea, course) {
     var miniDoc;
     var instructorP;
     var detailP;
+    var j = 0;
+
+    //  Find all instructors
     do {
-        hStart = textArea.indexOf("<h3>", divEnd);
+        //  Get name of entry
+        hStart = textArea.indexOf("<h3>", hEnd);
+        console.log(hStart);
         if (hStart == -1)
             break;
         hEnd = textArea.indexOf("</h3>", hStart);
+        console.log(hEnd);
         if (hEnd == -1)
             break;
-
-        //  Log Instructor
         instructorP = textArea.slice(hStart, hEnd) + "</h3>";
         miniDoc = parser.parseFromString(instructorP, "text/xml");
-        
+        name = miniDoc.getElementsByTagName("h3")[0].innerText;
+
+        //  Is a folder
+        if (miniDoc.getElementsByTagName("a")[0] != undefined) {
+            var f = new Folder();
+            f.name = name;
+            f.link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
+            course.contacts[course.contacts.length] = f;
+            continue;
+        }
+
+        //  Is a true Instructor
         var i = new Instructor();
-        i.name = miniDoc.getElementsByTagName("h3")[0].innerText;
+        i.name = name;
         
+        //  Get details of an Instructor
         divStart = textArea.indexOf("<div class=\"details", hEnd);
+        console.log(divStart);
         if (divStart == -1)
             continue;
-        divEnd = textArea.indexOf("</div>");
+        divEnd = textArea.indexOf("</div>", divStart);
+        console.log(divEnd);
         if (divEnd == -1)
             throw "No end of div";
         
         detailP = textArea.slice(divStart, divEnd) + "</div>";
+        console.log(detailP);
         miniDoc = parser.parseFromString(detailP, "text/xml");
         email = miniDoc.getElementsByTagName("a")[0];
         if (email != undefined)
             i.email = email.innerText;
-        office = detailP.match(/<strong>Office Location<\/strong>\s*\".*\"\s*<br>/);
+        console.log("Finished email");
+        office = detailP.match(/<strong>Office Location<\/strong>/g);
         if (office != null) {
-            office = strip(office.split("\"")[1]);
+            office = office[0].split("\"");
+            console.log(office);
+            office = strip(office[1]);
             i.office = office;
         }
         
         course.contacts[course.contacts.length] = i;
-    } while (true);
-    
-    console.log("Updated course:");
-    console.log(course);
+        j = j + 1;
+    } while (j < 10);    
 }
 
 
@@ -146,7 +168,7 @@ function mineContacts(sidebarLink, course) {
             console.log(listEnd);
             
             var list = req.responseText.slice(listStart, listEnd);
-            console.log(list);         
+            extractContacts(list, course);
         }
     }
     req.send();
@@ -184,6 +206,7 @@ function mineSidebar(a, course) {
                break;
         }
     }
+    console.log("Finished mining the side bar for " + course.title.substr(0,6));
     console.log(course);
 }
 //  - - - - - COURSE CONTENT DOC FUNCTIONS - - - - -
@@ -233,8 +256,6 @@ function writeArray(a) {
         if (this.readyState == 4 && this.status == 200) {
             Courses[this.i] = new Course();
             Courses[this.i].title = a[this.i][0];
-            console.log("The new course:");
-            console.log(Courses[this.i]);
             
             //  Get document
             var contentFrameTag = this.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
@@ -252,7 +273,6 @@ function writeArray(a) {
             
             //  Check to see if need to do more
             this.i = this.i + 1;
-//         console.log(this.i);
             if (this.i >= a.length) {
                 console.log("Stopping page loading process...");
                 return;
