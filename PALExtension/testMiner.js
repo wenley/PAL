@@ -18,14 +18,14 @@ function redirectToCourses() {
 //  Will call continueFunc on the contents of the page's
 //  Content document
 function getPageContentDoc(pageLink, continueFunc) {
-   var req = new XMLHttpRequest();
-   req.open("GET", pageLink, true);
-   req.onreadystatechange = function () {
-      var frameTag = req.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
-      var frameLink = frameTag.match(/src=\"[^ \"]*/g)[0].slice(5);
-      getContentDoc(frameLink, continueFunc);
-   }
-   req.send();
+    var req = new XMLHttpRequest();
+    req.open("GET", pageLink, true);
+    req.onreadystatechange = function () {
+        var frameTag = req.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
+        var frameLink = frameTag.match(/src=\"[^ \"]*/g)[0].slice(5);
+        getContentDoc(frameLink, continueFunc);
+    }
+    req.send();
 }
 
 //  Extracts the content document text from a generic Blackboard page
@@ -36,16 +36,16 @@ function getContentDoc(docLink, continueFunc, course) {
     var req = new XMLHttpRequest();
     req.open("GET", docLink, true);
     req.onreadystatechange = function () {
-       if (req.readyState == 4 && req.status == 200) {
-          continueFunc(req.responseText, course);
-       }
+        if (req.readyState == 4 && req.status == 200) {
+            continueFunc(req.responseText, course);
+        }
     }
     req.send();
 }
 
 //  Removes & from strings
 function cleanLink(s) {
-   return s.replace(/&/g, "&amp;");
+    return s.replace(/&/g, "&amp;");
 }
 
 
@@ -53,151 +53,174 @@ function cleanLink(s) {
 //  Takes course content document's sidebar link for Course Description
 //  Gets link to registrar's course description page
 function mineCourseDescription(sidebarLink, course) {
-   var req = new XMLHttpRequest();
-   req.open("GET", sidebarLink, true);
-   req.onreadystatechange = function () {
-      if (req.readyState == 4 && req.status == 200) {
-         var line = req.responseText.match(/window.open(.*);/g);
-         if (line == null) {
-            line = req.responseText.match(/window.location(.*);/g);
+    var req = new XMLHttpRequest();
+    req.open("GET", sidebarLink, true);
+    req.onreadystatechange = function () {
+        if (req.readyState == 4 && req.status == 200) {
+            var line = req.responseText.match(/window.open(.*);/g);
             if (line == null) {
-               console.log(req.responseText);
-               return;
+                line = req.responseText.match(/window.location(.*);/g);
+                if (line == null) {
+                    console.log(req.responseText);
+                    return;
+                }
             }
-         }
-         var link = line[0].match(/"https:[^\"]*"/g)[0];
-         console.log(link);
-         course.descriptionLink = link;
-      }
-   }
-   req.send();
+            var link = line[0].match(/"https:[^\"]*"/g)[0];
+            console.log(link);
+            course.descriptionLink = link;
+        }
+    }
+    req.send();
 }
 
 function extractContacts(textArea, course) {
-   //  Alternate h3 and div class details tags
-   var hStart = 0;
-   var hEnd = 0;
-   var divStart = 0;
-   var divEnd = 0;
-   var miniDoc;
-   var instructorP;
-   var detailP;
-   do {
-      hStart = textArea.indexOf("<h3>", divEnd);
-      if (hStart == -1)
-         break;
-      hEnd = textArea.indexOf("</h3>", hStart);
-      if (hEnd == -1)
-         break;
+   console.log("Extracting...");
 
-      //  Log Instructor
-      instructorP = textArea.slice(hStart, hEnd) + "</h3>";
-      miniDoc = parser.parseFromString(instructorP, "text/xml");
+    //  Alternate h3 and div class details tags
+    var hStart = 0;
+    var hEnd = 0;
+    var divStart = 0;
+    var divEnd = 0;
+    var miniDoc;
+    var instructorP;
+    var detailP;
+    var j = 0;
 
-      var i = new Instructor();
-      i.name = miniDoc.getElementsByTagName("h3")[0].innerText;
+    //  Find all instructors
+    do {
+        //  Get name of entry
+        hStart = textArea.indexOf("<h3>", hEnd);
+        console.log(hStart);
+        if (hStart == -1)
+            break;
+        hEnd = textArea.indexOf("</h3>", hStart);
+        console.log(hEnd);
+        if (hEnd == -1)
+            break;
+        instructorP = textArea.slice(hStart, hEnd) + "</h3>";
+        miniDoc = parser.parseFromString(instructorP, "text/xml");
+        name = miniDoc.getElementsByTagName("h3")[0].innerText;
 
-      divStart = textArea.indexOf("<div class=\"details", hEnd);
-      if (divStart == -1)
-         continue;
-      divEnd = textArea.indexOf("</div>");
-      if (divEnd == -1)
-         throw "No end of div";
+        //  Is a folder
+        if (miniDoc.getElementsByTagName("a")[0] != undefined) {
+            var f = new Folder();
+            f.name = name;
+            f.link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
+            course.contacts[course.contacts.length] = f;
+            continue;
+        }
 
-      detailP = textArea.slice(divStart, divEnd) + "</div>";
-      miniDoc = parser.parseFromString(detailP, "text/xml");
-      email = miniDoc.getElementsByTagName("a")[0];
-      if (email != undefined)
-         i.email = email.innerText;
-      office = detailP.match(/<strong>Office Location<\/strong>\s*\".*\"\s*<br>/);
-      if (office != null) {
-         office = strip(office.split("\"")[1]);
-         i.office = office;
-      }
-
-      course.contacts[course.contacts.length] = i;
-   } while (true);
-
-   console.log("Updated course:");
-   console.log(course);
+        //  Is a true Instructor
+        var i = new Instructor();
+        i.name = name;
+        
+        //  Get details of an Instructor
+        divStart = textArea.indexOf("<div class=\"details", hEnd);
+        console.log(divStart);
+        if (divStart == -1)
+            continue;
+        divEnd = textArea.indexOf("</div>", divStart);
+        console.log(divEnd);
+        if (divEnd == -1)
+            throw "No end of div";
+        
+        detailP = textArea.slice(divStart, divEnd) + "</div>";
+        console.log(detailP);
+        miniDoc = parser.parseFromString(detailP, "text/xml");
+        email = miniDoc.getElementsByTagName("a")[0];
+        if (email != undefined)
+            i.email = email.innerText;
+        console.log("Finished email");
+        office = detailP.match(/<strong>Office Location<\/strong>/g);
+        if (office != null) {
+            office = office[0].split("\"");
+            console.log(office);
+            office = strip(office[1]);
+            i.office = office;
+        }
+        
+        course.contacts[course.contacts.length] = i;
+        j = j + 1;
+    } while (j < 10);    
 }
 
 
 //  Takes course content document's sidebar link for Contacts
 //  Gets array of instructor's names and detailed information
 function mineContacts(sidebarLink, course) {
-   console.log("In contacts");
-   var req = new XMLHttpRequest();
-   req.open("GET", sidebarLink, true);
-   req.onreadystatechange = function () {
-      if (req.readyState == 4 && req.status == 200) {
-         var listStart = req.responseText.indexOf("contentList staffInfoList");
-         if (listStart == -1) {
-            console.log("No match");
-            return;
-         }
-         console.log(listStart);
-
-         var listEnd = req.responseText.indexOf("ul>", listStart);
-         if (listEnd == -1) {
-            console.log("Couldn't find end");
-            return;
-         }
-         console.log(listEnd);
-
-         var list = req.responseText.slice(listStart, listEnd);
-         console.log(list);         
-      }
-   }
-   req.send();
+    console.log("In contacts");
+    var req = new XMLHttpRequest();
+    req.open("GET", sidebarLink, true);
+    req.onreadystatechange = function () {
+        if (req.readyState == 4 && req.status == 200) {
+            var listStart = req.responseText.indexOf("contentList staffInfoList");
+            if (listStart == -1) {
+                console.log("No match");
+                return;
+            }
+            console.log(listStart);
+            
+            var listEnd = req.responseText.indexOf("ul>", listStart);
+            if (listEnd == -1) {
+                console.log("Couldn't find end");
+                return;
+            }
+            console.log(listEnd);
+            
+            var list = req.responseText.slice(listStart, listEnd);
+            extractContacts(list, course);
+        }
+    }
+    req.send();
 }
 
 //  Mines a particular sidebar element
 function mineSidebar(a, course) {
-   for (i = 0; i < a.length; i++) {
-      switch(a[i][0]) {
-         case "Announcements":
-            console.log("Will mine announcements later");
-            break;
-         case "Syllabus":
-            console.log("Will mine Syllabus later");
-            break;
-         case "Course Description":
-            console.log("Mining Course Description");
-            mineCourseDescription(a[i][1], course);
-            break;
-         case "Course Materials":
-            console.log("Will mine Course Materials later");
-            break;
-         case "Assignments":
-            console.log("Will mine Assignments later");
-            mineMasha(a[i][1]);
-            break;
-         case "Contacts":
-            mineContacts(a[i][1], course);
-            break;
-         case "Tools":
-            console.log("Will mine Tools later");
-            break;
-         default:
-            console.log("Unhandled: Will mine " + a[i][0] + " later");
-            break;
-      }
-   }
-   console.log(course);
+    for (i = 0; i < a.length; i++) {
+        switch(a[i][0]) {
+            case "Announcements":
+                console.log("Will mine announcements later");
+                break;
+           case "Syllabus":
+               console.log("Will mine Syllabus later");
+               break;
+           case "Course Description":
+               console.log("Mining Course Description");
+               mineCourseDescription(a[i][1], course);
+               break;
+           case "Course Materials":
+               console.log("Will mine Course Materials later");
+               break;
+           case "Assignments":
+               console.log("Will mine Assignments later");
+               mineMasha(a[i][1], course);
+	       break;
+           case "Contacts":
+               mineContacts(a[i][1], course);
+               break;
+           case "Tools":
+               console.log("Will mine Tools later");
+               break;
+           default:
+               console.log("Unhandled: Will mine " + a[i][0] + " later");
+               break;
+        }
+    }
+    console.log("Finished mining the side bar for " + course.title.substr(0,6));
+    console.log(course);
 }
 //  - - - - - COURSE CONTENT DOC FUNCTIONS - - - - -
 
 //  Given a course's web page link, mine it
 function mineCourseFromLink(contentPageLink, course) {
-   var req = new XMLHttpRequest();
-   req.open("GET", contentPageLink, true);
-   req.onreadystatechange = function () {
-      if (req.readyState == 4 && req.status == 200) {
-         mineCourse(req.responseText, course);
-      }
-   }
-   req.send();
+    var req = new XMLHttpRequest();
+    req.open("GET", contentPageLink, true);
+    req.onreadystatechange = function () {
+        if (req.readyState == 4 && req.status == 200) {
+            mineCourse(req.responseText, course);
+        }
+    }
+    req.send();
 }
 
 //  Given a course content document, mines the course page and
@@ -209,15 +232,15 @@ function mineCourse(contentText, course) {
     var listElems = contentText.match(/<li[^>]*paletteItem[^>]*>\s*<a[^>]*>\s*<span[^>]*>.*<\/span>\s*<\/a>\s*<\/li>/g);
     var a = new Array();
     for (i = 0; i < listElems.length; i++) {
-       s = cleanLink(listElems[i]);
-       var miniDoc = parser.parseFromString(s, "text/xml");
-       var link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
-       var name = miniDoc.getElementsByTagName("span")[0].textContent;
-       a[i] = new Array();
-       a[i][0] = name;
-       a[i][1] = link;
+        s = cleanLink(listElems[i]);
+        var miniDoc = parser.parseFromString(s, "text/xml");
+        var link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
+        var name = miniDoc.getElementsByTagName("span")[0].textContent;
+        a[i] = new Array();
+        a[i][0] = name;
+        a[i][1] = link;
     }
-
+    
     mineSidebar(a, course);
 }
 
@@ -229,59 +252,55 @@ function mineCourse(contentText, course) {
 //  Does sanity check, then gets the texts of all course pages
 function writeArray(a) {
    //  Funky way of getting all the pages
-   function nextRequest() {
-      if (this.readyState == 4 && this.status == 200) {
-         Courses[this.i] = new Course();
-         Courses[this.i].title = a[this.i][0];
-         console.log("The new course:");
-         console.log(Courses[this.i]);
-
-         //  Get document
-         var contentFrameTag = this.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
-         var contentFrameSrc = contentFrameTag.match(/src=\"[^ \"]*/g)[0].slice(5);
-         //  Slice chops off src="
-
-         //  Form link to desired page
-         var link = "https://blackboard.princeton.edu";
-         if (contentFrameSrc.substr(0, 5) == "https")
-            link = contentFrameSrc;
-         else
-            link += contentFrameSrc;
-         
-         getContentDoc(link, mineCourse, Courses[this.i]);
-         
-         //  Check to see if need to do more
-         this.i = this.i + 1;
-//         console.log(this.i);
-         if (this.i >= a.length) {
-//         if (this.i >= 3) {
-            console.log("Stopping page loading process...");
-            return;
-         }
-         
-         //  Get next page
-         //  Somehow has access to the variable a, even though only
-         //  called in the context of req2
-         link = "https://blackboard.princeton.edu" + a[this.i][1];
-         this.open("GET", link, true);
-         this.onreadstatechange = function () {
-            nextRequest.call(this);
-         }
-         this.send();
-      }
-   }
+    function nextRequest() {
+        if (this.readyState == 4 && this.status == 200) {
+            Courses[this.i] = new Course();
+            Courses[this.i].title = a[this.i][0];
+            
+            //  Get document
+            var contentFrameTag = this.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
+            var contentFrameSrc = contentFrameTag.match(/src=\"[^ \"]*/g)[0].slice(5);
+            //  Slice chops off src="
+            
+            //  Form link to desired page
+            var link = "https://blackboard.princeton.edu";
+            if (contentFrameSrc.substr(0, 5) == "https")
+                link = contentFrameSrc;
+            else
+                link += contentFrameSrc;
+            
+            getContentDoc(link, mineCourse, Courses[this.i]);
+            
+            //  Check to see if need to do more
+            this.i = this.i + 1;
+            if (this.i >= a.length) {
+                console.log("Stopping page loading process...");
+                return;
+            }
+            
+            //  Get next page
+            //  Somehow has access to the variable a, even though only
+            //  called in the context of req2
+            link = "https://blackboard.princeton.edu" + a[this.i][1];
+            this.open("GET", link, true);
+            this.onreadstatechange = function () {
+                nextRequest.call(this);
+            }
+            this.send();
+        }
+    }
    
-   //  Get all pages sequentially
-   var req2 = new XMLHttpRequest();
-   req2.i = 0;
-   link = "https://blackboard.princeton.edu" + a[req2.i][1];
-   req2.open("GET", link, true);
+    //  Get all pages sequentially
+    var req2 = new XMLHttpRequest();
+    req2.i = 0;
+    link = "https://blackboard.princeton.edu" + a[req2.i][1];
+    req2.open("GET", link, true);
    
-   //  Start the chain reaction
-   req2.onreadystatechange = function () {
-      nextRequest.call(req2);
-   }
-   req2.send();
+    //  Start the chain reaction
+    req2.onreadystatechange = function () {
+        nextRequest.call(req2);
+    }
+    req2.send();
 }
 
 //  The big function. The function that starts the mining of
@@ -313,73 +332,87 @@ function mineBB() {
     writeArray(classesAndLinks);
 }
 
-function mineMasha(link) {
-	var txt;
-	var working;
-	req = new XMLHttpRequest();
-	req.open("GET", link, true);
-	req.send();
-	text = req.responseText;
-	text2 = new Array();
-	NameFinal = new Array();
-	text4 = new Array();
-	LinkFinal = new Array();
-	text2 = text.match(/<h3>[.|\s]*<span[^<]*<img[^<]*<\/span>[.|\s]*(<a href[^>]*>)?<span[^>]*>[^<]*/g);
-	for (i = 0;i < text2.length; i++)
-	{
-		if (text2 == null)
-			{
-			NameFinal[i] = "NOT A THING TYPE 1A";
-			console.log("This course did not have assignments");
-			break;
+function mineMasha(link, course) {
+    console.log("I'M IN MINE MASHA!!!!!");
+    console.log(link);
+    console.log(course);
+    var txt;
+    var working;
+    text2 = new Array();
+    NameFinal = new Array();
+    text4 = new Array();
+    LinkFinal = new Array();
+    
+    req = new XMLHttpRequest();
+    req.open("GET", link, true);
+
+    req.onreadystatechange = function () {
+	if (req.readyState == 4 && req.status == 200) {
+	      
+	    text = req.responseText;
+	    text2 = text.match(/<h3>[.|\s]*<span[^<]*<img[^<]*<\/span>[.|\s]*(<a href[^>]*>)?<span[^>]*>[^<]*/g);
+	    if (text2 != null) {
+		for (i = 0;i < text2.length; i++)
+		    {
+			if (text2 == null) {
+			    NameFinal[i] = "NOT A THING TYPE 1A";
+			    console.log("This course did not have assignments");
+			    break;}
+			else {
+			    txt = text2[i];
+			    working = txt.match(/>[^<]*$/g)[0];
+			    if (working == null) {
+				NameFinal[i] = "NOT A THING TYPE 1B";
+				console.log("We really shouldn't be in here");
+				break;}
+			    else {
+				NameFinal[i] = txt.match(/>[^<]*$/g)[0].slice(1);}
 			}
-		else 
-		{
-			txt = text2[i];
-			working = txt.match(/>[^<]*$/g)[0];
-			if (working == null)
-			{
-			NameFinal[i] = "NOT A THING TYPE 1B";
-			console.log("We really shouldn't be in here");
-			break;
-			}
-		else
-			{
-		NameFinal[i] = txt.match(/>[^<]*$/g)[0].slice(1);
-		}
-		}
-	}
-	text4 = text.match(/((<div class="details" >[.|\s]*<table [^>]*>[.|\s]*(<tr>[.|\s]*)?<th[^<]*<\/th>[.|\s]*(<td>[.|\s]*)?<ul[^<]*(<li>[.|\s]*)?<a href[^<]*<img[^<]*>[^<]*<\/a>)|(<h3>[.|\s]*<span[^<]*<img[^<]*<\/span>[.|\s]*<a href[^>]*><span[^>]*>[^<]*))/g);
-	for (i = 0; i < text4.length ; i++)
-		{
-		if (text4 == null)
-			{
-			LinkFinal[i] = "NOT A THING TYPE 2A";
-			console.log("This course does not have assignment links");
-			break;
-			}
-		else {
-			txt = text4[i];
-			working = txt.match(/((<a href[^<]*<img[^>]*>[^<]*<\/a>)|(<a href[^<]*>))/g)[0];
-			if (working == null)
-				{
+		    }
+		text4 = text.match(/((<div class="details" >[.|\s]*<table [^>]*>[.|\s]*(<tr>[.|\s]*)?<th[^<]*<\/th>[.|\s]*(<td>[.|\s]*)?<ul[^<]*(<li>[.|\s]*)?<a href[^<]*<img[^<]*>[^<]*<\/a>)|(<h3>[.|\s]*<span[^<]*<img[^<]*<\/span>[.|\s]*<a href[^>]*><span[^>]*>[^<]*))/g);
+		if (text4 != null) {
+		for (i = 0; i < text4.length ; i++)
+		    {
+			if (text4 == null) {
+			    LinkFinal[i] = "NOT A THING TYPE 2A";
+			    console.log("This course does not have assignment links");
+			    break;}
+			else {
+			    txt = text4[i];
+			    working = txt.match(/((<a href[^<]*<img[^>]*>[^<]*<\/a>)|(<a href[^<]*>))/g)[0];
+			    if (working == null) {
 				LinkFinal[i] = "NOT A THING TYPE 2B";
 				console.log("REALLY shouldn't be here");
-				break;
-				}
-			else
-				{
-				LinkFinal[i] = working;
-				}		
+				break;}
+			    else {
+				LinkFinal[i] = working;}
+			}
+		    }
 		}
-		}
-	Assigninfo = new Array();
-	Assigninfo = zip(NameFinal, LinkFinal);
-	console.log("THIS SHOULD BE THE ASSIGNMENT INFO BY MASHA");
-	console.log(Assigninfo);
-	console.log("THIS IS THE END OF ASSIGNMENT INFO BY MASHA");
-	
-	
+	    }
+	    
+	    if (text2 != null)
+    	{
+    	var assignments = new Array();
+    	for (i = 0; i < text2.length; i++)
+    		{
+    		var a = new Assignment();
+    		a.name = NameFinal[i];
+    		a.fileLink = LinkFinal[i];
+    		assignments[i] = a;
+    		}
+    	}
+	    course.assignments = assignments;
+    
+	    Assigninfo = new Array();
+	    //Assigninfo = zip(NameFinal, LinkFinal);
+	    console.log("THIS SHOULD BE THE ASSIGNMENT INFO BY MASHA");
+	    console.log(NameFinal);
+	    console.log(LinkFinal);
+	    console.log("THIS IS THE END OF ASSIGNMENT INFO BY MASHA");
+	}
+    }
+    req.send();
 }
 
 var Courses = new Array();
