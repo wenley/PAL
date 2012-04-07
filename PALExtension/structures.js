@@ -36,5 +36,7 @@ function Course() {
 function Announcements() {
     this.postedBy = "";
     this.postedTo = "";
+    this.heading = "";
+    this.date = "";
     this.message = "";
 }
