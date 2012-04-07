@@ -439,6 +439,20 @@ function mineMasha(link, course) {
 		    }
 		}
 	    }
+	    
+	    if (text2 != null)
+    	{
+    	var assignments = new Array();
+    	for (i = 0; i < text2.length; i++)
+    		{
+    		var a = new Assignment();
+    		a.name = NameFinal[i];
+    		a.fileLink = LinkFinal[i];
+    		assignments[i] = a;
+    		}
+    	}
+	    course.assignments = assignments;
+    
 	    Assigninfo = new Array();
 	    //Assigninfo = zip(NameFinal, LinkFinal);
 	    console.log("THIS SHOULD BE THE ASSIGNMENT INFO BY MASHA");
