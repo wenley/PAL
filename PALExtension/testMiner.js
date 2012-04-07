@@ -171,7 +171,8 @@ function mineSidebar(a, course) {
                break;
            case "Assignments":
                console.log("Will mine Assignments later");
-               break;
+               mineMasha(a[i][1], course);
+	       break;
            case "Contacts":
                mineContacts(a[i][1], course);
                break;
@@ -380,9 +381,10 @@ function mineMasha(link) {
 	
 }
 
-function mineMasha(link) {
+function mineMasha(link, course) {
     console.log("I'M IN MINE MASHA!!!!!");
     console.log(link);
+    console.log(course);
     var txt;
     var working;
     text2 = new Array();
