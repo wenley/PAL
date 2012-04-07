@@ -381,12 +381,10 @@ function mineMasha(link, course) {
     		a.fileLink = LinkFinal[i];
     		assignments[i] = a;
     		}
+	course.assignments = assignments;
     	}
-	    course.assignments = assignments;
     
-	    Assigninfo = new Array();
-	    //Assigninfo = zip(NameFinal, LinkFinal);
-	    console.log("THIS SHOULD BE THE ASSIGNMENT INFO BY MASHA");
+      	    console.log("THIS SHOULD BE THE ASSIGNMENT INFO BY MASHA");
 	    console.log(NameFinal);
 	    console.log(LinkFinal);
 	    console.log("THIS IS THE END OF ASSIGNMENT INFO BY MASHA");
