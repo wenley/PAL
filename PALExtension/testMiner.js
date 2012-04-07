@@ -419,6 +419,7 @@ function mineMasha(link, course) {
 			}
 		    }
 		text4 = text.match(/((<div class="details" >[.|\s]*<table [^>]*>[.|\s]*(<tr>[.|\s]*)?<th[^<]*<\/th>[.|\s]*(<td>[.|\s]*)?<ul[^<]*(<li>[.|\s]*)?<a href[^<]*<img[^<]*>[^<]*<\/a>)|(<h3>[.|\s]*<span[^<]*<img[^<]*<\/span>[.|\s]*<a href[^>]*><span[^>]*>[^<]*))/g);
+		if (text4 != null) {
 		for (i = 0; i < text4.length ; i++)
 		    {
 			if (text4 == null) {
@@ -436,6 +437,7 @@ function mineMasha(link, course) {
 				LinkFinal[i] = working;}
 			}
 		    }
+		}
 	    }
 	    Assigninfo = new Array();
 	    //Assigninfo = zip(NameFinal, LinkFinal);
