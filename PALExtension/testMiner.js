@@ -100,9 +100,11 @@ function extractContacts(textArea, course) {
         instructorP = textArea.slice(hStart, hEnd) + "</h3>";
         miniDoc = parser.parseFromString(instructorP, "text/xml");
         name = miniDoc.getElementsByTagName("h3")[0].innerText;
+        console.log(miniDoc);
 
         //  Is a folder
         if (miniDoc.getElementsByTagName("a")[0] != undefined) {
+            console.log("Making a folder...");
             var f = new Folder();
             f.name = name;
             f.link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
@@ -170,6 +172,13 @@ function mineContacts(sidebarLink, course) {
             var list = req.responseText.slice(listStart, listEnd);
             extractContacts(list, course);
         }
+        else if (req.readyState == 4) {
+            console.log("Error in loading page");
+            console.log("Ready state: ");
+            console.log(req.readyState);
+            console.log("HTTP Status");
+            console.log(req.status);
+        }
     }
     req.send();
 }
@@ -206,8 +215,7 @@ function mineSidebar(a, course) {
                break;
         }
     }
-    console.log("Finished mining the side bar for " + course.title.substr(0,6));
-    console.log(course);
+    console.log("Finished sending requests for side bar for " + course.title.substr(0,6));
 }
 //  - - - - - COURSE CONTENT DOC FUNCTIONS - - - - -
 
@@ -418,3 +426,5 @@ function mineMasha(link, course) {
 var Courses = new Array();
 
 var t = setTimeout("mineBB();", 3000);
+
+var q = setTimeout("console.log(Courses);", 10000);
