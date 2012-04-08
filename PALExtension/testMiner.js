@@ -58,6 +58,33 @@ function writeArray(a) {
     req2.send();
 }
 
+function testSingleCourse(a) {
+    var req = new XMLHttpRequest();
+    req.open("GET", a[1], true);
+    req.onreadystatechange = function () {
+        if (req.readyState == 4 && req.status == 200) {
+            console.log("Success in redirect");
+            var c = new Course();
+            c.title = a[0];
+
+            //  Get document
+            var contentFrameTag = this.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
+            var contentFrameSrc = contentFrameTag.match(/src=\"[^ \"]*/g)[0].slice(5);
+            //  Slice chops off src="
+            
+            //  Form link to desired page
+            var link = "https://blackboard.princeton.edu";
+            if (contentFrameSrc.substr(0, 5) == "https")
+                link = contentFrameSrc;
+            else
+                link += contentFrameSrc;
+            
+            getContentDoc(link, mineCourse, c);
+        }
+    }
+    req.send();
+}
+
 //  The big function. The function that starts the mining of
 //  EVERYTHING out of Blackboard
 function mineBB() {
@@ -83,6 +110,7 @@ function mineBB() {
         a[1] = classLinkList[i].getAttribute("href").substr(1);
         classesAndLinks[i] = a;
     }
+
     classesAndLinks.i = 0;
     writeArray(classesAndLinks);
 }

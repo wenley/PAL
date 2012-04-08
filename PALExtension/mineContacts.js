@@ -18,21 +18,28 @@ function extractContacts(textArea, course) {
     do {
         //  Get name of entry
         hStart = textArea.indexOf("<h3>", hEnd);
-        console.log(hStart);
         if (hStart == -1)
             break;
         hEnd = textArea.indexOf("</h3>", hStart);
-        console.log(hEnd);
         if (hEnd == -1)
             break;
         instructorP = textArea.slice(hStart, hEnd) + "</h3>";
-        miniDoc = parser.parseFromString(instructorP, "text/xml");
-        name = miniDoc.getElementsByTagName("h3")[0].innerText;
-        console.log(miniDoc);
 
-        //  Is a folder
-        if (miniDoc.getElementsByTagName("a")[0] != undefined) {
+        var name;
+        var bits = instructorP.match(/>[^<]*</g);
+        for (var k = 0; k < bits.length; k++) {
+           bits[k] = bits[k].slice(1, -1);
+           bits[k] = strip(bits[k]);
+           if (bits[k] != "") {
+              name = bits[k];
+           }
+        }
+
+        //  Need to detect folder
+        var aTag = instructorP.match(/<a[^>]*>[^<]*<\/a>/g);
+        if (aTag != null) {
             console.log("Making a folder...");
+            miniDoc = parser.parseFromString(cleanLink(aTag[0]), "text/xml");
             var f = new Folder();
             f.name = name;
             f.link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
@@ -40,38 +47,57 @@ function extractContacts(textArea, course) {
             continue;
         }
 
+        console.log("Making an instructor...");
         //  Is a true Instructor
         var i = new Instructor();
         i.name = name;
         
         //  Get details of an Instructor
         divStart = textArea.indexOf("<div class=\"details", hEnd);
-        console.log(divStart);
-        if (divStart == -1)
+        if (divStart == -1) {
+           console.log("continuing...");
             continue;
+        }
         divEnd = textArea.indexOf("</div>", divStart);
-        console.log(divEnd);
         if (divEnd == -1)
             throw "No end of div";
         
         detailP = textArea.slice(divStart, divEnd) + "</div>";
-        console.log(detailP);
-        miniDoc = parser.parseFromString(detailP, "text/xml");
-        email = miniDoc.getElementsByTagName("a")[0];
-        if (email != undefined)
-            i.email = email.innerText;
-        console.log("Finished email");
-        office = detailP.match(/<strong>Office Location<\/strong>/g);
-        if (office != null) {
-            office = office[0].split("\"");
-            console.log(office);
-            office = strip(office[1]);
-            i.office = office;
+        var details = detailP.match(/>[^<]*</g);
+        var cleanDetails = new Array();
+        for (var q = 0; q < details.length; q++) {
+           details[q] = details[q].replace(/\n/, "");
+           details[q] = details[q].slice(1, -1);
+           var s = strip(details[q]);
+           if (s != "") {
+              cleanDetails[cleanDetails.length] = s;
+           }
         }
-        
+
+        for (var k = 0; k < cleanDetails.length; k++) {
+            switch (cleanDetails[k]) {
+                case "Email":
+                    i.email = cleanDetails[k + 1];
+                    k = k + 1;
+                    break;
+                case "Office Location":
+                    i.office = cleanDetails[k + 1];
+                    k = k + 1;
+                    break;
+                case "Office Hours":
+                    i.hours = cleanDetails[k + 1];
+                    k = k + 1;
+                    break;
+                default:
+                    console.log("Unknown Instructor detail: " + cleanDetails[k]);
+                    break;
+            }
+        }
         course.contacts[course.contacts.length] = i;
         j = j + 1;
     } while (j < 10);    
+
+    console.log(course);
 }
 
 
@@ -88,14 +114,12 @@ function mineContacts(sidebarLink, course) {
                 console.log("No match");
                 return;
             }
-            console.log(listStart);
             
             var listEnd = req.responseText.indexOf("ul>", listStart);
             if (listEnd == -1) {
                 console.log("Couldn't find end");
                 return;
             }
-            console.log(listEnd);
             
             var list = req.responseText.slice(listStart, listEnd);
             extractContacts(list, course);
