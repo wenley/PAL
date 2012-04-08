@@ -7,7 +7,16 @@
       {
         "matches": ["https://blackboard.princeton.edu/*"],
 	"exclude_matches": ["https://blackboard.princeton.edu/"],
-	"js": ["pythonLib.js", "structures.js", "testMiner.js"]
+	"js": ["pythonLib.js",
+           "structures.js",
+           "globalVariables.js",
+           "mineGeneric.js",
+           "mineContacts.js",
+           "mineDescription.js",
+           "mineDocuments.js",
+           "mineCourse.js",
+           "testMiner.js"
+          ]
       }
    ],
    "permissions": [
