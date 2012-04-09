@@ -8,9 +8,9 @@ function mineTools(toolsLink, course) {
         if (req.readyState == 4 && req.status == 200) {
             var startFirst = req.responseText.indexOf("<div class=\"landingPageColumn");
             var endFirst = req.responseText.indexOf("</div>", startFirst);
-            var endSecond = req.responseText.indexOf("</div>", endFirst);
-            
+            var endSecond = req.responseText.indexOf("</div>", endFirst + 1); 5
             var bit = req.responseText.slice(startFirst, endSecond);
+
             var smooth = bit.replace(/\s+/g, " ");
             var a = smooth.split("</li>");
             for (var i = 0; i < a.length; i++) {
@@ -27,11 +27,20 @@ function mineTools(toolsLink, course) {
                var imgEnd = impBit.indexOf(">", imgStart);
                impBit = impBit.slice(0, imgStart) + impBit.slice(imgEnd + 1);
 
-               //  Parse and show results
-               console.log(impBit);
+               //  Parse into document
                var miniDoc = parser.parseFromString(impBit, "text/xml");
-               console.log(miniDoc);
+               
+               var t = new Tool();
+               try {
+                   t.name = strip(miniDoc.getElementsByTagName("a")[0].textContent);
+                   t.link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
+                   course.tools[course.tools.length] = t;
+               } catch (e) { //  Some bits from split aren't good documents
+                   console.log(e);
+               }
             }
+
+            console.log(course);
         }
     }
     req.send();
