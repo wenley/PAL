@@ -46,16 +46,16 @@ function writeArray(a) {
     }
    
     //  Get all pages sequentially
-    var req2 = new XMLHttpRequest();
-    req2.i = 0;
-    link = "https://blackboard.princeton.edu" + a[req2.i][1];
-    req2.open("GET", link, true);
+    var req = new XMLHttpRequest();
+    req.i = 0;
+    link = "https://blackboard.princeton.edu" + a[req.i][1];
+    req.open("GET", link, true);
    
     //  Start the chain reaction
-    req2.onreadystatechange = function () {
-        nextRequest.call(req2);
+    req.onreadystatechange = function () {
+        nextRequest.call(req);
     }
-    req2.send();
+    req.send();
 }
 
 function testSingleCourse(a) {
@@ -102,7 +102,7 @@ function mineBB() {
     var classLinkList = classListElem.getElementsByTagName("a");
     
     var classesAndLinks = new Array();
-    for (i = 0; i < classLinkList.length; i++) {
+    for (var i = 0; i < classLinkList.length; i++) {
         var a = new Array();
         a[0] = classLinkList[i].innerText;
         
@@ -118,4 +118,4 @@ function mineBB() {
 
 var t = setTimeout("mineBB();", 3000);
 
-var q = setTimeout("console.log(Courses);", 10000);
+var q = setTimeout("console.log(Courses);", 15000);

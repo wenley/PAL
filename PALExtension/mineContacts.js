@@ -9,9 +9,6 @@ function extractContacts(textArea, course) {
     var hEnd = 0;
     var divStart = 0;
     var divEnd = 0;
-    var miniDoc;
-    var instructorP;
-    var detailP;
     var j = 0;
 
     //  Find all instructors
@@ -23,7 +20,7 @@ function extractContacts(textArea, course) {
         hEnd = textArea.indexOf("</h3>", hStart);
         if (hEnd == -1)
             break;
-        instructorP = textArea.slice(hStart, hEnd) + "</h3>";
+        var instructorP = textArea.slice(hStart, hEnd) + "</h3>";
 
         var name;
         var bits = instructorP.match(/>[^<]*</g);
@@ -39,7 +36,7 @@ function extractContacts(textArea, course) {
         var aTag = instructorP.match(/<a[^>]*>[^<]*<\/a>/g);
         if (aTag != null) {
             console.log("Making a folder...");
-            miniDoc = parser.parseFromString(cleanLink(aTag[0]), "text/xml");
+            var miniDoc = parser.parseFromString(cleanLink(aTag[0]), "text/xml");
             var f = new Folder();
             f.name = name;
             f.link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
@@ -62,7 +59,7 @@ function extractContacts(textArea, course) {
         if (divEnd == -1)
             throw "No end of div";
         
-        detailP = textArea.slice(divStart, divEnd) + "</div>";
+        var detailP = textArea.slice(divStart, divEnd) + "</div>";
         var details = detailP.match(/>[^<]*</g);
         var cleanDetails = new Array();
         for (var q = 0; q < details.length; q++) {
@@ -95,7 +92,7 @@ function extractContacts(textArea, course) {
         }
         course.contacts[course.contacts.length] = i;
         j = j + 1;
-    } while (j < 10);    
+    } while (j < 10);    //  Make true
 
     console.log(course);
 }
