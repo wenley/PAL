@@ -21,12 +21,13 @@ function mineSidebar(a, course) {
            case "Assignments":
                console.log("Will mine Assignments later");
                mineMasha(a[i][1], course);
-	       break;
+               break;
            case "Contacts":
                mineContacts(a[i][1], course);
                break;
            case "Tools":
-               console.log("Will mine Tools later");
+               console.log("Starting Tools mining...");
+               mineTools(a[i][1], course);
                break;
            default:
                console.log("Unhandled: Will mine " + a[i][0] + " later");
