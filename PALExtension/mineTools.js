@@ -36,7 +36,12 @@ function mineTools(toolsLink, course) {
                    t.link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
                    course.tools[course.tools.length] = t;
                } catch (e) { //  Some bits from split aren't good documents
-                   console.log(e);
+                   // The last bit is always bad, but want to detect others
+                   if (i < a.length - 1) {
+                       console.log(e);
+                       console.log(impBit);
+                       console.log(miniDoc);
+                   }
                }
             }
 
