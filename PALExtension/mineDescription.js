@@ -17,7 +17,6 @@ function mineCourseDescription(sidebarLink, course) {
                 }
             }
             var link = line[0].match(/"https:[^\"]*"/g)[0].slice(1, -1);
-            console.log(link);
             course.descriptionLink = link;
         }
     }
