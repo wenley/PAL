@@ -1,3 +1,4 @@
+//  An instructor from the Contacts of a Course
 function Instructor() {
    this.name = "";
    this.email = "";
@@ -29,14 +30,21 @@ function Course() {
    this.courseMaterials = null;
    this.assignments = null;
    this.contacts = new Array();
-   this.toolLinks = null;
+   this.tools = new Array();
    this.otherLinks = new Array();
 }
 
+//  An Announcement of a Course on Blackboard
 function Announcements() {
     this.postedBy = "";
     this.postedTo = "";
     this.heading = "";
     this.date = "";
     this.message = "";
+}
+
+//  A Tool from the Tools section of a Course
+function Tool() {
+   this.name = "";
+   this.link = "";
 }
