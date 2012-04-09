@@ -112,9 +112,9 @@ function mineBB() {
     }
 
     classesAndLinks.i = 0;
+//    testSingleCourse(classesAndLinks[0]);
     writeArray(classesAndLinks);
 }
-
 
 var t = setTimeout("mineBB();", 3000);
 
