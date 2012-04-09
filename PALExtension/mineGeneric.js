@@ -42,3 +42,12 @@ function getContentDoc(docLink, continueFunc, course) {
 function cleanLink(s) {
     return s.replace(/&/g, "&amp;");
 }
+
+//  Replaces empty arrays with nulls for ease of checking population
+function cleanCourse(course) {
+    for (var key in course) {
+       if (course.key.length == 0)
+            course.key = null;
+    }
+    return course;
+}
