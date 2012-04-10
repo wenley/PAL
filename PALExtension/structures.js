@@ -45,6 +45,13 @@ function Announcements() {
     this.message = "";
 }
 
+// A Course Material
+function Material() {
+   this.name = "";
+   this.fileLink = "";
+   this.memo = "";
+}
+
 //  A Tool from the Tools section of a Course
 function Tool() {
    this.name = "";

@@ -1,4 +1,4 @@
-function mineMasha(link, course) {
+function mineDocuments(link, course, type) {
    //console.log("The mine masha link is \n" + link);
    console.log("The mine masha course is \n" + course.title);
 
@@ -77,7 +77,7 @@ function mineMasha(link, course) {
             {
                txt = MemoTemp[i];
                texttemp = txt;
-               texttemp = texttemp.replace(/(<div class="details"[\s]*>)?<div class="vtbegenerated">/g, "");    
+               texttemp = texttemp.replace(/(<div class="details"[\s]*>)?<div class="vtbegenerated">/g, "");
                if (texttemp == null)
                {
                   console.log("Error, Masha's regular expression not matched");
@@ -90,18 +90,45 @@ function mineMasha(link, course) {
          }
 
          // Store the assignments
-         if (NameTemp != null)
+         if (type == "Assignments")
          {
-            assignments = new Array();
-            for (i = 0; i < NameFinal.length; i++)
+            if (NameTemp != null)
             {
-               var a = new Assignment();
-               a.name = NameFinal[i];
-               a.fileLink = LinkFinal[i];
-               a.memo = MemoFinal[i];
-               assignments[i] = a;
+               assignments = new Array();
+               for (i = 0; i < NameFinal.length; i++)
+               {
+                  var a = new Assignment();
+                  a.name = NameFinal[i];
+                  a.fileLink = LinkFinal[i];
+                  a.memo = MemoFinal[i];
+                  assignments[i] = a;
+               }
+               course.assignments = assignments;
             }
-            course.assignments = assignments;
+         }
+         
+         // Store the course materials
+         if (type == "Course Materials")
+         {
+            if (NameTemp != null)
+            {
+               materials = new Array();
+               for (i = 0; i < NameFinal.length; i++)
+               {
+                  var m = new Material();
+                  m.name = NameFinal[i];
+                  m.fileLink = LinkFinal[i];
+                  m.memo = MemoFinal[i];
+                  materials[i] = m;
+               }
+               course.courseMaterials = materials;
+            }
+         }
+
+         // Store the syllabus
+         if (type == "Syllabus")
+         {
+            course.syllabusDoc = LinkFinal[0]; 
          }
       }
    }
