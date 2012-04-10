@@ -1,0 +1,14 @@
+body {
+    background-color: gray;
+}
+
+div#sidebar {
+    align: left;
+    padding-top: 50px;
+    padding-left: 25px;
+    background-color: orange;    
+}
+
+div#rightCol {
+    align: right;
+}
