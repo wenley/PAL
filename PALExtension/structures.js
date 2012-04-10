@@ -18,6 +18,8 @@ function Assignment() {
    this.name = "";
    this.submissionLink = "";
    this.fileLink = "";
+   // Some assignments consist of text directly on the Assignments link
+   this.memo = "";
 }
 
 //  Huge container for information on a particular Course
@@ -28,7 +30,7 @@ function Course() {
    this.syllabusDoc = null;
    this.descriptionLink = null;
    this.courseMaterials = null;
-   this.assignments = null;
+   this.assignments = new Array();
    this.contacts = new Array();
    this.tools = new Array();
    this.otherLinks = new Array();
