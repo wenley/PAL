@@ -20,33 +20,37 @@ function mineMasha(link, course) {
 	    text = req.responseText;
 	    text2 = text.match(/<h3>[.|\s]*<span[^<]*<img[^<]*<\/span>[.|\s]*(<a href[^>]*>)?<span[^>]*>[^<]*/g);
 	    if (text2 != null) {
-		for (i = 0;i < text2.length; i++)
-		    {
-   			    txt = text2[i];
-			    working = txt.match(/>[^<]*$/g)[0];
-			    if (working == null) {
-				NameFinal[i] = "NOT A THING TYPE 1B";
-				console.log("We really shouldn't be in here");
-				break;}
-			    else {
-				NameFinal[i] = working.slice(1);}
-			}
-		    }
-		text4 = text.match(/((<div class="details" >[.|\s]*<table [^>]*>[.|\s]*(<tr>[.|\s]*)?<th[^<]*<\/th>[.|\s]*(<td>[.|\s]*)?<ul[^<]*(<li>[.|\s]*)?<a href[^<]*<img[^<]*>[^<]*<\/a>)|(<h3>[.|\s]*<span[^<]*<img[^<]*<\/span>[.|\s]*<a href[^>]*><span[^>]*>[^<]*))/g);
+           for (i = 0;i < text2.length; i++)
+           {
+              txt = text2[i];
+              working = txt.match(/>[^<]*$/g)[0];
+              if (working == null) {
+                 NameFinal[i] = "NOT A THING TYPE 1B";
+                 console.log("We really shouldn't be in here");
+                 break;
+              }
+              else {
+                 NameFinal[i] = working.slice(1);
+              }
+           }
+        }
+        text4 = text.match(/((<div class="details"[\s]*>[.|\s]*<table [^>]*>[.|\s]*(<tbody>[.|\s]*)?(<tr>[.|\s]*)?<th[^<]*<\/th>[.|\s]*(<td>[.|\s]*)?<ul[^<]*(<li>[.|\s]*)?<a href[^<]*<img[^<]*>[^<]*<\/a>)|(<h3>[.|\s]*<span[^<]*<img[^<]*<\/span>[.|\s]*<a href[^>]*><span[^>]*>[^<]*))/g);
 		if (text4 != null) {
-		for (i = 0; i < text4.length ; i++)
-		    {
-  			    txt = text4[i];
-			    working = txt.match(/((<a href[^<]*<img[^>]*>[^<]*<\/a>)|(<a href[^<]*>))/g)[0];
-			    if (working == null) {
-				LinkFinal[i] = "NOT A THING TYPE 2B";
-				console.log("REALLY shouldn't be here");
-				break;}
-			    else {
-				LinkFinal[i] = working;}
-			}
-		    }
-
+           for (i = 0; i < text4.length ; i++)
+           {
+              txt = text4[i];
+              working = txt.match(/((<a href[^<]*<img[^>]*>[^<]*<\/a>)|(<a href[^<]*>))/g)[0];
+              if (working == null) {
+                 LinkFinal[i] = "NOT A THING TYPE 2B";
+                 console.log("REALLY shouldn't be here");
+                 break;
+              }
+              else {
+                 LinkFinal[i] = working;
+              }
+           }
+        }
+        
         text6 = text.match(/<div class="details" >[.|\s]*<div class="vtbegenerated">[^<]*/g);
         if (text6 != null) {
            for (i = 0; i < text6.length; i++)
@@ -56,10 +60,10 @@ function mineMasha(link, course) {
               if (working == null)  {
                  TextFinal[i] = "NOT A THING";
                  break; }
-             else {
+              else {
                  TextFinal[i] = working.slice(1);}
-                                                     
-	    }
+              
+           }
         }
 	    
 	    if (text2 != null)
