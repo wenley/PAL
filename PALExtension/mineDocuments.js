@@ -15,6 +15,7 @@ function mineMasha(link, course) {
          var MemoTemp  = new Array();
          var MemoFinal = new Array();
 
+         var textrm;
          var text;
          var txt;
          var texttemp;
@@ -58,19 +59,32 @@ function mineMasha(link, course) {
          }
 
          // Mine the memos
-         MemoTemp = text.match(/<div class="details" >[.|\s]*<div class="vtbegenerated">[^<]*/g);
+         textrm = text.replace(/<span[^>]*>/g,"");
+         textrm = textrm.replace(/<\/span>/g, "");
+         textrm = textrm.replace(/<p class[^>]*>[\s]*(<b>)?[\s]*(<o:p>)?[\s]*(&nbsp;)?[\s]*(<\/o:p>)?[\s]*(<\/b>)?[\s]*/g, "");
+         textrm = textrm.replace(/<\/p>/g, "<br>");
+         textrm = textrm.replace(/<!--[^>]*>/g, "");
+         textrm = textrm.replace(/<i>/g, "");
+         textrm = textrm.replace(/<\/i>/g, "");
+         textrm = textrm.replace(/<b>/g, "");
+         textrm = textrm.replace(/<\/b>/g, "");
+         textrm = textrm.replace(/<sup>/g, "");
+         textrm = textrm.replace(/<\/sup>/g, "");
+
+         MemoTemp = textrm.match(/(<div class="details"[\s]*>)?<div class="vtbegenerated">([^<]*(<br>[\s]*)*)*</g);
          if (MemoTemp != null) {
             for (i = 0; i < MemoTemp.length; i++)
             {
                txt = MemoTemp[i];
-               texttemp = txt.match(/>[^<]*$/g)[0];    
+               texttemp = txt;
+               texttemp = texttemp.replace(/(<div class="details"[\s]*>)?<div class="vtbegenerated">/g, "");    
                if (texttemp == null)
                {
                   console.log("Error, Masha's regular expression not matched");
                   break;
                }
                else {
-                  MemoFinal[i] = texttemp.slice(1);
+                  MemoFinal[i] = texttemp.replace(/<$/,"");
                }
             }
          }
