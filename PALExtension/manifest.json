@@ -1,33 +1,40 @@
 {
-   "name": "My First Extension",
-   "version": "0.1",
-   "manifest_version": 2,
-   "description": "First extension evar",
-   "content_scripts": [
-      {
+    "name": "My First Extension",
+    "version": "0.1",
+    "manifest_version": 2,
+    "description": "First extension evar",
+    "background": {
+        "scripts": [
+            "pageConnection.js",
+            "pythonLib.js",
+            "structures.js",
+            "globalVariables.js"
+        ]
+    },
+    "content_scripts": [
+    {
         "matches": ["https://blackboard.princeton.edu/*"],
     	"exclude_matches": ["https://blackboard.princeton.edu/", "https://blackboard.princeton.edu/webapps/login"],
         "css": ["PAL.css"],
-    	"js": ["pythonLib.js",
-           "structures.js",
-           "globalVariables.js",
-           "mineGeneric.js",
-           "mineContacts.js",
-           "mineDescription.js",
-           "mineDocuments.js",
-           "mineTools.js",
-           "mineCourse.js",
-           "testMiner.js"
-          ]
+    	"js": [
+            "contentConnection.js",
+            "pythonLib.js",
+            "structures.js",
+            "globalVariables.js",
+            "mineGeneric.js",
+            "mineContacts.js",
+            "mineDescription.js",
+            "mineDocuments.js",
+            "mineTools.js",
+            "mineCourse.js",
+            "testMiner.js",
+            "testRender.js"
+        ]
       }
    ],
    "permissions": [
-      "https://blackboard.princeton.edu/*",
-      "background"
-   ],
-    "background": {
-        "scripts": ["testMiner.js"
-        ],
-        "page": "background.html"
-    }
+        "https://blackboard.princeton.edu/*",
+        "background",
+        "tabs"
+   ]
 }
