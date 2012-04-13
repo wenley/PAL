@@ -118,4 +118,5 @@ function mineBB() {
 
 var t = setTimeout("mineBB();", 3000);
 
-var q = setTimeout("console.log(Courses);", 55000);
+var q = setTimeout("console.log(Courses);", 20000);
+

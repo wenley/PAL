@@ -6,8 +6,9 @@
    "content_scripts": [
       {
         "matches": ["https://blackboard.princeton.edu/*"],
-	"exclude_matches": ["https://blackboard.princeton.edu/"],
-	"js": ["pythonLib.js",
+    	"exclude_matches": ["https://blackboard.princeton.edu/", "https://blackboard.princeton.edu/webapps/login"],
+        "css": ["PAL.css"],
+    	"js": ["pythonLib.js",
            "structures.js",
            "globalVariables.js",
            "mineGeneric.js",
@@ -21,6 +22,12 @@
       }
    ],
    "permissions": [
-      "https://blackboard.princeton.edu/*"
-   ]
+      "https://blackboard.princeton.edu/*",
+      "background"
+   ],
+    "background": {
+        "scripts": ["testMiner.js"
+        ],
+        "page": "background.html"
+    }
 }
