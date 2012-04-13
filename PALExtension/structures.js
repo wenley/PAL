@@ -24,16 +24,35 @@ function Assignment() {
 
 //  Huge container for information on a particular Course
 function Course() {
-   this.title = null;
-   this.sidebarElements = null;
-   this.announcements = null;
-   this.syllabusDoc = null;
-   this.descriptionLink = null;
-   this.courseMaterials = null;
-   this.assignments = new Array();
-   this.contacts = new Array();
-   this.tools = new Array();
-   this.otherLinks = new Array();
+    //  Name of the course
+    this.title = null;
+
+    //  Link to content page of this Course
+    this.contentLink = null;
+
+    //  Array of announcements of this course
+    this.announcements = null;
+
+    //  Syllabus Document Object
+    this.syllabusDoc = null;
+
+    //  Link to registrar's page for the course
+    this.descriptionLink = null;
+
+    //  Array of documents and folders of Course Materials
+    this.courseMaterials = null;
+
+    //  Array of documents and folders of Assignments
+    this.assignments = new Array();
+
+    //  Array of instructors and folders of Assignments
+    this.contacts = new Array();
+
+    //  Array of Tool Objects
+    this.tools = new Array();
+
+    //  Array of other sidebar element links
+    this.otherLinks = new Array();
 }
 
 //  An Announcement of a Course on Blackboard

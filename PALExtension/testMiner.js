@@ -11,6 +11,7 @@ function writeArray(a) {
         if (this.readyState == 4 && this.status == 200) {
             Courses[this.i] = new Course();
             Courses[this.i].title = a[this.i][0];
+            Courses[this.i].contentLink = a[this.i][1];
             
             //  Get document
             var contentFrameTag = this.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
@@ -29,7 +30,7 @@ function writeArray(a) {
             //  Check to see if need to do more
             this.i = this.i + 1;
             if (this.i >= a.length) {
-//                console.log("Stopping page loading process...");
+                console.log("Stopping page loading process...");
                 return;
             }
             
@@ -114,8 +115,8 @@ function mineBB() {
     classesAndLinks.i = 0;
 //    testSingleCourse(classesAndLinks[0]);
     writeArray(classesAndLinks);
+    var reMine = setTimeout("mineBB();", 300000);
 }
 
 var t = setTimeout("mineBB();", 3000);
-
-var q = setTimeout("console.log(Courses);", 20000);
+var q = setTimeout("console.log(Courses); pushCourses();", 20000);
