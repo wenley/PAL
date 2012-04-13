@@ -24,11 +24,15 @@ function getCourses(toDo) {
 }
 
 //  Will route requests from content scripts to proper functions
-function handleRequest(request) {
+function handleMessage(msg) {
    console.log("Successful re-route of request!");
    console.log("Request contents:");
-   for (var entry in request) {
-      console.log(entry);
+   for (var entry in msg) {
+      console.log(entry + ": ");
+      console.log(Object.prototype.toString.apply(msg));
+      console.log(Object.prototype.toString.apply(msg[entry]));
+      console.log(msg[entry]);
+      console.log(Object.prototype.toString.apply(msg[entry][0]));
    }
    return {response: "No message from the background"};
 }
@@ -39,11 +43,9 @@ chrome.extension.onConnect.addListener(function(port) {
       console.log(port);
       port.onMessage.addListener(function(msg) {
             console.log("Content is asking for something...");
-            console.log("Message contents: ");
-            for (var entry in msg) {
-               console.log(entry);
-            }
+            var response = handleMessage(msg);
             console.log("Getting out of background handler");
+            port.postMessage(response);
          });
    });
 
