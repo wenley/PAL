@@ -13,11 +13,18 @@ function Folder() {
    this.link = "";
 }
 
+
+//  Document for Assignmets
+function Document() {
+   this.name = "";
+   this.link = "";
+}
+
 //  Container for information on an assignment
 function Assignment() {
    this.name = "";
    this.submissionLink = "";
-   this.fileLink = "";
+   this.fileLinks = new Array();
    // Some assignments consist of text directly on the Assignments link
    this.memo = "";
 }
