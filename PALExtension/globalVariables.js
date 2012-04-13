@@ -12,3 +12,8 @@ var Courses = new Array();
 
 //  - - - - - PERSISTENT VARIABLES - - - - -
 var docHeadString = "<head>" + document.head.innerHTML + "</head>\n\n";
+
+//  Gets string of object's class / type
+function getClass(s) {
+   return Object.prototype.toString.apply(s);
+}
