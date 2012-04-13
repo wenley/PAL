@@ -9,17 +9,6 @@ function mineDocuments(link, course, type) {
       if (req.readyState == 4 && req.status == 200) {
 
          console.log("Doing " + type + " for " + course.title);
-         //var NameTemp  = new Array();
-         //var NameFinal = new Array();
-         //var LinkTemp  = new Array();
-         //var LinkFinal = new Array();
-         //var MemoTemp  = new Array();
-         //var MemoFinal = new Array();
-
-         //var textrm;
-         //var txt;
-         //var texttemp;
-
          var text;
 
          text = req.responseText;
@@ -37,7 +26,7 @@ function mineDocuments(link, course, type) {
          var Name;
          var Memo = "";
          var FileLinks = new Array();
-         
+
          var assignments = new Array();
          var materials = new Array();
 
@@ -55,19 +44,28 @@ function mineDocuments(link, course, type) {
                   course.courseMaterials = materials;
 
                if (type == "Syllabus")
-                  course.syllabusDoc = FileLinks[0];
+               {
+                  course.syllabusDoc = DocCollection[0];
+               }
 
                break;
             }
             end = text.indexOf("<\/h3>", start);
+            var DocCollection = new Array();           
             current = text.slice(start, end);
             current = current.concat("<\/h3>");
             miniDoc = parser.parseFromString(current, "text/xml");
             if (miniDoc.getElementsByTagName("span").length > 1)
                Name = miniDoc.getElementsByTagName("span")[1].textContent;
+            var defstat = false;
+            if (miniDoc.getElementsByTagName("a").length > 0)
+            {
+               FileLinks = miniDoc.getElementsByTagName("a");
+               defstat = true;
+            }
             check = text.indexOf("<h3>", end);
             attempt = text.indexOf("<div class=\"details", end);
-            if (attempt < check)
+            if (attempt < check && defstat == false)
             {
                start = attempt;
                end = text.indexOf("<\/div>", start);
@@ -79,16 +77,15 @@ function mineDocuments(link, course, type) {
                current = current.replace(/<img[^>]*>/g,"");
                miniDoc = parser.parseFromString(current, "text/xml");
                FileLinks = miniDoc.getElementsByTagName("a");
-               var DocCollection = new Array();
-               for (var j = 0; j < FileLinks.length; j++)
-               {
-                  var Doc = new Document();
-                  Doc.name = FileLinks[j].innerText;
-                  Doc.link = FileLinks[j].getAttribute("href");
-                  DocCollection[j] = Doc;
-               }
                if (miniDoc.getElementsByTagName("div").length > 1)
                   Memo = miniDoc.getElementsByTagName("div")[1].textContent;
+            }
+            for (var j = 0; j < FileLinks.length; j++)
+            {
+               var Doc = new Document();
+               Doc.name = FileLinks[j].innerText;
+               Doc.link = FileLinks[j].getAttribute("href");
+               DocCollection[j] = Doc;
             }
 
             if (type == "Assignments")
@@ -105,10 +102,11 @@ function mineDocuments(link, course, type) {
             {
                var m = new Material();
                m.name = Name;
-               m.fileLink = FileLinks[0];
+               m.fileLinks = DocCollection;
                m.memo = Memo;
                materials[i] = m;
             }
+
             loc = end;
          }
 
