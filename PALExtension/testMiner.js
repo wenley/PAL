@@ -29,7 +29,7 @@ function writeArray(a) {
             //  Check to see if need to do more
             this.i = this.i + 1;
             if (this.i >= a.length) {
-                console.log("Stopping page loading process...");
+//                console.log("Stopping page loading process...");
                 return;
             }
             
@@ -118,4 +118,4 @@ function mineBB() {
 
 var t = setTimeout("mineBB();", 3000);
 
-var q = setTimeout("console.log(Courses);", 15000);
+var q = setTimeout("console.log(Courses);", 55000);
