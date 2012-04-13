@@ -26,17 +26,20 @@ function write(obj) {
       return;
    var c = getClass(obj);
    if (c == "[object String]") {
-      document.body.innerHTML += obj;
+      document.body.innerHTML += obj + "<br/>";
    }
    else if (c == "[object Array]") {
       for (var i = 0; obj[i] != undefined; i++) {
          write(obj[i]);
       }
    }
-   else if (c == "[object Course]") {
+   else if (c == "[object Object]") {
       for (var entry in obj) {
          write(obj[entry]);
       }
+   }
+   else {
+      console.log("Unknown class: " + c);
    }
 }
    

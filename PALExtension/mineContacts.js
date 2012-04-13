@@ -85,6 +85,10 @@ function extractContacts(textArea, course) {
                i.hours = cleanDetails[k + 1];
                k = k + 1;
                break;
+            case "Work Phone":
+               i.phone = cleanDetails[k + 1];
+               k = k + 1;
+               break;
             default:
                console.log("Unknown Instructor detail: " + cleanDetails[k]);
                break;

@@ -4,6 +4,7 @@ function Instructor() {
    this.email = "";
    this.office = "";
    this.hours = "";
+   this.phone = "";
    this.notes = "";
 }
 

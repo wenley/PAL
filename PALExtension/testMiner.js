@@ -115,10 +115,10 @@ function mineBB() {
     classesAndLinks.i = 0;
 //    testSingleCourse(classesAndLinks[0]);
     writeArray(classesAndLinks);
-    var reMine = setTimeout("mineBB();", 300000);
+//    var reMine = setTimeout("mineBB();", 300000);
 }
 
 var t = setTimeout("mineBB();", 3000);
 
-var q = setTimeout("console.log(Courses); pushCourses();", 55000);
+var q = setTimeout("console.log(Courses)", 55000);
 
