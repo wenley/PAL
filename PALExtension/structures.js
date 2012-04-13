@@ -55,7 +55,7 @@ function Announcements() {
 // A Course Material
 function Material() {
    this.name = "";
-   this.fileLink = "";
+   this.fileLinks = "";
    this.memo = "";
 }
 
