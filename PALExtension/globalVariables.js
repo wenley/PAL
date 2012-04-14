@@ -15,5 +15,8 @@ var docHeadString = "<head>" + document.head.innerHTML + "</head>\n\n";
 
 //  Gets string of object's class / type
 function getClass(s) {
-   return Object.prototype.toString.apply(s);
+    var c = Object.prototype.toString.apply(s);
+    if (c != "[object Object]")
+        return c;
+    return "[object " + s.constructor.name + "]";
 }

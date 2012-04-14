@@ -33,7 +33,7 @@ function write(obj) {
          write(obj[i]);
       }
    }
-   else if (c == "[object Object]") {
+   else if (c == "[object Course]") {
       for (var entry in obj) {
          write(obj[entry]);
       }
