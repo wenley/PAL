@@ -17,6 +17,17 @@ port.onMessage.addListener(function(msg) {
    });
 
 
+//  Will route requests from background to proper functions
+function handleMessage(msg) {
+   console.log("Successful re-route of request!");
+   console.log("Message contents:");
+   for (var entry in msg) {
+      console.log(entry + ": ");
+      console.log(msg[entry]);
+   }
+   return {response: "No message from foreground"};
+}
+
 //  Stores the compiled history of courses to the background
 function pushCourses() {
     console.log("Attempt to push courses to background...");
