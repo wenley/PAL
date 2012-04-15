@@ -5,7 +5,7 @@ function strip(s) {
         throw "Argument not defined";
     }
     
-    if (Object.prototype.toString.apply(s) != "[object String]") {
+    if (getClass(s) != "[object String]") {
         throw "Argument not a string";
     }
     
@@ -25,10 +25,10 @@ function zip(x, y) {
       throw "Wrong number of arguments.";
    }
  
-   if (Object.prototype.toString.apply(x) != "[object Array]") {
+   if (getClass(x) != "[object Array]") {
       throw "First argument is not an Array";
    }
-   if (Object.prototype.toString.apply(y) != "[object Array]") {
+   if (getClass(y) != "[object Array]") {
       throw "Second argument is not an Array";
    }
 
