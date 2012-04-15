@@ -3,11 +3,14 @@
 
 //  - - - - - USEFUL FUNCTIONS - - - - -
 
-//  Redirects the user to Courses tab
+//  Ensures the user is on the Courses tab
 function redirectToCourses() {
-   console.log("Attempt redirect");
-   document.location.href = CoursesTabLink
-      }
+    var contentFrame = document.getElementsByName("content")[0];
+    if (contentFrame.getAttribute("src") != CoursesTabContentSrc) {
+        console.log("Redirecting...");
+        document.location.href = CoursesTabLink;
+    }
+}
 
 //  Takes a link to a page and a callback to continueFunc
 //  Will call continueFunc on the contents of the page's
