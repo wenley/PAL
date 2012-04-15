@@ -8,7 +8,7 @@ var CoursesTabLink = "https://blackboard.princeton.edu/webapps/portal/frameset.j
 
 var parser = new DOMParser();
 
-var Courses = new Array();
+var Courses = {};
 
 //  - - - - - PERSISTENT VARIABLES - - - - -
 var docHeadString = "<head>" + document.head.innerHTML + "</head>\n\n";

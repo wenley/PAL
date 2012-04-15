@@ -9,9 +9,10 @@ function writeArray(a) {
    //  Funky way of getting all the pages
     function nextRequest() {
         if (this.readyState == 4 && this.status == 200) {
-            Courses[this.i] = new Course();
-            Courses[this.i].title = a[this.i][0];
-            Courses[this.i].contentLink = a[this.i][1];
+            var name = a[this.i][0];
+            Courses[name] = new Course();
+            Courses[name].title = a[this.i][0];
+            Courses[name].contentLink = a[this.i][1];
             
             //  Get document
             var contentFrameTag = this.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
@@ -25,7 +26,7 @@ function writeArray(a) {
             else
                 link += contentFrameSrc;
             
-            getContentDoc(link, mineCourse, Courses[this.i]);
+            getContentDoc(link, mineCourse, Courses[name]);
             
             //  Check to see if need to do more
             this.i = this.i + 1;
