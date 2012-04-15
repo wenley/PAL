@@ -14,7 +14,6 @@ function Folder() {
    this.link = "";
 }
 
-
 //  Document for Assignmets
 function Document() {
    this.name = "";
