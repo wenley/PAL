@@ -27,7 +27,7 @@
             "mineDocuments.js",
             "mineTools.js",
             "mineCourse.js",
-            "testMiner.js",
+            "miner.js",
             "testRender.js"
         ]
       }
