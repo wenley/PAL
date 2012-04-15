@@ -14,10 +14,10 @@ function clearPage(s) {
       console.log(c);
 }
 
-//  Gets
+//  Gets template
 function copyFromBackground() {
    console.log("Attempt copy over...");
-   port.postMessage({request: "template.html"});
+   port.postMessage({note: "template"});
 }
 
 
@@ -44,7 +44,6 @@ function write(obj) {
 }
    
       
-
 //  Writes raw text of courses to document
 function writeCourses() {
    console.log("Attempting to write content to page...");
@@ -58,6 +57,8 @@ for (var entry in qwerty) {
    console.log(entry + ": " + qwerty[entry]);
 }
 
+//  Start chain of either render or mine
+pullCourses();
+
 var q = setTimeout("console.log(Courses); clearPage(); writeCourses();", 40000);
-var qw = setTimeout("testPush();", 5000);
 var qwer = setTimeout("copyFromBackground();", 20000);

@@ -6,41 +6,57 @@
 //  using requests
 
 var port = chrome.extension.connect({name: "Content to Backround"});
-port.postMessage({letter: "Hello!"});
+port.postMessage({note: "Hello!"});
 port.onMessage.addListener(function(msg) {
-      console.log("Background is asking for something...");
-      console.log("Message contents: ");
-      for (var entry in msg) {
-         console.log(entry + ": " + msg[entry]);
-      }
-      console.log("Getting out");
+      var response = handleMessage(msg);
+      if (response != null)
+         port.postMessage(response);
    });
 
 
 //  Will route requests from background to proper functions
 function handleMessage(msg) {
    console.log("Successful re-route of request!");
-   console.log("Message contents:");
-   for (var entry in msg) {
-      console.log(entry + ": ");
-      console.log(msg[entry]);
+   if (msg.error != undefined) {
+      console.log("ERROR: " + msg.error);
+      return null;
    }
-   return {response: "No message from foreground"};
+
+   var response;
+   switch (msg.note) {
+      case "good": //  Indicates proper push
+         response = null;
+         break;
+      case "courses": //  Indicates response to pull
+         Courses = msg.courses;
+         if (Courses == null) {
+            //  Note un-readiness of state
+            mineBB();
+         }
+         else {
+            //  Note readiness of state
+         }
+         response = null;
+         break;
+      case "update": //  Indicates difference; need to update page
+         console.log("Not handling updates yet.");
+         response = null;
+         break;
+      default:
+         console.log("Unknown note from background: " + msg.note);
+         response = null;
+         break;
+   }
+
+   return response;
 }
 
 //  Stores the compiled history of courses to the background
 function pushCourses() {
     console.log("Attempt to push courses to background...");
-    port.postMessage({gift: Courses}, function(response) {
-          console.log("Successful push to background?");
-          console.log("Response contents: ");
-          for (var entry in response) {
-             console.log(entry + ": " + response[entry]);
-          }
-       });
+    port.postMessage({note: "push", courses: Courses});
 }
 
-function testPush() {
-   console.log("Attempt test push...");
-   port.postMessage({letter: "This is a test"});
+function pullCourses() {
+   port.postMessage({note: "pull"});
 }
