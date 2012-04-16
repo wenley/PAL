@@ -117,8 +117,8 @@ function mineBB() {
        
        classesAndLinks.i = 0;
        getCourseChain(classesAndLinks);
-       var reMine = setTimeout("mineBB();", 300000); //  5 minutes later
+       var reMine = setTimeout(mineBB, 300000); //  5 minutes later
     } catch (e) {
-       var tryAgain = setTimeout("mineBB();", 1000); //  1 second later
+       var tryAgain = setTimeout(mineBB, 1000); //  1 second later
     }
 }

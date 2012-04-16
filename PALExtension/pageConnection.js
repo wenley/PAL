@@ -15,7 +15,7 @@ function pushRequest(req) {
         return {error: "No courses pushed"};
     
     NewCourses = req.courses;
-    var checkDiff = setTimeout("runDiff();", 1);
+    var checkDiff = setTimeout(runDiff, 1);
     return {note: "good"};
 }
 
@@ -31,7 +31,7 @@ function pushSingleRequest(msg) {
     if (NewCourses == null)
        NewCourses = {};
     NewCourses[msg.course.key] = msg.course;
-//    var checkDiff = setTimeout("runDiff();", 1);
+    var checkDiff = setTimeout(runDiff, 1000);
     return {note: "good"};
 }
 

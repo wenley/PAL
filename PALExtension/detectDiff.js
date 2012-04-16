@@ -49,6 +49,7 @@ function diffObj(one, two) {
 
 //  Checks for differences between OldCourses and NewCourses
 function runDiff() {
+   //  !!! Remove to actually run diff
    console.log("Not diffing right now");
    return;
 

@@ -56,4 +56,4 @@ function writeCourses() {
 
 //  Start chain of either render or mine
 pullCourses();
-var qwer = setTimeout("copyFromBackground();", 1);
+var qwer = setTimeout(copyFromBackground, 1);
