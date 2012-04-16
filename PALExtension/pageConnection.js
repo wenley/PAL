@@ -32,6 +32,25 @@ function pushSingleRequest(msg) {
        NewCourses = {};
     NewCourses[msg.course.key] = msg.course;
     var checkDiff = setTimeout(runDiff, 1000);
+
+    //  Check to see if NewCourses has been fully populated as expected
+    if (expected != 0) {
+       console.log("Checking expected...");
+       var i = 0;
+       for (var entry in NewCourses)
+          i++;
+       console.log("i: " + i);
+       if (i > expected) {
+          console.log("i is too big...");
+          console.log("i: " + i + " vs. expected: " + expected);
+       } //  Fall through...
+       if (i >= expected) {
+          console.log("! Notify the foreground that miner almost done");
+          expected = 0;
+       }
+       console.log(NewCourses);
+    }
+
     return {note: "good"};
 }
 
@@ -69,6 +88,7 @@ function reportChange() {
    console.log("reportChange not yet implemented");
 }
 
+var expected = 0; //  Number of courses expected to be mined
 //  Will route requests from content scripts to proper functions
 function handleMessage(msg) {
     var response;
@@ -84,6 +104,12 @@ function handleMessage(msg) {
             break;
         case "click":
             response = clickHandler(msg);
+            break;
+        case "expected":
+            console.log("Will count number of courses");
+            expected = msg.expected;
+            console.log("expected: " + expected);
+            reseponse = null;
             break;
         default:
             console.log("Unknown note from foreground: " + msg.note);

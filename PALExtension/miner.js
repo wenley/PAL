@@ -121,6 +121,7 @@ function mineBB() {
        }
        
        classesAndLinks.i = 0;
+       port.postMessage({note: "expected", expected: classesAndLinks.length});
        getCourseChain(classesAndLinks);
     } catch (e) {
           console.log(e);
