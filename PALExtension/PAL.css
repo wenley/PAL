@@ -3,12 +3,17 @@ body {
 }
 
 div#sidebar {
-    align: left;
-    padding-top: 50px;
-    padding-left: 25px;
-    background-color: orange;    
+ 
+    background-color: orange;
+    color: #AEBEEF;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100px;
+    height:100%;
 }
 
-div#rightCol {
+div#tabBar {
     align: right;
+    background-color: blue;
 }
