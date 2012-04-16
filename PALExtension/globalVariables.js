@@ -10,7 +10,7 @@ var CoursesTabLink = bbDomain + "/webapps/portal/frameset.jsp?tab_tab_group_id=_
 
 var parser = new DOMParser();
 
-var Courses = {};
+var Courses = null;
 
 //  - - - - - PERSISTENT VARIABLES - - - - -
 var docHeadString = "<head>" + document.head.innerHTML + "</head>\n\n";
