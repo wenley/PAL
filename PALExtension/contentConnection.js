@@ -30,7 +30,6 @@ function handleMessage(msg) {
       case "courses": //  Indicates response to pull
          Courses = msg.courses;
          if (Courses == null) {
-            Courses = {};
             //  Note un-readiness of state
             mineBB();
          }
@@ -38,6 +37,7 @@ function handleMessage(msg) {
             //  Note readiness of state
             console.log("Got old version of courses!");
             console.log(Courses);
+            var reMine = setTimeout(mineBB, 300000); //  5 minutes
          }
          response = null;
          break;

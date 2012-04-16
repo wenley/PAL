@@ -99,12 +99,9 @@ var ports = {};
 //  Handles requests from the content scripts
 chrome.extension.onConnect.addListener(function(newPort) {
       ports[newPort.portId_] = newPort;
-      console.log(ports);
       
       //  Temporary handle
       var port = newPort;
-      console.log(port);
-      console.log(newPort.portId_);
       port.onMessage.addListener(function(msg) {
             var response = handleMessage(msg);
             if (response != null)

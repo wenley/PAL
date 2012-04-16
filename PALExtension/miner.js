@@ -15,6 +15,8 @@ function getCourseChain(a) {
             c.contentLink = a[this.i][1];
             var short = name.substr(0, 6);
             c.key = short;
+            if (Courses == null)
+               Courses = {};
             Courses[c.key] = c;
             
             //  Get document
@@ -93,8 +95,11 @@ function testSingleCourse(a) {
 //  The big function. The function that starts the mining of
 //  EVERYTHING out of Blackboard
 function mineBB() {
-    console.log('Mining...');
-    try {
+    if (Courses != null) {
+       console.log("Will remine from existing links");
+    }
+    else { try {
+       console.log("Mining from scratch...");
        //  Check to make sure on Courses
        //  Can't start mine from scratch if not on Courses
        var contentFrame = redirectToCourses();
@@ -117,8 +122,11 @@ function mineBB() {
        
        classesAndLinks.i = 0;
        getCourseChain(classesAndLinks);
-       var reMine = setTimeout(mineBB, 300000); //  5 minutes later
     } catch (e) {
+          console.log(e);
        var tryAgain = setTimeout(mineBB, 1000); //  1 second later
+       return;
+       }
     }
+    var reMine = setTimeout(mineBB, 300000); //  5 minutes later
 }
