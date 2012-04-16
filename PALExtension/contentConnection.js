@@ -16,7 +16,6 @@ port.onMessage.addListener(function(msg) {
 
 //  Will route requests from background to proper functions
 function handleMessage(msg) {
-   console.log("Successful re-route of request!");
    if (msg.error != undefined) {
       console.log("ERROR: " + msg.error);
       return null;
