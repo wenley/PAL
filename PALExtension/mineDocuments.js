@@ -1,5 +1,4 @@
 function mineDocuments(link, course, type) {
-   console.log("The mine masha course is \n" + course.title);
 
    var req = new XMLHttpRequest();
    req.open("GET", link, true);
