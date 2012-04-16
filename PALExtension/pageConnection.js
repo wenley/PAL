@@ -19,6 +19,20 @@ function pushRequest(req) {
     return {note: "good"};
 }
 
+//  Forms proper response to a pushCourse request
+function pushSingleRequest(msg) {
+    if (msg.note == undefined || msg.not != "pushSingle") {
+        console.log("Misrouted message. pushSingle when " + msg.note);
+        return {error: "Misrouted message."};
+    }
+    if (msg.course == undefined)
+        return {error: "No course pushed"};
+
+    NewCourses[msg.course.title] = msg.course;
+    var checkDiff = setTimeout("runDiff();", 1);
+    return {note: "good"};
+}
+
 //  Forms proper response to a pullCourses request
 function pullRequest(req) {
     //  Error checking
@@ -59,6 +73,9 @@ function handleMessage(msg) {
         case "push":
             response = pushRequest(msg);
             break;
+        case "pushSingle":
+            response = pushSingleRequest(msg);
+            break;
         case "pull":
             response = pullRequest(msg);
             break;
@@ -73,20 +90,25 @@ function handleMessage(msg) {
     return response;
 }
 
-//  Needs to be a collection of ports
+//  Ports to currently open tabs
 var ports = {};
 
 //  Handles requests from the content scripts
 chrome.extension.onConnect.addListener(function(newPort) {
       ports[newPort.portId_] = newPort;
+      console.log(ports);
       
       //  Temporary handle
       var port = newPort;
       console.log(port);
+      console.log(newPort.portId_);
       port.onMessage.addListener(function(msg) {
             var response = handleMessage(msg);
             if (response != null)
                port.postMessage(response);
+         });
+      port.onDisconnect.addListener(function() {
+            delete ports[port.portId_];
          });
    });
 

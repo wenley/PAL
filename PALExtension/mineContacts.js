@@ -98,7 +98,7 @@ function extractContacts(textArea, course) {
       j = j + 1;
    } while (j < 10);    //  Make true
 
-   console.log(course);
+   pushCourse(course);
 }
 
 

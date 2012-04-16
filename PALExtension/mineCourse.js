@@ -36,7 +36,6 @@ function mineSidebar(a, course) {
             break;
       }
    }
-   //console.log("Finished sending requests for side bar for " + course.title.substr(0,6));
 }
 //  - - - - - COURSE CONTENT DOC FUNCTIONS - - - - -
 

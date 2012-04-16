@@ -61,6 +61,4 @@ for (var entry in qwerty) {
 
 //  Start chain of either render or mine
 pullCourses();
-
-var q = setTimeout("console.log(Courses); clearPage();", 40000);
-var qwer = setTimeout("copyFromBackground();", 20000);
+var qwer = setTimeout("copyFromBackground();", 1);

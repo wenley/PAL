@@ -57,6 +57,12 @@ function pushCourses() {
     port.postMessage({note: "push", courses: Courses});
 }
 
+//  Updates a single course in background
+function pushCourse(c) {
+   port.postMessage({note: "pushSingle", course: c});
+}
+
+//  Start attempt to get courses
 function pullCourses() {
    port.postMessage({note: "pull"});
 }

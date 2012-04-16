@@ -44,8 +44,7 @@ function mineTools(toolsLink, course) {
                    }
                }
             }
-
-//            console.log(course);
+            pushCourse(course);
         }
     }
     req.send();
