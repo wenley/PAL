@@ -41,30 +41,36 @@ function clickHandler(msg) {
    return null;
 }
 
+function sendToForeground(msg) {
+   for (var id in ports) {
+      ports[id].postMessage(msg);
+   }
+}
+
 //  Forms message to foreground reporting a change
 function reportChange() {
-   return;
+   console.log("reportChange not yet implemented");
 }
 
 //  Will route requests from content scripts to proper functions
 function handleMessage(msg) {
-   var response;
-   switch (msg.note) {
-      case "push":
-         response = pushRequest(msg);
-         break;
-      case "pull":
-         response = pullRequest(msg);
-         break;
-      case "click":
-         response = clickHandler(msg);
-         break;
-      default:
-         console.log("Unknown note from foreground: " + msg.note);
-         response = null;
-         break;
-   }
-   return response;
+    var response;
+    switch (msg.note) {
+        case "push":
+            response = pushRequest(msg);
+            break;
+        case "pull":
+            response = pullRequest(msg);
+            break;
+        case "click":
+            response = clickHandler(msg);
+            break;
+        default:
+            console.log("Unknown note from foreground: " + msg.note);
+            response = null;
+            break;
+    }
+    return response;
 }
 
 //  Needs to be a collection of ports
@@ -72,7 +78,7 @@ var ports = {};
 
 //  Handles requests from the content scripts
 chrome.extension.onConnect.addListener(function(newPort) {
-      ports[newPort.name] = newPort;
+      ports[newPort.portId_] = newPort;
       
       //  Temporary handle
       var port = newPort;

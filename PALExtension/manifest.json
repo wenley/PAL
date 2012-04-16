@@ -5,10 +5,11 @@
     "description": "First extension evar",
     "background": {
         "scripts": [
-            "pageConnection.js",
             "pythonLib.js",
             "structures.js",
-            "globalVariables.js"
+            "globalVariables.js",
+            "pageConnection.js",
+            "detectDiff.js"
         ]
     },
     "content_scripts": [
