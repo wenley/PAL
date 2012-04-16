@@ -34,6 +34,9 @@ function Course() {
     //  Name of the course
     this.title = null;
 
+    //  Key under which this course can be found in Courses
+    this.key = null;
+
     //  Link to content page of this Course
     this.contentLink = null;
 

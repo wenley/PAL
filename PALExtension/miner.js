@@ -10,10 +10,12 @@ function getCourseChain(a) {
     function nextRequest() {
         if (this.readyState == 4 && this.status == 200) {
             var name = a[this.i][0];
-            console.log(Courses);
-            Courses[name] = new Course();
-            Courses[name].title = a[this.i][0];
-            Courses[name].contentLink = a[this.i][1];
+            var c = new Course();
+            c.title = name;
+            c.contentLink = a[this.i][1];
+            var short = name.substr(0, 6);
+            c.key = short;
+            Courses[c.key] = c;
             
             //  Get document
             var contentFrameTag = this.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
@@ -27,7 +29,7 @@ function getCourseChain(a) {
             else
                 link += contentFrameSrc;
             
-            getContentDoc(link, mineCourse, Courses[name]);
+            getContentDoc(link, mineCourse, Courses[c.key]);
             
             //  Check to see if need to do more
             this.i = this.i + 1;

@@ -36,6 +36,8 @@ function handleMessage(msg) {
          }
          else {
             //  Note readiness of state
+            console.log("Got old version of courses!");
+            console.log(Courses);
          }
          response = null;
          break;

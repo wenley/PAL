@@ -21,15 +21,17 @@ function pushRequest(req) {
 
 //  Forms proper response to a pushCourse request
 function pushSingleRequest(msg) {
-    if (msg.note == undefined || msg.not != "pushSingle") {
+    if (msg.note == undefined || msg.note != "pushSingle") {
         console.log("Misrouted message. pushSingle when " + msg.note);
         return {error: "Misrouted message."};
     }
     if (msg.course == undefined)
         return {error: "No course pushed"};
 
-    NewCourses[msg.course.title] = msg.course;
-    var checkDiff = setTimeout("runDiff();", 1);
+    if (NewCourses == null)
+       NewCourses = {};
+    NewCourses[msg.course.key] = msg.course;
+//    var checkDiff = setTimeout("runDiff();", 1);
     return {note: "good"};
 }
 
@@ -41,7 +43,8 @@ function pullRequest(req) {
         return {error: "Misrouted message"};
     }
     
-    return {note: "courses", courses: OldCourses };
+    //  !!! Need to change back to OldCourses
+    return {note: "courses", courses: NewCourses };
 }
 
 //  Updates OldCourses with NewCourses according to the contents
