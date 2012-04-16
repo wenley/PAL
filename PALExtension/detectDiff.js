@@ -9,7 +9,6 @@
 var OldCourses = null;
 var NewCourses = null;
 
-
 //  Compares two objects, one and two. Notes differences between then on console
 function diffObj(one, two) {
 
@@ -50,6 +49,9 @@ function diffObj(one, two) {
 
 //  Checks for differences between OldCourses and NewCourses
 function runDiff() {
+   console.log("Not diffing right now");
+   return;
+
    for (var i = 0; NewCourses[i] != undefined; i++) {
       var newC = NewCourses[i];
       var oldC = OldCourses[i];
