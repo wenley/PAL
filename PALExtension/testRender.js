@@ -54,11 +54,6 @@ function writeCourses() {
     }
 }
 
-var qwerty = new Course();
-for (var entry in qwerty) {
-    console.log(entry + ": " + qwerty[entry]);
-}
-
 //  Start chain of either render or mine
 pullCourses();
 var qwer = setTimeout("copyFromBackground();", 1);

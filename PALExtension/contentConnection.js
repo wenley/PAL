@@ -30,6 +30,7 @@ function handleMessage(msg) {
       case "courses": //  Indicates response to pull
          Courses = msg.courses;
          if (Courses == null) {
+            Courses = {};
             //  Note un-readiness of state
             mineBB();
          }

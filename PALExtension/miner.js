@@ -10,6 +10,7 @@ function getCourseChain(a) {
     function nextRequest() {
         if (this.readyState == 4 && this.status == 200) {
             var name = a[this.i][0];
+            console.log(Courses);
             Courses[name] = new Course();
             Courses[name].title = a[this.i][0];
             Courses[name].contentLink = a[this.i][1];
@@ -91,29 +92,31 @@ function testSingleCourse(a) {
 //  EVERYTHING out of Blackboard
 function mineBB() {
     console.log('Mining...');
-    
-    //  Check to make sure on Courses
-    //  Can't start mine from scratch if not on Courses
-    redirectToCourses();
-    
-    //  Print Class Names and Links
-    var contentDoc = contentFrame.contentDocument;
-    var classListElem = undefined;
-    classListElem = contentDoc.getElementsByClassName(MasterCourseListClass)[0];
-    var classLinkList = classListElem.getElementsByTagName("a");
-    
-    var classesAndLinks = new Array();
-    for (var i = 0; i < classLinkList.length; i++) {
-        var a = new Array();
-        a[0] = classLinkList[i].innerText;
-        
-        //  Links on Courses have leading spaces
-        a[1] = classLinkList[i].getAttribute("href").substr(1);
-        classesAndLinks[i] = a;
+    try {
+       //  Check to make sure on Courses
+       //  Can't start mine from scratch if not on Courses
+       var contentFrame = redirectToCourses();
+       
+       //  Print Class Names and Links
+       var contentDoc = contentFrame.contentDocument;
+       var classListElem = undefined;
+       classListElem = contentDoc.getElementsByClassName(MasterCourseListClass)[0];
+       var classLinkList = classListElem.getElementsByTagName("a");
+       
+       var classesAndLinks = new Array();
+       for (var i = 0; i < classLinkList.length; i++) {
+          var a = new Array();
+          a[0] = classLinkList[i].innerText;
+          
+          //  Links on Courses have leading spaces
+          a[1] = classLinkList[i].getAttribute("href").substr(1);
+          classesAndLinks[i] = a;
+       }
+       
+       classesAndLinks.i = 0;
+       getCourseChain(classesAndLinks);
+       var reMine = setTimeout("mineBB();", 300000); //  5 minutes later
+    } catch (e) {
+       var tryAgain = setTimeout("mineBB();", 1000); //  1 second later
     }
-
-    classesAndLinks.i = 0;
-//    testSingleCourse(classesAndLinks[0]);
-    getCourseChain(classesAndLinks);
-//    var reMine = setTimeout("mineBB();", 300000);
 }

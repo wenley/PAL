@@ -10,6 +10,8 @@ function redirectToCourses() {
         console.log("Redirecting...");
         document.location.href = CoursesTabLink;
     }
+    else
+       return contentFrame;
 }
 
 //  Takes a link to a page and a callback to continueFunc
