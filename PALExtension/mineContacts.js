@@ -44,7 +44,6 @@ function extractContacts(textArea, course) {
          continue;
       }
 
-      console.log("Making an instructor...");
       //  Is a true Instructor
       var i = new Instructor();
       i.name = name;
