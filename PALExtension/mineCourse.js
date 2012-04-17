@@ -32,10 +32,11 @@ function mineSidebar(a, course) {
             mineTools(a[i][1], course);
             break;
          default:
-            //console.log("Unhandled: Will mine " + a[i][0] + " later");
+            console.log("Unhandled: Will mine " + a[i][0] + " later");
             break;
       }
    }
+   pushCourse(course);
 }
 //  - - - - - COURSE CONTENT DOC FUNCTIONS - - - - -
 

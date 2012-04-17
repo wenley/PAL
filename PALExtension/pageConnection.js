@@ -30,8 +30,32 @@ function pushSingleRequest(msg) {
 
     if (NewCourses == null)
        NewCourses = {};
-    NewCourses[msg.course.key] = msg.course;
+    if (NewCourses[msg.course.semester] == undefined)
+       NewCourses[msg.course.semester] = {};
+    NewCourses[msg.course.semester][msg.course.key] = msg.course;
     var checkDiff = setTimeout(runDiff, 1000);
+
+    //  Check to see if NewCourses has been fully populated as expected
+    if (expected != 0) {
+       console.log("Checking expected...");
+       var i = 0;
+       for (var entry in NewCourses) {
+          for (var subentry in NewCourses[entry])
+             i++;
+       }
+       console.log("i: " + i);
+       if (i > expected) {
+          console.log("i is too big...");
+          console.log("i: " + i + " vs. expected: " + expected);
+       } //  Fall through...
+       if (i >= expected) {
+          console.log("! Notify the foreground that miner almost done");
+          console.log(NewCourses);
+          expected = 0;
+       }
+       console.log(NewCourses);
+    }
+
     return {note: "good"};
 }
 
@@ -69,6 +93,7 @@ function reportChange() {
    console.log("reportChange not yet implemented");
 }
 
+var expected = 0; //  Number of courses expected to be mined
 //  Will route requests from content scripts to proper functions
 function handleMessage(msg) {
     var response;
@@ -85,6 +110,12 @@ function handleMessage(msg) {
         case "click":
             response = clickHandler(msg);
             break;
+        case "expected":
+            console.log("Will count number of courses");
+            expected = msg.expected;
+            console.log("expected: " + expected);
+            reseponse = null;
+            break;
         default:
             console.log("Unknown note from foreground: " + msg.note);
             response = null;
@@ -99,12 +130,9 @@ var ports = {};
 //  Handles requests from the content scripts
 chrome.extension.onConnect.addListener(function(newPort) {
       ports[newPort.portId_] = newPort;
-      console.log(ports);
       
       //  Temporary handle
       var port = newPort;
-      console.log(port);
-      console.log(newPort.portId_);
       port.onMessage.addListener(function(msg) {
             var response = handleMessage(msg);
             if (response != null)

@@ -10,12 +10,18 @@ function getCourseChain(a) {
     function nextRequest() {
         if (this.readyState == 4 && this.status == 200) {
             var name = a[this.i][0];
+            var semester = name.match(/(F|S)\d{4}/g)[0];
             var c = new Course();
             c.title = name;
+            c.semester = semester;
             c.contentLink = a[this.i][1];
             var short = name.substr(0, 6);
             c.key = short;
-            Courses[c.key] = c;
+            if (Courses == null)
+               Courses = {};
+            if (Courses[c.semester] == undefined)
+               Courses[c.semester] = {};
+            Courses[c.semester][c.key] = c;
             
             //  Get document
             var contentFrameTag = this.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
@@ -29,7 +35,7 @@ function getCourseChain(a) {
             else
                 link += contentFrameSrc;
             
-            getContentDoc(link, mineCourse, Courses[c.key]);
+            getContentDoc(link, mineCourse, Courses[c.semester][c.key]);
             
             //  Check to see if need to do more
             this.i = this.i + 1;
@@ -93,8 +99,11 @@ function testSingleCourse(a) {
 //  The big function. The function that starts the mining of
 //  EVERYTHING out of Blackboard
 function mineBB() {
-    console.log('Mining...');
-    try {
+    if (Courses != null) {
+       console.log("Will remine from existing links");
+    }
+    else { try {
+       console.log("Mining from scratch...");
        //  Check to make sure on Courses
        //  Can't start mine from scratch if not on Courses
        var contentFrame = redirectToCourses();
@@ -116,9 +125,13 @@ function mineBB() {
        }
        
        classesAndLinks.i = 0;
+       port.postMessage({note: "expected", expected: classesAndLinks.length});
        getCourseChain(classesAndLinks);
-       var reMine = setTimeout(mineBB, 300000); //  5 minutes later
     } catch (e) {
+          console.log(e);
        var tryAgain = setTimeout(mineBB, 1000); //  1 second later
+       return;
+       }
     }
+    var reMine = setTimeout(mineBB, 300000); //  5 minutes later
 }

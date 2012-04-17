@@ -2,8 +2,6 @@
 //  Written: 8 April 2012
 
 function extractContacts(textArea, course) {
-   console.log("Extracting...");
-
    //  Alternate h3 and div class details tags
    var hStart = 0;
    var hEnd = 0;
@@ -35,7 +33,6 @@ function extractContacts(textArea, course) {
       //  Need to detect folder
       var aTag = instructorP.match(/<a[^>]*>[^<]*<\/a>/g);
       if (aTag != null) {
-         console.log("Making a folder...");
          var miniDoc = parser.parseFromString(cleanLink(aTag[0]), "text/xml");
          var f = new Folder();
          f.name = name;
@@ -111,7 +108,6 @@ function mineContacts(sidebarLink, course) {
       if (req.readyState == 4 && req.status == 200) {
          var listStart = req.responseText.indexOf("contentList staffInfoList");
          if (listStart == -1) {
-            console.log("No match");
             return;
          }
 
