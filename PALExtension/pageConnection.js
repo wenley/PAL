@@ -5,6 +5,35 @@
 //  Establishes the interface between the background page and content scripts
 //  using requests.
 
+
+//  Saves current state to local storage
+function saveToLocal() {
+   localStorage.OldCourses = OldCourses;
+   localStorage.NewCourses = NewCourses;
+   console.log(localStorage);
+}
+
+//  Loads previous state from local storage
+function openFromLocal() {
+   OldCourses = localStorage.OldCourses;
+   if (OldCourses == undefined)
+      OldCourses = null;
+   console.log(localStorage.OldCourses);
+   console.log(OldCourses);
+   
+   NewCourses = localStorage.NewCourses;
+   if (NewCourses == undefined)
+      NewCourses = null;
+   console.log(localStorage.NewCourses);
+   console.log(NewCourses);
+}
+
+//  Clears the local storage state to allow for fresh mining
+function clearLocal() {
+   delete localStorage.OldCourses;
+   delete localStorage.NewCourses;
+}
+
 //  Forms proper response to a pushCourses request
 function pushRequest(req) {
     if (req.note == undefined || req.note != "push") {
@@ -51,12 +80,23 @@ function pushSingleRequest(msg) {
        if (i >= expected) {
           console.log("! Notify the foreground that miner almost done");
           console.log(NewCourses);
+          var time = setTimeout(testLocal, 15000);
           expected = 0;
        }
-       console.log(NewCourses);
     }
 
     return {note: "good"};
+}
+
+//  Dummy function
+function testLocal() {
+   console.log("Testing local storage capabilities");
+   console.log(NewCourses);
+   saveToLocal();
+   NewCourses = null;
+   console.log(NewCourses);
+   openFromLocal();
+   console.log(NewCourses);
 }
 
 //  Forms proper response to a pullCourses request
