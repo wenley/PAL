@@ -23,6 +23,7 @@
             "structures.js",
             "globalVariables.js",
             "mineGeneric.js",
+            "mineAnnouncements.js",
             "mineContacts.js",
             "mineDescription.js",
             "mineDocuments.js",

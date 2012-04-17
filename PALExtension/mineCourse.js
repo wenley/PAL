@@ -6,7 +6,8 @@ function mineSidebar(a, course) {
    for (i = 0; i < a.length; i++) {
       switch(a[i][0]) {
          case "Announcements":
-            console.log("Will mine announcements later");
+            console.log("Mining Announcements");
+            mineAnnouncements(a[i][1], course);
             break;
          case "Syllabus":
             console.log("Mining Syllabus");
