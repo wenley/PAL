@@ -24,7 +24,7 @@ function mineAnnouncements (link, course) {
    var headingStart = 0;
    var headingEnd;
    var i = 0;
-
+  
    while(startInfo != -1) {
       var a = new Announcement();
       startInfo = store.indexOf("<div class =\"announcementInfo\">", startInfo);
@@ -43,7 +43,7 @@ function mineAnnouncements (link, course) {
       endDetails = store.indexOf("</div>", startDetails);
       startDate = store.indexOf("</span>", startDetails);
       endDate = store.indexOf("</p>", startDate);
-      a.date = a.store.slice(startDate, endDate);
+      a.date = store.slice(startDate, endDate);
       a.date = a.date.replace("</span>", "");
       messageStart = store.indexOf("<div class =\"vtbegenerated\">", endDate);
       messageEnd = endDetails;
@@ -58,6 +58,7 @@ function mineAnnouncements (link, course) {
       a.heading = a.heading.replace("transparent\">", "");
 
       announcements[i] = a;
+      i++;
    }
 
    course.announcements = announcements;
