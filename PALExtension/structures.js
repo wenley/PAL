@@ -66,7 +66,7 @@ function Course() {
 }
 
 //  An Announcement of a Course on Blackboard
-function Announcements() {
+function Announcement() {
     this.postedBy = "";
     this.postedTo = "";
     this.heading = "";
