@@ -30,15 +30,19 @@ function pushSingleRequest(msg) {
 
     if (NewCourses == null)
        NewCourses = {};
-    NewCourses[msg.course.key] = msg.course;
+    if (NewCourses[msg.course.semester] == undefined)
+       NewCourses[msg.course.semester] = {};
+    NewCourses[msg.course.semester][msg.course.key] = msg.course;
     var checkDiff = setTimeout(runDiff, 1000);
 
     //  Check to see if NewCourses has been fully populated as expected
     if (expected != 0) {
        console.log("Checking expected...");
        var i = 0;
-       for (var entry in NewCourses)
-          i++;
+       for (var entry in NewCourses) {
+          for (var subentry in NewCourses[entry])
+             i++;
+       }
        console.log("i: " + i);
        if (i > expected) {
           console.log("i is too big...");
@@ -46,6 +50,7 @@ function pushSingleRequest(msg) {
        } //  Fall through...
        if (i >= expected) {
           console.log("! Notify the foreground that miner almost done");
+          console.log(NewCourses);
           expected = 0;
        }
        console.log(NewCourses);
