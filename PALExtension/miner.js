@@ -10,14 +10,18 @@ function getCourseChain(a) {
     function nextRequest() {
         if (this.readyState == 4 && this.status == 200) {
             var name = a[this.i][0];
+            var semester = name.match(/(F|S)\d{4}/g)[0];
             var c = new Course();
             c.title = name;
+            c.semester = semester;
             c.contentLink = a[this.i][1];
             var short = name.substr(0, 6);
             c.key = short;
             if (Courses == null)
                Courses = {};
-            Courses[c.key] = c;
+            if (Courses[c.semester] == undefined)
+               Courses[c.semester] = {};
+            Courses[c.semester][c.key] = c;
             
             //  Get document
             var contentFrameTag = this.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
@@ -31,7 +35,7 @@ function getCourseChain(a) {
             else
                 link += contentFrameSrc;
             
-            getContentDoc(link, mineCourse, Courses[c.key]);
+            getContentDoc(link, mineCourse, Courses[c.semester][c.key]);
             
             //  Check to see if need to do more
             this.i = this.i + 1;
