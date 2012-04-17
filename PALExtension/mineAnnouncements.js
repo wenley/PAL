@@ -1,37 +1,68 @@
 // Author: Prerna Ramachandra
+// 9 April 2012
 
-// Mines announcements from each course
-function mineAnnouncement(link, coursE) {
-   var req = new XMLHttpRequest();
+// --- Mines announcements from Blackboard to reformat ---
+
+function mineAnnouncements (link, course) {
+   var req = new XMLHttpRequest;
    req.open("GET", link, true);
-   req.onreadystatechange = function() {
+   
+   req.onreadystatechange = function () {
       if(req.readyState == 4 && req.status == 200) {
-         req.send();
-         var store = req.responseText;
-         var startInfo = 0;
-         var endInfo = 0;
-         var startDetails = 0;
-         var endDetails = 0;
-         var startDate = 0;
-         var endDate = 0;
-         var tempEnd = 0;
-         var postedBy;
-         var postedTo;
-         var message;
-         var startHeading;
-         var endHeading;
-         var heading;
+   var announcements = new Array();
 
-         while(starInfo != -1) {
-            startInfo = store.indexOf("<div class=\"announcementInfo\">", startInfo);
-            endInfo = store.indexOf("</div>", startInfo);
-            tempEnd = store.indexOf("<p><span>Posted to:</span>", startInfo);
-            postedBy = store.slice(startInfo, tempEnd);
-            postedBy = postedBy.replace("<div class=\"announcementInfo\">", "");
-            postedBy = postedBy.replace("<p><span>Posted by:</span>", "");
-            postedBy = postedBy.replace("</p>", "");
-            postedBy = postedBy.replace("&nbsp;", " ");
-            postedTo = store.slice(tempEnd, endInfo);
-            postedTo = postedTo.replace("<p><span>Posted to:</span>", "");
-            postedTo = postedTo.replace("</p>", "");
+   var store = req.responseText;
+   var startInfo = 0;
+   var endInfo;
+   var startDetails = 0;
+   var endDetails = 0;
+   var startDate = 0;
+   var endDate;
+   var tempEnd;
+   var messageStart;
+   var messageEnd;
+   var headingStart = 0;
+   var headingEnd;
+   var i = 0;
+
+   while(startInfo != -1) {
+      var a = new Announcement();
+      startInfo = store.indexOf("<div class =\"announcementInfo\">", startInfo);
+      endInfo = store.indexOf("</div>", endDetails);
+      tempEnd = store.indexOf("Posted to:", startInfo);
+      a.postedBy = store.slice(startInfo, tempEnd);
+      a.postedBy = a.postedBy.replace("<div class =\"announcementInfo\">", " ");
+      a.postedTo = store.slice(tempEnd, endInfo);
+      a.postedBy = a.postedBy.replace("<p><span>", "");
+      a.postedBy = a.postedBy.replace("</span>", "");
+      a.postedBy = a.postedBy.replace("</p>", "");
+      a.postedTo = a.postedTo.replace("</span>", "");
+      a.postedTo = a.postedTo.replace("</p>", "");
+
+      startDetails = store.indexOf("<div class=\"details\">", startDetails);
+      endDetails = store.indexOf("</div>", startDetails);
+      startDate = store.indexOf("</span>", startDetails);
+      endDate = store.indexOf("</p>", startDate);
+      a.date = a.store.slice(startDate, endDate);
+      a.date = a.date.replace("</span>", "");
+      messageStart = store.indexOf("<div class =\"vtbegenerated\">", endDate);
+      messageEnd = endDetails;
+      a.message = store.slice(messageStart, messageEnd);
+      a.message = a.message.replace("<p>", " ");
+      a.message = a.message.replace("</p>", " ");
+      a.message = a.message.replace("<div class \"vtbegenerated\">", "");
+
+      headingStart = store.indexOf("transparent\">", endInfo);
+      headingEnd = store.indexOf("</h3>", headingStart);
+      a.heading = store.slice(headingStart, headingEnd);
+      a.heading = a.heading.replace("transparent\">", "");
+
+      announcements[i] = a;
+   }
+
+   course.announcements = announcements;
+      }
+   }
+   req.send();
+}
 
