@@ -5,7 +5,7 @@ function strip(s) {
         throw "Argument not defined";
     }
     
-    if (getClass(s) != "[object String]") {
+    if (!isString(s))
         throw "Argument not a string";
     }
     
@@ -25,10 +25,10 @@ function zip(x, y) {
       throw "Wrong number of arguments.";
    }
  
-   if (getClass(x) != "[object Array]") {
+   if (!isArray(x)) {
       throw "First argument is not an Array";
    }
-   if (getClass(y) != "[object Array]") {
+   if (!isArray(y)) {
       throw "Second argument is not an Array";
    }
 

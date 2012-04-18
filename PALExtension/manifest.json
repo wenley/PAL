@@ -8,6 +8,7 @@
             "pythonLib.js",
             "structures.js",
             "globalVariables.js",
+            "localStore.js",
             "pageConnection.js",
             "detectDiff.js"
         ]

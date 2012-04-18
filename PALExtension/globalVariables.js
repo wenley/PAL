@@ -22,3 +22,13 @@ function getClass(s) {
         return c;
     return "[object " + s.constructor.name + "]";
 }
+
+//  Is s a string?
+function isString(s) {
+   return getClass(s) == "[object String]";
+}
+
+//  Is a an array?
+function isArray(a) {
+   return getClass(a) == "[object Array]";
+}

@@ -26,15 +26,15 @@ function copyFromBackground() {
 function write(obj) {
     if (obj == undefined)
         return;
-    var c = getClass(obj);
-    if (c == "[object String]") {
+    if (isString(obj)) {
         document.body.innerHTML += obj + "<br/>";
     }
-    else if (c == "[object Array]") {
+    else if (isArray(obj)) {
         for (var i = 0; obj[i] != undefined; i++) {
             write(obj[i]);
         }
     }
+    var c = getClass(obj);
     else if (c == "[object Course]") {
         for (var entry in obj) {
             write(obj[entry]);
