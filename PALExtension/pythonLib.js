@@ -5,7 +5,7 @@ function strip(s) {
         throw "Argument not defined";
     }
     
-    if (!isString(s))
+    if (!isString(s)) {
         throw "Argument not a string";
     }
     

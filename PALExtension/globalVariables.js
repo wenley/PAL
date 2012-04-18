@@ -23,6 +23,11 @@ function getClass(s) {
     return "[object " + s.constructor.name + "]";
 }
 
+//  Is s a user-defined Object or generic?
+function isObject(s) {
+   return Object.prototype.toString.apply(s) == "[object Object]";
+}
+
 //  Is s a string?
 function isString(s) {
    return getClass(s) == "[object String]";

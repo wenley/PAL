@@ -6,53 +6,65 @@
 //  to take generic objects and translate them to strings
 //  as well as to extract classes from strings.
 
-//  Forms string to store obj in local storage
-function toLocalString(obj) {
-   //  String fields
-   if (isString(obj))
-      return obj;
-
-   var a = new Array();
-   for (var entry in obj) {
-      a[a.length] = entry + ":" + toLocalString(obj[entry]);
-   }
-   return obj.constructor.name + "(" + a.join() + ")";
-}
-
-//  Reconstructs an object from its toLocalString
-function fromLocalString(s) {
-   //  Raw strings
-   if (s.indexOf("(") == -1)
-      return s;
-
-   var type = s.match(/^[^\(]*/g)[0];
-   var obj = eval("new " + type + "();");
-   var i = s.indexOf("(") + 1;
-   var parenCount = 0;
-   var start = i;
-   while (i < s.length) {
-      var c = s.charAt(i);
-      if (c == '(')
-         parenCount++;
-      else if (c == ')')
-         parenCount--;
-      else if (parenCount > 0)
-         ;
-      else if (c == ',') {
-         var pair = s.slice(start, i);
-         var colon = pair.indexOf(':');
-         var key = pair.slice(0, colon);
-         var value = pair.slice(colon + 1);
-         obj[key] = fromLocalString(value);
-
-         //  Reset counters
-         i++;
-         start = i;
+//  Prepares an object for stringification by adding fields
+//  specifying the object's type
+function prepareForStringify(obj) {
+   if (isObject(obj)) {
+      obj.type = obj.constructor.name;
+      for (var entry in obj) {
+         prepareForStringify(obj[entry]);
       }
-      i++;
+   }
+   else if (isArray(obj)) {
+      for (var entry in obj) {
+         prepareForStringify(obj[entry]);
+      }
    }
    return obj;
 }
+
+//  Returns the prototype according to the type
+function findPrototype(type) {
+   if (type == "Instructor")
+      return Instructor.prototype;
+   else if (type == "Folder")
+      return Folder.prototype;
+   else if (type == "Document")
+      return Document.prototype;
+   else if (type == "Assignment")
+      return Assignment.prototype;
+   else if (type == "Course")
+      return Course.prototype;
+   else if (type == "Announcement")
+      return Announcement.prototype;
+   else if (type == "Material")
+      return Material.prototype;
+   else if (type == "Tool")
+      return Tool.prototype;
+   else {
+      console.log("Unrecognized type: " + type);
+      return Object.prototype;
+   }
+}
+
+//  Restores prototypes after JSON parsing
+function restorePrototype(obj) {
+   if (obj.type != undefined) {
+      obj.__proto__ = findPrototype(obj.type);
+      delete obj.type;
+      for (var entry in obj) {
+         restorePrototype(obj[entry]);
+      }
+   }
+   else if (isArray(obj)) {
+      for (var entry in obj) {
+         restorePrototype(obj[entry]);
+      }
+   }
+   return obj;
+}
+
+//  Does proper casts
 
 var testObj = new Instructor();
 testObj.name = "BWK";
@@ -61,8 +73,18 @@ testObj.office = "COS 342";
 testObj.hours = "Variable";
 testObj.phone = "333";
 testObj.notes = "None";
-var s = toLocalString(testObj);
+var a = new Array();
+a[0] = "abc";
+a[1] = "def";
+a[2] = new Document();
+a[2].name = "Empty doc";
+a[2].link = "http://www.google.com";
+testObj.array = a;
+//  var s = toLocalString(testObj);
+
+var s = JSON.stringify(prepareForStringify(testObj));
 console.log(s);
-var newObj = fromLocalString(s);
+//var newObj = fromLocalString(s);
+var newObj = restorePrototype(JSON.parse(s));
 console.log(newObj);
 console.log(testObj);
