@@ -26,6 +26,7 @@ function copyFromBackground() {
 function write(obj) {
     if (obj == undefined)
         return;
+    var c = getClass(obj);
     if (isString(obj)) {
         document.body.innerHTML += obj + "<br/>";
     }
@@ -34,7 +35,6 @@ function write(obj) {
             write(obj[i]);
         }
     }
-    var c = getClass(obj);
     else if (c == "[object Course]") {
         for (var entry in obj) {
             write(obj[entry]);
