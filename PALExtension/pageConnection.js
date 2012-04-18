@@ -9,7 +9,7 @@
 //  Forms proper response to a pushCourses request
 function pushRequest(req) {
     if (req.note == undefined || req.note != "push") {
-       console.log("Misrouted message. push when " + req.note);
+       console.warn("Misrouted message. push when " + req.note);
        return {error: "Misrouted message."};
     }
     if (req.courses == undefined)
@@ -23,7 +23,7 @@ function pushRequest(req) {
 //  Forms proper response to a pushCourse request
 function pushSingleRequest(msg) {
     if (msg.note == undefined || msg.note != "pushSingle") {
-        console.log("Misrouted message. pushSingle when " + msg.note);
+        console.warn("Misrouted message. pushSingle when " + msg.note);
         return {error: "Misrouted message."};
     }
     if (msg.course == undefined)
@@ -44,8 +44,8 @@ function pushSingleRequest(msg) {
              i++;
        }
        if (i > expected) {
-          console.log("i is too big...");
-          console.log("i: " + i + " vs. expected: " + expected);
+          console.warn("i is too big...");
+          console.warn("i: " + i + " vs. expected: " + expected);
        } //  Fall through...
        if (i >= expected) {
           console.log("! Notify the foreground that miner almost done");
@@ -62,7 +62,7 @@ function pushSingleRequest(msg) {
 function pullRequest(req) {
     //  Error checking
     if (req.note == undefined || req.note != "pull") {
-        console.log("Misrouted message");
+        console.warn("Misrouted message. pull when " + req.note);
         return {error: "Misrouted message"};
     }
     
@@ -110,13 +110,12 @@ function handleMessage(msg) {
             response = clickHandler(msg);
             break;
         case "expected":
-            console.log("Will count number of courses");
             expected = msg.expected;
             console.log("expected: " + expected);
             reseponse = null;
             break;
         default:
-            console.log("Unknown note from foreground: " + msg.note);
+            console.warn("Unknown note from foreground: " + msg.note);
             response = null;
             break;
     }

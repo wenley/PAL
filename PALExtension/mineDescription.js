@@ -12,7 +12,7 @@ function mineCourseDescription(sidebarLink, course) {
             if (line == null) {
                 line = req.responseText.match(/window.location(.*);/g);
                 if (line == null) {
-                    console.log(req.responseText);
+                    console.warn(course.key + ": No registrar link found");
                     return;
                 }
             }

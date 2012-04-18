@@ -19,7 +19,6 @@ function copyFromBackground() {
     console.log("Attempt copy over...");
     var q = chrome.extension.getURL("template.html");
     console.log(q);
-    
 }
 
 

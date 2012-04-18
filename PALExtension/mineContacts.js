@@ -64,7 +64,7 @@ function extractContacts(textArea, course) {
       //  Get details of an Instructor
       divStart = textArea.indexOf("<div class=\"details", hEnd);
       if (divStart == -1) {
-         console.log("continuing...");
+         console.warn("continuing...");
          continue;
       }
       divEnd = textArea.indexOf("</div>", divStart);
@@ -107,7 +107,7 @@ function extractContacts(textArea, course) {
             k = k + 1;
          }
          else
-            console.log(course.key + ": Unknown Instructor detail: " + s);
+            console.warn(course.key + ": Unknown Instructor detail: " + s);
       }
       course.contacts[course.contacts.length] = i;
       j = j + 1;
@@ -120,7 +120,6 @@ function extractContacts(textArea, course) {
 //  Takes course content document's sidebar link for Contacts
 //  Gets array of instructor's names and detailed information
 function mineContacts(sidebarLink, course) {
-   //console.log("In contacts");
    var req = new XMLHttpRequest();
    req.open("GET", sidebarLink, true);
    req.onreadystatechange = function () {
@@ -132,7 +131,7 @@ function mineContacts(sidebarLink, course) {
 
          var listEnd = req.responseText.indexOf("ul>", listStart);
          if (listEnd == -1) {
-            console.log("Couldn't find end");
+            console.warn(course.key + ": Couldn't find end");
             return;
          }
 
@@ -140,11 +139,12 @@ function mineContacts(sidebarLink, course) {
          extractContacts(list, course);
       }
       else if (req.readyState == 4) {
-         console.log("Error in loading page");
-         console.log("Ready state: ");
-         console.log(req.readyState);
-         console.log("HTTP Status");
-         console.log(req.status);
+         console.warn(course.key);
+         console.warn("Error in loading page");
+         console.warn("Ready state: ");
+         console.warn(req.readyState);
+         console.warn("HTTP Status");
+         console.warn(req.status);
       }
    }
    req.send();

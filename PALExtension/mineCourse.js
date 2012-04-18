@@ -6,34 +6,35 @@ function mineSidebar(a, course) {
    for (i = 0; i < a.length; i++) {
       switch(a[i][0]) {
          case "Announcements":
-            console.log("Mining Announcements");
+            console.log(course.key + ": Mining Announcements...");
             mineAnnouncements(a[i][1], course);
             break;
          case "Syllabus":
-            console.log("Mining Syllabus");
+            console.log(course.key + ": Mining Syllabus...");
             mineDocuments(a[i][1], course, "Syllabus");
             break;
          case "Course Description":
-            console.log("Mining Course Description");
+            console.log(course.key + ": Mining Course Description...");
             mineCourseDescription(a[i][1], course);
             break;
          case "Course Materials":
-            console.log("Mining Course Materials");
+            console.log(course.key + ": Mining Course Materials...");
             mineDocuments(a[i][1], course, "Course Materials");
             break;
          case "Assignments":
-            console.log("Will mine Assignments later");
+            console.log(course.key + ": Mining Assignments...");
             mineDocuments(a[i][1], course, "Assignments");
             break;
          case "Contacts":
+            console.log(course.key + ": Mining Contacts...");
             mineContacts(a[i][1], course);
             break;
          case "Tools":
-            console.log("Starting Tools mining...");
+            console.log(course.key + ": Mining Tools...");
             mineTools(a[i][1], course);
             break;
          default:
-            console.log("Unhandled: Will mine " + a[i][0] + " later");
+            console.log(course.key + ": Unhandled: Will mine " + a[i][0] + " later");
             break;
       }
    }
@@ -56,8 +57,6 @@ function mineCourseFromLink(contentPageLink, course) {
 //  Given a course content document, mines the course page and
 //  puts content into course
 function mineCourse(contentText, course) {
-   //console.log('In class');
-
    //  Find sidebar list elements
    var listElems = contentText.match(/<li[^>]*paletteItem[^>]*>\s*<a[^>]*>\s*<span[^>]*>.*<\/span>\s*<\/a>\s*<\/li>/g);
    var a = new Array();
