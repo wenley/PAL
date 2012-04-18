@@ -8,6 +8,7 @@
             "pythonLib.js",
             "structures.js",
             "globalVariables.js",
+            "prototypes.js",
             "localStore.js",
             "pageConnection.js",
             "detectDiff.js"
@@ -23,6 +24,8 @@
             "pythonLib.js",
             "structures.js",
             "globalVariables.js",
+            "prototypes.js",
+            "localStore.js",
             "mineGeneric.js",
             "mineAnnouncements.js",
             "mineContacts.js",

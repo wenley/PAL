@@ -6,34 +6,6 @@
 //  using requests.
 
 
-//  Saves current state to local storage
-function saveToLocal() {
-   localStorage.OldCourses = OldCourses;
-   localStorage.NewCourses = NewCourses;
-   console.log(localStorage);
-}
-
-//  Loads previous state from local storage
-function openFromLocal() {
-   OldCourses = localStorage.OldCourses;
-   if (OldCourses == undefined)
-      OldCourses = null;
-   console.log(localStorage.OldCourses);
-   console.log(OldCourses);
-   
-   NewCourses = localStorage.NewCourses;
-   if (NewCourses == undefined)
-      NewCourses = null;
-   console.log(localStorage.NewCourses);
-   console.log(NewCourses);
-}
-
-//  Clears the local storage state to allow for fresh mining
-function clearLocal() {
-   delete localStorage.OldCourses;
-   delete localStorage.NewCourses;
-}
-
 //  Forms proper response to a pushCourses request
 function pushRequest(req) {
     if (req.note == undefined || req.note != "push") {
@@ -43,7 +15,7 @@ function pushRequest(req) {
     if (req.courses == undefined)
         return {error: "No courses pushed"};
     
-    NewCourses = req.courses;
+    NewCourses = restorePrototype(req.courses);
     var checkDiff = setTimeout(runDiff, 1);
     return {note: "good"};
 }
@@ -61,18 +33,16 @@ function pushSingleRequest(msg) {
        NewCourses = {};
     if (NewCourses[msg.course.semester] == undefined)
        NewCourses[msg.course.semester] = {};
-    NewCourses[msg.course.semester][msg.course.key] = msg.course;
+    NewCourses[msg.course.semester][msg.course.key] = restorePrototype(msg.course);
     var checkDiff = setTimeout(runDiff, 1000);
 
     //  Check to see if NewCourses has been fully populated as expected
     if (expected != 0) {
-       console.log("Checking expected...");
        var i = 0;
        for (var entry in NewCourses) {
           for (var subentry in NewCourses[entry])
              i++;
        }
-       console.log("i: " + i);
        if (i > expected) {
           console.log("i is too big...");
           console.log("i: " + i + " vs. expected: " + expected);
@@ -80,23 +50,12 @@ function pushSingleRequest(msg) {
        if (i >= expected) {
           console.log("! Notify the foreground that miner almost done");
           console.log(NewCourses);
-          var time = setTimeout(testLocal, 15000);
+          var time = setTimeout(testLocal, 10000);
           expected = 0;
        }
     }
 
     return {note: "good"};
-}
-
-//  Dummy function
-function testLocal() {
-   console.log("Testing local storage capabilities");
-   console.log(NewCourses);
-   saveToLocal();
-   NewCourses = null;
-   console.log(NewCourses);
-   openFromLocal();
-   console.log(NewCourses);
 }
 
 //  Forms proper response to a pullCourses request

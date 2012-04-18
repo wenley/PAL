@@ -6,18 +6,21 @@ function Instructor() {
    this.hours = "";
    this.phone = "";
    this.notes = "";
+   this.type = this.constructor.name;
 }
 
 //  A folder in a sidebar elements
 function Folder() {
    this.name = "";
    this.link = "";
+   this.type = this.constructor.name;
 }
 
 //  Document for Assignmets
 function Document() {
    this.name = "";
    this.link = "";
+   this.type = this.constructor.name;
 }
 
 //  Container for information on an assignment
@@ -27,6 +30,7 @@ function Assignment() {
    this.fileLinks = new Array();
    // Some assignments consist of text directly on the Assignments link
    this.memo = "";
+   this.type = this.constructor.name;
 }
 
 //  Huge container for information on a particular Course
@@ -63,6 +67,8 @@ function Course() {
 
     //  Array of other sidebar element links
     this.otherLinks = new Array();
+
+   this.type = this.constructor.name;
 }
 
 //  An Announcement of a Course on Blackboard
@@ -72,6 +78,7 @@ function Announcement() {
     this.heading = "";
     this.date = "";
     this.message = "";
+    this.type = this.constructor.name;
 }
 
 // A Course Material
@@ -79,10 +86,12 @@ function Material() {
    this.name = "";
    this.fileLinks = "";
    this.memo = "";
+   this.type = this.constructor.name;
 }
 
 //  A Tool from the Tools section of a Course
 function Tool() {
    this.name = "";
    this.link = "";
+   this.type = this.constructor.name;
 }

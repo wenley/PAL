@@ -27,7 +27,7 @@ function handleMessage(msg) {
          response = null;
          break;
       case "courses": //  Indicates response to pull
-         Courses = msg.courses;
+         Courses = restorePrototype(msg.courses);
          if (Courses == null) {
             //  Note un-readiness of state
             mineBB();
