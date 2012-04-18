@@ -84,44 +84,34 @@ function extractContacts(textArea, course) {
       }
 
       for (var k = 0; k < cleanDetails.length; k++) {
-         switch (cleanDetails[k]) {
-            case "Email":
-               if (!isInstructorField(cleanDetails[k+1])) {
-                  i.email = cleanDetails[k + 1];
-                  k = k + 1;
-               }
-               break;
-            case "Office Location":
-               if (!isInstructorField(cleanDetails[k+1])) {
-                  i.office = cleanDetails[k + 1];
-                  k = k + 1;
-               }
-               break;
-            case "Office Hours":
-               if (!isInstructorField(cleanDetails[k+1])) {
-                  i.hours = cleanDetails[k + 1];
-                  k = k + 1;
-               }
-               break;
-            case "Work Phone":
-               if (!isInstructorField(cleanDetails[k+1])) {
-                  i.phone = cleanDetails[k + 1];
-                  k = k + 1;
-               }
-               break;
-            case "Notes":
-               if (!isInstructorField(cleanDetails[k+1])) {
-                  i.notes = cleanDetails[k + 1];
-                  k = k + 1;
-               }
-            default:
-               console.log(course.key + ": Unknown Instructor detail: " + cleanDetails[k]);
-               break;
+         s = cleanDetails[k];
+         next = cleanDetails[k + 1];
+         if (s == "Email" && !isInstructorField(next)) {
+            i.email = cleanDetails[k + 1];
+            k = k + 1;
          }
+         else if (s == "Office Location" && !isInstructorField(next)) {
+            i.office = cleanDetails[k + 1];
+            k = k + 1;
+         }
+         else if (s ==  "Office Hours" && !isInstructorField(next)) {
+            i.hours = cleanDetails[k + 1];
+            k = k + 1;
+         }
+         else if (s == "Work Phone" && !isInstructorField(next)) {
+            i.phone = cleanDetails[k + 1];
+            k = k + 1;
+         }
+         else if (s == "Notes" && !isInstructorField(next)) {
+            i.notes = cleanDetails[k + 1];
+            k = k + 1;
+         }
+         else
+            console.log(course.key + ": Unknown Instructor detail: " + s);
       }
       course.contacts[course.contacts.length] = i;
       j = j + 1;
-   } while (j < 10);    //  Make true
+   } while (j < 100);    //  !!! Make true
 
    pushCourse(course);
 }
