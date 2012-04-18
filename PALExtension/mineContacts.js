@@ -1,6 +1,22 @@
 //  Author: Wenley Tong
 //  Written: 8 April 2012
 
+//  Checks to see if field is a desired type
+function isInstructorField(s) {
+   if (s == "Email")
+      return true;
+   else if (s == "Office Location")
+      return true;
+   else if (s == "Office Hours")
+      return true;
+   else if (s == "Work Phone")
+      return true;
+   else if (s == "Notes")
+      return true;
+   else
+      return false;
+}
+
 function extractContacts(textArea, course) {
    //  Alternate h3 and div class details tags
    var hStart = 0;
@@ -70,23 +86,36 @@ function extractContacts(textArea, course) {
       for (var k = 0; k < cleanDetails.length; k++) {
          switch (cleanDetails[k]) {
             case "Email":
-               i.email = cleanDetails[k + 1];
-               k = k + 1;
+               if (!isInstructorField(cleanDetails[k+1])) {
+                  i.email = cleanDetails[k + 1];
+                  k = k + 1;
+               }
                break;
             case "Office Location":
-               i.office = cleanDetails[k + 1];
-               k = k + 1;
+               if (!isInstructorField(cleanDetails[k+1])) {
+                  i.office = cleanDetails[k + 1];
+                  k = k + 1;
+               }
                break;
             case "Office Hours":
-               i.hours = cleanDetails[k + 1];
-               k = k + 1;
+               if (!isInstructorField(cleanDetails[k+1])) {
+                  i.hours = cleanDetails[k + 1];
+                  k = k + 1;
+               }
                break;
             case "Work Phone":
-               i.phone = cleanDetails[k + 1];
-               k = k + 1;
+               if (!isInstructorField(cleanDetails[k+1])) {
+                  i.phone = cleanDetails[k + 1];
+                  k = k + 1;
+               }
                break;
+            case "Notes":
+               if (!isInstructorField(cleanDetails[k+1])) {
+                  i.notes = cleanDetails[k + 1];
+                  k = k + 1;
+               }
             default:
-               console.log("Unknown Instructor detail: " + cleanDetails[k]);
+               console.log(course.key + ": Unknown Instructor detail: " + cleanDetails[k]);
                break;
          }
       }

@@ -41,7 +41,13 @@ function mineDocuments(link, course, type) {
 
                if (type == "Syllabus")
                {
-                  course.syllabusDoc = DocCollection[0];
+                  try {
+                     course.syllabusDoc = DocCollection[0];
+                  }
+                  catch (e) {
+                     console.log("No syllabus.");
+                     course.syllabusDoc = null;
+                  }
                }
 
                break;
