@@ -35,7 +35,15 @@ function handleMessage(msg) {
             console.log("Got old version of courses!");
             console.log(Courses);
             var reMine = setTimeout(mineBB, 300000); //  5 minutes
+            copyFromBackground();
          }
+         response = null;
+         break;
+      case "template":
+         if (msg.template == undefined || msg.template == null)
+            console.warn("Empty template body from background");
+         else
+            clearPage(msg.template);
          response = null;
          break;
       case "update": //  Indicates difference; need to update page
@@ -65,4 +73,9 @@ function pushCourse(c) {
 //  Start attempt to get courses
 function pullCourses() {
    port.postMessage({note: "pull"});
+}
+
+//  Gets template from background
+function copyTemplate() {
+   port.postMessage({note: "template"});
 }

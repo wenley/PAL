@@ -87,6 +87,15 @@ function sendToForeground(msg) {
    }
 }
 
+function templateHandler(msg) {
+   if (msg.note == undefined || msg.note != "template") {
+      console.warn("Misrouted message. template when " + msg.note);
+      return {error: "Misrouted message"};
+   }
+
+   return {note: "template", template: document.body.innerHTML};
+}
+
 var expected = 0; //  Number of courses expected to be mined
 //  Will route requests from content scripts to proper functions
 function handleMessage(msg) {
@@ -108,6 +117,9 @@ function handleMessage(msg) {
             expected = msg.expected;
             console.log("expected: " + expected);
             reseponse = null;
+            break;
+        case "template":
+            response = templateHandler(msg);
             break;
         default:
             console.warn("Unknown note from foreground: " + msg.note);

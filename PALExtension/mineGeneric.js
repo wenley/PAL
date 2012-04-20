@@ -48,11 +48,25 @@ function cleanLink(s) {
    return s.replace(/&/g, "&amp;");
 }
 
+//  Recursively replaces empty fields of objects for ease
+//  of checking population
+function cleanObj(obj) {
+   if (isString(obj) && obj.length == 0)
+      return null;
+   if (isArray(obj) && obj.length == 0)
+      return null;
+   if (isArray(obj) || isObject(obj)) {
+      for (var entry in obj)
+         obj[entry] = cleanObj(obj[entry]);
+   }
+   return obj;
+}
+
 //  Replaces empty arrays with nulls for ease of checking population
 function cleanCourse(course) {
    for (var key in course) {
-      if (course.key.length == 0)
-         course.key = null;
+      if (course[key].length == 0)
+         course[key] = null;
    }
    return course;
 }

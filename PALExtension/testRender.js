@@ -16,11 +16,47 @@ function clearPage(s) {
 
 //  Gets template
 function copyFromBackground() {
-    console.log("Attempt copy over...");
-    var q = chrome.extension.getURL("template.html");
-    console.log(q);
+   copyTemplate();
 }
 
+//  Displays content in notTabBar div of template according to
+//  the specifications in msg
+function display(msg) {
+   if (msg.semester == undefined || msg.semester == null)
+      console.warn("Semester not defined.");
+   var sem = Courses[msg.semester];
+   if (sem == undefined)
+      console.warn("Invalid semester: " + msg.semester);
+   
+   if (msg.courseKey == undefined || msg.courseKey == null)
+      console.warn("CourseKey not defined.");
+   var course = sem[msg.courseKey];
+   if (course == undefined)
+      console.log("Invalid courseKey: " + msg.courseKey);
+   //  sem[msg.courseKey] = cleanObj(course);
+   //  course = sem[msg.courseKey];
+
+   if (msg.section == undefined || msg.section == null)
+      console.warn("Section not defined.");
+   var obj = course[msg.section];
+   if (obj == undefined)
+      console.log("Invalid section: " + msg.section);
+   if (obj == null)
+      return; //  Empty field of the course
+
+   if (isArray(obj)) {
+      for (var entry in obj) {
+         var newEl = obj[entry].toHTML();
+         var center = document.body.getElementById("notTabBar");
+         center.appendChild(newEl);
+      }
+   }
+   else if (isObject(obj)) {
+      var center = document.body.getElementById("notTabBar");
+      center.appendChild(obj.toHTML());
+   }
+      
+}
 
 function write(obj) {
     if (obj == undefined)
@@ -55,4 +91,4 @@ function writeCourses() {
 
 //  Start chain of either render or mine
 pullCourses();
-var qwer = setTimeout(copyFromBackground, 1);
+
