@@ -20,45 +20,45 @@ function Instructor() {
 
       var el = document.createElement("div");
 
-      if (this.name != "")
+      if (name != "")
       {
          var iName = document.createElement("h3");
-         iName.innerText = this.name;
+         iName.innerText = name;
          el.appendChild(iName);
       }
 
-      if (this.email != "")
+      if (email != "")
       {
          var iEmail = document.createElement("h3");
-         iEmail.innerText = this.email;
+         iEmail.innerText = email;
          el.appendChild(iEmail);
       }
 
-      if (this.office != "")
+      if (office != "")
       {
          var iOffice = document.createElement("h3");
-         iOffice.innerText = this.office;
+         iOffice.innerText = office;
          el.appendChild(iOffice);
       }
 
-      if (this.hours != "")
+      if (hours != "")
       {
          var iHours = document.createElement("h3");
-         iHours.innerText = this.hours;
+         iHours.innerText = hours;
          el.appendChild(iHours);
       }
 
-      if (this.phone != "")
+      if (phone != "")
       {
          var iPhone = document.createElement("h3");
-         iPhone.innerText = this.phone;
+         iPhone.innerText = phone;
          el.appendChild(iPhone);
       }
 
-      if (this.notes != "")
+      if (notes != "")
       {
          var iNotes = document.createElement("h3");
-         iNotes.innerText = this.notes;
+         iNotes.innerText = notes;
          el.appendChild(iNotes);
       }
 
@@ -81,17 +81,17 @@ function Folder() {
 
       var el = document.createElement("div");
 
-      if (this.name != "")
+      if (name != "")
       {
          var iName = document.createElement("h3");
-         iName.innerText = this.name;
+         iName.innerText = name;
          el.appendChild(iName);
       }
 
-      if (this.link != "");
+      if (link != "");
       {
          var iLink = document.createElement("a");
-         iLink.setAttribute("href", this.link);
+         iLink.setAttribute("href", link);
          iLink.innerText = "Link";
          el.appendChild(iLink);
       }
@@ -115,17 +115,17 @@ function Document() {
 
       var el = document.createElement("div");
 
-      if (this.name != "")
+      if (name != "")
       {
          var iName = document.createElement("h3");
-         iName.innerText = this.name;
+         iName.innerText = name;
          el.appendChild(iName);
       }
 
-      if (this.link != "")
+      if (link != "")
       {
          var iLink = document.createElement("a");
-         iLink.setAttribute("href", this.link);
+         iLink.setAttribute("href", link);
          iLink.innerText = "Link";
          el.appendChild(iLink);
       }
@@ -155,36 +155,36 @@ function Assignment() {
 
       var el = document.createElement("div");
 
-      if (this.name != "")
+      if (name != "")
       {
          var iName = document.createElement("h3");
-         iName.innerText = this.name;
+         iName.innerText = name;
          el.appendChild(iName);
       }
 
-      if (this.submissionLink != "")
+      if (submissionLink != "")
       {
          var iSubLink = document.createElement("a");
-         iSubLink.setAttribute("href", this.submissionLink);
+         iSubLink.setAttribute("href", submissionLink);
          iSubLink.innerText = "Submission Link";
          el.appendChild(iSubLink);
       }
 
-      if (this.fileLinks != undefined && fileLinks.length != 0)
+      if (fileLinks != undefined && fileLinks.length != 0)
       {
-         for (i = 0; i < this.fileLinks.length; i++)
+         for (i = 0; i < fileLinks.length; i++)
          {
             var iFileLink = document.createElement("a");
-            iFileLink.setAttribute("href", this.fileLinks[i]);
+            iFileLink.setAttribute("href", fileLinks[i]);
             iFileLink.innerText = "Assignment Link";
             el.appendChile(iFileLink);
          }
       }
 
-      if (this.memo != "")
+      if (memo != "")
       {
          var iMemo = document.createElement("h3");
-         iMemo.innerText = this.memo;
+         iMemo.innerText = memo;
          el.appendChild(iMemo);
       }
 
@@ -251,38 +251,38 @@ function Announcement() {
 
       var el = document.createElement("div");
 
-      if (this.postedBy != "")
+      if (postedBy != "")
       {
          var iPostedBy = document.createElement("h3");
-         iPostedBy.innerText = this.postedBy;
+         iPostedBy.innerText = postedBy;
          el.appendChild(iPostedBy);
       }
 
-      if (this.postedTo != "")
+      if (postedTo != "")
       {
          var iPostedTo = document.createElement("h3");
-         iPostedto.innerText = this.postedTo;
+         iPostedto.innerText = postedTo;
          el.appendChild(iPostedTo);
       }
 
-      if (this.heading != "")
+      if (heading != "")
       {
          var iHeading = document.createElement("h3");
-         iHeading.innerText = this.heading;
+         iHeading.innerText = heading;
          el.appendChild(iHeading);
       }
 
-      if (this.date != "")
+      if (date != "")
       {
          var iDate = document.createElement("h3");
-         iDate.innerText = this.date;
+         iDate.innerText = date;
          el.appendChild(iDate);
       }
 
-      if (this.message != "")
+      if (message != "")
       {
          var iMessage = document.createElement("h3");
-         iMessage.innerText = this.message;
+         iMessage.innerText = message;
          el.appendChild(iMessage);
       }
 
@@ -307,25 +307,25 @@ function Material() {
 
       var el = document.createElement("div");
 
-      if (this.name != "")
+      if (name != "")
       {
          var iName = document.createElement("h3");
-         iName.innerText = this.name;
+         iName.innerText = name;
          el.appendChild(iName);
       }
 
-      if (this.fileLinks != "")
+      if (fileLinks != "")
       {
          var iFileLink = document.createElement("a");
-         iFileLink.setAttribute("href", this.fileLinks);
+         iFileLink.setAttribute("href", fileLinks);
          iFileLink.innerText = "Assignment Link";
          el.appendChile(iFileLink);
       }
 
-      if (this.memo != "")
+      if (memo != "")
       {
          var iMemo = document.createElement("h3");
-         iMemo.innerText = this.memo;
+         iMemo.innerText = memo;
          el.appendChild(iMemo);
       }
 
@@ -350,17 +350,17 @@ function Tool() {
 
       var el = document.createElement("div");
 
-      if (this.name != "")
+      if (name != "")
       {
          var iName = document.createElement("h3");
-         iName.innerText = this.name;
+         iName.innerText = name;
          el.appendChild(iName);
       }
 
-      if (this.link != "")
+      if (link != "")
       {
          var iLink = document.createElement("a");
-         iLink.setAttribute("href", this.link);
+         iLink.setAttribute("href", link);
          iLink.innerText = "Link";
          el.appendChild(iLink);
       }
