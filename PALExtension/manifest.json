@@ -10,7 +10,6 @@
     {
         "matches": ["https://blackboard.princeton.edu/*"],
     	"exclude_matches": ["https://blackboard.princeton.edu/", "https://blackboard.princeton.edu/webapps/login"],
-        "css": ["PAL.css"],
     	"js": [
             "contentConnection.js",
             "pythonLib.js",
