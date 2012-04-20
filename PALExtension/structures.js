@@ -7,6 +7,24 @@ function Instructor() {
    this.phone = "";
    this.notes = "";
    this.type = this.constructor.name;
+
+   this.toHTML = function () {
+      //  Make unused entries null
+      cleanObj(arguments.callee.caller);
+
+      console.log(email);
+      console.log(office);
+      console.log(hours);
+      console.log(phone);
+      console.log(notes);
+
+      var el = document.createElement("div");
+      var iName = document.createElement("h3");
+      iName.innerText = this.name;
+      el.appendChild(iName);
+
+      return el;
+   }
 }
 
 //  A folder in a sidebar elements
