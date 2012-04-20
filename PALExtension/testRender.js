@@ -16,11 +16,8 @@ function clearPage(s) {
 
 //  Gets template
 function copyFromBackground() {
-    console.log("Attempt copy over...");
-    var q = chrome.extension.getURL("template.html");
-    console.log(q);
+   copyTemplate();
 }
-
 
 function write(obj) {
     if (obj == undefined)
@@ -55,4 +52,4 @@ function writeCourses() {
 
 //  Start chain of either render or mine
 pullCourses();
-var qwer = setTimeout(copyFromBackground, 1);
+
