@@ -87,11 +87,6 @@ function sendToForeground(msg) {
    }
 }
 
-//  Forms message to foreground reporting a change
-function reportChange() {
-   console.log("reportChange not yet implemented");
-}
-
 var expected = 0; //  Number of courses expected to be mined
 //  Will route requests from content scripts to proper functions
 function handleMessage(msg) {

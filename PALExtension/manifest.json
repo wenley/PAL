@@ -9,9 +9,9 @@
             "structures.js",
             "globalVariables.js",
             "prototypes.js",
+            "detectDiff.js",
             "localStore.js",
-            "pageConnection.js",
-            "detectDiff.js"
+            "pageConnection.js"
         ]
     },
     "content_scripts": [

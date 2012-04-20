@@ -15,12 +15,18 @@ function saveToLocal() {
 //  Loads previous state from local storage
 function openFromLocal() {
    OldCourses = restorePrototype(JSON.parse(localStorage.OldCourses));
-   if (OldCourses == undefined)
+   if (OldCourses == undefined) {
+      console.log("Load OldCourses from local failed");
       OldCourses = null;
+   }
+   console.log(OldCourses);
    
    NewCourses = restorePrototype(JSON.parse(localStorage.NewCourses));
-   if (NewCourses == undefined)
+   if (NewCourses == undefined) {
+      console.log("Load NewCourses from local failed");
       NewCourses = null;
+   }
+   console.log(NewCourses);
 }
 
 //  Restore from last session

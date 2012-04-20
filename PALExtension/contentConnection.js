@@ -17,7 +17,7 @@ port.onMessage.addListener(function(msg) {
 //  Will route requests from background to proper functions
 function handleMessage(msg) {
    if (msg.error != undefined) {
-      console.log("ERROR: " + msg.error);
+      console.warn("ERROR: " + msg.error);
       return null;
    }
 
@@ -29,11 +29,9 @@ function handleMessage(msg) {
       case "courses": //  Indicates response to pull
          Courses = restorePrototype(msg.courses);
          if (Courses == null) {
-            //  Note un-readiness of state
             mineBB();
          }
          else {
-            //  Note readiness of state
             console.log("Got old version of courses!");
             console.log(Courses);
             var reMine = setTimeout(mineBB, 300000); //  5 minutes

@@ -83,27 +83,31 @@ function extractContacts(textArea, course) {
          }
       }
 
+      console.log(cleanDetails);
       for (var k = 0; k < cleanDetails.length; k++) {
          s = cleanDetails[k];
          next = cleanDetails[k + 1];
+         if (next == undefined) {
+            next = "";
+         }
          if (s == "Email" && !isInstructorField(next)) {
-            i.email = cleanDetails[k + 1];
+            i.email = next;
             k = k + 1;
          }
          else if (s == "Office Location" && !isInstructorField(next)) {
-            i.office = cleanDetails[k + 1];
+            i.office = next;
             k = k + 1;
          }
          else if (s ==  "Office Hours" && !isInstructorField(next)) {
-            i.hours = cleanDetails[k + 1];
+            i.hours = next;
             k = k + 1;
          }
          else if (s == "Work Phone" && !isInstructorField(next)) {
-            i.phone = cleanDetails[k + 1];
+            i.phone = next;
             k = k + 1;
          }
          else if (s == "Notes" && !isInstructorField(next)) {
-            i.notes = cleanDetails[k + 1];
+            i.notes = next;
             k = k + 1;
          }
          else
