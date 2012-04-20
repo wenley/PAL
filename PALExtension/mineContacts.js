@@ -83,7 +83,6 @@ function extractContacts(textArea, course) {
          }
       }
 
-      console.log(cleanDetails);
       for (var k = 0; k < cleanDetails.length; k++) {
          s = cleanDetails[k];
          next = cleanDetails[k + 1];
