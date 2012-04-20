@@ -8,6 +8,11 @@
 
 //  Saves current state to local storage
 function saveToLocal() {
+   if (localStorage.OldCourses != undefined)
+      delete localStorage.OldCourses;
+   if (localStorage.NewCourses != undefined)
+      delete localStorage.NewCourses;
+
    localStorage.OldCourses = JSON.stringify(prepareForStringify(OldCourses));
    localStorage.NewCourses = JSON.stringify(prepareForStringify(NewCourses));
 }
