@@ -54,11 +54,6 @@ function mineDocuments(link, course, type) {
             }
             end = text.indexOf("<\/h3>", start);
             var DocCollection = new Array();           
-            current = text.slice(start, end);
-            current = current.concat("<\/h3>");
-            miniDoc = parser.parseFromString(current, "text/xml");
-            if (miniDoc.getElementsByTagName("span").length > 1)
-               Name = miniDoc.getElementsByTagName("span")[1].textContent;
             var defstat = false;
             if (miniDoc.getElementsByTagName("a").length > 0)
             {
@@ -66,7 +61,7 @@ function mineDocuments(link, course, type) {
                defstat = true;
             }
             check = text.indexOf("<h3>", end);
-            attempt = text.indexOf("<div class=\"details", end);
+
             if (attempt != -1 && (attempt < check || check == -1) && defstat == false)
             {
                start = attempt;

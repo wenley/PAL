@@ -4,21 +4,287 @@
 
 //  Transforms Structures into HTML elements
 
-//  Constructs the <a> for a Document
-function makeDocument(doc) {
-   if (getClass(doc) != "[object Document]")
-      throw "Improper usage: makeDocument with " + getClass(doc);
+function AssignmentToHTML(asgn) {
+   if (getClass(asgn) != "[object Assignment]")
+      throw "Improper usage: AssignmentToHTML with " + getClass(asgn);
 
-   var a = document.createElement("a");
-   a.setAttribute("href", doc.link);
-   a.innerText = doc.name;
-   return a;
+   cleanObj(asgn);
+
+   console.log(asgn.name);
+   console.log(asgn.submissionLink);
+   console.log(asgn.fileLinks);
+   console.log(asgn.memo);
+
+   var el = document.createElement("div");
+
+   if (asgn.name != null)
+   {
+      var iName = document.createElement("h3");
+      iName.innerText = asgn.name;
+      el.appendChild(iName);
+   }
+
+   if (asgn.submissionLink != null)
+   {
+      var iSubLink = document.createElement("a");
+      iSubLink.setAttribute("href", asgn.submissionLink);
+      iSubLink.innerText = "Submission Link";
+      el.appendChild(iSubLink);
+   }
+
+   if (asgn.fileLinks != null)
+   {
+      for (i = 0; i < asgn.fileLinks.length; i++)
+      {
+         var iFileLink = document.createElement("a");
+         iFileLink.setAttribute("href", asgn.fileLinks[i]);
+         iFileLink.innerText = "Assignment Link";
+         el.appendChile(iFileLink);
+      }
+   }
+
+   if (asgn.memo != null)
+   {
+      var iMemo = document.createElement("h3");
+      iMemo.innerText = asgn.memo;
+      el.appendChild(iMemo);
+   }
+
+   return el;
 }
 
-//  Constructs the <???> for an Assignment
-function makeAssignment(assgn) {
-   if (getClass(doc) != "[object Assignment]")
-      throw "Improper usage: makeAssignment with " + getClass(assgn);
+function InstructorToHTML(ins) {
+   if (getClass(ins) != "[object Instructor]")
+      throw "Improper usage: InstructorToHTML with " + getClass(ins);
 
-   var span = document.createElement("span");
+   cleanObj(ins);
+
+   console.log(ins.email);
+   console.log(ins.office);
+   console.log(ins.hours);
+   console.log(ins.phone);
+   console.log(ins.notes);
+
+   var el = document.createElement("div");
+
+   if (ins.name != null)
+   {
+      var iName = document.createElement("h3");
+      iName.innerText = ins.name;
+      el.appendChild(iName);
+   }
+
+   if (ins.email != null)
+   {
+      var iEmail = document.createElement("h3");
+      iEmail.innerText = ins.email;
+      el.appendChild(iEmail);
+   }
+
+   if (ins.office != null)
+   {
+      var iOffice = document.createElement("h3");
+      iOffice.innerText = ins.office;
+      el.appendChild(iOffice);
+   }
+
+   if (ins.hours != null)
+   {
+      var iHours = document.createElement("h3");
+      iHours.innerText = ins.hours;
+      el.appendChild(iHours);
+   }
+
+   if (ins.phone != null)
+   {
+      var iPhone = document.createElement("h3");
+      iPhone.innerText = ins.phone;
+      el.appendChild(iPhone);
+   }
+
+   if (ins.notes != null)
+   {
+      var iNotes = document.createElement("h3");
+      iNotes.innerText = ins.notes;
+      el.appendChild(iNotes);
+   }
+
+   return el;
+}
+
+function FolderToHTML(fol) {
+   if (getClass(fol) != "[object Folder]")
+      throw "Improper usage: FolderToHTML with " + getClass(fol);
+
+   cleanObj(fol);
+
+   console.log(fol.name);
+   console.log(fol.link);
+
+   var el = document.createElement("div");
+
+   if (fol.name != null)
+   {
+      var iName = document.createElement("h3");
+      iName.innerText = fol.name;
+      el.appendChild(iName);
+   }
+
+   if (fol.link != null);
+   {
+      var iLink = document.createElement("a");
+      iLink.setAttribute("href", fol.link);
+      iLink.innerText = "Link";
+      el.appendChild(iLink);
+   }
+
+   return el;
+}
+
+function AnnouncementToHTML(anc) {
+   if (getClass(anc) != "[object Announcement]")
+      throw "Improper usage: AnnouncementToHTML with " + getClass(anc);
+
+   cleanObj(anc);
+
+   console.log(anc.postedBy);
+   console.log(anc.postedTo);
+   console.log(anc.heading);
+   console.log(anc.date);
+   console.log(anc.message);
+
+   var el = document.createElement("div");
+
+   if (anc.postedBy != null)
+   {
+      var iPostedBy = document.createElement("h3");
+      iPostedBy.innerText = anc.postedBy;
+      el.appendChild(iPostedBy);
+   }
+
+   if (anc.postedTo != null)
+   {
+      var iPostedTo = document.createElement("h3");
+      iPostedto.innerText = anc.postedTo;
+      el.appendChild(iPostedTo);
+   }
+
+   if (anc.heading != null)
+   {
+      var iHeading = document.createElement("h3");
+      iHeading.innerText = anc.heading;
+      el.appendChild(iHeading);
+   }
+
+   if (anc.date != null)
+   {
+      var iDate = document.createElement("h3");
+      iDate.innerText = anc.date;
+      el.appendChild(iDate);
+   }
+
+   if (anc.message != null)
+   {
+      var iMessage = document.createElement("h3");
+      iMessage.innerText = anc.message;
+      el.appendChild(iMessage);
+   }
+
+   return el;
+}
+
+function MaterialToHTML(mat) {
+   if (getClass(mat) != "[object Material]")
+      throw "Improper usage: MaterialToHTML with " + getClass(mat);
+
+   cleanObj(mat);
+
+   console.log(mat.name);
+   console.log(mat.fileLinks);
+   console.log(mat.memo);
+
+   var el = document.createElement("div");
+
+   if (mat.name != null)
+   {
+      var iName = document.createElement("h3");
+      iName.innerText = mat.name;
+      el.appendChild(iName);
+   }
+
+   if (mat.fileLinks != null)
+   {
+      for (i = 0; i < mat.fileLinks.length; i++)
+      {
+         var iFileLink = document.createElement("a");
+         iFileLink.setAttribute("href", mat.fileLinks[i]);
+         iFileLink.innerText = "Assignment Link";
+         el.appendChile(iFileLink);
+      }
+   }
+
+   if (mat.memo != null)
+   {
+      var iMemo = document.createElement("h3");
+      iMemo.innerText = mat.memo;
+      el.appendChild(iMemo);
+   }
+
+   return el;
+}
+
+function ToolToHTML(tool) {
+   if (getClass(tool) != "[object Tool]")
+      throw "Improper usage: ToolToHTML with " + getClass(tool);
+
+   cleanObj(tool);
+
+   console.log(tool.name);
+   console.log(tool.link);
+
+   var el = document.createElement("div");
+
+   if (tool.name != null)
+   {
+      var iName = document.createElement("h3");
+      iName.innerText = tool.name;
+      el.appendChild(iName);
+   }
+
+   if (tool.link != null)
+   {
+      var iLink = document.createElement("a");
+      iLink.setAttribute("href", tool.link);
+      iLink.innerText = "Link";
+      el.appendChild(iLink);
+   }
+   return el;
+}
+
+function DocumentToHTML(doc) {
+   if (getClass(doc) != "[object Document]")
+      throw "Improper usage: DocumentToHTML with " + getClass(doc);
+
+   cleanObj(doc);
+
+   console.log(doc.name);
+   console.log(doc.link);
+
+   var el = document.createElement("div");
+
+   if (doc.name != null)
+   {
+      var iName = document.createElement("h3");
+      iName.innerText = doc.name;
+      el.appendChild(iName);
+   }
+
+   if (doc.link != null)
+   {
+      var iLink = document.createElement("a");
+      iLink.setAttribute("href", doc.link);
+      iLink.innerText = "Link";
+      el.appendChild(iLink);
+   }
+   return el;
 }
