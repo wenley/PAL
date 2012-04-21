@@ -11,7 +11,7 @@ function mineSidebar(a, course) {
             break;
          case "Syllabus":
             console.log(course.key + ": Mining Syllabus...");
-            mineDocuments(a[i][1], course, "Syllabus");
+            mineSyllabus(a[i][1], course);
             break;
          case "Course Description":
             console.log(course.key + ": Mining Course Description...");

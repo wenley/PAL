@@ -36,12 +36,13 @@ function handleMessage(msg) {
             console.log(Courses);
             var reMine = setTimeout(mineBB, 300000); //  5 minutes
             copyFromBackground();
+            console.log(Courses.S2012.PHY106.syllabusDoc.toHTML);
          }
          response = null;
          break;
       case "template":
          if (msg.template == undefined || msg.template == null)
-            console.warn("Empty template body from background");
+            console.warn("Empty txemplate body from background");
          else
             clearPage(msg.template);
          response = null;
@@ -61,8 +62,8 @@ function handleMessage(msg) {
 
 //  Stores the compiled history of courses to the background
 function pushCourses() {
-    console.log("Attempt to push courses to background...");
-    port.postMessage({note: "push", courses: Courses});
+   console.log("Attempt to push courses to background...");
+   port.postMessage({note: "push", courses: Courses});
 }
 
 //  Updates a single course in background
