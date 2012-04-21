@@ -36,7 +36,7 @@ function handleMessage(msg) {
             console.log(Courses);
             var reMine = setTimeout(mineBB, 300000); //  5 minutes
             copyFromBackground();
-            console.log(Courses.S2012.PHY106.syllabusDoc.toHTML);
+            console.log(Courses.S2011.FRS168.syllabusDoc);
          }
          response = null;
          break;

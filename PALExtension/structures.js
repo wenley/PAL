@@ -9,13 +9,12 @@ function Instructor() {
    this.type = this.constructor.name;
 }
 
-//  A folder in a sidebar elements
+//  A folder used by Blackboard
 function Folder() {
    this.name = "";
    this.link = "";
    this.type = this.constructor.name;
 }
-
 
 //  Container for information on an assignment
 function Assignment() {

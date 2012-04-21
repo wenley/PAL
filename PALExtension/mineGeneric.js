@@ -70,3 +70,11 @@ function cleanCourse(course) {
    }
    return course;
 }
+
+//  Prepends all links with https://blackboard.princeton.edu
+//  if they don't already have it.
+function fixLink(s) {
+   if (s.substr(0, 19) != "https://blackboard.")
+      s =  bbDomain + s;
+   return s;
+}
