@@ -9,7 +9,8 @@
     "content_scripts": [
     {
         "matches": ["https://blackboard.princeton.edu/*"],
-    	"exclude_matches": ["https://blackboard.princeton.edu/", "https://blackboard.princeton.edu/webapps/login"],
+    	"exclude_matches": ["https://blackboard.princeton.edu/", "https://blackboard.princeton.edu/webapps/login", 
+"https://blackboard.princeton.edu/bbcswebdav/"],
         "css": ["PAL.css"], 
     	"js": [
             "contentConnection.js",
