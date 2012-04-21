@@ -42,7 +42,7 @@ function Course() {
    this.announcements = null;
 
    //  Syllabus Document Object
-   this.syllabusLink = null;
+   this.syllabusDoc = null;
 
    //  Link to registrar's page for the course
    this.descriptionLink = null;
