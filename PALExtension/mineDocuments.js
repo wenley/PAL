@@ -42,7 +42,7 @@ function mineDocuments(link, course, type) {
             //  Get link inside <h3> if it exists
             var h3link;
             if (miniDoc.getElementsByTagName("a").length > 0)
-               h3link = miniDoc.getElementsByTagName("a")[0];
+               h3link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
 
             //  Get stuff inside of <div class="details...> if it exists
             var docLinks = new Array();
