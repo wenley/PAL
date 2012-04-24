@@ -1,7 +1,6 @@
 //  Author: Wenley Tong
 //  Written: 8 April 2012
-
-//  - - - - - General Functions - - - - -
+//  miner.js
 
 //  Takes an array of [Course Title, Course page link] arrays
 //  Does sanity check, then gets the texts of all course pages
@@ -9,6 +8,7 @@ function getCourseChain(a) {
    //  Funky way of getting all the pages
     function nextRequest() {
         if (this.readyState == 4 && this.status == 200) {
+            //  Makes the new Course
             var name = a[this.i][0];
             var semester = name.match(/(F|S)\d{4}/g)[0];
             var c = new Course();
@@ -49,9 +49,6 @@ function getCourseChain(a) {
             //  called in the context of req2
             link = "https://blackboard.princeton.edu" + a[this.i][1];
             this.open("GET", link, true);
-            this.onreadstatechange = function () {
-                nextRequest.call(this);
-            }
             this.send();
         }
     }
@@ -69,6 +66,9 @@ function getCourseChain(a) {
     req.send();
 }
 
+
+//  Debugging function. Only calls mining on a single course passed as a name
+//  and a link in argument a
 function testSingleCourse(a) {
     var req = new XMLHttpRequest();
     req.open("GET", a[1], true);
@@ -100,7 +100,7 @@ function testSingleCourse(a) {
 //  EVERYTHING out of Blackboard
 function mineBB() {
     if (Courses != null) {
-       console.log("Will remine from existing links");
+       mineFromLinks();
     }
     else { try {
        console.log("Mining from scratch...");
@@ -134,4 +134,53 @@ function mineBB() {
        }
     }
     var reMine = setTimeout(mineBB, 300000); //  5 minutes later
+}
+
+
+//  Remines courses from existing links
+function mineFromLinks() {
+   if (Courses == null) {
+      console.warn("Improper call to mineFromLinks. Called when Courses is null.");
+      return;
+   }
+
+   //  Build an array with course objects and their respective content page links
+   var info = new Array();
+   for (var semester in Courses) {
+      for (var courseKey in Courses[semester]) {
+         var course = Courses[semester][courseKey];
+         var a = new Array();
+         a[0] = course
+         a[1] = course.contentLink;
+         info[info.length] = a;
+      }
+   }
+
+   //  Sends another thread to go do remining
+   function nextRemine() {
+      if (this.readyState == 4 && this.status == 200) {
+         //  repopulate course
+         getContentDoc(a[this.i][1], mineCourse, a[this.i][0]);
+
+         //  Check to see if need to do more
+         this.i = this.i + 1;
+         if (this.i >= info.length) {
+            console.log("Stopping remining process...");
+            return;
+         }
+         
+         //  Get next page
+         this.open("GET", bbDomain + a[this.i][1], true);
+         this.send();
+      }
+   }
+
+   //  Get all courses sequentially
+   var req = new XMLHttpRequest();
+   req.i = 0;
+   req.open("GET", bbDomain + a[req.i][1], true);
+   req.onreadystatechange = function () {
+      nextRemine.call(req); //  Enable using req's i
+   }
+   req.send();
 }
