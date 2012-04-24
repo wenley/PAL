@@ -4,6 +4,29 @@
 
 //  Transforms Structures into HTML elements
 
+function ToHTML(obj) {
+   c = getClass(obj);
+
+   switch (c) {
+      case "[object Assignment]":
+         return AssignmentToHTML(obj);
+      case "[object Instructor]":
+         return InstructorToHTML(obj);
+      case "[object Folder]":
+         return FolderToHTML(obj);
+      case "[object Announcement]":
+         return AnnouncementToHTML(obj);
+      case "[object Material]":
+         return MaterialToHTML(obj);
+      case "[object Tool]":
+         return ToolToHTML(obj);
+      default:
+         console.warn("Unrecognized type: " c);
+         break;
+   }
+   return null;
+}
+
 function AssignmentToHTML(asgn) {
    if (getClass(asgn) != "[object Assignment]")
       throw "Improper usage: AssignmentToHTML with " + getClass(asgn);

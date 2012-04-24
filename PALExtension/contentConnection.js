@@ -6,7 +6,6 @@
 //  using requests
 
 var port = chrome.extension.connect({name: "Content to Backround"});
-port.postMessage({note: "Hello!"});
 port.onMessage.addListener(function(msg) {
       var response = handleMessage(msg);
       if (response != null)
