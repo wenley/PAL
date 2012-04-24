@@ -44,6 +44,7 @@ function handleMessage(msg) {
             console.warn("Empty txemplate body from background");
          else
             clearPage(msg.template);
+         populate();
          response = null;
          break;
       case "update": //  Indicates difference; need to update page

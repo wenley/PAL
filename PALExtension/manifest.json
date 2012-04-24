@@ -27,7 +27,8 @@
             "mineCourse.js",
             "miner.js",
             "testRender.js",
-            "mineSyllabus.js"
+            "mineSyllabus.js",
+            "newPopulate.js"
         ]
       }
    ],
