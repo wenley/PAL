@@ -38,7 +38,15 @@ function mineSyllabus(link, course) {
             else current = current.concat("<\/div>");
             current = current.replace(/<img[^>]*>/g,"");
             miniDoc = parser.parseFromString(current, "text/xml");
-            link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
+            if (miniDoc.getElementsByTagName("a").length > 0)
+            {
+               link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
+            }
+            else
+            {
+               course.syllabusDoc = null;
+               return;
+            }
          }
 
          var doc = new Document();
