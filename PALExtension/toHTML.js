@@ -1,6 +1,6 @@
-//  Author: Wenley Tong
+//  Author: Masha Okounkova
 //  Written: 14 April 2012
-//  strucsToHTML.js
+//  toHTML.js
 
 //  Transforms Structures into HTML elements
 
