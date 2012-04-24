@@ -23,7 +23,36 @@ function populateFromTab(semester, courseKey, attribute) {
         return;
     }
     
+    var space = document.getElementById("notTabBar");
+    space.innerHTML = "";
+
     if (attribute == "announcements") {
        for (var entry in attr) 
-      
+          space.appendChild(ToHTML(attr[entry]));
+    }
+    else if (attribute == "courseMaterials") {
+       for (var entry in attr)
+          space.appendChild(ToHTML(attr[entry]));
+    }
+    else if (attribute == "syllabusDoc") {
+       console.log("Syllabus not working right now...");
+    }
+    else if (attribute == "assignments") {
+       for (var entry in attr)
+          space.appendChild(ToHTML(attr[entry]));
+    }
+    else if (attribute == "contacts") {
+       for (var entry in attr)
+          space.appendChild(ToHTML(attr[entry]));
+    }
+    else if (attribute == "tools") {
+       for (var entry in attr)
+          space.appendChild(ToHTML(attr[entry]));
+    }
+    else if (attribute == "otherLinks") {
+       console.log("otherLinks not currently handled...");
+    }
+    else {
+       console.warn("Unrecognized attribute: " + attribute);
+    }
 }
