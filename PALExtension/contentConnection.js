@@ -6,7 +6,6 @@
 //  using requests
 
 var port = chrome.extension.connect({name: "Content to Backround"});
-port.postMessage({note: "Hello!"});
 port.onMessage.addListener(function(msg) {
       var response = handleMessage(msg);
       if (response != null)
@@ -45,6 +44,7 @@ function handleMessage(msg) {
             console.warn("Empty txemplate body from background");
          else
             clearPage(msg.template);
+         populate();
          response = null;
          break;
       case "update": //  Indicates difference; need to update page
