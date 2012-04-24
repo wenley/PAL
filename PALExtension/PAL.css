@@ -81,6 +81,30 @@ a:hover {
 a:active {
     color:#FF6600;
     text-decoration:none;
+}
+
+div#xButton {
+    top:0px;
+    right:0px;
+    text-align:right;
+a.button {
+     font-size:10px;
+     color:#fff;
+     text-decoration:none;
+     display:block;
+     width:10px;
+     height:10px;
+     padding:0px;
+     border:1px solid #EE8D07;
+     -moz-border-radius:5px;
+     -webkit-border-radius:5px;
+     -o-border-radius:5px;
+     border-radius:5px;
+}
+a.button:hover {
+     color:#fff;
+     border-color:#FFFFFF;
+}
 } 
 
 ul.sideBarSemesters {
