@@ -1,12 +1,29 @@
 // Author: Prerna Ramachandra
 // Written: 20 April 2012
-// populate.js
+// newPopulate.js
 
-// Populates template.html 
+// Injects script for expanding semesters into original javascript page
+// Code adapted from stackoverflow.com, injecting javascript in a page
+function injectScript(scriptURL) {
+   var script = document.createElement('script');
+   script.setAttribute("type", "text/javascript");
+   script.setAttribute("src", scriptURL);
+   document.head.appendChild(script);
+}
+
+// Populates template.html
 function populate() {
-   for(var entry in courses) {
-      <li> <div> courses.semester <ul> </li>
-         if(course.semester.clicked == ture) {
-            expandSemester(courses.semester);
-            for(var entry in semester) {
-               <li> <div> course.name <ul> </li>
+      var ul = document.body.getElementsByClassName("sideBarSemesters")[0];
+      console.log(ul);
+      for(var entry in Courses) {
+         console.log(Courses[entry]);
+         var li = document.createElement("li");
+         var iLink = document.createElement("a");
+
+         iLink.setAttribute("href", "javascript:expandSemester('"+entry+"')");
+         iLink.innerText = entry;
+         li.appendChild(iLink);
+         ul.appendChild(li);
+         injectScript(chrome.extension.getURL("expandSemesters.js"));
+      }
+}
