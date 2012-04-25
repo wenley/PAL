@@ -29,7 +29,8 @@
             "populateFromTab.js",
             "testRender.js",
             "mineSyllabus.js",
-            "newPopulate.js"
+            "populate.js",
+            "expandSemesters.js"
         ]
       }
    ],
