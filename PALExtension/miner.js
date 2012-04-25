@@ -1,7 +1,6 @@
 //  Author: Wenley Tong
 //  Written: 8 April 2012
-
-//  - - - - - General Functions - - - - -
+//  miner.js
 
 //  Takes an array of [Course Title, Course page link] arrays
 //  Does sanity check, then gets the texts of all course pages
@@ -9,12 +8,12 @@ function getCourseChain(a) {
    //  Funky way of getting all the pages
     function nextRequest() {
         if (this.readyState == 4 && this.status == 200) {
+            //  Makes the new Course
             var name = a[this.i][0];
             var semester = name.match(/(F|S)\d{4}/g)[0];
             var c = new Course();
             c.title = name;
             c.semester = semester;
-            c.contentLink = a[this.i][1];
             var short = name.substr(0, 6);
             c.key = short;
             if (Courses == null)
@@ -29,12 +28,13 @@ function getCourseChain(a) {
             //  Slice chops off src="
             
             //  Form link to desired page
-            var link = "https://blackboard.princeton.edu";
+            var link = bbDomain;
             if (contentFrameSrc.substr(0, 5) == "https")
                 link = contentFrameSrc;
             else
                 link += contentFrameSrc;
             
+            c.contentLink = link;
             getContentDoc(link, mineCourse, Courses[c.semester][c.key]);
             
             //  Check to see if need to do more
@@ -49,9 +49,6 @@ function getCourseChain(a) {
             //  called in the context of req2
             link = "https://blackboard.princeton.edu" + a[this.i][1];
             this.open("GET", link, true);
-            this.onreadstatechange = function () {
-                nextRequest.call(this);
-            }
             this.send();
         }
     }
@@ -69,6 +66,9 @@ function getCourseChain(a) {
     req.send();
 }
 
+
+//  Debugging function. Only calls mining on a single course passed as a name
+//  and a link in argument a
 function testSingleCourse(a) {
     var req = new XMLHttpRequest();
     req.open("GET", a[1], true);
@@ -100,7 +100,7 @@ function testSingleCourse(a) {
 //  EVERYTHING out of Blackboard
 function mineBB() {
     if (Courses != null) {
-       console.log("Will remine from existing links");
+       mineFromLinks();
     }
     else { try {
        console.log("Mining from scratch...");
@@ -128,10 +128,35 @@ function mineBB() {
        port.postMessage({note: "expected", expected: classesAndLinks.length});
        getCourseChain(classesAndLinks);
     } catch (e) {
-          console.log(e);
        var tryAgain = setTimeout(mineBB, 1000); //  1 second later
        return;
        }
     }
     var reMine = setTimeout(mineBB, 300000); //  5 minutes later
+}
+
+
+//  Remines courses from existing links
+function mineFromLinks() {
+   if (Courses == null) {
+      console.warn("Improper call to mineFromLinks. Called when Courses is null.");
+      return;
+   }
+
+   console.log("Remining from links...");
+
+   //  Build an array with course objects and their respective content page links
+   var info = new Array();
+   var NewCourses = new Array();
+   for (var semester in Courses) {
+      for (var courseKey in Courses[semester]) {
+         var course = Courses[semester][courseKey];
+         var c = new Course();
+         c.title = course.title;
+         c.key = course.key;
+         c.contentLink = course.contentLink;
+         getContentDoc(course.contentLink, mineCourse, c);
+         NewCourses[NewCourses.length] = c;
+      }
+   }
 }
