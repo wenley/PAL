@@ -13,6 +13,20 @@ function removeTab(semester, name, tab) {
    var currentTab = document.getElementsByName(tab)[0];
    currentTab.parentNode.removeChild(currentTab);
    currentCourse.removedTabs.push(tab);
+
+   var i = currentCourse.tabOrder[tab];
+   var length = currentCourse.tabOrder["length"];
+   for (i; i < length; i++)
+   {
+      var tempCourse1 = currentCourse.tabOrder[i];
+      var tempCourse2 = currentCourse.tabOrder[i + 1];
+      currentCourse.tabOrder[tempCourse1] = tempCourse2;
+      currentCourse.tabOrder[i] = currentCourse.tabOrder[i + 1];
+   }
+   // The missing quotes are necessary in this case! 
+   // We actually want index length!
+   currentCourse.tabOrder[length] = undefined;
+   currentCourse.tabOrder["length"] = length - 1; 
    console.log("Removed " + tab + " from " + currentCourse); 
 }
 

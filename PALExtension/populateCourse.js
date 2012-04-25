@@ -8,7 +8,7 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    var mainEl = document.createElement("th");
    mainEl.setAttribute("class", "tabTable");
    mainEl.setAttribute("name", attribute);
- 
+
    // Create the remove button
    var buttonDiv = document.createElement("div");
    buttonDiv.setAttribute("id", "xButton");
@@ -16,14 +16,14 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    buttonLink.setAttribute("class", "button");
    buttonLink.innerText = "X";
    buttonLink.setAttribute("href", "javascript:removeTab('" + semester + "','" +
-                         name + "','" + attribute + "')");
+                           name + "','" + attribute + "')");
    buttonDiv.appendChild(buttonLink);
    mainEl.appendChild(buttonDiv);
- 
-   // Set the linl
+
+   // Set the link
    var mainLink = document.createElement("a");
    mainLink.setAttribute("href", "javascript:populateFromTab('" + semester + "','" +
-                     name + "','" + attribute + "')");
+                         name + "','" + attribute + "')");
    mainLink.innerText = tagText;
    mainEl.appendChild(mainLink);
 
@@ -41,70 +41,115 @@ function populateCourse(semester, name) {
    var currentCourse = Courses[semester][name];
    cleanObj(currenCourse);
 
+   // Sets the intial values for tabOrder for the course, if they have
+   // not yet been set.
+
+   if (currentCourse.tabOrder[0] == undefined)
+   {
+      currentCourse.tabOrder[0] = "announcements";
+      currentCourse.tabOrder["announcements"] = 0;
+      currentCourse.tabOrder[1] = "courseMaterials";
+      currentCourse.tabOrder["courseMaterials"] = 1;
+      currentCourse.tabOrder[2] = "assignments";
+      currentCourse.tabOrder["assignments"] = 2;
+      currentCourse.tabOrder[3] = "syllabusDoc";
+      currentCourse.tabOrder["syllabusDoc"] = 3;
+      currentCourse.tabOrder[4] = "descriptionLink";
+      currentCourse.tabOrder["descriptionLink"] = 4;
+      currentCourse.tabOrder[5] = "contacts";
+      currentCourse.tabOrder["contacts"] = 5;
+      currentCourse.tabOrder[6] = "tools";
+      currentCourse.tabOrder["tools"] = 6;
+
+      currentCourse.tabOrder["length"] = 7;
+   }
+
    var currentTable = document.getElementById("courseTabTable");
    currentTable = currentTable.getElementsByTagName("tbody")[0];
    currentTable = currentTable.getElementsByTagName("tr")[0];
 
-   // Make the Announcements tab
-   if (currentCourse.announcements != null)
-   {
-      if (!isRemoved(semester, name, "announcements"))
-      {
-         createTab(semester, name, currentTable, "announcements", "Announcements");
-      }
-   }
+   var length = currentCourse.tabOrder["length"];
 
-   // Make the Syllabus tab
-   if (currentCourse.syllabusDoc != null)
+   for (var i = 0; i < length; i++)
    {
-      if (!isRemoved(semester, name, "syllabusDoc"))
+      switch(currentCourse.tabOrder[i])
       {
-         createTab(semester, name, currentTable, "syllabusDoc", "Syllabus");
-      }
-   }
+         case "announcements":
+            // Make the Announcements tab
+            if (currentCourse.announcements != null)
+            {
+               if (!isRemoved(semester, name, "announcements"))
+               {
+                  createTab(semester, name, currentTable, "announcements", "Announcements");
+               }
+            }
+            break;
 
-   // Make the Description link
-   if (currentCourse.descriptionLink != null)
-   {
-      if (!isRemoved(semester, name, "descriptionLink"))
-      {
-         createTab(semester, name, currentTable, "descriptionLink", "Course Description");
-      }
-   }
+         case "syllabusDoc":
+            // Make the Syllabus tab
+            if (currentCourse.syllabusDoc != null)
+            {
+               if (!isRemoved(semester, name, "syllabusDoc"))
+               {
+                  createTab(semester, name, currentTable, "syllabusDoc", "Syllabus");
+               }
+            }
+            break;
 
-   // Make the Course Materials link
-   if (currentCourse.courseMaterials != null)
-   {
-      if (!isRemoved(semester, name, "courseMaterials"))
-      {
-         createTab(semester, name, currentTable, "courseMaterials", "Course Materials");
-      }
-   }
- 
-   // Make the Assignments link
-   if (currentCourse.assignments != null)
-   {
-      if (!isRemoved(semester, name, "assignments"))
-      {
-         createTab(semester, name, currentTable, "assignments", "Assignments");
-      }
-   }
+         case "descriptionLink":
+            // Make the Description link
+            if (currentCourse.descriptionLink != null)
+            {
+               if (!isRemoved(semester, name, "descriptionLink"))
+               {
+                  createTab(semester, name, currentTable, "descriptionLink", "Course Description");
+               }
+            }
+            break;
 
-   // Make the Contacts link
-   if (currentCourse.contacts != null)
-   {
-      if (!isRemoved(semester, name, "contacts"))
-      {
-         createTab(semester, name, currentTable, "contacts", "Contacts");
-      }
-   }
+         case "courseMaterials":
+            // Make the Course Materials link
+            if (currentCourse.courseMaterials != null)
+            {
+               if (!isRemoved(semester, name, "courseMaterials"))
+               {
+                  createTab(semester, name, currentTable, "courseMaterials", "Course Materials");
+               }
+            }
+            break;
 
-   // Make the Tools link
-   if (currentCourse.tools != null)
-   {
-      if (!isRemoved(semester, name, "tools"))
-      {
-         createTab(semester, name, currentTable, "tools", "Tools");
+         case "assignments":
+            // Make the Assignments link
+            if (currentCourse.assignments != null)
+            {
+               if (!isRemoved(semester, name, "assignments"))
+               {
+                  createTab(semester, name, currentTable, "assignments", "Assignments");
+               }
+            }
+            break;
+
+         case "contacts":
+            // Make the Contacts link
+            if (currentCourse.contacts != null)
+            {
+               if (!isRemoved(semester, name, "contacts"))
+               {
+                  createTab(semester, name, currentTable, "contacts", "Contacts");
+               }
+            }
+            break;
+
+         case "tools":
+            // Make the Tools link
+            if (currentCourse.tools != null)
+            {
+               if (!isRemoved(semester, name, "tools"))
+               {
+                  createTab(semester, name, currentTable, "tools", "Tools");
+               }
+            }
+            break;
       }
    }
 }
