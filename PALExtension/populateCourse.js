@@ -15,7 +15,8 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    var buttonLink = document.createElement("a");
    buttonLink.setAttribute("class", "button");
    buttonLink.innerText = "X";
-   buttonLink.setAttribute("href", "javascript:removeTab('" + semester + "','" +
+   buttonLink.addEventListener("click", function() { removeTab(this); }, false);
+//   buttonLink.setAttribute("href", "javascript:removeTab('" + semester + "','" +
                            name + "','" + attribute + "')");
    buttonDiv.appendChild(buttonLink);
    mainEl.appendChild(buttonDiv);
