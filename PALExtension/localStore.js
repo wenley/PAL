@@ -42,14 +42,3 @@ function clearLocal() {
    delete localStorage.OldCourses;
    delete localStorage.NewCourses;
 }
-
-//  Dummy function
-function testLocal() {
-   console.log("Testing local storage capabilities");
-   console.log(NewCourses);
-   saveToLocal();
-   NewCourses = null;
-   console.log(NewCourses);
-   openFromLocal();
-   console.log(NewCourses);
-}
