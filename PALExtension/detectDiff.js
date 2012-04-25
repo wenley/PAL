@@ -47,20 +47,32 @@ function diffObj(one, two) {
     }
 }
 
+//  Checks for differences between two semesters
+function diffSem(newS, oldS) {
+   for (var courseKey in newS) {
+      var newC = newS[courseKey];
+      var oldC = oldS[courseKey];
+      if (oldC == undefined) {
+         console.log("New Course!");
+         continue;
+      }
+      diffCourse(newC, oldC);
+   }
+}
+
 //  Checks for differences between OldCourses and NewCourses
 function runDiff() {
    //  !!! Remove to actually run diff
    console.log("Not diffing right now");
    return;
 
-   for (var i = 0; NewCourses[i] != undefined; i++) {
-      var newC = NewCourses[i];
-      var oldC = OldCourses[i];
-      if (oldC == undefined)
-         console.log("New Course!");
-      if (newC == undefined)
-         console.log("Course deleted?");
-
-      diffObj(oldC, newC);
+   for (var semester in NewCourses) {
+      var newS = NewCourses[semester];
+      var oldS = OldCourses[semester];
+      if (oldS == undefined) {
+         console.log("New Semester!");
+         continue;
+      }
+      diffSem(newS, oldS);
    }
 }
