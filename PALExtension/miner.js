@@ -146,13 +146,12 @@ function mineFromLinks() {
 
    //  Build an array with course objects and their respective content page links
    var info = new Array();
+   var NewCourses = new Array();
    for (var semester in Courses) {
       for (var courseKey in Courses[semester]) {
          var course = Courses[semester][courseKey];
-         var a = new Array();
-         a[0] = course
-         a[1] = course.contentLink;
-         info[info.length] = a;
+         info[info.length] = course.contentLink;
+         NewCourses[NewCourses.length] = new Course();
       }
    }
 
@@ -160,7 +159,7 @@ function mineFromLinks() {
    function nextRemine() {
       if (this.readyState == 4 && this.status == 200) {
          //  repopulate course
-         getContentDoc(a[this.i][1], mineCourse, a[this.i][0]);
+         getContentDoc(info[this.i], mineCourse, NewCourses[this.i]);
 
          //  Check to see if need to do more
          this.i = this.i + 1;

@@ -47,13 +47,36 @@ function diffObj(one, two) {
     }
 }
 
+//  Checks for differences between two fields of a course
+function diffAttr(newAttr, oldAttr) {
+   var newString = JSON.stringify(newAttr);
+   var oldString = JSON.stringify(oldAttr);
+   
+   if (newString != oldString) {
+      console.log("Difference found");
+   }
+}
+
+//  Checks for differences between two courses
+function diffCourse(newC, oldC) {
+   for (var attr in newC) {
+      var newAttr = newC[attr];
+      var oldAttr = oldC[attr];
+      if (oldAttr == undefined) {
+         console.log(newC.title + ": New attr: " + attr);
+         continue;
+      }
+      diffAttr(newAttr, oldAttr);
+   }
+}
+
 //  Checks for differences between two semesters
 function diffSem(newS, oldS) {
    for (var courseKey in newS) {
       var newC = newS[courseKey];
       var oldC = oldS[courseKey];
       if (oldC == undefined) {
-         console.log("New Course!");
+         console.log("New Course: " + courseKey);
          continue;
       }
       diffCourse(newC, oldC);
@@ -70,7 +93,7 @@ function runDiff() {
       var newS = NewCourses[semester];
       var oldS = OldCourses[semester];
       if (oldS == undefined) {
-         console.log("New Semester!");
+         console.log("New Semester: " + semester);
          continue;
       }
       diffSem(newS, oldS);
