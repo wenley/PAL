@@ -27,7 +27,7 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    mainLink.innerText = tagText;
    mainEl.appendChild(mainLink);
 
-   currrentTable.appendChild(mainEl);
+   currentTable.appendChild(mainEl);
 }
 
 function populateCourse(semester, name) {
