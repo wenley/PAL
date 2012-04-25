@@ -4,11 +4,11 @@ function removeTab(semester, name, tab) {
 
    if (Courses[semester] == null || Courses[semester] == undefined)
       throw "Improper usage: invalid semester name";
-   if (Courses[semester][name] == null || Courses[semester][name] == null)
+   if (Courses[semester][name] == null || Courses[semester][name] == undefined)
       throw "Improper usage: invalid course name";
 
    var currentCourse = Courses[semester][name];
-   cleanObj(currenCourse);
+   cleanObj(currentCourse);
 
    var currentTab = document.getElementsByName(tab)[0];
    currentTab.parentNode.removeChild(currentTab);

@@ -123,3 +123,32 @@ ul.sideBarCourses {
     padding:10px;
     list-style-type:none;
 }
+
+#removeMenu,
+#removeMenu {
+    list-style: none;
+}
+#removeMenu {
+    float: left;
+}
+#removeMenu > li {
+    float: left;
+}
+#removeMenu li a {
+display: block;
+    height: 2em;
+    line-height: 2em;
+    padding: 0 1.5em;
+    text-decoration: none;
+}
+#removeMenu ul {
+    position: absolute;
+    display: none;
+z-index: 900;
+}
+#removeMenu ul li a {
+    width: 80px;
+}
+#removeMenu li:hover ul {
+    display: block;
+}
