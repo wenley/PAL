@@ -8,6 +8,8 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    var mainEl = document.createElement("th");
    mainEl.setAttribute("class", "tabTable");
    mainEl.setAttribute("name", attribute);
+   mainEl.setAttribute("semester", semester);
+   mainEl.setAttribute("attribute", attribute);
 
    // Create the remove button
    var buttonDiv = document.createElement("div");
@@ -16,22 +18,22 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    buttonLink.setAttribute("class", "button");
    buttonLink.innerText = "X";
    buttonLink.addEventListener("click", function() { removeTab(this); }, false);
-//   buttonLink.setAttribute("href", "javascript:removeTab('" + semester + "','" +
-                           name + "','" + attribute + "')");
    buttonDiv.appendChild(buttonLink);
    mainEl.appendChild(buttonDiv);
 
    // Set the link
    var mainLink = document.createElement("a");
-   mainLink.setAttribute("href", "javascript:populateFromTab('" + semester + "','" +
-                         name + "','" + attribute + "')");
+   mainLink.addEventListener("click", function() { populateFromTab(this); }, false);
    mainLink.innerText = tagText;
    mainEl.appendChild(mainLink);
 
    currentTable.appendChild(mainEl);
 }
 
-function populateCourse(semester, name) {
+//  Fills in the tabs when a course is selected
+function populateCourse(courseEl) {
+   var semester = courseEl.getAttribute("semester");
+   var name = courseEl.innerText;
 
    // This is a course
    if (Courses[semester] == null || Courses[semester] == undefined)
