@@ -1,0 +1,41 @@
+{
+    "name": "My First Extension",
+    "version": "0.1",
+    "manifest_version": 2,
+    "description": "First extension evar",
+    "background": {
+        "page": "template.html"
+    },
+    "content_scripts": [
+    {
+        "matches": ["https://blackboard.princeton.edu/*"],
+    	"exclude_matches": ["https://blackboard.princeton.edu/", "https://blackboard.princeton.edu/webapps/login", 
+"https://blackboard.princeton.edu/bbcswebdav/"],
+        "css": ["PAL.css"], 
+    	"js": [
+            "contentConnection.js",
+            "pythonLib.js",
+            "structures.js",
+            "globalVariables.js",
+            "prototypes.js",
+            "mineGeneric.js",
+            "mineAnnouncements.js",
+            "mineContacts.js",
+            "mineDescription.js",
+            "mineDocuments.js",
+            "mineTools.js",
+            "mineCourse.js",
+            "miner.js",
+            "testRender.js",
+            "mineSyllabus.js",
+            "newPopulate.js",
+            "expandSemesters.js"
+        ]
+      }
+   ],
+   "permissions": [
+        "https://blackboard.princeton.edu/*",
+        "background",
+        "tabs"
+   ]
+}
