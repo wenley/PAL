@@ -10,6 +10,7 @@ var OldCourses = null;
 var NewCourses = null;
 
 //  Compares two objects, one and two. Notes differences between then on console
+//  Not used
 function diffObj(one, two) {
 
     //  Check both real check-able objects
@@ -53,7 +54,9 @@ function diffAttr(newAttr, oldAttr) {
    var oldString = JSON.stringify(oldAttr);
    
    if (newString != oldString) {
-      console.log("Difference found");
+      console.log("Difference found: [New] [Old]");
+      console.log(newAttr);
+      console.log(oldAttr);
    }
 }
 
@@ -62,8 +65,10 @@ function diffCourse(newC, oldC) {
    for (var attr in newC) {
       var newAttr = newC[attr];
       var oldAttr = oldC[attr];
-      if (oldAttr == undefined) {
-         console.log(newC.title + ": New attr: " + attr);
+      if (oldAttr == undefined && newAttr != null) {
+         console.log(newC.key + ": New attr: " + attr);
+         console.log(newAttr);
+         console.log(oldC);
          continue;
       }
       diffAttr(newAttr, oldAttr);
@@ -85,10 +90,11 @@ function diffSem(newS, oldS) {
 
 //  Checks for differences between OldCourses and NewCourses
 function runDiff() {
-   //  !!! Remove to actually run diff
-   console.log("Not diffing right now");
-   return;
-
+   if (OldCourses == null) {
+      console.log("Everything is new");
+      OldCourses = NewCourses;
+      return;
+   }
    for (var semester in NewCourses) {
       var newS = NewCourses[semester];
       var oldS = OldCourses[semester];
@@ -98,4 +104,5 @@ function runDiff() {
       }
       diffSem(newS, oldS);
    }
+   OldCourses = NewCourses;
 }

@@ -14,7 +14,6 @@ function getCourseChain(a) {
             var c = new Course();
             c.title = name;
             c.semester = semester;
-            c.contentLink = a[this.i][1];
             var short = name.substr(0, 6);
             c.key = short;
             if (Courses == null)
@@ -29,12 +28,13 @@ function getCourseChain(a) {
             //  Slice chops off src="
             
             //  Form link to desired page
-            var link = "https://blackboard.princeton.edu";
+            var link = bbDomain;
             if (contentFrameSrc.substr(0, 5) == "https")
                 link = contentFrameSrc;
             else
                 link += contentFrameSrc;
             
+            c.contentLink = link;
             getContentDoc(link, mineCourse, Courses[c.semester][c.key]);
             
             //  Check to see if need to do more
@@ -128,7 +128,6 @@ function mineBB() {
        port.postMessage({note: "expected", expected: classesAndLinks.length});
        getCourseChain(classesAndLinks);
     } catch (e) {
-          console.log(e);
        var tryAgain = setTimeout(mineBB, 1000); //  1 second later
        return;
        }
@@ -144,42 +143,20 @@ function mineFromLinks() {
       return;
    }
 
+   console.log("Remining from links...");
+
    //  Build an array with course objects and their respective content page links
    var info = new Array();
    var NewCourses = new Array();
    for (var semester in Courses) {
       for (var courseKey in Courses[semester]) {
          var course = Courses[semester][courseKey];
-         info[info.length] = course.contentLink;
-         NewCourses[NewCourses.length] = new Course();
+         var c = new Course();
+         c.title = course.title;
+         c.key = course.key;
+         c.contentLink = course.contentLink;
+         getContentDoc(course.contentLink, mineCourse, c);
+         NewCourses[NewCourses.length] = c;
       }
    }
-
-   //  Sends another thread to go do remining
-   function nextRemine() {
-      if (this.readyState == 4 && this.status == 200) {
-         //  repopulate course
-         getContentDoc(info[this.i], mineCourse, NewCourses[this.i]);
-
-         //  Check to see if need to do more
-         this.i = this.i + 1;
-         if (this.i >= info.length) {
-            console.log("Stopping remining process...");
-            return;
-         }
-         
-         //  Get next page
-         this.open("GET", bbDomain + a[this.i][1], true);
-         this.send();
-      }
-   }
-
-   //  Get all courses sequentially
-   var req = new XMLHttpRequest();
-   req.i = 0;
-   req.open("GET", bbDomain + a[req.i][1], true);
-   req.onreadystatechange = function () {
-      nextRemine.call(req); //  Enable using req's i
-   }
-   req.send();
 }
