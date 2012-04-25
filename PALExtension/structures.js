@@ -31,6 +31,12 @@ function Course() {
    //  Name of the course
    this.title = null;
 
+   // Preferences for the course, in terms of removed tabs
+   this.removedTabs = new Array();
+
+   // Preferences for the course, in terms of tab order
+   this.tabOrder = new Array();
+
    //  Key under which this course can be found in Courses
    this.key = null;
 
