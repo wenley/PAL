@@ -35,7 +35,7 @@ function Course() {
    this.removedTabs = new Array();
 
    // Preferences for the course, in terms of tab order
-   this.tabOrder = new Array();
+   this.tabOrder = {};
 
    //  Key under which this course can be found in Courses
    this.key = null;
