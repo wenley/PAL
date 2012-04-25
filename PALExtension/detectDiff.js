@@ -10,6 +10,7 @@ var OldCourses = null;
 var NewCourses = null;
 
 //  Compares two objects, one and two. Notes differences between then on console
+//  Not used
 function diffObj(one, two) {
 
     //  Check both real check-able objects
@@ -47,13 +48,40 @@ function diffObj(one, two) {
     }
 }
 
+//  Checks for differences between two fields of a course
+function diffAttr(newAttr, oldAttr) {
+   var newString = JSON.stringify(newAttr);
+   var oldString = JSON.stringify(oldAttr);
+   
+   if (newString != oldString) {
+      console.log("Difference found: [New] [Old]");
+      console.log(newAttr);
+      console.log(oldAttr);
+   }
+}
+
+//  Checks for differences between two courses
+function diffCourse(newC, oldC) {
+   for (var attr in newC) {
+      var newAttr = newC[attr];
+      var oldAttr = oldC[attr];
+      if (oldAttr == undefined && newAttr != null) {
+         console.log(newC.key + ": New attr: " + attr);
+         console.log(newAttr);
+         console.log(oldC);
+         continue;
+      }
+      diffAttr(newAttr, oldAttr);
+   }
+}
+
 //  Checks for differences between two semesters
 function diffSem(newS, oldS) {
    for (var courseKey in newS) {
       var newC = newS[courseKey];
       var oldC = oldS[courseKey];
       if (oldC == undefined) {
-         console.log("New Course!");
+         console.log("New Course: " + courseKey);
          continue;
       }
       diffCourse(newC, oldC);
@@ -62,17 +90,19 @@ function diffSem(newS, oldS) {
 
 //  Checks for differences between OldCourses and NewCourses
 function runDiff() {
-   //  !!! Remove to actually run diff
-   console.log("Not diffing right now");
-   return;
-
+   if (OldCourses == null) {
+      console.log("Everything is new");
+      OldCourses = NewCourses;
+      return;
+   }
    for (var semester in NewCourses) {
       var newS = NewCourses[semester];
       var oldS = OldCourses[semester];
       if (oldS == undefined) {
-         console.log("New Semester!");
+         console.log("New Semester: " + semester);
          continue;
       }
       diffSem(newS, oldS);
    }
+   OldCourses = NewCourses;
 }
