@@ -1,17 +1,22 @@
 // Author: Masha Okounkova
 
-function removeTab(semester, name, tab) {
+//  Removes the tab that contains buttonEl
+function removeTab(buttonEl) {
+   var tabEl = buttonEl.parentElement;
+   var semester = tabEl.getAttribute("semester");
+   var name = tabEl.getAttribute("name");
+   var tab = tabEl.getAttribute("attribute");
 
    if (Courses[semester] == null || Courses[semester] == undefined)
-      throw "Improper usage: invalid semester name";
+      throw "Improper usage: invalid semester name: " + semester;
    if (Courses[semester][name] == null || Courses[semester][name] == null)
-      throw "Improper usage: invalid course name";
+      throw "Improper usage: invalid course name: " + name;
 
    var currentCourse = Courses[semester][name];
-   cleanObj(currenCourse);
+   cleanObj(currentCourse);
 
-   var currentTab = document.getElementsByName(tab)[0];
-   currentTab.parentNode.removeChild(currentTab);
+//   var currentTab = document.getElementsByName(tab)[0];
+   currentTab.parentNode.removeChild(tabEl);
    currentCourse.removedTabs.push(tab);
 
    var i = currentCourse.tabOrder[tab];
@@ -30,8 +35,8 @@ function removeTab(semester, name, tab) {
    console.log("Removed " + tab + " from " + currentCourse); 
 }
 
+//  Is the tab with semester, name, and attribute 'tab' removed?
 function isRemoved(semester, name, tab) {
-
    if (Courses[semester] == null || Courses[semester] == undefined)
       throw "Improper usage: invalid semester name";
    if (Courses[semester][name] == null || Courses[semester][name] == null)

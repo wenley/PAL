@@ -4,7 +4,11 @@
 
 //  Performs population of the page when a tab is clicked
 
-function populateFromTab(semester, courseKey, attribute) {
+function populateFromTab(tabLinkEl) {
+   var tabEl = tabLinkEl.parentElement;
+   var semester = tabEl.getAttribute("semester");
+   var courseKey = tabEl.getAttribute("name");
+   var attribute = tabEl.getAttribute("attribute");
    
     //  Validate inputs; should never be invalid
     var sem = Courses[semester];
