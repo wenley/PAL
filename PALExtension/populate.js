@@ -7,8 +7,6 @@ function populate() {
       var ul = document.body.getElementsByClassName("sideBarSemesters")[0];
       console.log(ul);
 
-      function foo() { expandSemester(this.sem); };
-
       for(var entry in Courses) {
          console.log(Courses[entry]);
          var li = document.createElement("li");
