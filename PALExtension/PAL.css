@@ -152,3 +152,9 @@ z-index: 900;
 #removeMenu li:hover ul {
     display: block;
 }
+
+iframe.tool {
+    width:100%;
+    height:78%;
+    overflow:hidden;
+}

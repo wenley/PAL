@@ -26,11 +26,14 @@
             "mineTools.js",
             "mineCourse.js",
             "miner.js",
+            "populateCourse.js",
+            "removeTab.js",
             "populateFromTab.js",
             "testRender.js",
             "mineSyllabus.js",
             "populate.js",
-            "expandSemesters.js"
+            "expandSemesters.js",
+            "toHTML.js"
         ]
       }
    ],
