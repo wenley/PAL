@@ -159,6 +159,7 @@ function populateCourse(courseEl) {
             break;
       }
    }
+   removedPopup(semester, name);
 }
 
 function removedPopup(semester, name) {
@@ -193,8 +194,8 @@ function removedPopup(semester, name) {
       var attribute = currentCourse.removedTabs[i];
       var subLi = document.createElement("li");
       var link = document.createElement("a");
-      link.setAttribute("href", "javascript:removedPopup('" + semester + "','" + name + "','"
-                        + attribute + "')");
+      link.addEventListener("click", function() { addTab(this); }, false);
+      link.setAttribute("attribute", attribute);
       switch(attribute)
       {
          case "announcements":
@@ -228,26 +229,4 @@ function removedPopup(semester, name) {
    currentTable.appendChild(mainEl);
 }
 
-
-
-function addTab(semester, name) {
-
-   // This is a course
-   if (Courses[semester] == null || Courses[semester] == undefined)
-      throw "Improper usage: invalid semester name";
-   if (Courses[semester][name] == null || Courses[semester][name] == undefined)
-      throw "Improper usage: invalid course name";
-
-   var currentCourse = Courses[semester][name];
-   cleanObj(currentCourse);
-
-   var currentTable = document.getElementById("courseTabTable");
-   currentTable = currentTable.getElementsByTagName("tbody")[0];
-   currentTable = currentTable.getElementsByTagName("tr")[0];
-
-   // Create a popup window for the document with all of the removed courses
-
-
-
-}
 

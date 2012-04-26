@@ -33,7 +33,8 @@
             "mineSyllabus.js",
             "populate.js",
             "expandSemesters.js",
-            "toHTML.js"
+            "toHTML.js";
+            "addTab.js";
         ]
       }
    ],
