@@ -4,7 +4,7 @@
 
 //  Transforms Structures into HTML elements
 
-function ToHTML(obj) {
+function toHTML(obj) {
    c = getClass(obj);
 
    switch (c) {

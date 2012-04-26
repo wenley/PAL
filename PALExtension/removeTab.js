@@ -2,7 +2,7 @@
 
 //  Removes the tab that contains buttonEl
 function removeTab(buttonEl) {
-   var tabEl = buttonEl.parentElement;
+   var tabEl = buttonEl.parentElement.parentElement; //  button --> div --> th
    var semester = tabEl.getAttribute("semester");
    var name = tabEl.getAttribute("name");
    var tab = tabEl.getAttribute("attribute");
@@ -16,8 +16,11 @@ function removeTab(buttonEl) {
    var currentCourse = Courses[semester][name];
    cleanObj(currentCourse);
 
+   var currentTab = tabEl;
 //   var currentTab = document.getElementsByName(tab)[0];
    currentTab.parentNode.removeChild(tabEl);
+   if (currentCourse.removedTabs == undefined)
+      currentCourse.removedTabs = new Array();
    currentCourse.removedTabs.push(tab);
 
    var i = currentCourse.tabOrder[tab];
@@ -33,7 +36,7 @@ function removeTab(buttonEl) {
    // We actually want index length!
    currentCourse.tabOrder[length] = undefined;
    currentCourse.tabOrder["length"] = length - 1; 
-   console.log("Removed " + tab + " from " + currentCourse); 
+   console.log("Removed " + tab + " from " + currentCourse.key); 
 }
 
 //  Is the tab with semester, name, and attribute 'tab' removed?
@@ -44,8 +47,10 @@ function isRemoved(semester, name, tab) {
       throw "Improper usage: invalid course name";
 
    var currentCourse = Courses[semester][name];
-   cleanObj(currenCourse);
+   cleanObj(currentCourse);
    
+   if (currentCourse.removedTabs == undefined)
+      return false;
    var length = currentCourse.removedTabs.length;
    for (var i = 0; i < length; i++)
    {

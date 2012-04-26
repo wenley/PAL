@@ -7,7 +7,7 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    // Create the main element
    var mainEl = document.createElement("th");
    mainEl.setAttribute("class", "tabTable");
-   mainEl.setAttribute("name", attribute);
+   mainEl.setAttribute("name", name);
    mainEl.setAttribute("semester", semester);
    mainEl.setAttribute("attribute", attribute);
 
@@ -47,6 +47,8 @@ function populateCourse(courseEl) {
    // Sets the intial values for tabOrder for the course, if they have
    // not yet been set.
 
+   if (currentCourse.tabOrder == undefined)
+      currentCourse.tabOrder = new Object();
    if (currentCourse.tabOrder[0] == undefined)
    {
       currentCourse.tabOrder[0] = "announcements";
@@ -70,6 +72,8 @@ function populateCourse(courseEl) {
    var currentTable = document.getElementById("courseTabTable");
    currentTable = currentTable.getElementsByTagName("tbody")[0];
    currentTable = currentTable.getElementsByTagName("tr")[0];
+   while (currentTable.children.length > 0)
+      currentTable.removeChild(currentTable.children[0]);
 
    var length = currentCourse.tabOrder["length"];
 
