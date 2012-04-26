@@ -21,7 +21,7 @@ function toHTML(obj) {
       case "[object Tool]":
          return ToolToHTML(obj);
       default:
-         console.warn("Unrecognized type: " c);
+         console.warn("Unrecognized type: " + c);
          break;
    }
    return null;
@@ -266,21 +266,18 @@ function ToolToHTML(tool) {
    console.log(tool.link);
 
    var el = document.createElement("div");
-
-   if (tool.name != null)
-   {
-      var iName = document.createElement("h3");
-      iName.innerText = tool.name;
-      el.appendChild(iName);
-   }
-
+   var iName = document.createElement("h3");
    if (tool.link != null)
    {
       var iLink = document.createElement("a");
       iLink.setAttribute("href", tool.link);
-      iLink.innerText = "Link";
-      el.appendChild(iLink);
+      iLink.innerText = tool.name;
+      iName.appendChild(iLink);
    }
+   else {
+      iName.innerText = tool.name;
+   }
+   el.appendChild(iName);
    return el;
 }
 
