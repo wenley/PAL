@@ -75,6 +75,7 @@ function mineDocuments(link, course, type) {
                var f = new Folder();
                f.name = Name;
                f.link = h3link;
+               mineDocuments(h3link, f, "Folder");
                docs[docs.length] = f;
             }
             else if (imgType == "document") {
@@ -111,6 +112,8 @@ function mineDocuments(link, course, type) {
          }
 
          //  Store away findings
+         if (type == "Folder")
+            course.contents = docs;
          if (type == "Assignments")
             course.assignments = docs;
          if (type == "Course Materials")

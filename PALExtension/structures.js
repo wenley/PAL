@@ -13,6 +13,7 @@ function Instructor() {
 function Folder() {
    this.name = "";
    this.link = "";
+   this.contents = null;
    this.type = this.constructor.name;
 }
 
