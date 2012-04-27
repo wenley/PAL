@@ -28,13 +28,9 @@ function mineAnnouncements (link, course) {
    startinfo = store.indexOf("<div class =\"announcementInfo");
    if (course.key == "CHM207")
       console.log(course.key + ": " + startinfo);
-   if (startinfo == -1)
-      return;
-   while (startInfo != -1) {
+   while(startInfo != -1) {
       var a = new Announcement();
       startInfo = store.indexOf("<div class =\"announcementInfo\">", startInfo);
-      if (startInfo == -1)
-         break;
       endInfo = store.indexOf("</div>", endDetails);
       tempEnd = store.indexOf("Posted to:", startInfo);
       a.postedBy = store.slice(startInfo, tempEnd);
