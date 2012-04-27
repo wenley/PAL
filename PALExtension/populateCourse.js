@@ -218,6 +218,8 @@ function removedPopup(semester, name) {
       for (var i = 0; i < total; i++)
       {
          var attribute = currentCourse.removedTabs[i];
+         if (attribute == null || attribute == undefined)
+            break;
          var subLi = document.createElement("li");
          var link = document.createElement("a");
          link.addEventListener("click", function() { addTab(this); }, false);
