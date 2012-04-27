@@ -144,9 +144,14 @@ function FolderToHTML(fol) {
    if (fol.link != null);
    {
       var iLink = document.createElement("a");
-      iLink.setAttribute("href", fol.link);
+//      iLink.setAttribute("href", fol.link);         
+//      iLink.addEventListener("click", populateFromFolder(this)
       iLink.innerText = fol.name;
       el.appendChild(iLink);
+      var i = 0;
+      var el = iLink;
+      while (i < 10)
+
    }
 
    return el;
