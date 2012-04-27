@@ -181,18 +181,20 @@ function removedPopup(semester, name) {
    currentTable = currentTable.getElementsByTagName("tbody")[0];
    currentTable = currentTable.getElementsByTagName("tr")[0];
 
-   if (document.getElementById("removeMenu") != null)
+   if (document.getElementById("removeTabTable") != null)
    {
-      var oldmainEl = document.getElementById("removeMenu");
+      var oldmainEl = document.getElementById("removeTabTable");
       oldmainElparent = oldmainEl.parentNode;
-      oldmainElgrandparent = oldmainElparent.parentNode;
-      oldmainElgrandparent.removeChild(oldmainElparent);
+      oldmainElparent.removeChild(oldmainEl);
+//      oldmainElgrandparent = oldmainElparent.parentNode;
+//      oldmainElgrandparent.removeChild(oldmainElparent);
    }
 
    // Create the "+" tab to add more courses
    var mainEl = document.createElement("th");
    mainEl.setAttribute("id", "removeTabTable");
-
+   mainEl.setAttribute("semester", semester);
+   mainEl.setAttribute("name", name);
    var menuUl = document.createElement("ul");
    menuUl.setAttribute("id", "removeMenu");
 
@@ -211,6 +213,7 @@ function removedPopup(semester, name) {
    else
    {
       total = currentCourse.removedTabs.length;
+      console.log("THE TOTAL IS:::::: " + total);
       for (var i = 0; i < total; i++)
       {
          var attribute = currentCourse.removedTabs[i];
