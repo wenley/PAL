@@ -22,7 +22,6 @@ function removeTab(buttonEl) {
    if (currentCourse.removedTabs == undefined)
       currentCourse.removedTabs = new Array();
    currentCourse.removedTabs.push(tab);
-
    var i = currentCourse.tabOrder[tab];
    var length = currentCourse.tabOrder["length"];
    for (i; i < length; i++)
@@ -56,7 +55,7 @@ function isRemoved(semester, name, tab) {
    var length = currentCourse.removedTabs.length;
    for (var i = 0; i < length; i++)
    {
-      if (currentCourse.removedTabs[i] == tab)
+      if (currentCourse.removedTabs[0] == tab)
          return true;
    } 
    return false;
