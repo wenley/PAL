@@ -160,6 +160,7 @@ function populateCourse(courseEl) {
       }
    }
 
+   populateFromTab(currentTable.children[0].children[1]);
    console.log("About to call removed popup with " + semester + name);
    removedPopup(semester, name);
    console.log("The removedPopupo function got called");
