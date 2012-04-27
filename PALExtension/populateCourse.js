@@ -44,6 +44,8 @@ function populateCourse(courseEl) {
    var currentCourse = Courses[semester][name];
    cleanObj(currentCourse);
 
+   populateTitle(semester, name);
+
    // Sets the intial values for tabOrder for the course, if they have
    // not yet been set.
 
@@ -219,7 +221,10 @@ function removedPopup(semester, name) {
       {
          var attribute = currentCourse.removedTabs[i];
          if (attribute == null || attribute == undefined)
+         {
+            console.log("boop");
             break;
+         }
          var subLi = document.createElement("li");
          var link = document.createElement("a");
          link.addEventListener("click", function() { addTab(this); }, false);
