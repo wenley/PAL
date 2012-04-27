@@ -1,4 +1,4 @@
-function formateName(name) {
+function formatName(name) {
    var a = name.substring(0,3);
    var b = name.substring(3,7);
    var c = a + " " + b;
