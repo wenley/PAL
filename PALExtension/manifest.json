@@ -13,6 +13,7 @@
 "https://blackboard.princeton.edu/bbcswebdav/*"],
         "css": ["PAL.css"], 
     	"js": [
+            "HTMLparser.js",
             "contentConnection.js",
             "pythonLib.js",
             "structures.js",
