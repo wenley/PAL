@@ -164,6 +164,10 @@ function populateCourse(courseEl) {
    console.log("About to call removed popup with " + semester + name);
    removedPopup(semester, name);
    console.log("The removedPopupo function got called");
+
+   //  Update state variables
+   selectedSemester = Courses[semester];
+   selectedCourse = currentCourse;
 }
 
 function removedPopup(semester, name) {

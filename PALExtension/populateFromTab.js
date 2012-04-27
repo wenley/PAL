@@ -10,6 +10,10 @@ function populateFromTab(tabLinkEl) {
    var courseKey = tabEl.getAttribute("name");
    var attribute = tabEl.getAttribute("attribute");
    
+   //  Update state variables
+   selectedTab = attribute;
+   folderTrace = new Array();
+   
     //  Validate inputs; should never be invalid
     var sem = Courses[semester];
     if (sem == undefined || sem == null) {
@@ -97,4 +101,72 @@ function populateBodyFromLink(url) {
       }
    }
    req.send();
+}
+
+//  Replaces the body of the template with the contents of
+//  the folder. Updates folderTrace.
+function populateFromFolder(newFolderName) {
+   console.log(arguments.callee.caller);
+   var course = selectedCourse;
+   var attr = course[selectedTab];
+   var body = document.getElementById("notTabBar");
+
+   //  Find past object
+   var pastFolder;
+   var docs;
+   if (folderTrace.length > 0) {
+      pastFolder = folderTrace[folderTrace.length - 1];
+      docs = pastFolder.fileLinks;
+   }
+   else {
+      pastFolder = { name: selectedTab };
+      docs = attr;
+   }
+
+   //  Find newFolder's object
+   var newFolder = null;
+   for (var i = 0; i < docs.length; i++) {
+      if (docs[i].name == newFolderName)
+         newFolder = docs[i];
+   }
+   if (newFolder == null) {
+      console.warn("Folder " + newFolderName + " not found in " + pastFolder.name);
+      body.innerHTML = "<p>ERROR. See console for details</p>"; //  !!!
+      return;
+   }
+
+   //  Update folder stack trace
+   folderTrace.push(newFolder);
+
+   //  Create proper link to return to previous folder
+   var backDiv = document.createElement("div");
+   var backLink = document.createElement("a");
+   backLink.innerText = "Back to " + pastFolder.name;
+   backLink.addEventListener("click", function () {
+         folderTrace.pop();
+         var parent = folderTrace.pop();
+         if (parent == undefined) {
+            //  Reached tab itself
+            var tabs = document.getElementsByTagName("th");
+            var trueTab = null;
+            for (var i = 0; i < tabs.length; i++) {
+               if (tabs[i].getAttribute("attribute") == selectedTab)
+                  trueTab = tabs[i].children[1];
+            }
+            if (trueTab == null)
+               console.warn("Tab " + selectedTab + " not found in tabs...");
+
+            populateFromTab(trueTab);
+         }
+         else {
+            populateFromFolder(parent.name);
+         }
+      }, false);
+   backDiv.appendChild(backLink);
+   body.appendChild(backDiv);
+
+   //  Put in newFolder's contents;
+   for (var i = 0; i < newFolder.fileLinks.length; i++) {
+      body.appendChild(toHTML(newFolder.fileLinks[i]));
+   }
 }
