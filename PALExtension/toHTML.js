@@ -141,9 +141,6 @@ function FolderToHTML(fol) {
 
    cleanObj(fol);
 
-   console.log(fol.name);
-   console.log(fol.link);
-
    var el = document.createElement("div");
 
    if (fol.name != null)
