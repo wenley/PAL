@@ -148,10 +148,6 @@ function FolderToHTML(fol) {
 //      iLink.addEventListener("click", populateFromFolder(this)
       iLink.innerText = fol.name;
       el.appendChild(iLink);
-      var i = 0;
-      var el = iLink;
-      while (i < 10)
-
    }
 
    return el;

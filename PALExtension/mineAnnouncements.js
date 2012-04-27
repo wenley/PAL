@@ -24,7 +24,7 @@ function mineAnnouncements (link, course) {
    var headingStart = 0;
    var headingEnd;
    var i = 0;
-  
+
    while(startInfo != -1) {
       var a = new Announcement();
       startInfo = store.indexOf("<div class =\"announcementInfo\">", startInfo);
