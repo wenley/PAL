@@ -34,7 +34,13 @@ function mineSidebar(a, course) {
             mineTools(a[i][1], course);
             break;
          default:
-            console.log(course.key + ": Unhandled: Will mine " + a[i][0] + " later");
+            console.warn(course.key + ": Unhandled: Will mine " + a[i][0] + " later");
+            var t = new Tool();
+            t.name = a[i][0];
+            t.link = a[i][1];
+            if (course.otherLinks == null)
+               course.otherLinks = new Array();
+            course.otherLinks.push(t);
             break;
       }
    }

@@ -10,6 +10,8 @@ function toHTML(obj) {
    switch (c) {
       case "[object Assignment]":
          return AssignmentToHTML(obj);
+      case "[object Document]":
+         return DocumentToHTML(obj);
       case "[object Instructor]":
          return InstructorToHTML(obj);
       case "[object Folder]":
@@ -33,11 +35,6 @@ function AssignmentToHTML(asgn) {
 
    cleanObj(asgn);
 
-   console.log(asgn.name);
-   console.log(asgn.submissionLink);
-   console.log(asgn.fileLinks);
-   console.log(asgn.memo);
-
    var el = document.createElement("div");
 
    if (asgn.name != null)
@@ -60,9 +57,9 @@ function AssignmentToHTML(asgn) {
       for (i = 0; i < asgn.fileLinks.length; i++)
       {
          var iFileLink = document.createElement("a");
-         iFileLink.setAttribute("href", asgn.fileLinks[i]);
-         iFileLink.innerText = "Assignment Link";
-         el.appendChile(iFileLink);
+         iFileLink.setAttribute("href", asgn.fileLinks[i].link);
+         iFileLink.innerText = asgn.fileLinks[i].name;
+         el.appendChild(iFileLink);
       }
    }
 
@@ -81,12 +78,6 @@ function InstructorToHTML(ins) {
       throw "Improper usage: InstructorToHTML with " + getClass(ins);
 
    cleanObj(ins);
-
-   console.log(ins.email);
-   console.log(ins.office);
-   console.log(ins.hours);
-   console.log(ins.phone);
-   console.log(ins.notes);
 
    var el = document.createElement("div");
 
@@ -141,9 +132,6 @@ function FolderToHTML(fol) {
 
    cleanObj(fol);
 
-   console.log(fol.name);
-   console.log(fol.link);
-
    var el = document.createElement("div");
 
    if (fol.name != null)
@@ -157,7 +145,7 @@ function FolderToHTML(fol) {
    {
       var iLink = document.createElement("a");
       iLink.setAttribute("href", fol.link);
-      iLink.innerText = "Link";
+      iLink.innerText = fol.name;
       el.appendChild(iLink);
    }
 
@@ -169,12 +157,6 @@ function AnnouncementToHTML(anc) {
       throw "Improper usage: AnnouncementToHTML with " + getClass(anc);
 
    cleanObj(anc);
-
-   console.log(anc.postedBy);
-   console.log(anc.postedTo);
-   console.log(anc.heading);
-   console.log(anc.date);
-   console.log(anc.message);
 
    var el = document.createElement("div");
 
@@ -222,10 +204,6 @@ function MaterialToHTML(mat) {
 
    cleanObj(mat);
 
-   console.log(mat.name);
-   console.log(mat.fileLinks);
-   console.log(mat.memo);
-
    var el = document.createElement("div");
 
    if (mat.name != null)
@@ -240,9 +218,12 @@ function MaterialToHTML(mat) {
       for (i = 0; i < mat.fileLinks.length; i++)
       {
          var iFileLink = document.createElement("a");
-         iFileLink.setAttribute("href", mat.fileLinks[i]);
-         iFileLink.innerText = "Assignment Link";
-         el.appendChile(iFileLink);
+         iFileLink.setAttribute("href", mat.fileLinks[i].link);
+         if (mat.fileLinks[i].name != undefined)
+            iFileLink.innerText = mat.fileLinks[i].name;
+         else
+            iFileLink.innerText = "Material Link";
+         el.appendChild(iFileLink);
       }
    }
 
@@ -261,9 +242,6 @@ function ToolToHTML(tool) {
       throw "Improper usage: ToolToHTML with " + getClass(tool);
 
    cleanObj(tool);
-
-   console.log(tool.name);
-   console.log(tool.link);
 
    var el = document.createElement("div");
    var iName = document.createElement("h3");
@@ -287,9 +265,6 @@ function DocumentToHTML(doc) {
 
    cleanObj(doc);
 
-   console.log(doc.name);
-   console.log(doc.link);
-
    var el = document.createElement("div");
 
    if (doc.name != null)
@@ -303,7 +278,7 @@ function DocumentToHTML(doc) {
    {
       var iLink = document.createElement("a");
       iLink.setAttribute("href", doc.link);
-      iLink.innerText = "Link";
+      iLink.innerText = doc.name;
       el.appendChild(iLink);
    }
    return el;

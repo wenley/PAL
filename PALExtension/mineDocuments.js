@@ -63,7 +63,14 @@ function mineDocuments(link, course, type) {
                var FileLinks = miniDoc.getElementsByTagName("a");
                for (var j = 0; j < FileLinks.length; j++) {
                   var doc = new Document();
-                  doc.name = FileLinks[j].innerText;
+                  if (FileLinks[j].innerText != undefined)
+                     doc.name = FileLinks[j].innerText;
+                  else if (FileLinks[j].textContent != undefined)
+                     doc.name = FileLinks[j].textContent;
+                  else {
+                     console.warn("Unknown document name");
+                     doc.name = "Unnamed";
+                  }
                   doc.link = FileLinks[j].getAttribute("href");
                   docLinks[j] = doc;
                }
@@ -74,6 +81,7 @@ function mineDocuments(link, course, type) {
             if (imgType == "folder") {
                var f = new Folder();
                f.name = Name;
+               f.key = course.key;
                f.link = h3link;
                mineDocuments(h3link, f, "Folder");
                docs[docs.length] = f;
@@ -81,7 +89,7 @@ function mineDocuments(link, course, type) {
             else if (imgType == "document") {
                var m = new Material();
                m.name = Name;
-               m.docLinks = docLinks;
+               m.fileLinks = docLinks;
                m.memo = Memo;
                docs[docs.length] = m;
             }
@@ -89,7 +97,7 @@ function mineDocuments(link, course, type) {
                var a = new Assignment();
                a.name = Name;
                a.submissionLink = h3link;
-               a.docLinks = docLinks;
+               a.fileLinks = docLinks;
                a.memo = Memo;
                docs[docs.length] = a;
             }
@@ -103,11 +111,11 @@ function mineDocuments(link, course, type) {
                var g = new Assignment();
                g.name = Name;
                g.submissionLink = h3link;
-               g.docLinks = docLinks;
+               g.fileLinks = docLinks;
                docs[docs.length] = g;
             }
             else
-               console.log(course.key + ":: Unrecognized image type: " + imgType);
+               console.warn(course.key + ":: Unrecognized image type: " + imgType);
             loc = end;
          }
 

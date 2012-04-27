@@ -53,6 +53,8 @@ function cleanLink(s) {
 function cleanObj(obj) {
    if (isString(obj) && obj.length == 0)
       return null;
+   if (isString(obj))
+      return obj.replace(/&[A-Za-z]*;/g, "");
    if (isArray(obj) && obj.length == 0)
       return null;
    if (isArray(obj) || isObject(obj)) {
