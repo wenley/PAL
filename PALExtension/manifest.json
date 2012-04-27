@@ -29,6 +29,7 @@
             "miner.js",
             "populateCourse.js",
             "removeTab.js",
+            "populateTitle.js",
             "populateFromTab.js",
             "testRender.js",
             "mineSyllabus.js",
