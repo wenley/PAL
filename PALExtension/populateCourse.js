@@ -191,7 +191,7 @@ function removedPopup(semester, name) {
 
    // Create the "+" tab to add more courses
    var mainEl = document.createElement("th");
-   mainEl.setAttribute("class", "tabTable");
+   mainEl.setAttribute("id", "removeTabTable");
 
    var menuUl = document.createElement("ul");
    menuUl.setAttribute("id", "removeMenu");

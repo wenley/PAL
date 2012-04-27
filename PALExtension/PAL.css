@@ -59,6 +59,7 @@ th.tabTable {
     top:20px;
     height:30px;
     border:2px solid #E65C00;
+    list-style-type:none;
     text-align:center;
     font-family:helvetica;
     color:white;
@@ -124,32 +125,43 @@ ul.sideBarCourses {
     list-style-type:none;
 }
 
+th#removeTabTable {
+    background-color:#FBB117;  
+    border:2px solid #E65C00;
+    text-align:center;
+    font-family:helvetica;
+    color:white;
+    height:30px;
+    width:10px;
+    font-size:10px;
+    padding:0px;
+}
+
 #removeMenu,
 #removeMenu {
     list-style:none;
-    background-color: #FBB117;
-    top:0px;
-    height:30px;
+    background-color: brown;
     text-align:center;
     font-family:helvetica;
     color:white;
     font-size:10px;
-    padding:2px;
+    padding:0px;
 
 }
 #removeMenu {
     float: left;
     list-style:none;
-    background-color: #FBB117;
+    background-color: purple;
     vetical-align: middle;
 }
 #removeMenu > li {
     float: center;
+    background-color: #FBB117;  
 }
 #removeMenu li a {
 display: block;
     list-style:none;
-    background-color: #FBB117;
+    background-color: green;
     top:20px;
     height:30px;
     border:2px solid #E65C00;
@@ -170,6 +182,8 @@ display: block;
 #removeMenu ul li a {
     display: block;
     float: down;
+    border:2px solid #E65C00;
+    background-color: #FBB117;  
 }
 
 #removeMenu li:hover ul {
@@ -185,3 +199,4 @@ iframe.tool {
     height:100%;
     overflow:hidden;
 }
+
