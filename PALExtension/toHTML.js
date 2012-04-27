@@ -134,21 +134,19 @@ function FolderToHTML(fol) {
 
    var el = document.createElement("div");
 
-   if (fol.name != null)
-   {
-      var iName = document.createElement("h3");
-      iName.innerText = fol.name;
-      el.appendChild(iName);
-   }
+   if (fol.name == null)
+      fol.name = "Unnamed Folder";
 
-   if (fol.link != null);
-   {
+   var iName = document.createElement("h3");
+   if (fol.link != null) {
       var iLink = document.createElement("a");
-//      iLink.setAttribute("href", fol.link);         
-//      iLink.addEventListener("click", populateFromFolder(this)
+      iLink.addEventListener("click", function() { populateFromFolder(this.innerText) }, false);
       iLink.innerText = fol.name;
-      el.appendChild(iLink);
+      iName.appendChild(iLink);
    }
+   else
+      iName.innerText = fol.name;
+   el.appendChild(iName);
 
    return el;
 }

@@ -12,6 +12,20 @@ var parser = new DOMParser();
 
 var Courses = null;
 
+// - - - - - IMAGE STATE VARIABLES - - - - -
+
+//  Current course whose content is being displayed
+var selectedCourse = "";
+
+//  Current semester containing selectedCourse
+var selectedSemester = "";
+
+//  Current tab selected
+var selectedTab = "";
+
+//  Current hierarchy of folder stack trace
+var folderTrace = new Array();
+
 //  - - - - - PERSISTENT VARIABLES - - - - -
 var docHeadString = "<head>" + document.head.innerHTML + "</head>\n\n";
 
