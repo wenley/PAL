@@ -181,6 +181,14 @@ function removedPopup(semester, name) {
    currentTable = currentTable.getElementsByTagName("tbody")[0];
    currentTable = currentTable.getElementsByTagName("tr")[0];
 
+   if (document.getElementById("removeMenu") != null)
+   {
+      var oldmainEl = document.getElementById("removeMenu");
+      oldmainElparent = oldmainEl.parentNode;
+      oldmainElgrandparent = oldmainElparent.parentNode;
+      oldmainElgrandparent.removeChild(oldmainElparent);
+   }
+
    // Create the "+" tab to add more courses
    var mainEl = document.createElement("th");
    mainEl.setAttribute("class", "tabTable");
@@ -189,7 +197,7 @@ function removedPopup(semester, name) {
    menuUl.setAttribute("id", "removeMenu");
 
    var mainLi = document.createElement("li");
-   mainLi.innerText = "+";
+   mainLi.innerText = "+++++++++++";
 
    var subMenu = document.createElement("ul");
 
