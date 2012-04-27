@@ -74,6 +74,7 @@ function mineDocuments(link, course, type) {
             if (imgType == "folder") {
                var f = new Folder();
                f.name = Name;
+               f.key = course.key;
                f.link = h3link;
                mineDocuments(h3link, f, "Folder");
                docs[docs.length] = f;
