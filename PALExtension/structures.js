@@ -33,7 +33,7 @@ function Course() {
 
    // Preferences for the course, in terms of removed tabs
    this.removedTabs = new Array();
-
+   
    // Preferences for the course, in terms of tab order
    this.tabOrder = {};
 
