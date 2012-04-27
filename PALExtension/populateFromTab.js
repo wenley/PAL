@@ -60,3 +60,41 @@ function populateFromTab(tabLinkEl) {
        console.warn("Unrecognized attribute: " + attribute);
     }
 }
+
+//  Replaces the body of the template with the content text
+//  of the link
+function populateBodyFromLink(url) {
+   var link = url;
+   if (link.substr(0, bbDomain.length) != bbDomain)
+      link = bbDomain + link;
+   
+   var req = new XMLHttpRequest();
+   req.open("GET", link, true);
+   req.onreadystatechange = function () {
+      if (req.readyState == 4 && req.status == 200) {
+         var body = document.getElementById("notTabBar");
+         var text = cleanLink(req.responseText);
+         text = text.replace(/<img[^>]*>/g, "");
+         var locStart = text.indexOf("<div class=\"locationPane");
+         var locEnd = text.indexOf("</div", locStart);
+         var next = text.indexOf("</div", locStart);
+         do {
+            locEnd = next;
+            next = text.indexOf("</div", locEnd + 1);
+         } while (next != -1);
+         text = text.slice(locStart, locEnd) + "</div>";
+         miniDoc = HTMLtoDOM(text);
+         console.log(miniDoc);
+         
+         //  Transfer formatted text
+         body.innerHTML = "";
+         console.log(miniDoc.documentElement.getElementsByTagName("body")[0]);
+         var children = miniDoc.documentElement.getElementsByTagName("body")[0].childNodes;
+         for (var i = 0; i < children.length; i++) {
+            console.log(children[i]);
+            body.appendChild(children[i]);
+         }
+      }
+   }
+   req.send();
+}

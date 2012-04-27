@@ -248,8 +248,10 @@ function ToolToHTML(tool) {
    if (tool.link != null)
    {
       var iLink = document.createElement("a");
-      iLink.setAttribute("href", tool.link);
+//      iLink.setAttribute("href", tool.link);
+      iLink.setAttribute("link", tool.link);
       iLink.innerText = tool.name;
+      iLink.addEventListener("click", function() { populateBodyFromLink(this.getAttribute("link")); }, false);
       iName.appendChild(iLink);
    }
    else {
