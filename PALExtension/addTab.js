@@ -39,9 +39,9 @@ function addTab(linkEl) {
       case "syllabusDoc":
          tabText = "Syllabus";
          break;
-      case "descriptionLink":
-         tabText = "Course Description";
-         break;
+         //case "descriptionLink":
+         //tabText = "Course Description";
+         //break;
       case "contacts":
          tabText = "Contacts";
          break;

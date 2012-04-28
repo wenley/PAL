@@ -61,14 +61,14 @@ function populateCourse(courseEl) {
       currentCourse.tabOrder["assignments"] = 2;
       currentCourse.tabOrder[3] = "syllabusDoc";
       currentCourse.tabOrder["syllabusDoc"] = 3;
-      currentCourse.tabOrder[4] = "descriptionLink";
-      currentCourse.tabOrder["descriptionLink"] = 4;
-      currentCourse.tabOrder[5] = "contacts";
-      currentCourse.tabOrder["contacts"] = 5;
-      currentCourse.tabOrder[6] = "tools";
-      currentCourse.tabOrder["tools"] = 6;
+      //currentCourse.tabOrder[4] = "descriptionLink";
+      //currentCourse.tabOrder["descriptionLink"] = 4;
+      currentCourse.tabOrder[4] = "contacts";
+      currentCourse.tabOrder["contacts"] = 4;
+      currentCourse.tabOrder[5] = "tools";
+      currentCourse.tabOrder["tools"] = 5;
 
-      currentCourse.tabOrder["length"] = 7;
+      currentCourse.tabOrder["length"] = 6;
    }
 
    var currentTable = document.getElementById("courseTabTable");
@@ -105,16 +105,16 @@ function populateCourse(courseEl) {
             }
             break;
 
-         case "descriptionLink":
+            //case "descriptionLink":
             // Make the Description link
-            if (currentCourse.descriptionLink != null)
-            {
-               if (!isRemoved(semester, name, "descriptionLink"))
-               {
-                  createTab(semester, name, currentTable, "descriptionLink", "Course Description");
-               }
-            }
-            break;
+            //if (currentCourse.descriptionLink != null)
+            //{
+            //if (!isRemoved(semester, name, "descriptionLink"))
+            //{
+            //    createTab(semester, name, currentTable, "descriptionLink", "Course Description");
+            // }
+            //}
+            //break;
 
          case "courseMaterials":
             // Make the Course Materials link
@@ -247,9 +247,9 @@ function removedPopup(semester, name) {
             case "syllabusDoc":
                link.innerText = "Syllabus";
                break;
-            case "descriptionLink":
-               link.innerText = "Course Description";
-               break;
+               //case "descriptionLink":
+               //link.innerText = "Course Description";
+               //break;
             case "contacts":
                link.innerText = "Contacts";
                break;

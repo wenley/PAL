@@ -45,7 +45,7 @@ function populateTitle(semester, name) {
    var courseDescriptionLink = document.createElement("a");
    courseDescriptionElem.setAttribute("id", "mainTitleCourseDescription");
    courseDescriptionLink.innerText = "Course Description";
-   courseDescriptionLink.addEventListener("click", function() { populateCourseDescription(link); }, false);
+   courseDescriptionLink.addEventListener("click", function() { populateIframe(link); }, false);
    //courseDescriptionLink.setAttribute("href", link);
    courseDescriptionElem.appendChild(courseDescriptionLink);
    titleTextElem.innerText = title;
@@ -54,15 +54,13 @@ function populateTitle(semester, name) {
    tabBar.appendChild(titleElem);
 }
 
-function populateCourseDescription(link) {
+function populateIframe(link) {
 
-   console.log("POPULATE COURSE DESCRIPTION GOT CALLED");
-   console.log("THE LINK :" + link);
-   var space = document.getElementById("notTabBar");
-   space.innerHTML = "";
+   var spaceToPopulate = document.getElementById("notTabBar");
+   spaceToPopulate.innerHTML = "";
    var f1 = document.createElement("iframe");
    f1.setAttribute("height", "100%");
    f1.setAttribute("width", "100%");
    f1.setAttribute("src", link);
-   space.appendChild(f1);
+   spaceToPopulate.appendChild(f1);
 }
