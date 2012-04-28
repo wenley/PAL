@@ -33,7 +33,7 @@ function handleMessage(msg) {
          else {
             console.log("Got old version of courses!");
             console.log(Courses);
-            var reMine = setTimeout(mineBB, 300000); //  5 minutes
+            var reMine = setTimeout(mineBB, 300000); //  !!! 5 minutes, should be semi-instant
             copyFromBackground();
          }
          response = null;
