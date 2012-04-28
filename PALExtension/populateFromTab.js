@@ -87,16 +87,38 @@ function populateBodyFromLink(url) {
             next = text.indexOf("</div", locEnd + 1);
          } while (next != -1);
          text = text.slice(locStart, locEnd) + "</div>";
-         miniDoc = HTMLtoDOM(text);
-         console.log(miniDoc);
-         
-         //  Transfer formatted text
-         body.innerHTML = "";
-         console.log(miniDoc.documentElement.getElementsByTagName("body")[0]);
-         var children = miniDoc.documentElement.getElementsByTagName("body")[0].childNodes;
+         try {
+            var cleanText = HTMLtoXML(text);
+         } catch (e) {
+            var iframe = document.createElement("iframe");
+            iframe.setAttribute("src", link);
+            iframe.setAttribute("class", "tool");
+            body.innerHTML = "";
+            body.appendChild(iframe);
+            return;
+         }
+         var miniDoc = parser.parseFromString(cleanText, "text/xml");
+
+         var contentDiv = miniDoc.getElementById("containerdiv");
+         console.log(contentDiv);
+         var children = contentDiv.childNodes;
+         var content = null;
          for (var i = 0; i < children.length; i++) {
-            console.log(children[i]);
-            body.appendChild(children[i]);
+            if (children[i].getAttribute != undefined) {
+               if (children[i].getAttribute("class") == "clearfix") {
+                  content = children[i];
+               }
+            }
+         }
+         
+         if (content == null) {
+            console.warn("Content clearfix not found...");
+            body.innerHTML = "";
+            body.appendChild(contentDiv);
+         }
+         else {
+            body.innerHTML = "";
+            body.appendChild(content);
          }
       }
    }
