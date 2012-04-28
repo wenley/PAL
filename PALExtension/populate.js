@@ -11,6 +11,7 @@ function populate() {
          var iLink = document.createElement("a");
 
          iLink.innerText = entry;
+         console.log("This is the populate entry" + entry);
          iLink.addEventListener("click", function() { expandSemester(this); }, false);
          li.appendChild(iLink);
          ul.appendChild(li);

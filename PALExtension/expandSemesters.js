@@ -19,6 +19,7 @@ function expandSemester(semesterEl) {
      var iLink = document.createElement("a");
 
      iLink.innerText = entry;
+     console.log(entry);
      iLink.setAttribute("semester", semester);
      iLink.addEventListener("click", function() { populateCourse(this); }, false);
      li.appendChild(iLink);

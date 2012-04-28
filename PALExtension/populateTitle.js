@@ -35,10 +35,34 @@ function populateTitle(semester, name) {
       var oldElem = document.getElementById("mainTitle");
       tabBar.removeChild(oldElem);
    }
-   var divElem = document.createElement("div");
-   divElem.setAttribute("id", "mainTitle");
-   var pElem = document.createElement("p");
-   pElem.innerText = title;
-   divElem.appendChild(pElem);
-   tabBar.appendChild(divElem);
+
+   var link = currentCourse.descriptionLink;
+
+   var titleElem = document.createElement("div");
+   titleElem.setAttribute("id", "mainTitle");
+   var titleTextElem = document.createElement("div");
+   var courseDescriptionElem = document.createElement("div");
+   var courseDescriptionLink = document.createElement("a");
+   courseDescriptionElem.setAttribute("id", "mainTitleCourseDescription");
+   courseDescriptionLink.innerText = "Course Description";
+   courseDescriptionLink.addEventListener("click", function() { populateCourseDescription(link); }, false);
+   //courseDescriptionLink.setAttribute("href", link);
+   courseDescriptionElem.appendChild(courseDescriptionLink);
+   titleTextElem.innerText = title;
+   titleTextElem.appendChild(courseDescriptionElem);
+   titleElem.appendChild(titleTextElem);
+   tabBar.appendChild(titleElem);
+}
+
+function populateCourseDescription(link) {
+
+   console.log("POPULATE COURSE DESCRIPTION GOT CALLED");
+   console.log("THE LINK :" + link);
+   var space = document.getElementById("notTabBar");
+   space.innerHTML = "";
+   var f1 = document.createElement("iframe");
+   f1.setAttribute("height", "100%");
+   f1.setAttribute("width", "100%");
+   f1.setAttribute("src", link);
+   space.appendChild(f1);
 }
