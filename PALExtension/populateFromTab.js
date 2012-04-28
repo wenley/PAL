@@ -43,7 +43,10 @@ function populateFromTab(tabLinkEl) {
           space.appendChild(toHTML(attr[entry]));
     }
     else if (attribute == "syllabusDoc") {
-       console.log("Syllabus not working right now...");
+       var iframe = document.createElement("iframe");
+       iframe.setAttribute("class", "tool");
+       iframe.setAttribute("src", bbDomain + attr.link);
+       space.appendChild(iframe);
     }
     else if (attribute == "assignments") {
        for (var entry in attr)

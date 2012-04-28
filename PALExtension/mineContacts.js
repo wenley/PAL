@@ -13,6 +13,8 @@ function isInstructorField(s) {
       return true;
    else if (s == "Notes")
       return true;
+   else if (s == "Personal Link")
+      return true;
    else
       return false;
 }
@@ -109,6 +111,10 @@ function extractContacts(textArea, course) {
             i.notes = next;
             k = k + 1;
          }
+         else if (s == "Personal Link" && !isInstructorField(next)) {
+            i.personal = next;
+            k = k + 1;
+         }
          else
             console.warn(course.key + ": Unknown Instructor detail: " + s);
       }
@@ -124,6 +130,7 @@ function extractContacts(textArea, course) {
 //  Gets array of instructor's names and detailed information
 function mineContacts(sidebarLink, course) {
    var req = new XMLHttpRequest();
+   XMLHttpRequest.prototype.count++;
    req.open("GET", sidebarLink, true);
    req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
@@ -149,6 +156,7 @@ function mineContacts(sidebarLink, course) {
          console.warn("HTTP Status");
          console.warn(req.status);
       }
+      XMLHttpRequest.prototype.count++;
    }
    req.send();
 }

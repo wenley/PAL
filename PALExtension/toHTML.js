@@ -59,6 +59,8 @@ function AssignmentToHTML(asgn) {
          var iFileLink = document.createElement("a");
          iFileLink.setAttribute("href", asgn.fileLinks[i].link);
          iFileLink.innerText = asgn.fileLinks[i].name;
+         var br = document.createElement("br");
+         el.appendChild(br);
          el.appendChild(iFileLink);
       }
    }
