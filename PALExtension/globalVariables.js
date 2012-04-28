@@ -51,3 +51,27 @@ function isString(s) {
 function isArray(a) {
    return getClass(a) == "[object Array]";
 }
+
+//  - - - - - XMLHttpRequest NEW METHODS - - - - -
+XMLHttpRequest.increment = function () {
+   if (XMLHttpRequest.prototype.count == undefined)
+      XMLHttpRequest.prototype.count = 0;
+   XMLHttpRequest.prototype.count++;
+};
+
+XMLHttpRequest.decrement = function () {
+   XMLHttpRequest.prototype.count--;
+   if (XMLHttpRequest.prototype.count < 0) {
+      console.warn("Something went wrong...");
+   }
+   if (XMLHttpRequest.prototype.count == 0) {
+      var verify = setTimeout(function () {
+            if (XMLHttpRequest.prototype.count == 0)
+               XMLHttpRequest.prototype.onZero();
+         }, 1000);
+   }
+};
+
+function setXMLcallback(callback) {
+   XMLHttpRequest.prototype.onZero = callback;
+}

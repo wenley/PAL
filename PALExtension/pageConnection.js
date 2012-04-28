@@ -50,6 +50,7 @@ function pushSingleRequest(msg) {
        if (i >= expected) {
           console.log("! Notify the foreground that miner almost done");
           console.log(NewCourses);
+          var relog = setTimeout(function () { console.log(NewCourses); }, 30000);
           var save = setTimeout(saveToLocal, 10000);
           expected = 0;
        }

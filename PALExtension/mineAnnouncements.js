@@ -4,7 +4,8 @@
 // --- Mines announcements from Blackboard to reformat ---
 
 function mineAnnouncements (link, course) {
-   var req = new XMLHttpRequest;
+   var req = new XMLHttpRequest();
+   XMLHttpRequest.prototype.count++;
    req.open("GET", link, true);
    
    req.onreadystatechange = function () {
@@ -67,6 +68,7 @@ function mineAnnouncements (link, course) {
    }
 
    course.announcements = announcements;
+   XMLHttpRequest.prototype.count--;
       }
    }
    req.send();
