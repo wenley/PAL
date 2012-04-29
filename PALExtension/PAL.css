@@ -58,8 +58,28 @@ div#mainTitle {
     background-color:#E8600A;
     font-family:monospace;
     text-transform:uppercase;
-    font-size:40px;
+    font-size:30px;
     padding-left:0px;
+}
+
+div#logoutButtonElem {
+    text-align:right;
+    align:right;
+    top:0px;
+}
+
+#logoutButton {
+    text-transform:uppercase;
+    background-color:red;
+    color:white;
+    font-family:monospace;
+    font-size:10px;
+    padding-left:0px;
+    padding-right:0px;
+    align:right;
+    top:0px;
+    text-align:right; 
+    border:0px;
 }
 
 div#mainTitleCourseDescription {
@@ -78,7 +98,7 @@ table.tabTable {
 }
 
 th.tabTable {
-    background-color:#FBB117;
+    background-color:#FF9C42;
     top:20px;
     height:30px;
     border:2px solid #E65C00;
