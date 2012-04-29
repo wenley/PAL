@@ -126,9 +126,6 @@ function extractContacts(textArea, course, isFolder) {
          course.contacts[course.contacts.length] = i;
       j = j + 1;
    } while (j < 100);    //  !!! Make true
-
-   if (isFolder != undefined)
-      pushCourse(course);
 }
 
 

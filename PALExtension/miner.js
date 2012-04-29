@@ -144,13 +144,6 @@ function mineBB() {
 function showLoadingBar() {
    clearPage("<body></body>");
    var body = document.body;
-   setXMLcallback(function() {
-         console.log("Delaying reload...");
-         var delay = setTimeout(function () {
-               pushCourses(Courses);
-               document.location.href = document.location.href;
-            }, 1000);
-      });
    var centeredDiv = document.createElement("div");
    centeredDiv.setAttribute("class", "loadingStatus");
    var status = document.createElement("p");
@@ -160,10 +153,21 @@ function showLoadingBar() {
             status.innerText = "Loading .";
          else
             status.innerText = status.innerText + " .";
-         var up = setTimeout(arguments.callee, 1000);
+         if (status.innerText.substr(0, 7) == "Loading")
+            var up = setTimeout(arguments.callee, 1000);
       }, 1000);   
    centeredDiv.appendChild(status);
    body.appendChild(centeredDiv);
+
+   //  Set what happens once done mining
+   setXMLcallback(function() {
+         console.log("Delaying reload...");
+         var delay = setTimeout(function () {
+               pushCourses(Courses);
+               status.innerText = "Done!";
+               document.location.href = document.location.href;
+            }, 1000);
+      });
 }
 
 
@@ -175,6 +179,10 @@ function mineFromLinks() {
    }
 
    console.log("Remining from links...");
+   setXMLcallback(function() {
+         pushCourses(Courses);
+         console.log("Success in counting!");
+      });
 
    //  Build an array with course objects and their respective content page links
    var info = new Array();

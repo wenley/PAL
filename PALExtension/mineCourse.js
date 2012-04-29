@@ -44,7 +44,6 @@ function mineSidebar(a, course) {
             break;
       }
    }
-   pushCourse(course);
 }
 //  - - - - - COURSE CONTENT DOC FUNCTIONS - - - - -
 

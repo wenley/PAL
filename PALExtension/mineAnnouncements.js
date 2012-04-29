@@ -27,14 +27,12 @@ function mineAnnouncements (link, course) {
    var i = 0;
 
    startInfo = store.indexOf("<div class=\"announcementInfo");
-         console.log("First info: " + startInfo);
    if (startInfo == -1)
       return;
    startInfo -= 1;
    while (startInfo != -1) {
       var a = new Announcement();
       startInfo = store.indexOf("<div class=\"announcementInfo\">", startInfo + 1);
-      console.log("Next info: " + startInfo);
       if (startInfo == -1)
          break;
       endInfo = store.indexOf("</div>", endDetails);

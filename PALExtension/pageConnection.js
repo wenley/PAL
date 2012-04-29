@@ -16,7 +16,9 @@ function pushRequest(req) {
         return {error: "No courses pushed"};
     
     NewCourses = restorePrototype(req.courses);
-    var checkDiff = setTimeout(runDiff, 1);
+    var checkDiff = setTimeout(runDiff, 1000);
+    console.log(NewCourses); //  !!!
+    saveToLocal();
     return {note: "good"};
 }
 
@@ -35,27 +37,6 @@ function pushSingleRequest(msg) {
        NewCourses[msg.course.semester] = {};
     NewCourses[msg.course.semester][msg.course.key] = restorePrototype(msg.course);
     var checkDiff = setTimeout(runDiff, 1000);
-
-    //  Check to see if NewCourses has been fully populated as expected
-    if (expected != 0) {
-       var i = 0;
-       for (var entry in NewCourses) {
-          for (var subentry in NewCourses[entry])
-             i++;
-       }
-       if (i > expected) {
-          console.warn("i is too big...");
-          console.warn("i: " + i + " vs. expected: " + expected);
-       } //  Fall through...
-       if (i >= expected) {
-          console.log("! Notify the foreground that miner almost done");
-          console.log(NewCourses);
-          var relog = setTimeout(function () { console.log(NewCourses); }, 30000);
-          var save = setTimeout(saveToLocal, 10000);
-          expected = 0;
-       }
-    }
-
     return {note: "good"};
 }
 
@@ -97,7 +78,18 @@ function templateHandler(msg) {
    return {note: "template", template: document.body.innerHTML};
 }
 
-var expected = 0; //  Number of courses expected to be mined
+//  Clears local storage when requested
+function clearHandler(msg) {
+   if (msg.note == undefined || msg.note != "clear") {
+      console.warn("Misrouted message. clear when " + msg.note);
+      return { error: "Misrouted message"};
+   }
+
+   clearLocal();
+   return { note: "cleared" };
+}
+
+//  var expected = 0; //  Number of courses expected to be mined
 //  Will route requests from content scripts to proper functions
 function handleMessage(msg) {
     var response;
@@ -114,13 +106,11 @@ function handleMessage(msg) {
         case "click":
             response = clickHandler(msg);
             break;
-        case "expected":
-            expected = msg.expected;
-            console.log("expected: " + expected);
-            reseponse = null;
-            break;
         case "template":
             response = templateHandler(msg);
+            break;
+        case "clear":
+            response = clearHandler(msg);
             break;
         default:
             console.warn("Unknown note from foreground: " + msg.note);

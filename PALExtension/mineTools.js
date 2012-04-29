@@ -45,7 +45,6 @@ function mineTools(toolsLink, course) {
                    }
                }
             }
-            pushCourse(course);
             XMLdecrement();
         }
     }

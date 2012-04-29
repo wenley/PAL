@@ -80,5 +80,26 @@ function populateIframe(link) {
 //   f1.setAttribute("width", "100%");
    f1.setAttribute("class", "tool");
    f1.setAttribute("src", link);
+//   f1.setAttribute("onload", "cropRegistrar(this);");
+//   f1.addEventListener("load", function () { cropRegistrar(this); });
    spaceToPopulate.appendChild(f1);
 }
+
+//  Crops registrar page information to fit without horizontal scrollbar
+function cropRegistrar(iframeEl) {
+   console.log("Cropping called!");
+   console.log(iframeEl);
+   for (var entry in iframeEl)
+      console.log(entry);
+   var cDoc = iframeEl.contentDocument;
+   console.log(cDoc);
+}
+
+/*
+var cropper = document.createElement("script");
+cropper.setAttribute("language", "javascript");
+cropper.setAttribute("type", "text/javascript");
+cropper.innerText = cropRegistrar.toString();
+document.documentElement.appendChild(cropper);
+document.documentElement.removeChild(cropper);
+*/

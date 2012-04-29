@@ -61,11 +61,11 @@ function mineDocuments(link, course, type) {
                else current = current.concat("<\/div>");
                current = current.replace(/<img[^>]*>/g,"");
                try {
-                  console.log("To XML..."); //  !!!
                   var temp = HTMLtoXML(current);
                   current = temp;
                } catch (e) {
-                  console.log(e);
+                  console.warn(course.key + ":: " + type + ":: ERROR");
+                  console.warn(e);
                }
                miniDoc = parser.parseFromString(current, "text/xml");
                var FileLinks = miniDoc.getElementsByTagName("a");
