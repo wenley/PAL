@@ -10,9 +10,10 @@
     {
         "matches": ["https://blackboard.princeton.edu/*"],
     	"exclude_matches": ["https://blackboard.princeton.edu/", "https://blackboard.princeton.edu/webapps/login", 
-"https://blackboard.princeton.edu/bbcswebdav/"],
+"https://blackboard.princeton.edu/bbcswebdav/*", "https://blackboard.princeton.edu/@@/*"],
         "css": ["PAL.css"], 
     	"js": [
+            "HTMLparser.js",
             "contentConnection.js",
             "pythonLib.js",
             "structures.js",
@@ -26,11 +27,16 @@
             "mineTools.js",
             "mineCourse.js",
             "miner.js",
+            "populateCourse.js",
+            "removeTab.js",
+            "populateTitle.js",
             "populateFromTab.js",
             "testRender.js",
             "mineSyllabus.js",
             "populate.js",
-            "expandSemesters.js"
+            "expandSemesters.js",
+            "toHTML.js",
+            "addTab.js"
         ]
       }
    ],

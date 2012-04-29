@@ -24,10 +24,15 @@ function mineAnnouncements (link, course) {
    var headingStart = 0;
    var headingEnd;
    var i = 0;
-  
-   while(startInfo != -1) {
+
+   startinfo = store.indexOf("<div class =\"announcementInfo");
+   if (startinfo == -1)
+      return;
+   while (startInfo != -1) {
       var a = new Announcement();
       startInfo = store.indexOf("<div class =\"announcementInfo\">", startInfo);
+      if (startInfo == -1)
+         break;
       endInfo = store.indexOf("</div>", endDetails);
       tempEnd = store.indexOf("Posted to:", startInfo);
       a.postedBy = store.slice(startInfo, tempEnd);

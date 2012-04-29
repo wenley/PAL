@@ -26,7 +26,7 @@ div#notSideBar {
 }
 
 div#notTabBar {
-    background-color: white;
+    background-color: gray;
     position:absolute;
     left:0px;
     top:180px;
@@ -48,9 +48,20 @@ div#tabBar {
     text-transform:uppercase;
 }
 
+div#mainTitle {
+    position:absolute;
+    top:0px;
+    text-align:center;
+    width:100%;
+    background-color:#E8600A;
+    font-family:monospace;
+    text-transform:uppercase;
+    font-size:20px;
+    padding:0px;
+}
 
 table.tabTable {
-    top:20px;
+    top:30px;
     width:100%;
 }
 
@@ -59,6 +70,7 @@ th.tabTable {
     top:20px;
     height:30px;
     border:2px solid #E65C00;
+    list-style-type:none;
     text-align:center;
     font-family:helvetica;
     color:white;
@@ -124,31 +136,78 @@ ul.sideBarCourses {
     list-style-type:none;
 }
 
+th#removeTabTable {
+    background-color:#FBB117;  
+    border:2px solid #E65C00;
+    text-align:center;
+    font-family:helvetica;
+    color:white;
+    height:30px;
+    width:10px;
+    font-size:10px;
+    padding:0px;
+}
+
 #removeMenu,
 #removeMenu {
-    list-style: none;
+    list-style:none;
+    background-color: brown;
+    text-align:center;
+    font-family:helvetica;
+    color:white;
+    font-size:10px;
+    padding:0px;
+
 }
 #removeMenu {
     float: left;
+    list-style:none;
+    background-color: purple;
+    vetical-align: middle;
 }
 #removeMenu > li {
-    float: left;
+    float: center;
+    background-color: #FBB117;  
 }
 #removeMenu li a {
 display: block;
-    height: 2em;
-    line-height: 2em;
-    padding: 0 1.5em;
-    text-decoration: none;
+    list-style:none;
+    background-color: green;
+    top:20px;
+    height:30px;
+    border:2px solid #E65C00;
+    text-align:center;
+    font-family:helvetica;
+    color:white;
+    font-size:10px;
+    padding:2px;
 }
 #removeMenu ul {
     position: absolute;
     display: none;
-z-index: 900;
+    background-color:black;
+    float: left;
+    z-index: 900;
 }
+
 #removeMenu ul li a {
-    width: 80px;
+    display: block;
+    float: down;
+    border:2px solid #E65C00;
+    background-color: #FBB117;  
 }
+
 #removeMenu li:hover ul {
     display: block;
+    position: absolute;
+    right:0px;
+    background-color: #FBB117;
+    padding:0px;
 }
+
+iframe.tool {
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+

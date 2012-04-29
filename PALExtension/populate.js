@@ -5,12 +5,8 @@
 // Populates template.html
 function populate() {
       var ul = document.body.getElementsByClassName("sideBarSemesters")[0];
-      console.log(ul);
-
-      function foo() { expandSemester(this.sem); };
 
       for(var entry in Courses) {
-         console.log(Courses[entry]);
          var li = document.createElement("li");
          var iLink = document.createElement("a");
 
@@ -19,4 +15,8 @@ function populate() {
          li.appendChild(iLink);
          ul.appendChild(li);
       }
+
+      //  Default expand first semester and first course in first semester
+      expandSemester(ul.children[0].children[0]);
+      populateCourse(ul.children[0].children[1].children[0].children[0]);
 }

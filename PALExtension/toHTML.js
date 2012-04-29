@@ -4,12 +4,14 @@
 
 //  Transforms Structures into HTML elements
 
-function ToHTML(obj) {
+function toHTML(obj) {
    c = getClass(obj);
 
    switch (c) {
       case "[object Assignment]":
          return AssignmentToHTML(obj);
+      case "[object Document]":
+         return DocumentToHTML(obj);
       case "[object Instructor]":
          return InstructorToHTML(obj);
       case "[object Folder]":
@@ -21,7 +23,7 @@ function ToHTML(obj) {
       case "[object Tool]":
          return ToolToHTML(obj);
       default:
-         console.warn("Unrecognized type: " c);
+         console.warn("Unrecognized type: " + c);
          break;
    }
    return null;
@@ -32,11 +34,6 @@ function AssignmentToHTML(asgn) {
       throw "Improper usage: AssignmentToHTML with " + getClass(asgn);
 
    cleanObj(asgn);
-
-   console.log(asgn.name);
-   console.log(asgn.submissionLink);
-   console.log(asgn.fileLinks);
-   console.log(asgn.memo);
 
    var el = document.createElement("div");
 
@@ -60,9 +57,9 @@ function AssignmentToHTML(asgn) {
       for (i = 0; i < asgn.fileLinks.length; i++)
       {
          var iFileLink = document.createElement("a");
-         iFileLink.setAttribute("href", asgn.fileLinks[i]);
-         iFileLink.innerText = "Assignment Link";
-         el.appendChile(iFileLink);
+         iFileLink.setAttribute("href", asgn.fileLinks[i].link);
+         iFileLink.innerText = asgn.fileLinks[i].name;
+         el.appendChild(iFileLink);
       }
    }
 
@@ -81,12 +78,6 @@ function InstructorToHTML(ins) {
       throw "Improper usage: InstructorToHTML with " + getClass(ins);
 
    cleanObj(ins);
-
-   console.log(ins.email);
-   console.log(ins.office);
-   console.log(ins.hours);
-   console.log(ins.phone);
-   console.log(ins.notes);
 
    var el = document.createElement("div");
 
@@ -141,9 +132,6 @@ function FolderToHTML(fol) {
 
    cleanObj(fol);
 
-   console.log(fol.name);
-   console.log(fol.link);
-
    var el = document.createElement("div");
 
    if (fol.name != null)
@@ -156,8 +144,9 @@ function FolderToHTML(fol) {
    if (fol.link != null);
    {
       var iLink = document.createElement("a");
-      iLink.setAttribute("href", fol.link);
-      iLink.innerText = "Link";
+//      iLink.setAttribute("href", fol.link);         
+//      iLink.addEventListener("click", populateFromFolder(this)
+      iLink.innerText = fol.name;
       el.appendChild(iLink);
    }
 
@@ -169,12 +158,6 @@ function AnnouncementToHTML(anc) {
       throw "Improper usage: AnnouncementToHTML with " + getClass(anc);
 
    cleanObj(anc);
-
-   console.log(anc.postedBy);
-   console.log(anc.postedTo);
-   console.log(anc.heading);
-   console.log(anc.date);
-   console.log(anc.message);
 
    var el = document.createElement("div");
 
@@ -222,10 +205,6 @@ function MaterialToHTML(mat) {
 
    cleanObj(mat);
 
-   console.log(mat.name);
-   console.log(mat.fileLinks);
-   console.log(mat.memo);
-
    var el = document.createElement("div");
 
    if (mat.name != null)
@@ -240,9 +219,12 @@ function MaterialToHTML(mat) {
       for (i = 0; i < mat.fileLinks.length; i++)
       {
          var iFileLink = document.createElement("a");
-         iFileLink.setAttribute("href", mat.fileLinks[i]);
-         iFileLink.innerText = "Assignment Link";
-         el.appendChile(iFileLink);
+         iFileLink.setAttribute("href", mat.fileLinks[i].link);
+         if (mat.fileLinks[i].name != undefined)
+            iFileLink.innerText = mat.fileLinks[i].name;
+         else
+            iFileLink.innerText = "Material Link";
+         el.appendChild(iFileLink);
       }
    }
 
@@ -262,25 +244,21 @@ function ToolToHTML(tool) {
 
    cleanObj(tool);
 
-   console.log(tool.name);
-   console.log(tool.link);
-
    var el = document.createElement("div");
-
-   if (tool.name != null)
-   {
-      var iName = document.createElement("h3");
-      iName.innerText = tool.name;
-      el.appendChild(iName);
-   }
-
+   var iName = document.createElement("h3");
    if (tool.link != null)
    {
       var iLink = document.createElement("a");
-      iLink.setAttribute("href", tool.link);
-      iLink.innerText = "Link";
-      el.appendChild(iLink);
+//      iLink.setAttribute("href", tool.link);
+      iLink.setAttribute("link", tool.link);
+      iLink.innerText = tool.name;
+      iLink.addEventListener("click", function() { populateBodyFromLink(this.getAttribute("link")); }, false);
+      iName.appendChild(iLink);
    }
+   else {
+      iName.innerText = tool.name;
+   }
+   el.appendChild(iName);
    return el;
 }
 
@@ -289,9 +267,6 @@ function DocumentToHTML(doc) {
       throw "Improper usage: DocumentToHTML with " + getClass(doc);
 
    cleanObj(doc);
-
-   console.log(doc.name);
-   console.log(doc.link);
 
    var el = document.createElement("div");
 
@@ -306,7 +281,7 @@ function DocumentToHTML(doc) {
    {
       var iLink = document.createElement("a");
       iLink.setAttribute("href", doc.link);
-      iLink.innerText = "Link";
+      iLink.innerText = doc.name;
       el.appendChild(iLink);
    }
    return el;
