@@ -130,7 +130,6 @@ function populateBodyFromLink(url) {
 //  Replaces the body of the template with the contents of
 //  the folder. Updates folderTrace.
 function populateFromFolder(newFolderName) {
-   console.log(arguments.callee.caller);
    var course = selectedCourse;
    var attr = course[selectedTab];
    var body = document.getElementById("notTabBar");
@@ -162,6 +161,15 @@ function populateFromFolder(newFolderName) {
    //  Update folder stack trace
    folderTrace.push(newFolder);
 
+   //  Show current location
+   body.innerHTML = "";
+   var curFolDiv = document.createElement("div");
+   var location = document.createElement("h3");
+   location.innerText = newFolder.name;
+   curFolDiv.setAttribute("align", "center");
+   curFolDiv.appendChild(location);
+   body.appendChild(curFolDiv);
+
    //  Create proper link to return to previous folder
    var backDiv = document.createElement("div");
    var backLink = document.createElement("a");
@@ -189,7 +197,6 @@ function populateFromFolder(newFolderName) {
    backDiv.appendChild(backLink);
    body.appendChild(backDiv);
 
-   console.log(newFolder);
    //  Put in newFolder's contents;
    for (var i = 0; i < newFolder.contents.length; i++) {
       body.appendChild(toHTML(newFolder.contents[i]));

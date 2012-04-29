@@ -5,6 +5,7 @@ function mineDocuments(link, course, type) {
 
    req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
+         XMLdecrement();
 
          var text;
 
@@ -59,6 +60,13 @@ function mineDocuments(link, course, type) {
                   current = current.concat("<\/div><\/div>");
                else current = current.concat("<\/div>");
                current = current.replace(/<img[^>]*>/g,"");
+               try {
+                  console.log("To XML..."); //  !!!
+                  var temp = HTMLtoXML(current);
+                  current = temp;
+               } catch (e) {
+                  console.log(e);
+               }
                miniDoc = parser.parseFromString(current, "text/xml");
                var FileLinks = miniDoc.getElementsByTagName("a");
                for (var j = 0; j < FileLinks.length; j++) {
@@ -134,7 +142,6 @@ function mineDocuments(link, course, type) {
                course.syllabusDoc = null;
             }
          }
-         XMLdecrement();
       }
    }
    req.send();

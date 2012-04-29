@@ -52,13 +52,13 @@ function AssignmentToHTML(asgn) {
       el.appendChild(iSubLink);
    }
 
-   if (asgn.contacts != null)
+   if (asgn.contents != null)
    {
-      for (i = 0; i < asgn.contacts.length; i++)
+      for (i = 0; i < asgn.contents.length; i++)
       {
          var iFileLink = document.createElement("a");
-         iFileLink.setAttribute("href", asgn.contacts[i].link);
-         iFileLink.innerText = asgn.contacts[i].name;
+         iFileLink.setAttribute("href", asgn.contents[i].link);
+         iFileLink.innerText = asgn.contents[i].name;
          var br = document.createElement("br");
          el.appendChild(br);
          el.appendChild(iFileLink);
@@ -139,7 +139,7 @@ function FolderToHTML(fol) {
    if (fol.name == null)
       fol.name = "Unnamed Folder";
 
-   var iName = document.createElement("h3");
+   var iName = document.createElement("p");
    if (fol.link != null) {
       var iLink = document.createElement("a");
       iLink.addEventListener("click", function() { populateFromFolder(this.innerText) }, false);
@@ -214,14 +214,14 @@ function MaterialToHTML(mat) {
       el.appendChild(iName);
    }
 
-   if (mat.contacts != null)
+   if (mat.contents != null)
    {
-      for (i = 0; i < mat.contacts.length; i++)
+      for (i = 0; i < mat.contents.length; i++)
       {
          var iFileLink = document.createElement("a");
-         iFileLink.setAttribute("href", mat.contacts[i].link);
-         if (mat.contacts[i].name != undefined)
-            iFileLink.innerText = mat.contacts[i].name;
+         iFileLink.setAttribute("href", mat.contents[i].link);
+         if (mat.contents[i].name != undefined)
+            iFileLink.innerText = mat.contents[i].name;
          else
             iFileLink.innerText = "Material Link";
          el.appendChild(iFileLink);

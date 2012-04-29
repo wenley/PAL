@@ -21,7 +21,7 @@ var selectedCourse = "";
 var selectedSemester = "";
 
 //  Current tab selected
-var selectedTab = "";
+var selectedTab = null;
 
 //  Current hierarchy of folder stack trace
 var folderTrace = new Array();
