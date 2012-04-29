@@ -40,6 +40,18 @@ function populateTitle(semester, name) {
 
    var titleElem = document.createElement("div");
    titleElem.setAttribute("id", "mainTitle");
+   
+  // make the logout button
+   var logoutButtonElem = document.createElement("div");
+   logoutButtonElem.setAttribute("id", "logoutButtonElem");
+   var logoutButton = document.createElement("button");
+   logoutButton.setAttribute("id", "logoutButton");
+   var logoutLink = document.createElement("a");
+   logoutLink.setAttribute("href", "https://blackboard.princeton.edu/webapps/login?action=logout");
+   logoutLink.innerText = "Logout";
+   logoutButton.appendChild(logoutLink);
+   logoutButtonElem.appendChild(logoutButton);
+ 
    var titleTextElem = document.createElement("div");
    var courseDescriptionElem = document.createElement("div");
    var courseDescriptionLink = document.createElement("a");
@@ -48,10 +60,15 @@ function populateTitle(semester, name) {
    courseDescriptionLink.addEventListener("click", function() { populateIframe(link); }, false);
    //courseDescriptionLink.setAttribute("href", link);
    courseDescriptionElem.appendChild(courseDescriptionLink);
+   
+   titleElem.appendChild(logoutButtonElem);
    titleTextElem.innerText = title;
    titleTextElem.appendChild(courseDescriptionElem);
    titleElem.appendChild(titleTextElem);
+ 
    tabBar.appendChild(titleElem);
+
+
 }
 
 function populateIframe(link) {
