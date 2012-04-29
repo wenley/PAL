@@ -50,6 +50,9 @@ function handleMessage(msg) {
          console.log("Not handling updates yet.");
          response = null;
          break;
+      case "cleared":
+         document.location.href = document.location.href;
+         response = null;
       default:
          console.log("Unknown note from background: " + msg.note);
          response = null;
@@ -78,4 +81,9 @@ function pullCourses() {
 //  Gets template from background
 function copyTemplate() {
    port.postMessage({note: "template"});
+}
+
+//  Starts a completely new mining sequence
+function refresh() {
+   port.postMessage({note: "clear"});
 }

@@ -41,4 +41,6 @@ openFromLocal();
 function clearLocal() {
    delete localStorage.OldCourses;
    delete localStorage.NewCourses;
+   OldCourses = null;
+   NewCourses = null;
 }
