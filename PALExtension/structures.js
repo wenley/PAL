@@ -21,7 +21,7 @@ function Folder() {
 function Assignment() {
    this.name = "";
    this.submissionLink = "";
-   this.fileLinks = new Array();
+   this.contents = new Array();
    // Some assignments consist of text directly on the Assignments link
    this.memo = "";
    this.type = this.constructor.name;
@@ -84,7 +84,7 @@ function Announcement() {
 // A Course Material
 function Material() {
    this.name = "";
-   this.fileLinks = new Array();
+   this.contents = new Array();
    this.memo = "";
    this.type = this.constructor.name;
 }

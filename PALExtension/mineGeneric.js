@@ -21,11 +21,15 @@ function getPageContentDoc(pageLink, continueFunc) {
    var req = new XMLHttpRequest();
    req.open("GET", pageLink, true);
    req.onreadystatechange = function () {
-      var frameTag = req.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
-      var frameLink = frameTag.match(/src=\"[^ \"]*/g)[0].slice(5);
-      getContentDoc(frameLink, continueFunc);
+      if (req.readyState == 4 && req.status == 200) {
+         var frameTag = req.responseText.match(/<frame[^>]*name="content"[^>]*>/g)[0];
+         var frameLink = frameTag.match(/src=\"[^ \"]*/g)[0].slice(5);
+         getContentDoc(frameLink, continueFunc);
+         XMLdecrement();
+      }
    }
    req.send();
+   XMLincrement();
 }
 
 //  Extracts the content document text from a generic Blackboard page
@@ -38,9 +42,11 @@ function getContentDoc(docLink, continueFunc, course) {
    req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
          continueFunc(req.responseText, course);
+         XMLdecrement();
       }
    }
    req.send();
+   XMLincrement();
 }
 
 //  Removes & from strings

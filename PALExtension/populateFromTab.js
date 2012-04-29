@@ -120,9 +120,11 @@ function populateBodyFromLink(url) {
             body.innerHTML = "";
             body.appendChild(content);
          }
+         XMLdecrement();
       }
    }
    req.send();
+   XMLincrement();
 }
 
 //  Replaces the body of the template with the contents of
@@ -138,7 +140,7 @@ function populateFromFolder(newFolderName) {
    var docs;
    if (folderTrace.length > 0) {
       pastFolder = folderTrace[folderTrace.length - 1];
-      docs = pastFolder.fileLinks;
+      docs = pastFolder.contents;
    }
    else {
       pastFolder = { name: selectedTab };
@@ -187,8 +189,9 @@ function populateFromFolder(newFolderName) {
    backDiv.appendChild(backLink);
    body.appendChild(backDiv);
 
+   console.log(newFolder);
    //  Put in newFolder's contents;
-   for (var i = 0; i < newFolder.fileLinks.length; i++) {
-      body.appendChild(toHTML(newFolder.fileLinks[i]));
+   for (var i = 0; i < newFolder.contents.length; i++) {
+      body.appendChild(toHTML(newFolder.contents[i]));
    }
 }

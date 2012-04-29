@@ -5,11 +5,11 @@
 
 function mineAnnouncements (link, course) {
    var req = new XMLHttpRequest();
-   XMLHttpRequest.prototype.count++;
    req.open("GET", link, true);
    
    req.onreadystatechange = function () {
       if(req.readyState == 4 && req.status == 200) {
+         XMLdecrement();
    var announcements = new Array();
 
    var store = req.responseText;
@@ -68,9 +68,10 @@ function mineAnnouncements (link, course) {
    }
 
    course.announcements = announcements;
-   XMLHttpRequest.prototype.count--;
+
       }
    }
    req.send();
+   XMLincrement();
 }
 

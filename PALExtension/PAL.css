@@ -72,6 +72,15 @@ div#mainTitleCourseDescription {
     padding-right:0px;
 }
 
+div.loadingStatus {
+    align: center;
+    text-align: center;
+    color:#DEADBE;
+    font-size: 40px;
+    width:100%;
+    height:100%;
+}
+
 table.tabTable {
     top:30px;
     width:100%;

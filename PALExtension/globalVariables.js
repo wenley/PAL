@@ -53,18 +53,19 @@ function isArray(a) {
 }
 
 //  - - - - - XMLHttpRequest NEW METHODS - - - - -
-XMLHttpRequest.increment = function () {
+function XMLincrement() {
    if (XMLHttpRequest.prototype.count == undefined)
       XMLHttpRequest.prototype.count = 0;
    XMLHttpRequest.prototype.count++;
 };
 
-XMLHttpRequest.decrement = function () {
+function XMLdecrement() {
    XMLHttpRequest.prototype.count--;
    if (XMLHttpRequest.prototype.count < 0) {
       console.warn("Something went wrong...");
    }
    if (XMLHttpRequest.prototype.count == 0) {
+      console.log("Verifying zero...");
       var verify = setTimeout(function () {
             if (XMLHttpRequest.prototype.count == 0)
                XMLHttpRequest.prototype.onZero();
@@ -74,4 +75,7 @@ XMLHttpRequest.decrement = function () {
 
 function setXMLcallback(callback) {
    XMLHttpRequest.prototype.onZero = callback;
+}
+XMLHttpRequest.prototype.onZero = function () {
+   console.log("XML called the callback!");
 }

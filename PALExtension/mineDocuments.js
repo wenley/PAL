@@ -89,7 +89,7 @@ function mineDocuments(link, course, type) {
             else if (imgType == "document") {
                var m = new Material();
                m.name = Name;
-               m.fileLinks = docLinks;
+               m.contents = docLinks;
                m.memo = Memo;
                docs[docs.length] = m;
             }
@@ -97,7 +97,7 @@ function mineDocuments(link, course, type) {
                var a = new Assignment();
                a.name = Name;
                a.submissionLink = h3link;
-               a.fileLinks = docLinks;
+               a.contents = docLinks;
                a.memo = Memo;
                docs[docs.length] = a;
             }
@@ -111,7 +111,7 @@ function mineDocuments(link, course, type) {
                var g = new Assignment();
                g.name = Name;
                g.submissionLink = h3link;
-               g.fileLinks = docLinks;
+               g.contents = docLinks;
                docs[docs.length] = g;
             }
             else
@@ -134,7 +134,9 @@ function mineDocuments(link, course, type) {
                course.syllabusDoc = null;
             }
          }
+         XMLdecrement();
       }
    }
    req.send();
+   XMLincrement();
 }

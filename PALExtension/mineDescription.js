@@ -8,6 +8,7 @@ function mineCourseDescription(sidebarLink, course) {
     req.open("GET", sidebarLink, true);
     req.onreadystatechange = function () {
         if (req.readyState == 4 && req.status == 200) {
+            XMLdecrement();
             var line = req.responseText.match(/window.open(.*);/g);
             if (line == null) {
                 line = req.responseText.match(/window.location(.*);/g);
@@ -22,4 +23,5 @@ function mineCourseDescription(sidebarLink, course) {
         }
     }
     req.send();
+    XMLincrement();
 }

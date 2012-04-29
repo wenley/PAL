@@ -59,8 +59,9 @@ function populateIframe(link) {
    var spaceToPopulate = document.getElementById("notTabBar");
    spaceToPopulate.innerHTML = "";
    var f1 = document.createElement("iframe");
-   f1.setAttribute("height", "100%");
-   f1.setAttribute("width", "100%");
+//   f1.setAttribute("height", "100%");
+//   f1.setAttribute("width", "100%");
+   f1.setAttribute("class", "tool");
    f1.setAttribute("src", link);
    spaceToPopulate.appendChild(f1);
 }

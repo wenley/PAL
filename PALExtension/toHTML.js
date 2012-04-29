@@ -52,13 +52,13 @@ function AssignmentToHTML(asgn) {
       el.appendChild(iSubLink);
    }
 
-   if (asgn.fileLinks != null)
+   if (asgn.contacts != null)
    {
-      for (i = 0; i < asgn.fileLinks.length; i++)
+      for (i = 0; i < asgn.contacts.length; i++)
       {
          var iFileLink = document.createElement("a");
-         iFileLink.setAttribute("href", asgn.fileLinks[i].link);
-         iFileLink.innerText = asgn.fileLinks[i].name;
+         iFileLink.setAttribute("href", asgn.contacts[i].link);
+         iFileLink.innerText = asgn.contacts[i].name;
          var br = document.createElement("br");
          el.appendChild(br);
          el.appendChild(iFileLink);
@@ -214,14 +214,14 @@ function MaterialToHTML(mat) {
       el.appendChild(iName);
    }
 
-   if (mat.fileLinks != null)
+   if (mat.contacts != null)
    {
-      for (i = 0; i < mat.fileLinks.length; i++)
+      for (i = 0; i < mat.contacts.length; i++)
       {
          var iFileLink = document.createElement("a");
-         iFileLink.setAttribute("href", mat.fileLinks[i].link);
-         if (mat.fileLinks[i].name != undefined)
-            iFileLink.innerText = mat.fileLinks[i].name;
+         iFileLink.setAttribute("href", mat.contacts[i].link);
+         if (mat.contacts[i].name != undefined)
+            iFileLink.innerText = mat.contacts[i].name;
          else
             iFileLink.innerText = "Material Link";
          el.appendChild(iFileLink);

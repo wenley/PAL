@@ -5,6 +5,7 @@ function mineSyllabus(link, course) {
 
    req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
+         XMLdecrement();
 
          var text;
          var name = "";
@@ -57,4 +58,5 @@ function mineSyllabus(link, course) {
       }
    }
    req.send();
+   XMLincrement();
 }
