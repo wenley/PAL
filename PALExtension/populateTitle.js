@@ -83,7 +83,7 @@ function populateIframeBack(link) {
    var tabBar = document.getElementById("tabBar");
    var backLink = document.createElement("a");
    backLink.innerText = "Return to MEEEEE";
-   backLink.addEventListener("click", function() {populateFromTab(selectedTab); }, false);
+   backLink.addEventListener("click", function() {console.log(selectedTab); populateFromTab(selectedTab); }, false);
    tabBar.appendChild(backLink);
 }  
                             
