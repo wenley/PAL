@@ -38,10 +38,10 @@ function mineTools(toolsLink, course) {
                } catch (e) { //  Some bits from split aren't good documents
                    // The last bit is always bad, but want to detect others
                    if (i < a.length - 1) {
-                       console.log("DEBUG:");
-                       console.log(e);
-                       console.log(impBit);
-                       console.log(miniDoc);
+                       console.warn("DEBUG:");
+                       console.warn(e);
+                       console.warn(impBit);
+                       console.warn(miniDoc);
                    }
                }
             }

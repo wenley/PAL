@@ -65,7 +65,6 @@ function XMLdecrement() {
       console.warn("Something went wrong...");
    }
    if (XMLHttpRequest.prototype.count == 0) {
-      console.log("Verifying zero...");
       var verify = setTimeout(function () {
             if (XMLHttpRequest.prototype.count == 0)
                XMLHttpRequest.prototype.onZero();
@@ -77,5 +76,5 @@ function setXMLcallback(callback) {
    XMLHttpRequest.prototype.onZero = callback;
 }
 XMLHttpRequest.prototype.onZero = function () {
-   console.log("XML called the callback!");
+   console.log("XML called the callback!"); // !!!
 }

@@ -21,17 +21,17 @@ function saveToLocal() {
 function openFromLocal() {
    OldCourses = restorePrototype(JSON.parse(localStorage.OldCourses));
    if (OldCourses == undefined) {
-      console.log("Load OldCourses from local failed");
+      console.warn("Load OldCourses from local failed");
       OldCourses = null;
    }
-   console.log(OldCourses);
+   console.log(OldCourses); //  Leave for debugging until release
    
    NewCourses = restorePrototype(JSON.parse(localStorage.NewCourses));
    if (NewCourses == undefined) {
-      console.log("Load NewCourses from local failed");
+      console.warn("Load NewCourses from local failed");
       NewCourses = null;
    }
-   console.log(NewCourses);
+   console.log(NewCourses); //  Leave for debugging until release
 }
 
 //  Restore from last session

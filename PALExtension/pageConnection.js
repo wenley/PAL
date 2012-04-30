@@ -55,10 +55,10 @@ function pullRequest(req) {
 //  Updates OldCourses with NewCourses according to the contents
 //  of the msg
 function clickHandler(msg) {
-   console.log("clickHandler not implemented");
-   console.log("Message contents: ");
+   console.log("clickHandler not implemented"); //  !!!
+   console.log("Message contents: "); //  !!!
    for (var entry in msg) {
-      console.log(entry + ": " + msg[entry]);
+      console.log(entry + ": " + msg[entry]); //  !!!
    }
    return null;
 }

@@ -2,7 +2,6 @@
 
 function addTab(linkEl) {
 
-   console.log("in addTab with linkEl");
    // need to get to the th tag
    var tabEl = linkEl.parentElement.parentElement.parentElement.parentElement.parentElement;
    var semester = tabEl.getAttribute("semester");
@@ -73,7 +72,5 @@ function addTab(linkEl) {
       }
    }
 
-   console.log("ABOUT THE REMOVE THE MOST IMPORTANT TAB");
    removedPopup(semester, name);
-   console.log("PHEW, REMOVED THE MOST IMPORTANT TAB");
 }
