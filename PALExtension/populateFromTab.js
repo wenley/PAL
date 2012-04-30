@@ -104,6 +104,7 @@ function populateBodyFromLink(url) {
             iframe.setAttribute("src", link);
             iframe.setAttribute("class", "tool");
             body.innerHTML = "";
+            addBackLink();
             body.appendChild(iframe);
             return;
          }
@@ -124,10 +125,12 @@ function populateBodyFromLink(url) {
          if (content == null) {
             console.warn("Content clearfix not found...");
             body.innerHTML = "";
+            addBackLink();
             body.appendChild(contentDiv);
          }
          else {
             body.innerHTML = "";
+            addBackLink();
             body.appendChild(content);
          }
          XMLdecrement();
