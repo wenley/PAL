@@ -57,7 +57,7 @@ function populateTitle(semester, name) {
    var courseDescriptionLink = document.createElement("a");
    courseDescriptionElem.setAttribute("id", "mainTitleCourseDescription");
    courseDescriptionLink.innerText = "Course Description";
-   courseDescriptionLink.addEventListener("click", function() { populateIframe(link); }, false);
+   courseDescriptionLink.addEventListener("click", function() { populateIframeBack(link); }, false);
    //courseDescriptionLink.setAttribute("href", link);
    courseDescriptionElem.appendChild(courseDescriptionLink);
    
@@ -75,18 +75,29 @@ function populateIframeBack(link) {
    
    var spaceToPopulate = document.getElementById("notTabBar");
    spaceToPopulate.innerHTML = "";
+
+   addBackLink(link);
+
    var f1 = document.createElement("iframe");
    f1.setAttribute("height", "100%");
    f1.setAttribute("width", "100%");
    f1.setAttribute("src", link);
    spaceToPopulate.appendChild(f1);
-   var tabBar = document.getElementById("tabBar");
-   var backLink = document.createElement("a");
-   backLink.innerText = "Return to MEEEEE";
-   backLink.addEventListener("click", function() {console.log(selectedTab); populateFromTab(selectedTab); }, false);
-   tabBar.appendChild(backLink);
 }  
-                            
+
+function addBackLink() { 
+
+   var spaceToPopulate = document.getElementById("notTabBar");
+
+   var backElem = document.createElement("div");
+   backElem.setAttribute("id", "backElem");
+   var backLink = document.createElement("a");
+   backLink.innerText = "Return to " + selectedTab.innerText;
+   backLink.addEventListener("click", function() {console.log(selectedTab); populateFromTab(selectedTab); }, false);
+   backElem.appendChild(backLink);
+   spaceToPopulate.appendChild(backElem);   
+}                            
+
 function populateIframe(link) {
 
    var spaceToPopulate = document.getElementById("notTabBar");

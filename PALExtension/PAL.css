@@ -16,6 +16,17 @@ div#sideBar {
     font-size:15px;
 }
 
+#CourseHeader {
+    background-color:#E8600A;
+    color:white;
+    font-family:monospace;
+    font-size:20px;
+    padding-left:18px;
+    padding-right:18px;
+    align:center;
+    text-align:center; 
+}
+
 div#notSideBar {
     background-color:white;
     position:absolute;
@@ -29,9 +40,16 @@ div#notTabBar {
     background-color: gray;
     position:absolute;
     left:0px;
-    top:180px;
+    top:120px;
     width:100%;
 
+}
+
+div#backElem { 
+    background-color:#E8600A;
+    color:white;
+    font-family:monospace;
+    font-size:15px;
 }
 
 div#tabBar {
@@ -40,7 +58,7 @@ div#tabBar {
     top:0px;
     left:0px;   
     width:100%;
-    height:180px;
+    height:120px;
     text-align:center;
     font-family:helvetica;
     color:white;
