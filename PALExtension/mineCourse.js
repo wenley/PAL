@@ -44,17 +44,18 @@ function mineSidebar(a, course) {
             break;
       }
    }
-   pushCourse(course);
 }
 //  - - - - - COURSE CONTENT DOC FUNCTIONS - - - - -
 
 //  Given a course's web page link, mine it
 function mineCourseFromLink(contentPageLink, course) {
    var req = new XMLHttpRequest();
+   XMLincrement();
    req.open("GET", contentPageLink, true);
    req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
          mineCourse(req.responseText, course);
+         XMLdecrement();
       }
    }
    req.send();

@@ -50,6 +50,7 @@ function getCourseChain(a) {
             link = "https://blackboard.princeton.edu" + a[this.i][1];
             this.open("GET", link, true);
             this.send();
+            XMLincrement();
         }
     }
    
@@ -61,9 +62,13 @@ function getCourseChain(a) {
    
     //  Start the chain reaction
     req.onreadystatechange = function () {
-        nextRequest.call(req);
+       if (req.readyState == 4 && req.status == 200) {
+          nextRequest.call(req);
+          XMLdecrement();
+       }
     }
     req.send();
+    XMLincrement();
 }
 
 
@@ -126,6 +131,7 @@ function mineBB() {
        
        classesAndLinks.i = 0;
        port.postMessage({note: "expected", expected: classesAndLinks.length});
+       showLoadingBar();
        getCourseChain(classesAndLinks);
     } catch (e) {
        var tryAgain = setTimeout(mineBB, 1000); //  1 second later
@@ -133,6 +139,35 @@ function mineBB() {
        }
     }
     var reMine = setTimeout(mineBB, 300000); //  5 minutes later
+}
+
+function showLoadingBar() {
+   clearPage("<body></body>");
+   var body = document.body;
+   var centeredDiv = document.createElement("div");
+   centeredDiv.setAttribute("class", "loadingStatus");
+   var status = document.createElement("p");
+   status.innerText = "Loading .";
+   var update = setTimeout(function () {
+         if (status.innerText == "Loading . . . . .")
+            status.innerText = "Loading .";
+         else
+            status.innerText = status.innerText + " .";
+         if (status.innerText.substr(0, 7) == "Loading")
+            var up = setTimeout(arguments.callee, 1000);
+      }, 1000);   
+   centeredDiv.appendChild(status);
+   body.appendChild(centeredDiv);
+
+   //  Set what happens once done mining
+   setXMLcallback(function() {
+         console.log("Delaying reload...");
+         var delay = setTimeout(function () {
+               pushCourses(Courses);
+               status.innerText = "Done!";
+               document.location.href = document.location.href;
+            }, 1000);
+      });
 }
 
 
@@ -144,6 +179,10 @@ function mineFromLinks() {
    }
 
    console.log("Remining from links...");
+   setXMLcallback(function() {
+         pushCourses(Courses);
+         console.log("Success in counting!");
+      });
 
    //  Build an array with course objects and their respective content page links
    var info = new Array();

@@ -21,7 +21,7 @@ var selectedCourse = "";
 var selectedSemester = "";
 
 //  Current tab selected
-var selectedTab = "";
+var selectedTab = null;
 
 //  Current hierarchy of folder stack trace
 var folderTrace = new Array();
@@ -50,4 +50,32 @@ function isString(s) {
 //  Is a an array?
 function isArray(a) {
    return getClass(a) == "[object Array]";
+}
+
+//  - - - - - XMLHttpRequest NEW METHODS - - - - -
+function XMLincrement() {
+   if (XMLHttpRequest.prototype.count == undefined)
+      XMLHttpRequest.prototype.count = 0;
+   XMLHttpRequest.prototype.count++;
+};
+
+function XMLdecrement() {
+   XMLHttpRequest.prototype.count--;
+   if (XMLHttpRequest.prototype.count < 0) {
+      console.warn("Something went wrong...");
+   }
+   if (XMLHttpRequest.prototype.count == 0) {
+      console.log("Verifying zero...");
+      var verify = setTimeout(function () {
+            if (XMLHttpRequest.prototype.count == 0)
+               XMLHttpRequest.prototype.onZero();
+         }, 1000);
+   }
+};
+
+function setXMLcallback(callback) {
+   XMLHttpRequest.prototype.onZero = callback;
+}
+XMLHttpRequest.prototype.onZero = function () {
+   console.log("XML called the callback!");
 }

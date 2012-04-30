@@ -1,15 +1,15 @@
 {
-    "name": "My First Extension",
-    "version": "0.1",
+    "name": "PAL",
+    "version": "0.2",
     "manifest_version": 2,
-    "description": "First extension evar",
+    "description": "Princeton Academic Linker",
     "background": {
         "page": "template.html"
     },
     "content_scripts": [
     {
         "matches": ["https://blackboard.princeton.edu/*"],
-    	"exclude_matches": ["https://blackboard.princeton.edu/", "https://blackboard.princeton.edu/webapps/login", 
+    	"exclude_matches": ["https://blackboard.princeton.edu/", "https://blackboard.princeton.edu/webapps/login/", 
 "https://blackboard.princeton.edu/bbcswebdav/*", "https://blackboard.princeton.edu/@@/*"],
         "css": ["PAL.css"], 
     	"js": [
@@ -42,7 +42,6 @@
    ],
    "permissions": [
         "https://blackboard.princeton.edu/*",
-        "background",
-        "tabs"
+        "background"
    ]
 }

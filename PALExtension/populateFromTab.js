@@ -11,7 +11,7 @@ function populateFromTab(tabLinkEl) {
    var attribute = tabEl.getAttribute("attribute");
    
    //  Update state variables
-   selectedTab = attribute;
+   selectedTab = tabLinkEl;
    folderTrace = new Array();
    
     //  Validate inputs; should never be invalid
@@ -27,8 +27,18 @@ function populateFromTab(tabLinkEl) {
     }
     var attr = course[attribute];
     if (attr == undefined || attr == null) {
-        throw "In (semester, course) = (" + semester + ", " + course + "), not a valid attribute: " + attribute;
-        return;
+       //  Try finding it in otherLinks
+       for (var i = 0; i < course.otherLinks.length; i++) {
+          if (course.otherLinks[i].name == attribute) {
+             attr = course.otherLinks[i];
+             attribute = "otherLinks";
+             break;
+          }
+       }
+       if (attr == undefined || attr == null) {
+          throw "In (semester, course) = (" + semester + ", " + course + "), not a valid attribute: " + attribute;
+          return;
+       }
     }
     
     var space = document.getElementById("notTabBar");
@@ -58,7 +68,7 @@ function populateFromTab(tabLinkEl) {
           space.appendChild(toHTML(attr[entry]));
     }
     else if (attribute == "otherLinks") {
-       console.log("otherLinks not currently handled...");
+       populateIframe(attr.link);
     }
     else {
        console.warn("Unrecognized attribute: " + attribute);
@@ -120,17 +130,19 @@ function populateBodyFromLink(url) {
             body.innerHTML = "";
             body.appendChild(content);
          }
+         XMLdecrement();
       }
    }
    req.send();
+   XMLincrement();
 }
 
 //  Replaces the body of the template with the contents of
 //  the folder. Updates folderTrace.
 function populateFromFolder(newFolderName) {
-   console.log(arguments.callee.caller);
    var course = selectedCourse;
-   var attr = course[selectedTab];
+   var attrName = selectedTab.parentElement.getAttribute("attribute");
+   var attr = course[attrName];
    var body = document.getElementById("notTabBar");
 
    //  Find past object
@@ -138,10 +150,10 @@ function populateFromFolder(newFolderName) {
    var docs;
    if (folderTrace.length > 0) {
       pastFolder = folderTrace[folderTrace.length - 1];
-      docs = pastFolder.fileLinks;
+      docs = pastFolder.contents;
    }
    else {
-      pastFolder = { name: selectedTab };
+      pastFolder = { name: attrName };
       docs = attr;
    }
 
@@ -160,6 +172,15 @@ function populateFromFolder(newFolderName) {
    //  Update folder stack trace
    folderTrace.push(newFolder);
 
+   //  Show current location
+   body.innerHTML = "";
+   var curFolDiv = document.createElement("div");
+   var location = document.createElement("h3");
+   location.innerText = newFolder.name;
+   curFolDiv.setAttribute("align", "center");
+   curFolDiv.appendChild(location);
+   body.appendChild(curFolDiv);
+
    //  Create proper link to return to previous folder
    var backDiv = document.createElement("div");
    var backLink = document.createElement("a");
@@ -172,7 +193,7 @@ function populateFromFolder(newFolderName) {
             var tabs = document.getElementsByTagName("th");
             var trueTab = null;
             for (var i = 0; i < tabs.length; i++) {
-               if (tabs[i].getAttribute("attribute") == selectedTab)
+               if (tabs[i].getAttribute("attribute") == attrName)
                   trueTab = tabs[i].children[1];
             }
             if (trueTab == null)
@@ -188,7 +209,7 @@ function populateFromFolder(newFolderName) {
    body.appendChild(backDiv);
 
    //  Put in newFolder's contents;
-   for (var i = 0; i < newFolder.fileLinks.length; i++) {
-      body.appendChild(toHTML(newFolder.fileLinks[i]));
+   for (var i = 0; i < newFolder.contents.length; i++) {
+      body.appendChild(toHTML(newFolder.contents[i]));
    }
 }

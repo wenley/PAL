@@ -5,6 +5,7 @@ function mineDocuments(link, course, type) {
 
    req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
+         XMLdecrement();
 
          var text;
 
@@ -59,6 +60,13 @@ function mineDocuments(link, course, type) {
                   current = current.concat("<\/div><\/div>");
                else current = current.concat("<\/div>");
                current = current.replace(/<img[^>]*>/g,"");
+               try {
+                  var temp = HTMLtoXML(current);
+                  current = temp;
+               } catch (e) {
+                  console.warn(course.key + ":: " + type + ":: ERROR");
+                  console.warn(e);
+               }
                miniDoc = parser.parseFromString(current, "text/xml");
                var FileLinks = miniDoc.getElementsByTagName("a");
                for (var j = 0; j < FileLinks.length; j++) {
@@ -89,7 +97,7 @@ function mineDocuments(link, course, type) {
             else if (imgType == "document") {
                var m = new Material();
                m.name = Name;
-               m.fileLinks = docLinks;
+               m.contents = docLinks;
                m.memo = Memo;
                docs[docs.length] = m;
             }
@@ -97,7 +105,7 @@ function mineDocuments(link, course, type) {
                var a = new Assignment();
                a.name = Name;
                a.submissionLink = h3link;
-               a.fileLinks = docLinks;
+               a.contents = docLinks;
                a.memo = Memo;
                docs[docs.length] = a;
             }
@@ -111,7 +119,7 @@ function mineDocuments(link, course, type) {
                var g = new Assignment();
                g.name = Name;
                g.submissionLink = h3link;
-               g.fileLinks = docLinks;
+               g.contents = docLinks;
                docs[docs.length] = g;
             }
             else
@@ -137,4 +145,5 @@ function mineDocuments(link, course, type) {
       }
    }
    req.send();
+   XMLincrement();
 }

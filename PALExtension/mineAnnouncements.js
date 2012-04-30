@@ -4,11 +4,12 @@
 // --- Mines announcements from Blackboard to reformat ---
 
 function mineAnnouncements (link, course) {
-   var req = new XMLHttpRequest;
+   var req = new XMLHttpRequest();
    req.open("GET", link, true);
    
    req.onreadystatechange = function () {
       if(req.readyState == 4 && req.status == 200) {
+         XMLdecrement();
    var announcements = new Array();
 
    var store = req.responseText;
@@ -25,18 +26,19 @@ function mineAnnouncements (link, course) {
    var headingEnd;
    var i = 0;
 
-   startinfo = store.indexOf("<div class =\"announcementInfo");
-   if (startinfo == -1)
+   startInfo = store.indexOf("<div class=\"announcementInfo");
+   if (startInfo == -1)
       return;
+   startInfo -= 1;
    while (startInfo != -1) {
       var a = new Announcement();
-      startInfo = store.indexOf("<div class =\"announcementInfo\">", startInfo);
+      startInfo = store.indexOf("<div class=\"announcementInfo\">", startInfo + 1);
       if (startInfo == -1)
          break;
       endInfo = store.indexOf("</div>", endDetails);
       tempEnd = store.indexOf("Posted to:", startInfo);
       a.postedBy = store.slice(startInfo, tempEnd);
-      a.postedBy = a.postedBy.replace("<div class =\"announcementInfo\">", " ");
+      a.postedBy = a.postedBy.replace("<div class=\"announcementInfo\">", " ");
       a.postedTo = store.slice(tempEnd, endInfo);
       a.postedBy = a.postedBy.replace("<p><span>", "");
       a.postedBy = a.postedBy.replace("</span>", "");
@@ -67,8 +69,10 @@ function mineAnnouncements (link, course) {
    }
 
    course.announcements = announcements;
+
       }
    }
    req.send();
+   XMLincrement();
 }
 

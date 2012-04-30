@@ -13,11 +13,13 @@ function isInstructorField(s) {
       return true;
    else if (s == "Notes")
       return true;
+   else if (s == "Personal Link")
+      return true;
    else
       return false;
 }
 
-function extractContacts(textArea, course) {
+function extractContacts(textArea, course, isFolder) {
    //  Alternate h3 and div class details tags
    var hStart = 0;
    var hEnd = 0;
@@ -53,6 +55,8 @@ function extractContacts(textArea, course) {
          var f = new Folder();
          f.name = name;
          f.link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
+         f.contents = new Array();
+         mineContacts(f.link, f, "isFolder");
          course.contacts[course.contacts.length] = f;
          continue;
       }
@@ -109,24 +113,30 @@ function extractContacts(textArea, course) {
             i.notes = next;
             k = k + 1;
          }
+         else if (s == "Personal Link" && !isInstructorField(next)) {
+            i.personal = next;
+            k = k + 1;
+         }
          else
             console.warn(course.key + ": Unknown Instructor detail: " + s);
       }
-      course.contacts[course.contacts.length] = i;
+      if (isFolder != undefined)
+         course.contents[course.contents.length] = i;
+      else
+         course.contacts[course.contacts.length] = i;
       j = j + 1;
    } while (j < 100);    //  !!! Make true
-
-   pushCourse(course);
 }
 
 
 //  Takes course content document's sidebar link for Contacts
 //  Gets array of instructor's names and detailed information
-function mineContacts(sidebarLink, course) {
+function mineContacts(sidebarLink, course, isFolder) {
    var req = new XMLHttpRequest();
    req.open("GET", sidebarLink, true);
    req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
+         XMLdecrement();
          var listStart = req.responseText.indexOf("contentList staffInfoList");
          if (listStart == -1) {
             return;
@@ -139,7 +149,10 @@ function mineContacts(sidebarLink, course) {
          }
 
          var list = req.responseText.slice(listStart, listEnd);
-         extractContacts(list, course);
+         if (isFolder != undefined)
+            extractContacts(list, course, isFolder);
+         else
+            extractContacts(list, course);
       }
       else if (req.readyState == 4) {
          console.warn(course.key);
@@ -151,4 +164,5 @@ function mineContacts(sidebarLink, course) {
       }
    }
    req.send();
+   XMLincrement();
 }

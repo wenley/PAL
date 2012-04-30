@@ -57,7 +57,9 @@ function diffAttr(newAttr, oldAttr) {
       console.log("Difference found: [New] [Old]");
       console.log(newAttr);
       console.log(oldAttr);
+      return {note: "diff"};
    }
+   return null;
 }
 
 //  Checks for differences between two courses
@@ -71,7 +73,9 @@ function diffCourse(newC, oldC) {
          console.log(oldC);
          continue;
       }
-      diffAttr(newAttr, oldAttr);
+      var diff = diffAttr(newAttr, oldAttr);
+      if (diff != null)
+         console.log("diff found") // !!!
    }
 }
 
