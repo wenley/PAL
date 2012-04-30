@@ -11,7 +11,7 @@ function clearPage(s) {
     else if (c == "[object HTMLBodyElement]")
         document.body = s;
     else
-        console.log(c);
+       console.warn("Unrecognized class to clear with: " + c);
 }
 
 //  Gets template
@@ -32,7 +32,7 @@ function display(msg) {
       console.warn("CourseKey not defined.");
    var course = sem[msg.courseKey];
    if (course == undefined)
-      console.log("Invalid courseKey: " + msg.courseKey);
+      console.warn("Invalid courseKey: " + msg.courseKey);
    //  sem[msg.courseKey] = cleanObj(course);
    //  course = sem[msg.courseKey];
 
@@ -40,7 +40,7 @@ function display(msg) {
       console.warn("Section not defined.");
    var obj = course[msg.section];
    if (obj == undefined)
-      console.log("Invalid section: " + msg.section);
+      console.warn("Invalid section: " + msg.section);
    if (obj == null)
       return; //  Empty field of the course
 
@@ -76,7 +76,7 @@ function write(obj) {
         }
     }
     else {
-        console.log("Unknown class: " + c);
+        console.warn("Unknown class: " + c);
     }
 }
    

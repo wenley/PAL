@@ -3,8 +3,6 @@
 // populateCourse.js
 
 function createTab(semester, name, currentTable, attribute, tagText) {
-   console.log("creating Tab: " + semester + name + attribute);
-
    // Create the main element
    var mainEl = document.createElement("th");
    mainEl.setAttribute("class", "tabTable");
@@ -29,7 +27,6 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    mainEl.appendChild(mainLink);
 
    currentTable.appendChild(mainEl);
-   console.log("Finished making tab: " + semester + name + attribute);
 }
 
 //  Fills in the tabs when a course is selected
@@ -176,9 +173,7 @@ function populateCourse(courseEl) {
    }
 
    populateFromTab(currentTable.children[0].children[1]);
-   console.log("About to call removed popup with " + semester + name);
    removedPopup(semester, name);
-   console.log("The removedPopupo function got called");
 
    //  Update state variables
    selectedSemester = Courses[semester];
@@ -186,8 +181,6 @@ function populateCourse(courseEl) {
 }
 
 function removedPopup(semester, name) {
-
-   console.log("In removed popup.....");
 
    if (Courses[semester] == null || Courses[semester] == undefined)
       throw "Improper usage: invalid semester name";

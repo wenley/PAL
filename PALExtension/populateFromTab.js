@@ -49,15 +49,15 @@ function populateFromTab(tabLinkEl) {
           space.appendChild(toHTML(attr[entry]));
     }
     else if (attribute == "courseMaterials") {
-       for (var entry in attr)
-          space.appendChild(toHTML(attr[entry]));
+       for (var i = attr.length - 1; i >= 0; i--)
+          space.appendChild(toHTML(attr[i]));
     }
     else if (attribute == "syllabusDoc") {
        populateIframe(course.syllabusDoc.link)
     }
     else if (attribute == "assignments") {
-       for (var entry in attr)
-          space.appendChild(toHTML(attr[entry]));
+       for (var i = attr.length - 1; i >= 0; i--)
+          space.appendChild(toHTML(attr[i]));
     }
     else if (attribute == "contacts") {
        for (var entry in attr)

@@ -6,31 +6,24 @@ function mineSidebar(a, course) {
    for (i = 0; i < a.length; i++) {
       switch(a[i][0]) {
          case "Announcements":
-            console.log(course.key + ": Mining Announcements...");
             mineAnnouncements(a[i][1], course);
             break;
          case "Syllabus":
-            console.log(course.key + ": Mining Syllabus...");
             mineSyllabus(a[i][1], course);
             break;
          case "Course Description":
-            console.log(course.key + ": Mining Course Description...");
             mineCourseDescription(a[i][1], course);
             break;
          case "Course Materials":
-            console.log(course.key + ": Mining Course Materials...");
             mineDocuments(a[i][1], course, "Course Materials");
             break;
          case "Assignments":
-            console.log(course.key + ": Mining Assignments...");
             mineDocuments(a[i][1], course, "Assignments");
             break;
          case "Contacts":
-            console.log(course.key + ": Mining Contacts...");
             mineContacts(a[i][1], course);
             break;
          case "Tools":
-            console.log(course.key + ": Mining Tools...");
             mineTools(a[i][1], course);
             break;
          default:

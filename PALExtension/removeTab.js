@@ -37,8 +37,6 @@ function removeTab(buttonEl) {
    // We actually want index length!
    currentCourse.tabOrder[length] = undefined;
    currentCourse.tabOrder["length"] = length - 1; 
-   console.log("Removed " + tab + " from " + currentCourse.key); 
-   console.log("Going to call removedPopup() from removeTab()");
    removedPopup(semester, name);
 }
 

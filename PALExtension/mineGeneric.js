@@ -7,7 +7,6 @@
 function redirectToCourses() {
     var contentFrame = document.getElementsByName("content")[0];
     if (contentFrame.getAttribute("src") != CoursesTabContentSrc) {
-        console.log("Redirecting...");
         document.location.href = CoursesTabLink;
     }
     else
