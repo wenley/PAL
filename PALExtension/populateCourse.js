@@ -3,6 +3,7 @@
 // populateCourse.js
 
 function createTab(semester, name, currentTable, attribute, tagText) {
+   console.log("creating Tab: " + semester + name + attribute);
 
    // Create the main element
    var mainEl = document.createElement("th");
@@ -28,6 +29,7 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    mainEl.appendChild(mainLink);
 
    currentTable.appendChild(mainEl);
+   console.log("Finished making tab: " + semester + name + attribute);
 }
 
 //  Fills in the tabs when a course is selected
@@ -67,8 +69,12 @@ function populateCourse(courseEl) {
       currentCourse.tabOrder["contacts"] = 4;
       currentCourse.tabOrder[5] = "tools";
       currentCourse.tabOrder["tools"] = 5;
-
-      currentCourse.tabOrder["length"] = 6;
+      var i = 0;
+      for (; currentCourse.otherLinks[i] != undefined && i < currentCourse.otherLinks.length ; i++) {
+         currentCourse.tabOrder[6+i] = currentCourse.otherLinks[i].name;
+         currentCourse.tabOrder[currentCourse.otherLinks[i].name] = 6 + i;
+      }
+      currentCourse.tabOrder["length"] = 6 + i;
    }
 
    var currentTable = document.getElementById("courseTabTable");
@@ -104,17 +110,6 @@ function populateCourse(courseEl) {
                }
             }
             break;
-
-            //case "descriptionLink":
-            // Make the Description link
-            //if (currentCourse.descriptionLink != null)
-            //{
-            //if (!isRemoved(semester, name, "descriptionLink"))
-            //{
-            //    createTab(semester, name, currentTable, "descriptionLink", "Course Description");
-            // }
-            //}
-            //break;
 
          case "courseMaterials":
             // Make the Course Materials link
@@ -156,6 +151,22 @@ function populateCourse(courseEl) {
                if (!isRemoved(semester, name, "tools"))
                {
                   createTab(semester, name, currentTable, "tools", "Tools");
+               }
+            }
+            break;
+         default:
+            //  Try to find an otherLink to match
+            var tabName = currentCourse.tabOrder[i];
+            var otherLink = null;
+            for (var j = 0; j < currentCourse.otherLinks.length; j++) {
+               if (currentCourse.otherLinks[j].name == tabName) {
+                  otherLink = currentCourse.otherLinks[j];
+                  break;
+               }
+            }
+            if (otherLink != null) {
+               if (!isRemoved(semester, name, otherLink.name)) {
+                  createTab(semester, name, currentTable, otherLink.name, otherLink.name);
                }
             }
             break;

@@ -16,12 +16,14 @@ function removeTab(buttonEl) {
    var currentCourse = Courses[semester][name];
    cleanObj(currentCourse);
 
+   //  Note that the tab has been removed
    var currentTab = tabEl;
-//   var currentTab = document.getElementsByName(tab)[0];
    currentTab.parentNode.removeChild(tabEl);
    if (currentCourse.removedTabs == undefined)
       currentCourse.removedTabs = new Array();
    currentCourse.removedTabs.push(tab);
+
+   //  Reorder tabOrder
    var i = currentCourse.tabOrder[tab];
    var length = currentCourse.tabOrder["length"];
    for (i; i < length; i++)
