@@ -71,6 +71,22 @@ function populateTitle(semester, name) {
 
 }
 
+function populateIframeBack(link) {
+   
+   var spaceToPopulate = document.getElementById("notTabBar");
+   spaceToPopulate.innerHTML = "";
+   var f1 = document.createElement("iframe");
+   f1.setAttribute("height", "100%");
+   f1.setAttribute("width", "100%");
+   f1.setAttribute("src", link);
+   spaceToPopulate.appendChild(f1);
+   var tabBar = document.getElementById("tabBar");
+   var backLink = document.createElement("a");
+   backLink.innerText = "Return to MEEEEE";
+   backLink.addEventListener("click", function() {populateFromTab(selectedTab); }, false);
+   tabBar.appendChild(backLink);
+}  
+                            
 function populateIframe(link) {
 
    var spaceToPopulate = document.getElementById("notTabBar");
