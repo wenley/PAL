@@ -70,9 +70,11 @@ function populateCourse(courseEl) {
       currentCourse.tabOrder[5] = "tools";
       currentCourse.tabOrder["tools"] = 5;
       var i = 0;
-      for (; currentCourse.otherLinks[i] != undefined && i < currentCourse.otherLinks.length ; i++) {
-         currentCourse.tabOrder[6+i] = currentCourse.otherLinks[i].name;
-         currentCourse.tabOrder[currentCourse.otherLinks[i].name] = 6 + i;
+      if (currentCourse.otherLink != null) {
+         for (; currentCourse.otherLinks[i] != undefined && i < currentCourse.otherLinks.length ; i++) {
+            currentCourse.tabOrder[6+i] = currentCourse.otherLinks[i].name;
+            currentCourse.tabOrder[currentCourse.otherLinks[i].name] = 6 + i;
+         }
       }
       currentCourse.tabOrder["length"] = 6 + i;
    }
