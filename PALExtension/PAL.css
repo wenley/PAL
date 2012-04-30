@@ -55,7 +55,9 @@ div#mainTitle {
     text-align:center;
     height:65px;
     width:100%;
-    background-color:#E8600A;
+    background-color:#F88017;
+    background-image:url('http://image.51diy.org/UniPicture/US/Universities/Princeton%20University/princeton%20halls.jpg');
+    background-position:center;
     font-family:monospace;
     text-transform:uppercase;
     font-size:30px;
@@ -84,11 +86,11 @@ div#logoutButtonElem {
 
 div#mainTitleCourseDescription {
     top:0px;
-    text-align:right;
-    font-size:10px;
+    text-align:center;
+    font-size:12px;
     padding-top:0px;
     padding-bottom:0px;
-    padding-left:60px;
+    padding-left:0px;
     padding-right:0px;
 }
 
