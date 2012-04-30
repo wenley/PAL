@@ -60,14 +60,12 @@ function populateCourse(courseEl) {
       currentCourse.tabOrder["assignments"] = 2;
       currentCourse.tabOrder[3] = "syllabusDoc";
       currentCourse.tabOrder["syllabusDoc"] = 3;
-      //currentCourse.tabOrder[4] = "descriptionLink";
-      //currentCourse.tabOrder["descriptionLink"] = 4;
       currentCourse.tabOrder[4] = "contacts";
       currentCourse.tabOrder["contacts"] = 4;
       currentCourse.tabOrder[5] = "tools";
       currentCourse.tabOrder["tools"] = 5;
       var i = 0;
-      if (currentCourse.otherLink != null) {
+      if (currentCourse.otherLinks != null) {
          for (; currentCourse.otherLinks[i] != undefined && i < currentCourse.otherLinks.length ; i++) {
             currentCourse.tabOrder[6+i] = currentCourse.otherLinks[i].name;
             currentCourse.tabOrder[currentCourse.otherLinks[i].name] = 6 + i;
@@ -212,7 +210,7 @@ function removedPopup(semester, name) {
    menuUl.setAttribute("id", "removeMenu");
 
    var mainLi = document.createElement("li");
-   mainLi.innerText = "+++++++++++";
+   mainLi.innerText = "+";
 
    var subMenu = document.createElement("ul");
 
@@ -220,19 +218,17 @@ function removedPopup(semester, name) {
    {
       console.log("no removed tabs...");
       var subLi = document.createElement("li");
-      subLi.innerText = "There are no removed tabs!";
+      subLi.innerText = "There are no removed tabs.";
       subMenu.appendChild(subLi);
    }
    else
    {
       total = currentCourse.removedTabs.length;
-      console.log("THE TOTAL IS:::::: " + total);
       for (var i = 0; i < total; i++)
       {
          var attribute = currentCourse.removedTabs[i];
          if (attribute == null || attribute == undefined)
          {
-            console.log("boop");
             break;
          }
          var subLi = document.createElement("li");
