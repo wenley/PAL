@@ -29,13 +29,15 @@ function mineDocuments(link, course, type) {
             }
             imgType = imgType[0].match(/\/[^_]*/)[0];
             imgType = imgType.slice(1);
-            
             //  Get Name of <li> entry
             var Name;
             var start = text.indexOf("<h3>", loc);
             var end = text.indexOf("<\/h3>", start);
             var current = text.slice(start, end);
             current = current.concat("<\/h3>");
+            if (imgType == "release") //  !!!
+               console.log(current); //  !!!
+            
             var miniDoc = parser.parseFromString(current, "text/xml");
             if (miniDoc.getElementsByTagName("span").length > 1)
                Name = miniDoc.getElementsByTagName("span")[1].textContent;
@@ -121,6 +123,18 @@ function mineDocuments(link, course, type) {
                g.submissionLink = h3link;
                g.contents = docLinks;
                docs[docs.length] = g;
+            }
+            else if (imgType == "link") {
+               var l = new Assignment();
+               l.name = Name;
+               l.submissionLink = h3link;
+               if (docLinks != null) {
+                  console.warn("docsLinks for a link image is not null");
+                  console.log(docLinks);
+               }
+               l.memo = Memo;
+               l.isLink = "isLink";
+               docs[docs.length] = l;
             }
             else
                console.warn(course.key + ":: Unrecognized image type: " + imgType);
