@@ -33,7 +33,7 @@ function mineSidebar(a, course) {
             t.link = a[i][1];
             if (course.otherLinks == null)
                course.otherLinks = new Array();
-            course.otherLinks.push(t);
+               course.otherLinks.push(t); 
             break;
       }
    }

@@ -5,39 +5,52 @@ function removeTab(buttonEl) {
    var tabEl = buttonEl.parentElement.parentElement; //  button --> div --> th
    var semester = tabEl.getAttribute("semester");
    var name = tabEl.getAttribute("name");
-   var tab = tabEl.getAttribute("attribute");
+   var attribute = tabEl.getAttribute("attribute");
 
    if (Courses[semester] == null || Courses[semester] == undefined)
       throw "Improper usage: invalid semester name: " + semester;
    if (Courses[semester][name] == null || Courses[semester][name] == null)
       throw "Improper usage: invalid course name: " + name;
 
-
    var currentCourse = Courses[semester][name];
    cleanObj(currentCourse);
+
+   console.log("From the removeTab function Beginning");
+   console.log(currentCourse.tabOrder);
+   console.log(currentCourse.removedTabs);
 
    //  Note that the tab has been removed
    var currentTab = tabEl;
    currentTab.parentNode.removeChild(tabEl);
    if (currentCourse.removedTabs == undefined)
       currentCourse.removedTabs = new Array();
-   currentCourse.removedTabs.push(tab);
+   currentCourse.removedTabs.push(attribute);
 
    //  Reorder tabOrder
-   var i = currentCourse.tabOrder[tab];
-   var length = currentCourse.tabOrder["length"];
-   for (i; i < length; i++)
+   var index = 0;
+   while (currentCourse.tabOrder[index] != null && currentCourse.tabOrder[index] != undefined)
    {
-      var tempCourse1 = currentCourse.tabOrder[i];
-      var tempCourse2 = currentCourse.tabOrder[i + 1];
-      currentCourse.tabOrder[tempCourse1] = tempCourse2;
-      currentCourse.tabOrder[i] = currentCourse.tabOrder[i + 1];
+      if (currentCourse.tabOrder[index] == attribute)
+         break;
+      index++;
    }
-   // The missing quotes are necessary in this case! 
-   // We actually want index length!
-   currentCourse.tabOrder[length] = undefined;
-   currentCourse.tabOrder["length"] = length - 1; 
+
+   // now more all of the other tabs over
+   while (currentCourse.tabOrder[index + 1] != null && currentCourse.tabOrder[index + 1] != undefined)
+   {
+      currentCourse.tabOrder[index] = currentCourse.tabOrder[index + 1];
+      index++;
+   }
+
+   // delete the desired tab
+   var poppped = currentCourse.tabOrder.pop();
+   console.log("popped" + pooped);
+
    removedPopup(semester, name);
+
+   console.log("From the RemoveTab function");
+   console.log(currentCourse.tabOrder);
+   console.log(currentCourse.removedTabs);
 }
 
 //  Is the tab with semester, name, and attribute 'tab' removed?
@@ -49,15 +62,18 @@ function isRemoved(semester, name, tab) {
 
    var currentCourse = Courses[semester][name];
    cleanObj(currentCourse);
-   
-   if (currentCourse.removedTabs == undefined)
+
+   if (currentCourse.removedTabs == undefined || currentCourse.removedTabs.length == 0 ||
+       currentCourse.removedTabs[0] == undefined)
       return false;
-   var length = currentCourse.removedTabs.length;
-   for (var i = 0; i < length; i++)
+
+   var i = 0;
+   while (currentCourse.removedTabs[i] != null && currentCourse.removedTabs[i] != undefined)
    {
-      if (currentCourse.removedTabs[0] == tab)
+      if (currentCourse.removedTabs[i] == tab)
          return true;
-   } 
+      i++;
+   }
    return false;
 }
 
