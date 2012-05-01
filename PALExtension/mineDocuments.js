@@ -128,8 +128,8 @@ function mineDocuments(link, course, type) {
                var l = new Assignment();
                l.name = Name;
                l.submissionLink = h3link;
-               if (docLinks != null) {
-                  console.warn("docsLinks for a link image is not null");
+               if (docLinks.length > 0) {
+                  console.warn("docsLinks for a link image is not empty");
                   console.log(docLinks);
                }
                l.memo = Memo;
