@@ -33,8 +33,13 @@ function populate() {
    }
 
    //  Default expand first semester and first course in first semester
-   expandSemester(ul.children[0].children[0]);
-   populateCourse(ul.children[0].children[1].children[0].children[0]);
+   var semEl = ul.children[0].children[0];
+   if (isFuture(semEl.innerText))
+      semEl = ul.children[1].children[0];
+
+   expandSemester(semEl);
+   populateCourse(semEl.parentElement.children[1].children[0].children[0]);
+//   populateCourse(ul.children[0].children[1].children[0].children[0]);
 }
 
 //  Sorts the semesters and returns a new version of the array in reverse order
@@ -54,4 +59,31 @@ function sortSemesters(sems) {
       sems[i] = translator[proxy[i]];
    }
    return sems;
+}
+
+//  Detects if a particular semester is in the future
+//  !!! Might be buggy
+function isFuture(sem) {
+   var d = new Date();
+   var currYear = d.getFullYear();
+   var year = parseInt(sem.substr(1));
+
+   //  If semester is a year ahead, obviously future
+   if (currYear < year)
+      return true;
+
+   var currMonth = d.getMonth();
+   var fallSpring = sem[0];
+
+   if (fallSpring == 'S') {
+      //  If semester is spring and current month is January (1)
+      if (currMonth <= 1)
+         return true;
+   }
+   else if (fallSpring == 'F') {
+      //  If semester is fall and current month is before June (6)
+      if (currMonth <= 6)
+         return true;
+   }
+   return false;
 }
