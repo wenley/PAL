@@ -65,6 +65,10 @@ function getCourseChain(a) {
           nextRequest.call(req);
           XMLdecrement();
        }
+       else if (req.readyState == 4 && req.status != 200) {
+          console.warn("ERROR. miner's initial request failed. Status: " + req.status);
+          XMLdecrement();
+       }
     }
     req.send();
     XMLincrement();

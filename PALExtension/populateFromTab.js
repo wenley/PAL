@@ -86,6 +86,7 @@ function populateBodyFromLink(url) {
    req.open("GET", link, true);
    req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
+         XMLdecrement();
          var body = document.getElementById("notTabBar");
          var text = cleanLink(req.responseText);
          text = text.replace(/<img[^>]*>/g, "");
@@ -133,6 +134,9 @@ function populateBodyFromLink(url) {
             addBackLink();
             body.appendChild(content);
          }
+      }
+      else if (req.readyState == 4 && req.status != 200) {
+         console.warn(course.key + ": ERROR, status is " + req.status);
          XMLdecrement();
       }
    }
