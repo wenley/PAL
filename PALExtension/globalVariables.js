@@ -61,7 +61,8 @@ function XMLincrement() {
 
 function XMLdecrement() {
    XMLHttpRequest.prototype.count--;
-   if (XMLHttpRequest.prototype.count < 0) {
+   console.log(XMLHttpRequest.prototype.count);
+  if (XMLHttpRequest.prototype.count < 0) {
       console.warn("Something went wrong...");
    }
    if (XMLHttpRequest.prototype.count == 0) {

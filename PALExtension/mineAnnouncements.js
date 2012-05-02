@@ -68,9 +68,15 @@ function mineAnnouncements (link, course) {
       i++;
    }
 
-   course.announcements = announcements;
+         course.announcements = announcements;
 
       }
+      else if (req.readyState == 4 && req.status != 200)
+      {
+         console.warn(course.key + "Error, status is: " + req.status);
+         XMLdecrement();
+      }
+
    }
    req.send();
    XMLincrement();
