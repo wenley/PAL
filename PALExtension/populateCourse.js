@@ -110,7 +110,7 @@ function populateCourse(courseEl) {
    
    for (var i = 0; i < 1000; i++)
    {
-      if (currenCourse.tabOrder[i] == undefined || currentCourse.tabOrder[i] == null)
+      if (currentCourse.tabOrder[i] == undefined || currentCourse.tabOrder[i] == null)
          break;
       switch(currentCourse.tabOrder[i])
       {
