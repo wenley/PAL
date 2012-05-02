@@ -122,6 +122,7 @@ function runDiff() {
       if (diffS != "" && diffS.length > 0)
          diff.push(semester + "'" + diffS);
    }
-   sendToForeground({note: "update", update: diff.join('/')});
+//   if (diff.length > 0)
+      sendToForeground({note: "update", update: diff.join('/')});
    OldCourses = NewCourses;
 }

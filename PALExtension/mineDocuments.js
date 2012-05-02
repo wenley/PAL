@@ -106,7 +106,17 @@ function mineDocuments(link, course, type) {
             else if (imgType == "assignment") {
                var a = new Assignment();
                a.name = Name;
-               a.submissionLink = h3link;
+               if (h3link.match(/http/) != null || h3link.match(/webapps/) == null) {
+                  console.warn("This isn't really a submission link");
+                  var c = new Document();
+                  c.name = a.name;
+                  c.link = h3link;
+                  docLinks.push(c);
+                  a.submissionLink = null;
+               }
+               else {
+                  a.submissionLink = h3link;
+               }
                a.contents = docLinks;
                a.memo = Memo;
                docs[docs.length] = a;
