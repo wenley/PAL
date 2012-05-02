@@ -206,7 +206,7 @@ function populateCourse(courseEl) {
    //  Update state variables
 //   selectedSemester = Courses[semester];
 //   selectedCourse = currentCourse;
-   setSelectedSemester(Courses[semester]);
+   setSelectedSemester(Courses[semester], semester);
    setSelectedCourse(currentCourse);
 }
 

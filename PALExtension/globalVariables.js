@@ -18,7 +18,8 @@ var Courses = null;
 var selectedCourse = null;
 
 //  Current semester containing selectedCourse
-var selectedSemester = "";
+var selectedSemester = null;
+var selectedSemName = "";
 
 //  Current tab selected
 var selectedTab = null;
@@ -32,8 +33,10 @@ function setSelectedCourse(c) {
    selectedCourse = c;
    //  saveState();
 }
-function setSelectedSemester(s) {
-   selectedSemester = s;
+function setSelectedSemester(sem, s) {
+   selectedSemester = sem;
+   if (s != undefined)
+      selectedSemName = s;
    //  saveState();
 }
 function setSelectedTab(t) {
@@ -76,7 +79,6 @@ function XMLincrement() {
 
 function XMLdecrement() {
    XMLHttpRequest.prototype.count--;
-   console.log(XMLHttpRequest.prototype.count);
   if (XMLHttpRequest.prototype.count < 0) {
       console.warn("Something went wrong...");
    }
