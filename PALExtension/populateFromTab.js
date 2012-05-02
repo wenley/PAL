@@ -150,7 +150,8 @@ function populateBodyFromLink(url) {
 //  the folder. Updates folderTrace.
 function populateFromFolder(newFolderName) {
    var course = selectedCourse;
-   var attrName = selectedTab.parentElement.getAttribute("attribute");
+   var thEl = selectedTab.parentElement.parentElement.parentElement;
+   var attrName = thEl.getAttribute("attribute");
    var attr = course[attrName];
    var body = document.getElementById("notTabBar");
 

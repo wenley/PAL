@@ -62,13 +62,23 @@ function mineDocuments(link, course, type) {
                   current = current.concat("<\/div><\/div>");
                else current = current.concat("<\/div>");
                current = current.replace(/<img[^>]*>/g,"");
-               try {
-                  var temp = HTMLtoXML(current);
-                  current = temp;
-               } catch (e) {
-                  console.warn(course.key + ":: " + type + ":: ERROR");
-                  console.warn(e);
+               var success = false;
+               for (var q = 0; q < 2; q++) {
+                  try {
+                     var temp = HTMLtoXML(current);
+                     current = temp;
+                     success = true;
+                     break;
+                  } catch (e) {
+                     current = current.replace(/<o:[^>]*>[^<]*<\/o:[^>]*>/g, ""); //  Take out funky tags
+                     current = current.replace(/<\s+/g, ""); //  Take out leading white-space in tags
+                     console.warn(course.key + ":: " + type + ":: ERROR");
+                     console.warn(e);
+                  }
                }
+               if (success == false)
+                  console.warn("Failed to parse correctly");
+
                miniDoc = parser.parseFromString(current, "text/xml");
                var FileLinks = miniDoc.getElementsByTagName("a");
                for (var j = 0; j < FileLinks.length; j++) {
