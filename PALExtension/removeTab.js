@@ -43,8 +43,8 @@ function removeTab(buttonEl) {
    }
 
    // delete the desired tab
-   var poppped = currentCourse.tabOrder.pop();
-   console.log("popped" + pooped);
+   var popped = currentCourse.tabOrder.pop();
+   console.log("popped" + popped);
 
    removedPopup(semester, name);
 
