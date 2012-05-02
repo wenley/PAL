@@ -108,7 +108,7 @@ function initialize() {
    if (userName != null)
       port.postMessage({note: "user", user: userName});
    else
-      var redo = setTimeout(initialize, 500);
+      var redo = setTimeout(initialize, 50);
 }
 
 //  Start chain of either render of mine
