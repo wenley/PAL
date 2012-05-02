@@ -1,4 +1,4 @@
-x//  Author: Wenley Tong
+//  Author: Wenley Tong
 //  Written: 23 April 2011
 //  popTabs.js
 
@@ -11,7 +11,8 @@ function populateFromTab(tabLinkEl) {
    var attribute = tabEl.getAttribute("attribute");
    
    //  Update state variables
-   selectedTab = tabLinkEl;
+//   selectedTab = tabLinkEl;
+   setSelectedTab(tabLinkEl);
    folderTrace = new Array();
    
     //  Validate inputs; should never be invalid

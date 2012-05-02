@@ -14,8 +14,8 @@ var Courses = null;
 
 // - - - - - IMAGE STATE VARIABLES - - - - -
 
-//  Current course whose content is being displayed
-var selectedCourse = "";
+//  Current course object whose content is being displayed
+var selectedCourse = null;
 
 //  Current semester containing selectedCourse
 var selectedSemester = "";
@@ -25,6 +25,21 @@ var selectedTab = null;
 
 //  Current hierarchy of folder stack trace
 var folderTrace = new Array();
+
+//  Centralizes changing of selected objects to make storing
+//  current states easier
+function setSelectedCourse(c) {
+   selectedCourse = c;
+   //  saveState();
+}
+function setSelectedSemester(s) {
+   selectedSemester = s;
+   //  saveState();
+}
+function setSelectedTab(t) {
+   selectedTab = t;
+   //  saveState();
+}
 
 //  - - - - - PERSISTENT VARIABLES - - - - -
 var docHeadString = "<head>" + document.head.innerHTML + "</head>\n\n";
