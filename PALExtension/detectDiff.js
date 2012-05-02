@@ -57,13 +57,15 @@ function diffAttr(newAttr, oldAttr) {
       console.log("Difference found: [New] [Old]");
       console.log(newAttr);
       console.log(oldAttr);
-      return {note: "diff"};
+      return true;
    }
-   return null;
+   return false;
 }
 
 //  Checks for differences between two courses
 function diffCourse(newC, oldC) {
+   var diff = new Array();
+
    for (var attr in newC) {
       var newAttr = newC[attr];
       var oldAttr = oldC[attr];
@@ -73,14 +75,16 @@ function diffCourse(newC, oldC) {
          console.log(oldC);
          continue;
       }
-      var diff = diffAttr(newAttr, oldAttr);
-      if (diff != null)
-         console.log("diff found") // !!!
+      if (diffAttr(newAttr, oldAttr))
+         diff.push(attr);
    }
+   return diff.join(',');
 }
 
 //  Checks for differences between two semesters
 function diffSem(newS, oldS) {
+   var diff = new Array();
+
    for (var courseKey in newS) {
       var newC = newS[courseKey];
       var oldC = oldS[courseKey];
@@ -88,17 +92,25 @@ function diffSem(newS, oldS) {
          console.log("New Course: " + courseKey);
          continue;
       }
-      diffCourse(newC, oldC);
+      var diffC = diffCourse(newC, oldC);
+      if (diffC != "" && diffC.length > 0)
+         diff.push(courseKey + ":" + diffC);
    }
+   return diff.join(';');
 }
 
 //  Checks for differences between OldCourses and NewCourses
 function runDiff() {
+   OldCourses = cleanObj(OldCourses);
+   NewCourses = cleanObj(NewCourses);
+
    if (OldCourses == null) {
       console.log("Everything is new");
       OldCourses = NewCourses;
       return;
    }
+
+   var diff = new Array();
    for (var semester in NewCourses) {
       var newS = NewCourses[semester];
       var oldS = OldCourses[semester];
@@ -106,7 +118,10 @@ function runDiff() {
          console.log("New Semester: " + semester);
          continue;
       }
-      diffSem(newS, oldS);
+      var diffS = diffSem(newS, oldS);
+      if (diffS != "" && diffS.length > 0)
+         diff.push(semester + "'" + diffS);
    }
+   sendToForeground({note: "update", update: diff.join('/')});
    OldCourses = NewCourses;
 }

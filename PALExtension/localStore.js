@@ -11,6 +11,9 @@ var user = null;
 
 //  Saves current state to local storage
 function saveToLocal() {
+   cleanObj(OldCourses);
+   cleanObj(NewCourses);
+   
    if (localStorage[user] != undefined && localStorage[user].OldCourses != undefined)
       delete localStorage.OldCourses;
    if (localStorage[user] != undefined && localStorage[user].NewCourses != undefined)

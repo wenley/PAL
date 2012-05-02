@@ -11,6 +11,9 @@ port.onMessage.addListener(function(msg) {
       if (response != null)
          port.postMessage(response);
    });
+port.onDisconnect.addListener(function() {
+      port.post = function() { console.log("Dead port. Reload to try again."); };
+   });
 
 
 //  Will route requests from background to proper functions
