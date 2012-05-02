@@ -37,6 +37,16 @@ function AssignmentToHTML(asgn) {
 
    var el = document.createElement("div");
 
+   //  used Assignment objects to store links
+   //  Apologies for making code messy
+   if (asgn.isLink == "isLink") {
+      var a = document.createElement("a");
+      a.innerText = asgn.name;
+      a.setAttribute("href", asgn.submissionLink);
+      el.appendChild(a);
+      return el;
+   }
+
    if (asgn.name != null)
    {
       var iName = document.createElement("h3");
