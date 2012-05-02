@@ -78,6 +78,8 @@ function handleMessage(msg) {
 
 //  Deals with diff updates
 function handleUpdate(diffString) {
+   if (diffString.length == 0)
+      return;
    var semDiffs = diffString.split('/');
    for (var i = 0; i < semDiffs.length; i++) {
       var split1 = semDiffs[i].split("'");
@@ -118,4 +120,14 @@ function copyTemplate() {
 //  Starts a completely new mining sequence
 function refresh() {
    port.postMessage({note: "clear"});
+}
+
+//  Saves the current user state to the background
+function saveState() {
+   port.postMessage({
+        note: "state",
+        semester: selectedSemName,
+        course: selectedCourse.key,
+        tab: selectedTab.parentElement.getAttribute("attribute")
+   });
 }

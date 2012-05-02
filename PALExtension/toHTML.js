@@ -56,12 +56,10 @@ function AssignmentToHTML(asgn) {
 
    if (asgn.submissionLink != null)
    {
-      console.log("SOOOO.......");
       var iSubLink = document.createElement("a");
       iSubLink.addEventListener("click", function() { populateIframeBack(asgn.submissionLink); }, false);
       iSubLink.innerText = "Submission Link";
       el.appendChild(iSubLink);
-      console.log("Was that a thing?");
    }
 
    if (asgn.contents != null)

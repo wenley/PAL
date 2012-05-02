@@ -225,8 +225,10 @@ function populateCourse(courseEl) {
    removedPopup(semester, name);
 
    //  Update state variables
-   selectedSemester = Courses[semester];
-   selectedCourse = currentCourse;
+//   selectedSemester = Courses[semester];
+//   selectedCourse = currentCourse;
+   setSelectedSemester(Courses[semester], semester);
+   setSelectedCourse(currentCourse);
 }
 
 function removedPopup(semester, name) {

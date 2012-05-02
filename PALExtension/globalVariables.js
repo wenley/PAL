@@ -14,17 +14,35 @@ var Courses = null;
 
 // - - - - - IMAGE STATE VARIABLES - - - - -
 
-//  Current course whose content is being displayed
-var selectedCourse = "";
+//  Current course object whose content is being displayed
+var selectedCourse = null;
 
 //  Current semester containing selectedCourse
-var selectedSemester = "";
+var selectedSemester = null;
+var selectedSemName = "";
 
 //  Current tab selected
 var selectedTab = null;
 
 //  Current hierarchy of folder stack trace
 var folderTrace = new Array();
+
+//  Centralizes changing of selected objects to make storing
+//  current states easier
+function setSelectedCourse(c) {
+   selectedCourse = c;
+   //  saveState();
+}
+function setSelectedSemester(sem, s) {
+   selectedSemester = sem;
+   if (s != undefined)
+      selectedSemName = s;
+   //  saveState();
+}
+function setSelectedTab(t) {
+   selectedTab = t;
+   //  saveState();
+}
 
 //  - - - - - PERSISTENT VARIABLES - - - - -
 var docHeadString = "<head>" + document.head.innerHTML + "</head>\n\n";
@@ -61,7 +79,6 @@ function XMLincrement() {
 
 function XMLdecrement() {
    XMLHttpRequest.prototype.count--;
-   console.log(XMLHttpRequest.prototype.count);
   if (XMLHttpRequest.prototype.count < 0) {
       console.warn("Something went wrong...");
    }
