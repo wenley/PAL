@@ -52,6 +52,18 @@ function handleMessage(msg) {
       case "cleared":
          document.location.href = document.location.href;
          response = null;
+      case "loaded": // Indicates response to user-specific pull
+         Courses = restorePrototype(msg.courses);
+         if (Courses == null) {
+            mineBB();
+         }
+         else {
+            console.log(Courses);
+            var reMine = setTimeout(mineBB, 300000); //  !!! 5 minutes, should be semi-instant
+            copyFromBackground();
+         }
+         response = null;
+         break;
       default:
          console.warn("Unknown note from background: " + msg.note);
          response = null;

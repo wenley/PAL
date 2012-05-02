@@ -90,5 +90,27 @@ function writeCourses() {
 }
 
 //  Start chain of either render or mine
-pullCourses();
+//  pullCourses();
+
+//  Get the user's name from the navigation bar of BB
+function getUserFromDoc() {
+   var navDoc = document.getElementsByName("nav")[0].contentDocument;
+   var userEl = navDoc.getElementById("loggedInUserName");
+   if (userEl == null)
+      return null;
+   else
+      return userEl.innerText;
+}
+
+//  Gets user name 
+function initialize() {
+   var userName = getUserFromDoc();
+   if (userName != null)
+      port.postMessage({note: "user", user: userName});
+   else
+      var redo = setTimeout(initialize, 500);
+}
+
+//  Start chain of either render of mine
+initialize();
 
