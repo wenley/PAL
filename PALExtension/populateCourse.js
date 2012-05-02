@@ -10,21 +10,42 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    mainEl.setAttribute("semester", semester);
    mainEl.setAttribute("attribute", attribute);
 
+
+   // Set the link
+   var mainLinkTable = document.createElement("table");
+   var mainLinkTop = document.createElement("tr");
+   var mainLinkBottom = document.createElement("tr");
+   mainLinkTop.setAttribute("id", "mainLinkTop");
+   mainLinkBottom.setAttribute("id", "mainLinkBottom");
+
    // Create the remove button
-   var buttonDiv = document.createElement("div");
+   
+   var notButton = document.createElement("th");
+   notButton.setAttribute("id", "notButton");
+   notButton.addEventListener("click", function() { populateFromTab(this); }, false);
+   var buttonDiv = document.createElement("th");
    buttonDiv.setAttribute("id", "xButton");
    var buttonLink = document.createElement("a");
-   buttonLink.setAttribute("class", "button");
+   buttonLink.setAttribute("id", "button");
    buttonLink.innerText = "X";
    buttonLink.addEventListener("click", function() { removeTab(this); }, false);
    buttonDiv.appendChild(buttonLink);
-   mainEl.appendChild(buttonDiv);
+   mainLinkTop.appendChild(notButton);
+   mainLinkTop.appendChild(buttonDiv);
 
-   // Set the link
+   var mainLinkBottomDiv = document.createElement("th");
+   mainLinkBottomDiv.setAttribute("id", "mainLinkBottomDiv");
    var mainLink = document.createElement("a");
-   mainLink.addEventListener("click", function() { populateFromTab(this); }, false);
+   mainLink.setAttribute("id", "mainLink");
    mainLink.innerText = tagText;
-   mainEl.appendChild(mainLink);
+   mainLinkBottomDiv.appendChild(mainLink);
+   mainLinkBottomDiv.addEventListener("click", function() { populateFromTab(this); }, false);
+   mainLinkBottom.appendChild(mainLinkBottomDiv);
+
+   mainLinkTable.appendChild(mainLinkTop);
+   mainLinkTable.appendChild(mainLinkBottom);
+
+   mainEl.appendChild(mainLinkTable);
 
    currentTable.appendChild(mainEl);
 }
@@ -200,7 +221,7 @@ function populateCourse(courseEl) {
       }
    }
 
-   populateFromTab(currentTable.children[0].children[1]);
+   populateFromTab(currentTable.children[0].children[0].children[0].children[0]);
    removedPopup(semester, name);
 
    //  Update state variables
