@@ -1,6 +1,6 @@
 // Author: Masha Okounkova
 // To add tabs back in 
-P
+
 function addTab(linkEl) {
 
    // need to get to the th tag
