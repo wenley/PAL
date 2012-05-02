@@ -73,11 +73,11 @@ function Course() {
 
 //  An Announcement of a Course on Blackboard
 function Announcement() {
-   this.postedBy = "";
-   this.postedTo = "";
+//   this.postedBy = "";
+//   this.postedTo = "";
    this.heading = "";
-   this.date = "";
-   this.message = "";
+//   this.date = "";
+//   this.message = "";
    this.type = this.constructor.name;
 }
 

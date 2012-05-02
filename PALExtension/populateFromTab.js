@@ -1,4 +1,4 @@
-//  Author: Wenley Tong
+x//  Author: Wenley Tong
 //  Written: 23 April 2011
 //  popTabs.js
 

@@ -19,7 +19,7 @@ function mineAnnouncements (link, course) {
          var i = 0;
 
          startAnnouncements = store.indexOf("<ul id=\"announcementList\" class=\"announcementList announcementList-read\"");
-         if(startAnnouncements == -1)
+         if(startinfo == -1)
             return;
          endAnnouncements = startAnnouncements;
          endEachAnnouncement = startAnnouncements;
@@ -31,7 +31,6 @@ function mineAnnouncements (link, course) {
             a.message = a.message.replace("</div>", "", "g");
             a.message = a.message.replace("<div class=\"announcementInfo\">", "", "g");
             a.message = a.message.replace("<div class=\"details\">", "", "g");
-            a.message = a.message.replace("<div class=\"vtbegenerated\">", "");
             startEachAnnouncement = store.indexOf("<li>", endEachAnnouncement);
             a.message = cleanLink(a.message);
             var miniDoc = parser.parseFromString(a.message, "text/xml"); 
