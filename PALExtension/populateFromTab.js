@@ -11,7 +11,7 @@ function populateFromTab(tabLinkEl) {
    var attribute = tabEl.getAttribute("attribute");
    
    //  Update state variables
-   selectedTab = attribute;
+   selectedTab = tabLinkEl;
    folderTrace = new Array();
    
     //  Validate inputs; should never be invalid
@@ -27,8 +27,18 @@ function populateFromTab(tabLinkEl) {
     }
     var attr = course[attribute];
     if (attr == undefined || attr == null) {
-        throw "In (semester, course) = (" + semester + ", " + course + "), not a valid attribute: " + attribute;
-        return;
+       //  Try finding it in otherLinks
+       for (var i = 0; i < course.otherLinks.length; i++) {
+          if (course.otherLinks[i].name == attribute) {
+             attr = course.otherLinks[i];
+             attribute = "otherLinks";
+             break;
+          }
+       }
+       if (attr == undefined || attr == null) {
+          throw "In (semester, course) = (" + semester + ", " + course + "), not a valid attribute: " + attribute;
+          return;
+       }
     }
     
     var space = document.getElementById("notTabBar");
@@ -39,15 +49,15 @@ function populateFromTab(tabLinkEl) {
           space.appendChild(toHTML(attr[entry]));
     }
     else if (attribute == "courseMaterials") {
-       for (var entry in attr)
-          space.appendChild(toHTML(attr[entry]));
+       for (var i = attr.length - 1; i >= 0; i--)
+          space.appendChild(toHTML(attr[i]));
     }
     else if (attribute == "syllabusDoc") {
        populateIframe(course.syllabusDoc.link)
     }
     else if (attribute == "assignments") {
-       for (var entry in attr)
-          space.appendChild(toHTML(attr[entry]));
+       for (var i = attr.length - 1; i >= 0; i--)
+          space.appendChild(toHTML(attr[i]));
     }
     else if (attribute == "contacts") {
        for (var entry in attr)
@@ -58,7 +68,7 @@ function populateFromTab(tabLinkEl) {
           space.appendChild(toHTML(attr[entry]));
     }
     else if (attribute == "otherLinks") {
-       console.log("otherLinks not currently handled...");
+       populateIframe(attr.link);
     }
     else {
        console.warn("Unrecognized attribute: " + attribute);
@@ -76,6 +86,7 @@ function populateBodyFromLink(url) {
    req.open("GET", link, true);
    req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
+         XMLdecrement();
          var body = document.getElementById("notTabBar");
          var text = cleanLink(req.responseText);
          text = text.replace(/<img[^>]*>/g, "");
@@ -94,6 +105,7 @@ function populateBodyFromLink(url) {
             iframe.setAttribute("src", link);
             iframe.setAttribute("class", "tool");
             body.innerHTML = "";
+            addBackLink();
             body.appendChild(iframe);
             return;
          }
@@ -114,12 +126,17 @@ function populateBodyFromLink(url) {
          if (content == null) {
             console.warn("Content clearfix not found...");
             body.innerHTML = "";
+            addBackLink();
             body.appendChild(contentDiv);
          }
          else {
             body.innerHTML = "";
+            addBackLink();
             body.appendChild(content);
          }
+      }
+      else if (req.readyState == 4 && req.status != 200) {
+         console.warn(course.key + ": ERROR, status is " + req.status);
          XMLdecrement();
       }
    }
@@ -131,7 +148,8 @@ function populateBodyFromLink(url) {
 //  the folder. Updates folderTrace.
 function populateFromFolder(newFolderName) {
    var course = selectedCourse;
-   var attr = course[selectedTab];
+   var attrName = selectedTab.parentElement.getAttribute("attribute");
+   var attr = course[attrName];
    var body = document.getElementById("notTabBar");
 
    //  Find past object
@@ -142,7 +160,7 @@ function populateFromFolder(newFolderName) {
       docs = pastFolder.contents;
    }
    else {
-      pastFolder = { name: selectedTab };
+      pastFolder = { name: attrName };
       docs = attr;
    }
 
@@ -182,7 +200,7 @@ function populateFromFolder(newFolderName) {
             var tabs = document.getElementsByTagName("th");
             var trueTab = null;
             for (var i = 0; i < tabs.length; i++) {
-               if (tabs[i].getAttribute("attribute") == selectedTab)
+               if (tabs[i].getAttribute("attribute") == attrName)
                   trueTab = tabs[i].children[1];
             }
             if (trueTab == null)

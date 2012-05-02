@@ -154,13 +154,11 @@ function mineContacts(sidebarLink, course, isFolder) {
          else
             extractContacts(list, course);
       }
-      else if (req.readyState == 4) {
-         console.warn(course.key);
-         console.warn("Error in loading page");
-         console.warn("Ready state: ");
-         console.warn(req.readyState);
-         console.warn("HTTP Status");
-         console.warn(req.status);
+
+      else if (req.readyState == 4 && req.status != 200)
+      {
+         console.warn(course.key + "Error, status is: " + req.status);
+         XMLdecrement();
       }
    }
    req.send();

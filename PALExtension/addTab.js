@@ -1,8 +1,8 @@
 // Author: Masha Okounkova
+// To add tabs back in 
 
 function addTab(linkEl) {
 
-   console.log("in addTab with linkEl");
    // need to get to the th tag
    var tabEl = linkEl.parentElement.parentElement.parentElement.parentElement.parentElement;
    var semester = tabEl.getAttribute("semester");
@@ -18,6 +18,10 @@ function addTab(linkEl) {
 
    var currentCourse = Courses[semester][name];
    cleanObj(currentCourse);
+
+   console.log("From the addTab function Begining");
+   console.log(currentCourse.tabOrder);
+   console.log(currentCourse.removedTabs);
 
    // First, put it back in the table
    var currentTable = document.getElementById("courseTabTable");
@@ -39,9 +43,6 @@ function addTab(linkEl) {
       case "syllabusDoc":
          tabText = "Syllabus";
          break;
-         //case "descriptionLink":
-         //tabText = "Course Description";
-         //break;
       case "contacts":
          tabText = "Contacts";
          break;
@@ -54,26 +55,27 @@ function addTab(linkEl) {
    
    // Then, put it back in the order and remove it from the 
    // removed list
-   var length = currentCourse.tabOrder["length"];
-   currentCourse.tabOrder[length] = attribute;
-   currentCourse.tabOrder[attribute] = length;
-   currentCourse.tabOrder["length"] = length + 1;
-   
-   var remLength = currentCourse.removedTabs.length;
-   for (var i = 0; i < remLength; i++)
+
+   for (var i = 0; i < 1000; i++)
    {
+      if (currentCourse.removedTabs[i] == null || currentCourse.removedTabs[i] == undefined)
+         break;
       if (currentCourse.removedTabs[i] == attribute)
       {
-         for (var j = i; j < remLength; j++)
+         var j = i;
+         while (currentCourse.removedTabs[j + 1] != null &&  currentCourse.removedTabs[j + 1] != undefined)
          {
             currentCourse.removedTabs[j] = currentCourse.removedTabs[j + 1];
+            j++;
          }
-         currentCourse.removedTabs[remLength] = null;
+         currentCourse.removedTabs.pop()
          break;
       }
    }
 
-   console.log("ABOUT THE REMOVE THE MOST IMPORTANT TAB");
    removedPopup(semester, name);
-   console.log("PHEW, REMOVED THE MOST IMPORTANT TAB");
+   console.log("From the addTab function");
+   console.log(currentCourse.tabOrder);
+   console.log(currentCourse.removedTabs);
+
 }

@@ -5,13 +5,12 @@
 
 //  Ensures the user is on the Courses tab
 function redirectToCourses() {
-    var contentFrame = document.getElementsByName("content")[0];
-    if (contentFrame.getAttribute("src") != CoursesTabContentSrc) {
-        console.log("Redirecting...");
-        document.location.href = CoursesTabLink;
-    }
-    else
-       return contentFrame;
+   var contentFrame = document.getElementsByName("content")[0];
+   if (contentFrame.getAttribute("src") != CoursesTabContentSrc) {
+      document.location.href = CoursesTabLink;
+   }
+   else
+      return contentFrame;
 }
 
 //  Takes a link to a page and a callback to continueFunc
@@ -27,6 +26,12 @@ function getPageContentDoc(pageLink, continueFunc) {
          getContentDoc(frameLink, continueFunc);
          XMLdecrement();
       }
+      else if (req.readyState == 4 && req.status != 200)
+      {
+         console.warn(course.key + "Error, status is: " + req.status);
+         XMLdecrement();
+      }
+
    }
    req.send();
    XMLincrement();
@@ -44,6 +49,12 @@ function getContentDoc(docLink, continueFunc, course) {
          continueFunc(req.responseText, course);
          XMLdecrement();
       }
+      else if (req.readyState == 4 && req.status != 200)
+      {
+         console.warn(course.key + "Error, status is: " + req.status);
+         XMLdecrement();
+      }
+
    }
    req.send();
    XMLincrement();

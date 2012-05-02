@@ -3,14 +3,13 @@
 // populateCourse.js
 
 function createTab(semester, name, currentTable, attribute, tagText) {
-
    // Create the main element
    var mainEl = document.createElement("th");
    mainEl.setAttribute("class", "tabTable");
    mainEl.setAttribute("name", name);
    mainEl.setAttribute("semester", semester);
    mainEl.setAttribute("attribute", attribute);
-
+   
    // Create the remove button
    var buttonDiv = document.createElement("div");
    buttonDiv.setAttribute("id", "xButton");
@@ -20,13 +19,13 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    buttonLink.addEventListener("click", function() { removeTab(this); }, false);
    buttonDiv.appendChild(buttonLink);
    mainEl.appendChild(buttonDiv);
-
+   
    // Set the link
    var mainLink = document.createElement("a");
    mainLink.addEventListener("click", function() { populateFromTab(this); }, false);
    mainLink.innerText = tagText;
    mainEl.appendChild(mainLink);
-
+   
    currentTable.appendChild(mainEl);
 }
 
@@ -34,53 +33,85 @@ function createTab(semester, name, currentTable, attribute, tagText) {
 function populateCourse(courseEl) {
    var semester = courseEl.getAttribute("semester");
    var name = courseEl.innerText;
-
+   
    // This is a course
    if (Courses[semester] == null || Courses[semester] == undefined)
       throw "Improper usage: invalid semester name";
    if (Courses[semester][name] == null || Courses[semester][name] == undefined)
       throw "Improper usage: invalid course name";
-
+   
    var currentCourse = Courses[semester][name];
    cleanObj(currentCourse);
-
+   
    populateTitle(semester, name);
-
+   
    // Sets the intial values for tabOrder for the course, if they have
    // not yet been set.
-
-   if (currentCourse.tabOrder == undefined)
-      currentCourse.tabOrder = new Object();
-   if (currentCourse.tabOrder[0] == undefined)
+   
+   //if (currentCourse.tabOrder == undefined)
    {
-      currentCourse.tabOrder[0] = "announcements";
-      currentCourse.tabOrder["announcements"] = 0;
-      currentCourse.tabOrder[1] = "courseMaterials";
-      currentCourse.tabOrder["courseMaterials"] = 1;
-      currentCourse.tabOrder[2] = "assignments";
-      currentCourse.tabOrder["assignments"] = 2;
-      currentCourse.tabOrder[3] = "syllabusDoc";
-      currentCourse.tabOrder["syllabusDoc"] = 3;
-      //currentCourse.tabOrder[4] = "descriptionLink";
-      //currentCourse.tabOrder["descriptionLink"] = 4;
-      currentCourse.tabOrder[4] = "contacts";
-      currentCourse.tabOrder["contacts"] = 4;
-      currentCourse.tabOrder[5] = "tools";
-      currentCourse.tabOrder["tools"] = 5;
-
-      currentCourse.tabOrder["length"] = 6;
+       currentCourse.tabOrder = new Object();
+       currentCourse.removedTabs = new Array();
    }
-
+   //if (currentCourse.tabOrder[0] == undefined)
+   {
+      var k = 0;
+      if (currentCourse.announcements != null)
+      {
+         currentCourse.tabOrder[k] = "announcements";
+         k++;
+      }
+      if (currentCourse.courseMaterials != null)
+      {
+         currentCourse.tabOrder[k] = "courseMaterials";
+         k++;
+      }
+      if (currentCourse.assignments != null)
+      {
+         currentCourse.tabOrder[k] = "assignments";
+         k++;
+      }
+      if (currentCourse.syllabusDoc != null)
+      {
+         currentCourse.tabOrder[k] = "syllabusDoc";
+         k++;
+      }
+      if (currentCourse.contacts != null)
+      {
+         currentCourse.tabOrder[k] = "contacts";
+         k++;
+      }
+      if (currentCourse.tools != null)
+      {
+         currentCourse.tabOrder[k] = "tools";
+         k++;
+      }
+      var i = 0;
+      if (currentCourse.otherLinks != null) {
+         for (; currentCourse.otherLinks[i] != undefined && i < currentCourse.otherLinks.length ; i++) {
+            currentCourse.tabOrder[k+i] = currentCourse.otherLinks[i].name;
+         }
+      }
+   }
+   
+   console.log("****** fooo ****");
+   console.log(currentCourse.tabOrder);
+   console.log("****** barrr ******");
    var currentTable = document.getElementById("courseTabTable");
    currentTable = currentTable.getElementsByTagName("tbody")[0];
    currentTable = currentTable.getElementsByTagName("tr")[0];
    while (currentTable.children.length > 0)
       currentTable.removeChild(currentTable.children[0]);
-
-   var length = currentCourse.tabOrder["length"];
-
-   for (var i = 0; i < length; i++)
+   
+   console.log("****** fooo ****");
+   console.log(currentCourse.tabOrder);
+   console.log("****** barrr ******");
+   
+   
+   for (var i = 0; i < 1000; i++)
    {
+      if (currentCourse.tabOrder[i] == undefined || currentCourse.tabOrder[i] == null)
+         break;
       switch(currentCourse.tabOrder[i])
       {
          case "announcements":
@@ -93,7 +124,7 @@ function populateCourse(courseEl) {
                }
             }
             break;
-
+            
          case "syllabusDoc":
             // Make the Syllabus tab
             if (currentCourse.syllabusDoc != null)
@@ -104,18 +135,7 @@ function populateCourse(courseEl) {
                }
             }
             break;
-
-            //case "descriptionLink":
-            // Make the Description link
-            //if (currentCourse.descriptionLink != null)
-            //{
-            //if (!isRemoved(semester, name, "descriptionLink"))
-            //{
-            //    createTab(semester, name, currentTable, "descriptionLink", "Course Description");
-            // }
-            //}
-            //break;
-
+            
          case "courseMaterials":
             // Make the Course Materials link
             if (currentCourse.courseMaterials != null)
@@ -126,7 +146,7 @@ function populateCourse(courseEl) {
                }
             }
             break;
-
+            
          case "assignments":
             // Make the Assignments link
             if (currentCourse.assignments != null)
@@ -137,7 +157,7 @@ function populateCourse(courseEl) {
                }
             }
             break;
-
+            
          case "contacts":
             // Make the Contacts link
             if (currentCourse.contacts != null)
@@ -148,7 +168,7 @@ function populateCourse(courseEl) {
                }
             }
             break;
-
+            
          case "tools":
             // Make the Tools link
             if (currentCourse.tools != null)
@@ -159,44 +179,54 @@ function populateCourse(courseEl) {
                }
             }
             break;
+         default:
+            //  Try to find an otherLink to match
+            var tabName = currentCourse.tabOrder[i];
+            var otherLink = null;
+            for (var j = 0; j < currentCourse.otherLinks.length; j++) {
+               if (currentCourse.otherLinks[j].name == tabName) {
+                  otherLink = currentCourse.otherLinks[j];
+                  break;
+               }
+            }
+            if (otherLink != null) {
+               if (!isRemoved(semester, name, otherLink.name)) {
+                  createTab(semester, name, currentTable, otherLink.name, otherLink.name);
+               }
+            }
+            break;
       }
    }
-
+   
    populateFromTab(currentTable.children[0].children[1]);
-   console.log("About to call removed popup with " + semester + name);
    removedPopup(semester, name);
-   console.log("The removedPopupo function got called");
-
+   
    //  Update state variables
    selectedSemester = Courses[semester];
    selectedCourse = currentCourse;
 }
 
 function removedPopup(semester, name) {
-
-   console.log("In removed popup.....");
-
+   
    if (Courses[semester] == null || Courses[semester] == undefined)
       throw "Improper usage: invalid semester name";
    if (Courses[semester][name] == null || Courses[semester][name] == undefined)
       throw "Improper usage: invalid course name";
-
+   
    var currentCourse = Courses[semester][name];
    cleanObj(currentCourse);
-
+   
    var currentTable = document.getElementById("courseTabTable");
    currentTable = currentTable.getElementsByTagName("tbody")[0];
    currentTable = currentTable.getElementsByTagName("tr")[0];
-
+   
    if (document.getElementById("removeTabTable") != null)
    {
       var oldmainEl = document.getElementById("removeTabTable");
       oldmainElparent = oldmainEl.parentNode;
       oldmainElparent.removeChild(oldmainEl);
-//      oldmainElgrandparent = oldmainElparent.parentNode;
-//      oldmainElgrandparent.removeChild(oldmainElparent);
    }
-
+   
    // Create the "+" tab to add more courses
    var mainEl = document.createElement("th");
    mainEl.setAttribute("id", "removeTabTable");
@@ -204,68 +234,9 @@ function removedPopup(semester, name) {
    mainEl.setAttribute("name", name);
    var menuUl = document.createElement("ul");
    menuUl.setAttribute("id", "removeMenu");
-
+   
    var mainLi = document.createElement("li");
-   mainLi.innerText = "+++++++++++";
-
+   mainLi.innerText = "+";
+   
    var subMenu = document.createElement("ul");
-
-   if (currentCourse.removedTabs == null)
-   {
-      console.log("no removed tabs...");
-      var subLi = document.createElement("li");
-      subLi.innerText = "There are no removed tabs!";
-      subMenu.appendChild(subLi);
-   }
-   else
-   {
-      total = currentCourse.removedTabs.length;
-      console.log("THE TOTAL IS:::::: " + total);
-      for (var i = 0; i < total; i++)
-      {
-         var attribute = currentCourse.removedTabs[i];
-         if (attribute == null || attribute == undefined)
-         {
-            console.log("boop");
-            break;
-         }
-         var subLi = document.createElement("li");
-         var link = document.createElement("a");
-         link.addEventListener("click", function() { addTab(this); }, false);
-         link.setAttribute("attribute", attribute);
-         switch(attribute)
-         {
-            case "announcements":
-               link.innerText = "Announcements";
-               break;
-            case "courseMaterials":
-               link.innerText = "Course Materials";
-               break;
-            case "assignments":
-               link.innerText = "Assignments";
-               break;
-            case "syllabusDoc":
-               link.innerText = "Syllabus";
-               break;
-               //case "descriptionLink":
-               //link.innerText = "Course Description";
-               //break;
-            case "contacts":
-               link.innerText = "Contacts";
-               break;
-            case "tools":
-               link.innerText = "Tools";
-               break;
-         }
-         subLi.appendChild(link);
-         subMenu.appendChild(subLi);
-      }
-   }
-   console.log("Got down to here");
-   mainLi.appendChild(subMenu);
-   menuUl.appendChild(mainLi);
-   mainEl.appendChild(menuUl);
-   currentTable.appendChild(mainEl);
 }
-
-

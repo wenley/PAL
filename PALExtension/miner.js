@@ -40,7 +40,6 @@ function getCourseChain(a) {
             //  Check to see if need to do more
             this.i = this.i + 1;
             if (this.i >= a.length) {
-                console.log("Stopping page loading process...");
                 return;
             }
             
@@ -66,6 +65,10 @@ function getCourseChain(a) {
           nextRequest.call(req);
           XMLdecrement();
        }
+       else if (req.readyState == 4 && req.status != 200) {
+          console.warn("ERROR. miner's initial request failed. Status: " + req.status);
+          XMLdecrement();
+       }
     }
     req.send();
     XMLincrement();
@@ -79,7 +82,6 @@ function testSingleCourse(a) {
     req.open("GET", a[1], true);
     req.onreadystatechange = function () {
         if (req.readyState == 4 && req.status == 200) {
-            console.log("Success in redirect");
             var c = new Course();
             c.title = a[0];
 
@@ -108,7 +110,6 @@ function mineBB() {
        mineFromLinks();
     }
     else { try {
-       console.log("Mining from scratch...");
        //  Check to make sure on Courses
        //  Can't start mine from scratch if not on Courses
        var contentFrame = redirectToCourses();
@@ -130,7 +131,7 @@ function mineBB() {
        }
        
        classesAndLinks.i = 0;
-       port.postMessage({note: "expected", expected: classesAndLinks.length});
+       //  port.postMessage({note: "expected", expected: classesAndLinks.length});
        showLoadingBar();
        getCourseChain(classesAndLinks);
     } catch (e) {
@@ -161,7 +162,6 @@ function showLoadingBar() {
 
    //  Set what happens once done mining
    setXMLcallback(function() {
-         console.log("Delaying reload...");
          var delay = setTimeout(function () {
                pushCourses(Courses);
                status.innerText = "Done!";
@@ -178,10 +178,8 @@ function mineFromLinks() {
       return;
    }
 
-   console.log("Remining from links...");
    setXMLcallback(function() {
          pushCourses(Courses);
-         console.log("Success in counting!");
       });
 
    //  Build an array with course objects and their respective content page links

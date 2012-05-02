@@ -11,6 +11,9 @@ port.onMessage.addListener(function(msg) {
       if (response != null)
          port.postMessage(response);
    });
+port.onDisconnect.addListener(function() {
+      port.post = function() { console.log("Dead port. Reload to try again."); };
+   });
 
 
 //  Will route requests from background to proper functions
@@ -31,7 +34,6 @@ function handleMessage(msg) {
             mineBB();
          }
          else {
-            console.log("Got old version of courses!");
             console.log(Courses);
             var reMine = setTimeout(mineBB, 300000); //  !!! 5 minutes, should be semi-instant
             copyFromBackground();
@@ -53,8 +55,20 @@ function handleMessage(msg) {
       case "cleared":
          document.location.href = document.location.href;
          response = null;
+      case "loaded": // Indicates response to user-specific pull
+         Courses = restorePrototype(msg.courses);
+         if (Courses == null) {
+            mineBB();
+         }
+         else {
+            console.log(Courses);
+            var reMine = setTimeout(mineBB, 300000); //  !!! 5 minutes, should be semi-instant
+            copyFromBackground();
+         }
+         response = null;
+         break;
       default:
-         console.log("Unknown note from background: " + msg.note);
+         console.warn("Unknown note from background: " + msg.note);
          response = null;
          break;
    }
@@ -64,7 +78,6 @@ function handleMessage(msg) {
 
 //  Stores the compiled history of courses to the background
 function pushCourses() {
-   console.log("Attempt to push courses to background...");
    port.postMessage({note: "push", courses: Courses});
 }
 

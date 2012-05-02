@@ -55,10 +55,10 @@ function pullRequest(req) {
 //  Updates OldCourses with NewCourses according to the contents
 //  of the msg
 function clickHandler(msg) {
-   console.log("clickHandler not implemented");
-   console.log("Message contents: ");
+   console.log("clickHandler not implemented"); //  !!!
+   console.log("Message contents: "); //  !!!
    for (var entry in msg) {
-      console.log(entry + ": " + msg[entry]);
+      console.log(entry + ": " + msg[entry]); //  !!!
    }
    return null;
 }
@@ -89,6 +89,18 @@ function clearHandler(msg) {
    return { note: "cleared" };
 }
 
+//  Gets the user's settings and courses
+//  Replaces pullRequest
+function setUserHandler(msg) {
+   if (msg.note == undefined || msg.note != "user") {
+      console.warn("Misrouted message. user when " + msg.note);
+      return { error: "Misrouted message"};
+   }
+   
+   loadUser(msg.user);
+   return { note: "loaded", courses: NewCourses };
+}
+
 //  var expected = 0; //  Number of courses expected to be mined
 //  Will route requests from content scripts to proper functions
 function handleMessage(msg) {
@@ -111,6 +123,9 @@ function handleMessage(msg) {
             break;
         case "clear":
             response = clearHandler(msg);
+            break;
+        case "user":
+            response = setUserHandler(msg);
             break;
         default:
             console.warn("Unknown note from foreground: " + msg.note);

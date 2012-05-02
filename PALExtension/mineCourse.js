@@ -6,31 +6,24 @@ function mineSidebar(a, course) {
    for (i = 0; i < a.length; i++) {
       switch(a[i][0]) {
          case "Announcements":
-            console.log(course.key + ": Mining Announcements...");
             mineAnnouncements(a[i][1], course);
             break;
          case "Syllabus":
-            console.log(course.key + ": Mining Syllabus...");
             mineSyllabus(a[i][1], course);
             break;
          case "Course Description":
-            console.log(course.key + ": Mining Course Description...");
             mineCourseDescription(a[i][1], course);
             break;
          case "Course Materials":
-            console.log(course.key + ": Mining Course Materials...");
             mineDocuments(a[i][1], course, "Course Materials");
             break;
          case "Assignments":
-            console.log(course.key + ": Mining Assignments...");
             mineDocuments(a[i][1], course, "Assignments");
             break;
          case "Contacts":
-            console.log(course.key + ": Mining Contacts...");
             mineContacts(a[i][1], course);
             break;
          case "Tools":
-            console.log(course.key + ": Mining Tools...");
             mineTools(a[i][1], course);
             break;
          default:
@@ -40,7 +33,7 @@ function mineSidebar(a, course) {
             t.link = a[i][1];
             if (course.otherLinks == null)
                course.otherLinks = new Array();
-            course.otherLinks.push(t);
+               course.otherLinks.push(t); 
             break;
       }
    }
@@ -55,6 +48,11 @@ function mineCourseFromLink(contentPageLink, course) {
    req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
          mineCourse(req.responseText, course);
+         XMLdecrement();
+      }
+      else if (req.readyState == 4 && req.status != 200)
+      {
+         console.warn(course.key + "Error, status is: " + req.status);
          XMLdecrement();
       }
    }

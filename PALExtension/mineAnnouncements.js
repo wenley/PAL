@@ -10,6 +10,7 @@ function mineAnnouncements (link, course) {
    req.onreadystatechange = function () {
       if(req.readyState == 4 && req.status == 200) {
          XMLdecrement();
+
          var announcements = new Array();
          var store = req.responseText;
          var startAnnouncements = 0;
@@ -40,6 +41,12 @@ function mineAnnouncements (link, course) {
          }
          course.announcements = announcements;
       }
+      else if (req.readyState == 4 && req.status != 200)
+      {
+         console.warn(course.key + "Error, status is: " + req.status);
+         XMLdecrement();
+      }
+
    }
    req.send();
    XMLincrement();
