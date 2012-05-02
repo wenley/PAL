@@ -1,6 +1,6 @@
 // Author: Masha Okounkova
 // To add tabs back in 
-
+P
 function addTab(linkEl) {
 
    // need to get to the th tag
@@ -10,6 +10,7 @@ function addTab(linkEl) {
    // The tab to be restored - this is the attribute
    var attribute  = linkEl.getAttribute("attribute");
 
+   console.log("Trying to add...." + attribute);
    // This is a course
    if (Courses[semester] == null || Courses[semester] == undefined)
       throw "Improper usage: invalid semester name";
@@ -72,6 +73,8 @@ function addTab(linkEl) {
          break;
       }
    }
+
+   currentCourse.tabOrder.push(attribute);
 
    removedPopup(semester, name);
    console.log("From the addTab function");
