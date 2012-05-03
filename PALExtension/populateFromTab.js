@@ -69,6 +69,9 @@ function populateFromTab(tabLinkEl) {
       for (var entry in attr)
          space.appendChild(toHTML(attr[entry]));
    }
+   else if (attribute == "piazzaLink") {
+      populateIframe(course.piazzaLink);
+   }
    else if (attribute == "otherLinks") {
       populateIframe(attr.link);
    }

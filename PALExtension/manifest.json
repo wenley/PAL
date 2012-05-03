@@ -36,7 +36,8 @@
             "populate.js",
             "expandSemesters.js",
             "toHTML.js",
-            "addTab.js"
+            "addTab.js",
+            "minePiazza.js"
         ]
       }
    ],

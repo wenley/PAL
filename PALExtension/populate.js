@@ -14,6 +14,12 @@ function populate() {
    refreshButton.addEventListener("click", function() { refresh(); }, false);
    sideBar.appendChild(refreshButton);
 
+   var iceButton = document.createElement("button");
+   iceButton.setAttribute("id", "iceButton");
+   iceButton.innerText = "Integrated Course Engine";
+   iceButton.addEventListener("click", function() { populateIframeBack("http://ice.tigerapps.org/");}, false);
+   sideBar.appendChild(iceButton);
+
    var sems = new Array();
    for(var entry in Courses) {
       sems.push(entry);

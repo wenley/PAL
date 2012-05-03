@@ -25,11 +25,8 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    notButton.addEventListener("click", function() { populateFromTab(this); }, false);
    var buttonDiv = document.createElement("th");
    buttonDiv.setAttribute("id", "xButton");
-   var buttonLink = document.createElement("a");
-   buttonLink.setAttribute("id", "button");
-   buttonLink.innerText = "X";
-   buttonLink.addEventListener("click", function() { removeTab(this); }, false);
-   buttonDiv.appendChild(buttonLink);
+   buttonDiv.innerText = "X";
+   buttonDiv.addEventListener("click", function() { removeTab(this); }, false);
    mainLinkTop.appendChild(notButton);
    mainLinkTop.appendChild(buttonDiv);
 
@@ -105,6 +102,12 @@ function populateCourse(courseEl) {
       if (currentCourse.tools != null)
       {
          currentCourse.tabOrder[k] = "tools";
+         k++;
+      }
+      if (currentCourse.piazzaLink != null)
+      {
+         console.log("there is a piazza link!");
+         currentCourse.tabOrder[k] = "piazzaLink";
          k++;
       }
       var i = 0;
@@ -202,6 +205,19 @@ function populateCourse(courseEl) {
                }
             }
             break;
+         
+         case "piazzaLink":
+            console.log("going to see if there's a piazza link");
+            // Make the Piazza link
+            if (currentCourse.piazzaLink != null)
+            {
+               if (!isRemoved(semester, name, "piazzaLink"))
+               {
+                  createTab(semester, name, currentTable, "piazzaLink", "Piazza");
+               }
+            }
+            break;
+
          default:
             //  Try to find an otherLink to match
             var tabName = currentCourse.tabOrder[i];
@@ -308,6 +324,9 @@ function removedPopup(semester, name) {
                break;
             case "tools":
                link.innerText = "Tools";
+               break;
+            case "piazzaLink":
+               link.innerText = "Piazza";
                break;
             default:
                link.innerText = attribute;
