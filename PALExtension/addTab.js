@@ -50,6 +50,9 @@ function addTab(linkEl) {
       case "tools":
          tabText = "Tools";
          break;
+      default:
+         tabText = attribute;
+         break;
    }
 
    createTab(semester, name, currentTable, attribute, tabText);

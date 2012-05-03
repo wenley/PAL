@@ -25,11 +25,8 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    notButton.addEventListener("click", function() { populateFromTab(this); }, false);
    var buttonDiv = document.createElement("th");
    buttonDiv.setAttribute("id", "xButton");
-   var buttonLink = document.createElement("a");
-   buttonLink.setAttribute("id", "button");
-   buttonLink.innerText = "X";
-   buttonLink.addEventListener("click", function() { removeTab(this); }, false);
-   buttonDiv.appendChild(buttonLink);
+   buttonDiv.innerText = "X";
+   buttonDiv.addEventListener("click", function() { removeTab(this); }, false);
    mainLinkTop.appendChild(notButton);
    mainLinkTop.appendChild(buttonDiv);
 
