@@ -247,7 +247,7 @@ th#removeTabTable {
     font-family:helvetica;
     color:white;
     height:30px;
-    width:10px;
+    width:20px;
     font-size:10px;
     padding:0px;
 }
@@ -287,7 +287,6 @@ display: block;
     padding:2px;
 }
 #removeMenu ul {
-    position: absolute;
     display: none;
     background-color:black;
     float: left;
