@@ -56,7 +56,7 @@ function mineAnnouncements (link, course) {
          while(startEachAnnouncement < endAnnouncements) {
             var a = new Announcement();
             endEachAnnouncement = store.indexOf("</li>", startEachAnnouncement);
-            eachAnnouncement = store.slice(startEachAnnouncement, endEachAnnouncement) + "</li>";
+            eachAnnoucnement = store.slice(startEachAnnouncement, endEachAnnouncement) + "</li>";
             tempEnd = eachAnnouncement.indexOf("</h3>", startEachAnnouncement);
             a.heading = eachAnnouncement.slice(startEachAnnouncement, tempEnd);
             a.heading = strip_tags(a.heading);
@@ -68,7 +68,7 @@ function mineAnnouncements (link, course) {
 
             startEachAnnouncement = tempEnd;
             tempEnd = eachAnnouncement.indexOf("</div>", startEachAnnouncement);
-            a.message = eachAnnouncement.slice(startEachAnnouncement, tempEnd);
+            a.message = eachAnnouncement.slice(startEachAnnouncement, tempend);
             a.message = strip_tags(a.message);
 
             startEachAnnouncement = eachAnnouncement.indexOf("Posted by", tempEnd);
@@ -80,9 +80,10 @@ function mineAnnouncements (link, course) {
             a.postedTo = eachAnnouncement.slice(startEachAnnouncement, endEachAnnouncement);
             a.postedTo = strip_tags(a.postedTo);
 
-            startEachAnnouncement = allAnnouncements.indexOf("<li class=", endEachAnnouncement);
+            startEachAnnouncement = allAnnouncement.indexOf("<li class=", endEachAnnouncement);
+         }           
+              
          announcements.push(a);
-         }
          course.announcements = announcements;
       }
       else if (req.readyState == 4 && req.status != 200)
