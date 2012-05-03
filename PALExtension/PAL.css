@@ -196,20 +196,32 @@ a:active {
     color:white;
     font-family:monospace;
     font-size:15px;
-    padding-left:18px;
-    padding-right:18px;
+    padding-left:20px;
+    padding-right:20px;
     align:center;
     text-align:center; 
     border:0px;
 }
 
 #iceButton {
-    background-color:#c0c0c0;
+    background-color:#66ffff;
+    color:black;
+    font-family:monospace;
+    font-size:15px;
+    padding-left:15px;
+    padding-right:15px;
+    align:center;
+    text-align:center; 
+    border:0px;
+}
+
+#piazzaButton {
+    background-color:#447eac;
     color:white;
     font-family:monospace;
     font-size:15px;
-    padding-left:18px;
-    padding-right:18px;
+    padding-left:63px;
+    padding-right:63px;
     align:center;
     text-align:center; 
     border:0px;
