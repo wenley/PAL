@@ -47,5 +47,5 @@ function minePiazza(course) {
       XMLincrement();
       console.log("Did an iteration");
    }
-      console.log("yeeeee");*/
+      console.log("yeeeee");
 }
