@@ -69,6 +69,9 @@ function Course() {
    this.otherLinks = new Array();
 
    this.type = this.constructor.name;
+   
+   // Piazza link for this course
+   this.piazzaLink = null;
 }
 
 //  An Announcement of a Course on Blackboard

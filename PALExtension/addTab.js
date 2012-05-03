@@ -50,6 +50,9 @@ function addTab(linkEl) {
       case "tools":
          tabText = "Tools";
          break;
+      case "piazzaLink":
+         tabText = "Piazza";
+         break;
       default:
          tabText = attribute;
          break;

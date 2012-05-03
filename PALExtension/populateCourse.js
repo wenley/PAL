@@ -63,6 +63,7 @@ function populateCourse(courseEl) {
 
    populateTitle(semester, name);
 
+   checkPiazza(semester, name);
    // Sets the intial values for tabOrder for the course, if they have
    // not yet been set.
 
@@ -102,6 +103,12 @@ function populateCourse(courseEl) {
       if (currentCourse.tools != null)
       {
          currentCourse.tabOrder[k] = "tools";
+         k++;
+      }
+      if (currentCourse.piazzaLink != null)
+      {
+         console.log("there is a piazza link!");
+         currentCourse.tabOrder[k] = "piazzaLink";
          k++;
       }
       var i = 0;
@@ -199,6 +206,19 @@ function populateCourse(courseEl) {
                }
             }
             break;
+         
+         case "piazzaLink":
+            console.log("going to see if there's a piazza link");
+            // Make the Piazza link
+            if (currentCourse.piazzaLink != null)
+            {
+               if (!isRemoved(semester, name, "piazzaLink"))
+               {
+                  createTab(semester, name, currentTable, "piazzaLink", "Piazza");
+               }
+            }
+            break;
+
          default:
             //  Try to find an otherLink to match
             var tabName = currentCourse.tabOrder[i];
@@ -305,6 +325,9 @@ function removedPopup(semester, name) {
                break;
             case "tools":
                link.innerText = "Tools";
+               break;
+            case "piazzaLink":
+               link.innerText = "Piazza";
                break;
             default:
                link.innerText = attribute;

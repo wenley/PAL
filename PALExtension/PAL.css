@@ -203,6 +203,18 @@ a:active {
     border:0px;
 }
 
+#iceButton {
+    background-color:#c0c0c0;
+    color:white;
+    font-family:monospace;
+    font-size:15px;
+    padding-left:18px;
+    padding-right:18px;
+    align:center;
+    text-align:center; 
+    border:0px;
+}
+
 
 a.button {
      font-size:10px;
