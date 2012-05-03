@@ -63,7 +63,6 @@ function populateCourse(courseEl) {
 
    populateTitle(semester, name);
 
-   checkPiazza(semester, name);
    // Sets the intial values for tabOrder for the course, if they have
    // not yet been set.
 
