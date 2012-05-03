@@ -20,7 +20,13 @@ function populate() {
    iceButton.addEventListener("click", function() { populateIframeBack("http://ice.tigerapps.org/");}, false);
    sideBar.appendChild(iceButton);
 
-   var sems = new Array();
+   var piazzaButton = document.createElement("button");
+   piazzaButton.setAttribute("id", "piazzaButton");
+   piazzaButton.innerText = "Piazza";
+   piazzaButton.addEventListener("click", function() { populateIframeBack("http://piazza.com/");}, false);
+   sideBar.appendChild(piazzaButton);
+
+  var sems = new Array();
    for(var entry in Courses) {
       sems.push(entry);
    }
