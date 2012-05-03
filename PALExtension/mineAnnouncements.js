@@ -51,7 +51,7 @@ function mineAnnouncements (link, course) {
          if(startAnnouncements == -1)
             return;
          endAnnouncements = store.indexOf("</ul", startAnnouncements);
-         allAnnouncements = store.slice(startAnnouncements, endannouncements);
+         allAnnouncements = store.slice(startAnnouncements, endAnnouncements);
          startEachAnnouncement = allAnnouncements.indexOf("<li class=", 0);
          while(startEachAnnouncement < endAnnouncements) {
             var a = new Announcement();
@@ -80,35 +80,10 @@ function mineAnnouncements (link, course) {
             a.postedTo = eachAnnouncement.slice(startEachAnnouncement, endEachAnnouncement);
             a.postedTo = strip_tags(a.postedTo);
 
-            startEachAnnouncement = allAnnouncement.indexOf("<li class=", endEachAnnouncmeent);
-         }
-/*
-            var cleaned = HTMLtoXML(a.message + "</li>");
-            var miniDoc = parser.parseFromString(cleaned, "text/xml");
-            var spans = miniDoc.getElementsByTagName("div");
-            for (var i = 0; i < spans.length; i++) {
-               var divEl = spans[i];
-               if (divEl.getAttribute("class") == "vtbegenerated") {
-                  a.messsage = divEl.textContent;
-                  break;
-               }
-            }
-*/            console.log(course.key);
-            //           console.log(miniDoc);
-            // console.log(a);
-            startEachAnnouncement = store.indexOf("<li>", endEachAnnouncement);
-            
-/*
-            a.message = a.message.replace("</div>", "", "g");
-            a.message = a.message.replace("<div class=\"announcementInfo\">", "", "g");
-            a.message = a.message.replace("<div class=\"details\">", "", "g");
-            a.message = a.message.replace("<div class=\"vtbegenerated\">", "");
-            a.message = cleanLink(a.message);
-            console.log(a.message);
-            var miniDoc = parser.parseFromString(a.message, "text/xml"); 
-            console.log(miniDoc); */
-            announcements.push(a);
-         }
+            startEachAnnouncement = allAnnouncement.indexOf("<li class=", endEachAnnouncement);
+         }           
+              
+         announcements.push(a);
          course.announcements = announcements;
       }
       else if (req.readyState == 4 && req.status != 200)
@@ -116,7 +91,6 @@ function mineAnnouncements (link, course) {
          console.warn(course.key + "Error, status is: " + req.status);
          XMLdecrement();
       }
-
    }
    req.send();
    XMLincrement();
