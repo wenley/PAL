@@ -2,10 +2,11 @@
 
 //  Removes the tab that contains buttonEl
 function removeTab(buttonEl) {
-   var tabEl = buttonEl.parentElement.parentElement; //  button --> div --> th
+   var tabEl = buttonEl.parentElement.parentElement.parentElement; 
    var semester = tabEl.getAttribute("semester");
    var name = tabEl.getAttribute("name");
    var attribute = tabEl.getAttribute("attribute");
+   console.log(semester, name, attribute);
 
    if (Courses[semester] == null || Courses[semester] == undefined)
       throw "Improper usage: invalid semester name: " + semester;

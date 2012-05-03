@@ -1,78 +1,83 @@
-x//  Author: Wenley Tong
+//  Author: Wenley Tong
 //  Written: 23 April 2011
 //  popTabs.js
 
 //  Performs population of the page when a tab is clicked
 
 function populateFromTab(tabLinkEl) {
-   var tabEl = tabLinkEl.parentElement;
+   console.log("In populatefromtab with " + tabLinkEl);
+   var tabEl = tabLinkEl.parentElement.parentElement.parentElement; 
    var semester = tabEl.getAttribute("semester");
    var courseKey = tabEl.getAttribute("name");
    var attribute = tabEl.getAttribute("attribute");
-   
-   //  Update state variables
-   selectedTab = tabLinkEl;
-   folderTrace = new Array();
-   
-    //  Validate inputs; should never be invalid
-    var sem = Courses[semester];
-    if (sem == undefined || sem == null) {
-        throw "Not a valid semester: " + semester;
-        return;
-    }
-    var course = sem[courseKey];
-    if (course == undefined || course == null) {
-        throw "In semester " + semester + ", not a valid course: " + courseKey;
-        return;
-    }
-    var attr = course[attribute];
-    if (attr == undefined || attr == null) {
-       //  Try finding it in otherLinks
-       for (var i = 0; i < course.otherLinks.length; i++) {
-          if (course.otherLinks[i].name == attribute) {
-             attr = course.otherLinks[i];
-             attribute = "otherLinks";
-             break;
-          }
-       }
-       if (attr == undefined || attr == null) {
-          throw "In (semester, course) = (" + semester + ", " + course + "), not a valid attribute: " + attribute;
-          return;
-       }
-    }
-    
-    var space = document.getElementById("notTabBar");
-    space.innerHTML = "";
 
-    if (attribute == "announcements") {
-       for (var entry in attr) 
-          space.appendChild(toHTML(attr[entry]));
-    }
-    else if (attribute == "courseMaterials") {
-       for (var i = attr.length - 1; i >= 0; i--)
-          space.appendChild(toHTML(attr[i]));
-    }
-    else if (attribute == "syllabusDoc") {
-       populateIframe(course.syllabusDoc.link)
-    }
-    else if (attribute == "assignments") {
-       for (var i = attr.length - 1; i >= 0; i--)
-          space.appendChild(toHTML(attr[i]));
-    }
-    else if (attribute == "contacts") {
-       for (var entry in attr)
-          space.appendChild(toHTML(attr[entry]));
-    }
-    else if (attribute == "tools") {
-       for (var entry in attr)
-          space.appendChild(toHTML(attr[entry]));
-    }
-    else if (attribute == "otherLinks") {
-       populateIframe(attr.link);
-    }
-    else {
-       console.warn("Unrecognized attribute: " + attribute);
-    }
+   //  Update state variables
+//   selectedTab = tabLinkEl;
+   setSelectedTab(tabLinkEl);
+   folderTrace = new Array();
+
+   //  Validate inputs; should never be invalid
+   var sem = Courses[semester];
+   if (sem == undefined || sem == null) {
+      throw "Not a valid semester: " + semester;
+      return;
+   }
+   var course = sem[courseKey];
+   if (course == undefined || course == null) {
+      throw "In semester " + semester + ", not a valid course: " + courseKey;
+      return;
+   }
+   var attr = course[attribute];
+   if (attr == undefined || attr == null) {
+      //  Try finding it in otherLinks
+      for (var i = 0; i < course.otherLinks.length; i++) {
+         if (course.otherLinks[i].name == attribute) {
+            attr = course.otherLinks[i];
+            attribute = "otherLinks";
+            break;
+         }
+      }
+      if (attr == undefined || attr == null) {
+         throw "In (semester, course) = (" + semester + ", " + course + "), not a valid attribute: " + attribute;
+         return;
+      }
+   }
+
+   var space = document.getElementById("notTabBar");
+   space.innerHTML = "";
+
+   if (attribute == "announcements") {
+      for (var entry in attr)
+         space.appendChild(toHTML(attr[entry]));
+   }
+   else if (attribute == "courseMaterials") {
+      for (var i = attr.length - 1; i >= 0; i--)
+         space.appendChild(toHTML(attr[i]));
+   }
+   else if (attribute == "syllabusDoc") {
+      populateIframe(course.syllabusDoc.link)
+         }
+   else if (attribute == "assignments") {
+      for (var i = attr.length - 1; i >= 0; i--)
+         space.appendChild(toHTML(attr[i]));
+   }
+   else if (attribute == "contacts") {
+      for (var entry in attr)
+         space.appendChild(toHTML(attr[entry]));
+   }
+   else if (attribute == "tools") {
+      for (var entry in attr)
+         space.appendChild(toHTML(attr[entry]));
+   }
+   else if (attribute == "piazzaLink") {
+      populateIframe(course.piazzaLink);
+   }
+   else if (attribute == "otherLinks") {
+      populateIframe(attr.link);
+   }
+   else {
+      console.warn("Unrecognized attribute: " + attribute);
+   }
 }
 
 //  Replaces the body of the template with the content text
@@ -81,7 +86,7 @@ function populateBodyFromLink(url) {
    var link = url;
    if (link.substr(0, bbDomain.length) != bbDomain)
       link = bbDomain + link;
-   
+
    var req = new XMLHttpRequest();
    req.open("GET", link, true);
    req.onreadystatechange = function () {
@@ -122,7 +127,7 @@ function populateBodyFromLink(url) {
                }
             }
          }
-         
+
          if (content == null) {
             console.warn("Content clearfix not found...");
             body.innerHTML = "";
@@ -148,7 +153,8 @@ function populateBodyFromLink(url) {
 //  the folder. Updates folderTrace.
 function populateFromFolder(newFolderName) {
    var course = selectedCourse;
-   var attrName = selectedTab.parentElement.getAttribute("attribute");
+   var thEl = selectedTab.parentElement.parentElement.parentElement;
+   var attrName = thEl.getAttribute("attribute");
    var attr = course[attrName];
    var body = document.getElementById("notTabBar");
 

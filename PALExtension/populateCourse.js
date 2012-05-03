@@ -10,21 +10,39 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    mainEl.setAttribute("semester", semester);
    mainEl.setAttribute("attribute", attribute);
 
-   // Create the remove button
-   var buttonDiv = document.createElement("div");
-   buttonDiv.setAttribute("id", "xButton");
-   var buttonLink = document.createElement("a");
-   buttonLink.setAttribute("class", "button");
-   buttonLink.innerText = "X";
-   buttonLink.addEventListener("click", function() { removeTab(this); }, false);
-   buttonDiv.appendChild(buttonLink);
-   mainEl.appendChild(buttonDiv);
 
    // Set the link
+   var mainLinkTable = document.createElement("table");
+   var mainLinkTop = document.createElement("tr");
+   var mainLinkBottom = document.createElement("tr");
+   mainLinkTop.setAttribute("id", "mainLinkTop");
+   mainLinkBottom.setAttribute("id", "mainLinkBottom");
+
+   // Create the remove button
+   
+   var notButton = document.createElement("th");
+   notButton.setAttribute("id", "notButton");
+   notButton.addEventListener("click", function() { populateFromTab(this); }, false);
+   var buttonDiv = document.createElement("th");
+   buttonDiv.setAttribute("id", "xButton");
+   buttonDiv.innerText = "X";
+   buttonDiv.addEventListener("click", function() { removeTab(this); }, false);
+   mainLinkTop.appendChild(notButton);
+   mainLinkTop.appendChild(buttonDiv);
+
+   var mainLinkBottomDiv = document.createElement("th");
+   mainLinkBottomDiv.setAttribute("id", "mainLinkBottomDiv");
    var mainLink = document.createElement("a");
-   mainLink.addEventListener("click", function() { populateFromTab(this); }, false);
+   mainLink.setAttribute("id", "mainLink");
    mainLink.innerText = tagText;
-   mainEl.appendChild(mainLink);
+   mainLinkBottomDiv.appendChild(mainLink);
+   mainLinkBottomDiv.addEventListener("click", function() { populateFromTab(this); }, false);
+   mainLinkBottom.appendChild(mainLinkBottomDiv);
+
+   mainLinkTable.appendChild(mainLinkTop);
+   mainLinkTable.appendChild(mainLinkBottom);
+
+   mainEl.appendChild(mainLinkTable);
 
    currentTable.appendChild(mainEl);
 }
@@ -45,6 +63,7 @@ function populateCourse(courseEl) {
 
    populateTitle(semester, name);
 
+   checkPiazza(semester, name);
    // Sets the intial values for tabOrder for the course, if they have
    // not yet been set.
 
@@ -84,6 +103,12 @@ function populateCourse(courseEl) {
       if (currentCourse.tools != null)
       {
          currentCourse.tabOrder[k] = "tools";
+         k++;
+      }
+      if (currentCourse.piazzaLink != null)
+      {
+         console.log("there is a piazza link!");
+         currentCourse.tabOrder[k] = "piazzaLink";
          k++;
       }
       var i = 0;
@@ -181,6 +206,19 @@ function populateCourse(courseEl) {
                }
             }
             break;
+         
+         case "piazzaLink":
+            console.log("going to see if there's a piazza link");
+            // Make the Piazza link
+            if (currentCourse.piazzaLink != null)
+            {
+               if (!isRemoved(semester, name, "piazzaLink"))
+               {
+                  createTab(semester, name, currentTable, "piazzaLink", "Piazza");
+               }
+            }
+            break;
+
          default:
             //  Try to find an otherLink to match
             var tabName = currentCourse.tabOrder[i];
@@ -200,12 +238,14 @@ function populateCourse(courseEl) {
       }
    }
 
-   populateFromTab(currentTable.children[0].children[1]);
+   populateFromTab(currentTable.children[0].children[0].children[0].children[0]);
    removedPopup(semester, name);
 
    //  Update state variables
-   selectedSemester = Courses[semester];
-   selectedCourse = currentCourse;
+//   selectedSemester = Courses[semester];
+//   selectedCourse = currentCourse;
+   setSelectedSemester(Courses[semester], semester);
+   setSelectedCourse(currentCourse);
 }
 
 function removedPopup(semester, name) {
@@ -285,6 +325,9 @@ function removedPopup(semester, name) {
                break;
             case "tools":
                link.innerText = "Tools";
+               break;
+            case "piazzaLink":
+               link.innerText = "Piazza";
                break;
             default:
                link.innerText = attribute;

@@ -62,13 +62,23 @@ function mineDocuments(link, course, type) {
                   current = current.concat("<\/div><\/div>");
                else current = current.concat("<\/div>");
                current = current.replace(/<img[^>]*>/g,"");
-               try {
-                  var temp = HTMLtoXML(current);
-                  current = temp;
-               } catch (e) {
-                  console.warn(course.key + ":: " + type + ":: ERROR");
-                  console.warn(e);
+               var success = false;
+               for (var q = 0; q < 2; q++) {
+                  try {
+                     var temp = HTMLtoXML(current);
+                     current = temp;
+                     success = true;
+                     break;
+                  } catch (e) {
+                     current = current.replace(/<o:[^>]*>[^<]*<\/o:[^>]*>/g, ""); //  Take out funky tags
+                     current = current.replace(/<\s+/g, ""); //  Take out leading white-space in tags
+                     console.warn(course.key + ":: " + type + ":: ERROR");
+                     console.warn(e);
+                  }
                }
+               if (success == false)
+                  console.warn("Failed to parse correctly");
+
                miniDoc = parser.parseFromString(current, "text/xml");
                var FileLinks = miniDoc.getElementsByTagName("a");
                for (var j = 0; j < FileLinks.length; j++) {
@@ -106,7 +116,17 @@ function mineDocuments(link, course, type) {
             else if (imgType == "assignment") {
                var a = new Assignment();
                a.name = Name;
-               a.submissionLink = h3link;
+               if (h3link.match(/http/) != null || h3link.match(/webapps/) == null) {
+                  console.warn("This isn't really a submission link");
+                  var c = new Document();
+                  c.name = a.name;
+                  c.link = h3link;
+                  docLinks.push(c);
+                  a.submissionLink = null;
+               }
+               else {
+                  a.submissionLink = h3link;
+               }
                a.contents = docLinks;
                a.memo = Memo;
                docs[docs.length] = a;

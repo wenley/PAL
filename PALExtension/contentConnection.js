@@ -49,7 +49,7 @@ function handleMessage(msg) {
          response = null;
          break;
       case "update": //  Indicates difference; need to update page
-         console.log("Not handling updates yet.");
+         handleUpdate(msg.update);
          response = null;
          break;
       case "cleared":
@@ -76,6 +76,27 @@ function handleMessage(msg) {
    return response;
 }
 
+//  Deals with diff updates
+function handleUpdate(diffString) {
+   if (diffString.length == 0)
+      return;
+   var semDiffs = diffString.split('/');
+   for (var i = 0; i < semDiffs.length; i++) {
+      var split1 = semDiffs[i].split("'");
+      var sem = split1[0];
+      var courseDiffs = split1[1].split(';');
+      for (var j = 0; j < courseDiffs.length; j++) {
+         var split2 = courseDiffs[j].split(':');
+         var courseKey = split2[0];
+         var attrDiffs = split2[1].split(',');
+         for (var k = 0; k < attrDiffs.length; k++) {
+            var attr = attrDiffs[k];
+            console.log("Diff in " + sem + ": " + courseKey + ": " + attr);
+         }
+      }
+   }  
+}
+
 //  Stores the compiled history of courses to the background
 function pushCourses() {
    port.postMessage({note: "push", courses: Courses});
@@ -99,4 +120,14 @@ function copyTemplate() {
 //  Starts a completely new mining sequence
 function refresh() {
    port.postMessage({note: "clear"});
+}
+
+//  Saves the current user state to the background
+function saveState() {
+   port.postMessage({
+        note: "state",
+        semester: selectedSemName,
+        course: selectedCourse.key,
+        tab: selectedTab.parentElement.getAttribute("attribute")
+   });
 }
