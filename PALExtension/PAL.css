@@ -1,10 +1,10 @@
 body {
-    background-color: #F88017;
+    background-color: #333333;
 }
 
 div#sideBar {
  
-    background-color:#F88017;
+    background-color:#333333;
     position:absolute;
     left:0px;
     top:0px;
@@ -28,7 +28,7 @@ div#sideBar {
 }
 
 div#notSideBar {
-    background-color:white;
+    background-color:#333333;;
     position:absolute;
     left:180px;
     top:0px;
@@ -37,7 +37,7 @@ div#notSideBar {
 }
 
 div#notTabBar {
-    background-color: #FFB661;
+    background-color: #333333;
     position:absolute;
     left:0px;
     top:120px;
@@ -46,7 +46,7 @@ div#notTabBar {
 }
 
 .documentDiv {
-    background-color: black;
+    background-color: #888888;
 }
 
 .documentLink {
@@ -117,7 +117,7 @@ div#mainTitle {
     text-align:center;
     height:65px;
     width:100%;
-    background-color:#F88017;
+    background-color:#F87217;
     background-image:url('http://image.51diy.org/UniPicture/US/Universities/Princeton%20University/princeton%20halls.jpg');
     background-position:center;
     font-family:monospace;
@@ -226,7 +226,7 @@ th#notButton {
 th#xButton {
     width:10%;
     height:100%;
-    background-color:red;
+    background-color:#666666;
 }
 
 th#mainLinkBottomDiv {
@@ -234,6 +234,106 @@ th#mainLinkBottomDiv {
     height:100%
 }
 
+th#removeTabTable {
+    background-color:yellow;
+    border:2px solid #E65C00;
+    text-align:center;
+    font-family:helvetica;
+    color:white;
+    height:30px;
+    width:20px;
+    font-size:10px;
+    padding:0px;
+}
+    
+div#menuDiv {
+    background-color:white;
+    height:100%;
+    width:100%;
+    padding:0px;
+}
+
+#removeMenu,
+#removeMenu {
+    list-style:none;
+    background-color: brown;
+    text-align:center;
+    font-family:helvetica;
+    color:white;
+    font-size:15px;
+    padding:0px;
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-right:0px;
+    margin-left:0px;
+}
+#removeMenu {
+    align:right;
+    list-style:none;
+    background-color: yellow;
+    vetical-align: middle;
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-right:0px;
+    margin-left:0px;
+}
+#removeMenu > li {
+    align: center;
+    background-color:#E8600A;
+    padding-left:20px;
+    padding-right:20px;
+    padding-top:12px;
+    padding-bottom:12px;
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-right:0px;
+    margin-left:0px;
+}
+#removeMenu li a {
+display: block;
+    list-style:none;
+    background-color: green;
+    top:20px;
+    height:30px;
+    border:2px solid #E65C00;
+    text-align:center;
+    font-family:helvetica;
+    color:white;
+    font-size:10px;
+    padding:2px;
+}
+#removeMenu ul {
+    display: none;
+    background-color:black;
+    float: left;
+    z-index: 900;
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-right:0px;
+    margin-left:0px;
+}
+
+#removeMenu ul li a {
+    display: block;
+    float: down;
+    border:2px solid #E65C00;
+    background-color: #FBB117;
+    cursor: hand;
+    cursor: pointer;  
+}
+
+#removeMenu li:hover ul {
+    display: block;
+    position: absolute;
+    right:0px;
+    list-style:none;
+    border:2px solid #E65C00;
+    background-color: #FBB117;
+    background-color: #FBB117;
+    padding:0px;
+    cursor: hand;
+    cursor: pointer;
+}
 
 a:link {
     color:#FFFFFF;
@@ -340,80 +440,6 @@ ul.sideBarCourses {
     list-style-type:none;
 }
 
-th#removeTabTable {
-    background-color:06040;
-    border:2px solid #E65C00;
-    text-align:center;
-    font-family:helvetica;
-    color:white;
-    height:30px;
-    width:20px;
-    font-size:10px;
-    padding:0px;
-}
-
-#removeMenu,
-#removeMenu {
-    list-style:none;
-    background-color: brown;
-    text-align:center;
-    font-family:helvetica;
-    color:white;
-    font-size:10px;
-    padding:0px;
-
-}
-#removeMenu {
-    float: left;
-    list-style:none;
-    background-color: purple;
-    vetical-align: middle;
-}
-#removeMenu > li {
-    float: center;
-    background-color: #FBB117;  
-}
-#removeMenu li a {
-display: block;
-    list-style:none;
-    background-color: green;
-    top:20px;
-    height:30px;
-    border:2px solid #E65C00;
-    text-align:center;
-    font-family:helvetica;
-    color:white;
-    font-size:10px;
-    padding:2px;
-}
-#removeMenu ul {
-    display: none;
-    background-color:black;
-    float: left;
-    z-index: 900;
-}
-
-#removeMenu ul li a {
-    display: block;
-    float: down;
-    border:2px solid #E65C00;
-    background-color: #FBB117;
-    cursor: hand;
-    cursor: pointer;  
-}
-
-#removeMenu li:hover ul {
-    display: block;
-    position: absolute;
-    right:0px;
-    list-style:none;
-    border:2px solid #E65C00;
-    background-color: #FBB117;
-    background-color: #FBB117;
-    padding:0px;
-    cursor: hand;
-    cursor: pointer;
-}
 
 iframe.tool {
     width:100%;

@@ -283,6 +283,8 @@ function removedPopup(semester, name) {
    mainEl.setAttribute("id", "removeTabTable");
    mainEl.setAttribute("semester", semester);
    mainEl.setAttribute("name", name);
+   var menuDiv = document.createElement("div");
+   menuDiv.setAttribute("id", "menuDiv");
    var menuUl = document.createElement("ul");
    menuUl.setAttribute("id", "removeMenu");
 
@@ -345,6 +347,7 @@ function removedPopup(semester, name) {
    console.log("Got down to here");
    mainLi.appendChild(subMenu);
    menuUl.appendChild(mainLi);
-   mainEl.appendChild(menuUl);
+   menuDiv.appendChild(menuUl);
+   mainEl.appendChild(menuDiv);
    currentTable.appendChild(mainEl);
 }
