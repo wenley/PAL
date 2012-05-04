@@ -45,9 +45,41 @@ div#notTabBar {
 
 }
 
-div.assignmentDiv {
+.assignmentDiv {
     background-color: green;
 }
+
+.assignmentLink {
+    font-family:helvetica;
+    font-size:15px;
+    color:orange;
+}
+
+.assignmentName {
+    font-family:monospace;
+    font-size:20px;
+    color:black;
+}
+
+.assignmentSubmissionLink {
+    font-family:helvetica;  
+    font-size:15px;
+    color:red;
+}
+.assignmentFileLink {
+    font-family:helvetica;
+    font-size:15px;
+    color:orange;
+
+}
+
+.assignmentMemo {
+    font-family:helvetica;
+    font-size:10px;
+    color:black;
+}
+
+
 
 div#backElem { 
     background-color:#E8600A;
@@ -101,12 +133,27 @@ div#logoutButtonElem {
     font-family:monospace;
     font-size:10px;
     padding-left:0px;
+    padding-right:15px;
+    align:right;
+    top:0px;
+    text-align:right; 
+    border:0px;
+}
+
+#casLogoutButton {
+    text-transform:uppercase;
+    background-color:red;
+    color:white;
+    font-family:monospace;
+    font-size:10px;
+    padding-left:0px;
     padding-right:0px;
     align:right;
     top:0px;
     text-align:right; 
     border:0px;
 }
+
 
 div#mainTitleCourseDescription {
     top:0px;
@@ -288,7 +335,7 @@ ul.sideBarCourses {
 }
 
 th#removeTabTable {
-    background-color:#FBB117;  
+    background-color:06040;
     border:2px solid #E65C00;
     text-align:center;
     font-family:helvetica;
@@ -353,6 +400,9 @@ display: block;
     display: block;
     position: absolute;
     right:0px;
+    list-style:none;
+    border:2px solid #E65C00;
+    background-color: #FBB117;
     background-color: #FBB117;
     padding:0px;
     cursor: hand;

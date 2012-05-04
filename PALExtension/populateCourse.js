@@ -19,7 +19,7 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    mainLinkBottom.setAttribute("id", "mainLinkBottom");
 
    // Create the remove button
-   
+
    var notButton = document.createElement("th");
    notButton.setAttribute("id", "notButton");
    notButton.addEventListener("click", function() { populateFromTab(this); }, false);
@@ -205,7 +205,7 @@ function populateCourse(courseEl) {
                }
             }
             break;
-         
+
          case "piazzaLink":
             console.log("going to see if there's a piazza link");
             // Make the Piazza link
@@ -269,7 +269,6 @@ function removedPopup(semester, name) {
       oldmainElparent.removeChild(oldmainEl);
    }
 
-   // Create the "+" tab to add more courses
    var mainEl = document.createElement("th");
    mainEl.setAttribute("id", "removeTabTable");
    mainEl.setAttribute("semester", semester);
@@ -302,36 +301,34 @@ function removedPopup(semester, name) {
             break;
          }
          var subLi = document.createElement("li");
-         var link = document.createElement("a");
-         link.addEventListener("click", function() { addTab(this); }, false);
-         link.setAttribute("attribute", attribute);
+         subLi.addEventListener("click", function() { addTab(this); }, false);
+         subLi.setAttribute("attribute", attribute);
          switch(attribute)
          {
             case "announcements":
-               link.innerText = "Announcements";
+               subLi.innerText = "Announcements";
                break;
             case "courseMaterials":
-               link.innerText = "Course Materials";
+               subLi.innerText = "Course Materials";
                break;
             case "assignments":
-               link.innerText = "Assignments";
+               subLi.innerText = "Assignments";
                break;
             case "syllabusDoc":
-               link.innerText = "Syllabus";
+               subLi.innerText = "Syllabus";
                break;
             case "contacts":
-               link.innerText = "Contacts";
+               subLi.innerText = "Contacts";
                break;
             case "tools":
-               link.innerText = "Tools";
+               subLi.innerText = "Tools";
                break;
             case "piazzaLink":
-               link.innerText = "Piazza";
+               subLi.innerText = "Piazza";
                break;
             default:
-               link.innerText = attribute;
+               subLi.innerText = attribute;
          }
-         subLi.appendChild(link);
          subMenu.appendChild(subLi);
       }
    }

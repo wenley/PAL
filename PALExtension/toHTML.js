@@ -41,6 +41,7 @@ function AssignmentToHTML(asgn) {
    //  Apologies for making code messy
    if (asgn.isLink == "isLink") {
       var a = document.createElement("a");
+      a.setAttribute("class", "assignmentLink");
       a.innerText = asgn.name;
       a.setAttribute("href", asgn.submissionLink);
       el.appendChild(a);
@@ -50,6 +51,7 @@ function AssignmentToHTML(asgn) {
    if (asgn.name != null)
    {
       var iName = document.createElement("h3");
+      iName.setAttribute("class", "assignmentName");
       iName.innerText = asgn.name;
       el.appendChild(iName);
    }
@@ -57,6 +59,7 @@ function AssignmentToHTML(asgn) {
    if (asgn.submissionLink != null)
    {
       var iSubLink = document.createElement("a");
+      iSubLink.setAttribute("class", "assignmentSubmissionLink");
       iSubLink.addEventListener("click", function() { populateIframeBack(asgn.submissionLink); }, false);
       iSubLink.innerText = "Submission Link";
       el.appendChild(iSubLink);
@@ -67,6 +70,7 @@ function AssignmentToHTML(asgn) {
       for (i = 0; i < asgn.contents.length; i++)
       {
          var iFileLink = document.createElement("a");
+         iFileLink.setAttribute("class", "assignmentFileLink");
          iFileLink.setAttribute("href", asgn.contents[i].link);
          iFileLink.innerText = asgn.contents[i].name;
          var br = document.createElement("br");
@@ -78,6 +82,7 @@ function AssignmentToHTML(asgn) {
    if (asgn.memo != null)
    {
       var iMemo = document.createElement("p");
+      iMemo.setAttribute("class", "assignmentMemo");
       iMemo.innerText = asgn.memo;
       el.appendChild(iMemo);
    }
