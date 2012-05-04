@@ -102,7 +102,8 @@ function addBackLink() {
    var backElem = document.createElement("div");
    backElem.setAttribute("id", "backElem");
    var backLink = document.createElement("a");
-   backLink.innerText = "Return to " + selectedTab.innerText;
+   console.log(selectedTab);
+   backLink.innerText = "Return to " + selectedTab.parentElement.parentElement.children[1].children[0].children[0].innerText;
    backLink.addEventListener("click", function() {console.log(selectedTab); populateFromTab(selectedTab); }, false);
    backElem.appendChild(backLink);
    spaceToPopulate.appendChild(backElem);   

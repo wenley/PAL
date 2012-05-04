@@ -198,7 +198,7 @@ function populateFromFolder(newFolderName) {
    curFolDiv.appendChild(location);
    body.appendChild(curFolDiv);
 
-   //  Create proper link to return to previous folder
+/*   //  Create proper link to return to previous folder
    var backDiv = document.createElement("div");
    var backLink = document.createElement("a");
    backLink.innerText = "Back to " + pastFolder.name;
@@ -215,7 +215,7 @@ function populateFromFolder(newFolderName) {
             }
             if (trueTab == null)
                console.warn("Tab " + selectedTab + " not found in tabs...");
-*/
+
             populateFromTab(selectedTab);
          }
          else {
@@ -223,7 +223,9 @@ function populateFromFolder(newFolderName) {
          }
       }, false);
    backDiv.appendChild(backLink);
-   body.appendChild(backDiv);
+   body.appendChild(backDiv); */
+
+   addBackLink();
 
    //  Put in newFolder's contents;
    for (var i = 0; i < newFolder.contents.length; i++) {

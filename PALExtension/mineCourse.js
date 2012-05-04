@@ -37,6 +37,13 @@ function mineSidebar(a, course) {
             var t = new Tool();
             t.name = a[i][0];
             t.link = a[i][1];
+            if (couldDocumentMine(t.link)) {
+               console.log("Will mine using mineDocuments");
+            }
+            else if (couldToolMine(t.link)) {
+               console.log("Will mine using mineTools");
+            }
+
             if (course.otherLinks == null)
                course.otherLinks = new Array();
             course.otherLinks.push(t);
@@ -44,6 +51,28 @@ function mineSidebar(a, course) {
       }
    }
 }
+
+//  Determines if we could mine text using mineDocuments
+function couldDocumentMine(text) {
+   var req = new XMLHttpRequest();
+   req.open("GET", link, true);
+   req.onreadystatechange = function () {
+      if (req.readyState == 4 && req.status == 200) {
+         console.log("Came back!");
+      }
+      else if (req.readyState == 4) {
+         console.log("Something went wrong...");
+      }
+   }
+   req.send();
+}
+
+//  Determines if we could mine text using mineTools
+function couldToolMine(text) {
+   console.log("Not trying to be tricky yet.");
+}
+
+
 //  - - - - - COURSE CONTENT DOC FUNCTIONS - - - - -
 
 //  Given a course's web page link, mine it
