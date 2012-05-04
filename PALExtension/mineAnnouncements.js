@@ -64,8 +64,7 @@ function mineAnnouncements (link, course) {
          annChunk = store.slice(startAnnouncements, endAnnouncements) + "</ul>";
          startEachAnnouncement = annChunk.indexOf("<li class=\"clearfix");
          
-         var terminator = 0;
-         while (startEachAnnouncement != -1 && terminator++ < 10) {
+         while (startEachAnnouncement != -1) {
             var a = new Announcement();
 
             //  Find proper chunk of a single announcement
