@@ -37,6 +37,7 @@ function pushSingleRequest(msg) {
        NewCourses[msg.course.semester] = {};
     NewCourses[msg.course.semester][msg.course.key] = restorePrototype(msg.course);
     var checkDiff = setTimeout(runDiff, 1000);
+    saveToLocal();
     return {note: "good"};
 }
 

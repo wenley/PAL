@@ -55,8 +55,13 @@ function populateFromTab(tabLinkEl) {
          space.appendChild(toHTML(attr[i]));
    }
    else if (attribute == "syllabusDoc") {
-      populateIframe(course.syllabusDoc.link)
-         }
+      if (isPDF(course.syllabusDoc.link))
+         populateIframe(course.syllabusDoc.link);
+      else {
+         console.log("Not a PDF");
+         space.appendChild(toHTML(course.syllabusDoc));
+      }
+   }
    else if (attribute == "assignments") {
       for (var i = attr.length - 1; i >= 0; i--)
          space.appendChild(toHTML(attr[i]));
@@ -225,4 +230,10 @@ function populateFromFolder(newFolderName) {
    for (var i = 0; i < newFolder.contents.length; i++) {
       body.appendChild(toHTML(newFolder.contents[i]));
    }
+}
+
+
+//  Detects whether a particular link is a PDF
+function isPDF(link) {
+   return link.match(/\.pdf$/) != null;
 }
