@@ -31,7 +31,7 @@
             "removeTab.js",
             "populateTitle.js",
             "populateFromTab.js",
-            "testRender.js",
+            "render.js",
             "mineSyllabus.js",
             "populate.js",
             "expandSemesters.js",
