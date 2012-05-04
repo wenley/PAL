@@ -69,6 +69,8 @@ div#tabBar {
     font-size:20px;
     text-transform:uppercase;
     padding:0px;
+    cursor: hand;
+    cursor: pointer;
 }
 
 div#mainTitle {
@@ -114,6 +116,8 @@ div#mainTitleCourseDescription {
     padding-bottom:0px;
     padding-left:0px;
     padding-right:0px;
+    cursor: hand;
+    cursor: pointer;
 }
 
 div.loadingStatus {
@@ -181,18 +185,26 @@ th#mainLinkBottomDiv {
 a:link {
     color:#FFFFFF;
     text-decoration:none;
+    cursore: pointer;
+    cursor: hand;
 }
 a:visited {
     text-decoration:none;
     color:#FFFFFF;
+    cursor: pointer;
+    cursor: hand;
 }
 a:hover {
     color:#FF6600;
     text-decoration:none;
+    cursor: pointer;
+    cursor: hand;
 } 
 a:active {
     color:#FF6600;
     text-decoration:none;
+    cursor: pointer;
+    cursor: hand;
 }
 
 #refreshButton {
@@ -205,6 +217,8 @@ a:active {
     align:center;
     text-align:center; 
     border:0px;
+    cursor: hand;
+    cursor: pointer;
 }
 
 #iceButton {
@@ -217,6 +231,8 @@ a:active {
     align:center;
     text-align:center; 
     border:0px;
+    cursor: hand;
+    cursor: pointer;
 }
 
 #piazzaButton {
@@ -229,6 +245,8 @@ a:active {
     align:center;
     text-align:center; 
     border:0px;
+    cursor: hand;
+    cursor: pointer;
 }
 
 
@@ -326,7 +344,9 @@ display: block;
     display: block;
     float: down;
     border:2px solid #E65C00;
-    background-color: #FBB117;  
+    background-color: #FBB117;
+    cursor: hand;
+    cursor: pointer;  
 }
 
 #removeMenu li:hover ul {
@@ -335,6 +355,8 @@ display: block;
     right:0px;
     background-color: #FBB117;
     padding:0px;
+    cursor: hand;
+    cursor: pointer;
 }
 
 iframe.tool {
