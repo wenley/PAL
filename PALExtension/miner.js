@@ -165,7 +165,7 @@ function showLoadingBar() {
          var delay = setTimeout(function () {
                pushCourses(Courses);
                status.innerText = "Done!";
-//               document.location.href = document.location.href;
+               document.location.href = document.location.href;
             }, 1000);
       });
 }
