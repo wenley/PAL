@@ -42,6 +42,10 @@ function minePiazza(course) {
             XMLdecrement();
             console.log("No piazza thus far link for ");
          }
+         else {
+            console.log("readyState: " + req.readyState);
+            console.log("status: " + req.status);
+         }
       }
       req.send();
       XMLincrement();

@@ -149,7 +149,7 @@ function FolderToHTML(fol) {
    if (fol.name == null)
       fol.name = "Unnamed Folder";
 
-   var iName = document.createElement("p");
+   var iName = document.createElement("h3");
    if (fol.link != null) {
       var iLink = document.createElement("a");
       iLink.addEventListener("click", function() { populateFromFolder(this.innerText) }, false);

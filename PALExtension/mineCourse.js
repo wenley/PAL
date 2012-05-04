@@ -75,5 +75,5 @@ function mineCourse(contentText, course) {
    }
 
    mineSidebar(a, course);
-   minePiazza(course);
+//   minePiazza(course);
 }

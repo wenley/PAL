@@ -36,7 +36,7 @@ function mineAnnouncements (link, course) {
    req.onreadystatechange = function () {
       if(req.readyState == 4 && req.status == 200) {
          XMLdecrement();
-
+         
          var announcements = new Array();
          var store = req.responseText;
          var startAnnouncements = 0;
@@ -45,72 +45,102 @@ function mineAnnouncements (link, course) {
          var endEachannouncement = 0;
          var tempEnd = 0;
          var eachAnnouncement;
-         var allAnnouncements;
+         var annChunk;
 
+         //  Find beginning of announcement list
          startAnnouncements = store.indexOf("<ul id=\"announcementList");
          if(startAnnouncements == -1)
             return;
+
+         //  Find end of announcement list
+         var otherul = store.indexOf("<ul", startAnnouncements + 1); //  See if there are any nested uls
          endAnnouncements = store.indexOf("</ul", startAnnouncements);
-         allAnnouncements = store.slice(startAnnouncements, endannouncements);
-         startEachAnnouncement = allAnnouncements.indexOf("<li class=", 0);
-         while(startEachAnnouncement < endAnnouncements) {
+         while (otherul < endAnnouncements) {
+            endAnnouncements = store.indexOf("</ul", endAnnouncements + 1);
+            otherul = store.indexOf("<ul", otherul + 1);
+         } //  Find proper closing ul
+
+         //  Grab chunk containing all announcements
+         annChunk = store.slice(startAnnouncements, endAnnouncements) + "</ul>";
+         startEachAnnouncement = annChunk.indexOf("<li class=\"clearfix");
+         
+         var terminator = 0;
+         while (startEachAnnouncement != -1 && terminator++ < 10) {
             var a = new Announcement();
-            endEachAnnouncement = store.indexOf("</li>", startEachAnnouncement);
-            eachAnnoucnement = store.slice(startEachAnnouncement, endEachAnnouncement) + "</li>";
-            tempEnd = eachAnnouncement.indexOf("</h3>", startEachAnnouncement);
-            a.heading = eachAnnouncement.slice(startEachAnnouncement, tempEnd);
-            a.heading = strip_tags(a.heading);
 
-            startEachAnnouncement = eachAnnouncement.indexOf("Posted on", tempEnd);
-            tempEnd = eachAnnouncement.indexOf("<div class=\"vtbegenerated\">", startEachAnnouncement);
-            a.date = eachAnnouncement.slice(startEachAnnouncement, tempEnd);
-            a.date = strip_tags(a.date);
-
-            startEachAnnouncement = tempEnd;
-            tempEnd = eachAnnouncement.indexOf("</div>", startEachAnnouncement);
-            a.message = eachAnnouncement.slice(startEachAnnouncement, tempend);
-            a.message = strip_tags(a.message);
-
-            startEachAnnouncement = eachAnnouncement.indexOf("Posted by", tempEnd);
-            tempEnd = eachAnnouncement.indexOf("Posted To", startEachAnnouncement);
-            a.postedBy = eachAnnouncement.slice(startEachAnnouncement, tempEnd);
-            a.postedBy = strip_tags(a.postedBy);
-
-            startEachAnnouncement = tempEnd;
-            a.postedTo = eachAnnouncement.slice(startEachAnnouncement, endEachAnnouncement);
-            a.postedTo = strip_tags(a.postedTo);
-
-            startEachAnnouncement = allAnnouncement.indexOf("<li class=", endEachAnnouncmeent);
-         }
-/*
-            var cleaned = HTMLtoXML(a.message + "</li>");
-            var miniDoc = parser.parseFromString(cleaned, "text/xml");
-            var spans = miniDoc.getElementsByTagName("div");
-            for (var i = 0; i < spans.length; i++) {
-               var divEl = spans[i];
-               if (divEl.getAttribute("class") == "vtbegenerated") {
-                  a.messsage = divEl.textContent;
-                  break;
-               }
+            //  Find proper chunk of a single announcement
+            var endEachAnnouncement = annChunk.indexOf("</li", startEachAnnouncement);
+            var otherli = annChunk.indexOf("<li", startEachAnnouncement + 1);
+            while (otherli < endEachAnnouncement) {
+               endEachAnnouncement = annChunk.indexOf("</li", endEachAnnouncement + 1);
+               otherli = annChunk.indexOf("<li", otherli + 1);
             }
-*/            console.log(course.key);
-            //           console.log(miniDoc);
-            // console.log(a);
-            startEachAnnouncement = store.indexOf("<li>", endEachAnnouncement);
-            
-/*
-            a.message = a.message.replace("</div>", "", "g");
-            a.message = a.message.replace("<div class=\"announcementInfo\">", "", "g");
-            a.message = a.message.replace("<div class=\"details\">", "", "g");
-            a.message = a.message.replace("<div class=\"vtbegenerated\">", "");
-            a.message = cleanLink(a.message);
-            console.log(a.message);
-            var miniDoc = parser.parseFromString(a.message, "text/xml"); 
-            console.log(miniDoc); */
-            announcements.push(a);
+            var chunk = annChunk.slice(startEachAnnouncement, endEachAnnouncement) + "</li>";
+
+            //  Convert the chunk to a miniDoc
+            var miniDoc = null;
+            try {
+               var cleanChunk = HTMLtoXML(cleanObj(chunk));
+               cleanChunk = cleanLink(cleanChunk);
+               miniDoc = parser.parseFromString(cleanChunk, "text/xml");
+            } catch (e) {
+               console.warn(e);
+            }
+
+            //  
+            if (miniDoc == null || miniDoc.getElementsByTagName("parsererror").length > 0) {
+               console.log("Couldn't parse correctly");
+            }
+            else {
+               var heading = miniDoc.getElementsByTagName("h3")[0];
+               if (heading != undefined) {
+                  a.heading = strip(heading.textContent);
+               }
+
+               var divs = miniDoc.getElementsByTagName("div");
+               for (var i = 0; i < divs.length; i++) {
+                  var divEl = divs[i];
+                  var elClass = divEl.getAttribute("class");
+                  if (elClass != null && elClass[0] == "v") {
+                     var parentClass = divEl.parentElement.getAttribute("class");
+                     if (parentClass != undefined && parentClass[0] != "v") {
+                        a.message = divEl.textContent;
+                     }
+                  }
+                  else if (elClass == "details") {
+                     var ps = divEl.getElementsByTagName("p");
+                     for (var j = 0; j < ps.length; j++) {
+                        var pEl = ps[j];
+                        if (pEl.textContent.match(/Posted on:/) != null) {
+                           a.date = pEl.textContent;
+                           break;
+                        }
+                     }
+                  }
+                  else if (elClass == "announcementInfo") {
+                     var ps = divEl.getElementsByTagName("p");
+                     for (var j = 0; j < ps.length; j++) {
+                        var pEl = ps[j];
+                        if (pEl.textContent.match(/Posted by:/) != null) {
+                           a.postedBy = pEl.textContent;
+                           break;
+                        }
+                     }
+                  }
+               }
+               announcements.push(a);
+            }
+
+            //  Try to find the next announcement
+            if (endEachAnnouncement == -1)
+               break;
+            else
+               startEachAnnouncement = annChunk.indexOf("<li", endEachAnnouncement);
          }
+
          course.announcements = announcements;
       }
+
       else if (req.readyState == 4 && req.status != 200)
       {
          console.warn(course.key + "Error, status is: " + req.status);
