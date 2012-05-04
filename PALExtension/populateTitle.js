@@ -50,17 +50,25 @@ function populateTitle(semester, name) {
    logoutButton.setAttribute("id", "logoutButton");
    var logoutLink = document.createElement("a");
    logoutLink.setAttribute("href", "https://blackboard.princeton.edu/webapps/login?action=logout");
-   logoutLink.innerText = "Logout";
+   logoutLink.innerText = "BlackBoard Logout";
    logoutButton.appendChild(logoutLink);
    logoutButtonElem.appendChild(logoutButton);
  
+// make the logout of CAS button
+   var casLogoutButton = document.createElement("button");
+   casLogoutButton.setAttribute("id", "casLogoutButton");
+   var casLogoutLink = document.createElement("a");
+   casLogoutLink.setAttribute("href", "https://fed.princeton.edu/cas/logout");
+   casLogoutLink.innerText = "CAS Logout";
+   casLogoutButton.appendChild(casLogoutLink);
+   logoutButtonElem.appendChild(casLogoutButton); //!!
+
    var titleTextElem = document.createElement("div");
    var courseDescriptionElem = document.createElement("div");
    var courseDescriptionLink = document.createElement("a");
    courseDescriptionElem.setAttribute("id", "mainTitleCourseDescription");
    courseDescriptionLink.innerText = "Course Description";
    courseDescriptionLink.addEventListener("click", function() { populateIframeBack(link); }, false);
-   //courseDescriptionLink.setAttribute("href", link);
    courseDescriptionElem.appendChild(courseDescriptionLink);
    
    titleElem.appendChild(logoutButtonElem);
