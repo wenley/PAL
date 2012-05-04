@@ -52,6 +52,8 @@ function removeTab(buttonEl) {
    console.log("From the RemoveTab function");
    console.log(currentCourse.tabOrder);
    console.log(currentCourse.removedTabs);
+
+   pushCourse(currentCourse);
 }
 
 //  Is the tab with semester, name, and attribute 'tab' removed?

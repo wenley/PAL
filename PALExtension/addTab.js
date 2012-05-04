@@ -87,4 +87,5 @@ function addTab(linkEl) {
    console.log(currentCourse.tabOrder);
    console.log(currentCourse.removedTabs);
 
+   pushCourse(currentCourse);
 }
