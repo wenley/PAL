@@ -48,7 +48,7 @@ function createTab(semester, name, currentTable, attribute, tagText) {
 }
 
 //  Fills in the tabs when a course is selected
-function populateCourse(courseEl) {
+function populateCourse(courseEl, state) {
    var semester = courseEl.getAttribute("semester");
    var name = courseEl.innerText;
 
@@ -237,7 +237,17 @@ function populateCourse(courseEl) {
       }
    }
 
-   populateFromTab(currentTable.children[0].children[0].children[0].children[0]);
+   if (state == undefined || state.tab == undefined)
+      populateFromTab(currentTable.children[0].children[0].children[0].children[0]);
+   else {
+      for (var i = 0; i < currentTable.children.length; i++) {
+         var thTab = currentTable.children[i];
+         if (thTab.getAttribute("attribute") == state.tab) {
+            populateFromTab(thTab.children[0].children[0].children[0]);
+            break;
+         }
+      }
+   }
    removedPopup(semester, name);
 
    //  Update state variables

@@ -42,7 +42,7 @@ function handleMessage(msg) {
          break;
       case "template":
          if (msg.template == undefined || msg.template == null)
-            console.warn("Empty txemplate body from background");
+            console.warn("Empty template body from background");
          else
             clearPage(msg.template);
          populate();
@@ -63,7 +63,13 @@ function handleMessage(msg) {
          else {
             console.log(Courses);
             var reMine = setTimeout(mineBB, 300000); //  !!! 5 minutes, should be semi-instant
-            copyFromBackground();
+
+            if (msg.template == undefined || msg.template == null)
+               copyFromBackground();
+            else {
+               clearPage(msg.template);
+               populate(msg.state);
+            }
          }
          response = null;
          break;
@@ -124,10 +130,16 @@ function refresh() {
 
 //  Saves the current user state to the background
 function saveState() {
+   if (selectedSemName != null &&
+       selectedCourse != null &&
+       selectedTab != null) {
    port.postMessage({
         note: "state",
-        semester: selectedSemName,
-        course: selectedCourse.key,
-        tab: selectedTab.parentElement.getAttribute("attribute")
+        state: {
+           semester: selectedSemName,
+           course: selectedCourse.key,
+           tab: selectedTab.parentElement.parentElement.parentElement.getAttribute("attribute")
+        }
    });
+   }
 }

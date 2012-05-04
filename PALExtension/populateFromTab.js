@@ -12,7 +12,6 @@ function populateFromTab(tabLinkEl) {
    var attribute = tabEl.getAttribute("attribute");
 
    //  Update state variables
-//   selectedTab = tabLinkEl;
    setSelectedTab(tabLinkEl);
    folderTrace = new Array();
 

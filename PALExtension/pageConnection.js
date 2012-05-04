@@ -50,7 +50,10 @@ function pullRequest(req) {
     }
     
     //  !!! Need to change back to OldCourses
-    return {note: "courses", courses: NewCourses };
+    return {note: "courses",
+          courses: NewCourses,
+          state: state,
+          template: document.body.innerHTML };
 }
 
 //  Updates OldCourses with NewCourses according to the contents
@@ -99,7 +102,20 @@ function setUserHandler(msg) {
    }
    
    loadUser(msg.user);
-   return { note: "loaded", courses: NewCourses };
+   return { note: "loaded", courses: NewCourses,
+          state: state,
+          template: document.body.innerHTML };
+}
+
+function saveStateHandler(msg) {
+   if (msg.note == undefined || msg.note != "state") {
+      console.warn("Misrouted message. state when " + msg.note);
+      return { error: "Misrouted message"};
+   }
+
+   console.log("Saving state...");
+   state = msg.state;
+   saveToLocal();
 }
 
 //  var expected = 0; //  Number of courses expected to be mined
@@ -127,6 +143,9 @@ function handleMessage(msg) {
             break;
         case "user":
             response = setUserHandler(msg);
+            break;
+        case "state":
+            response = saveStateHandler(msg);
             break;
         default:
             console.warn("Unknown note from foreground: " + msg.note);

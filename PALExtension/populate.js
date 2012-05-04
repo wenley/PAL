@@ -3,7 +3,7 @@
 // newPopulate.js
 
 // Populates template.html
-function populate() {
+function populate(state) {
    var ul = document.body.getElementsByClassName("sideBarSemesters")[0];
    var sideBar = document.getElementById("sideBar");
 
@@ -46,12 +46,31 @@ function populate() {
 
    //  Default expand first semester and first course in first semester
    var semEl = ul.children[0].children[0];
-   if (isFuture(semEl.innerText))
+   if (state != null && state.semester != null) {
+      for (var i = 0; i < ul.children.length; i++) {
+         var li = ul.children[i];
+         if (li.children[0].innerText == state.semester) {
+            semEl = li.children[0];
+            break;
+         }
+      }
+   }
+   else if (isFuture(semEl.innerText))
       semEl = ul.children[1].children[0];
 
    expandSemester(semEl);
-   populateCourse(semEl.parentElement.children[1].children[0].children[0]);
-//   populateCourse(ul.children[0].children[1].children[0].children[0]);
+   if (state != null && state.course != null) {
+      var ulCourses = semEl.parentElement.children[1];
+      for (var i = 0; i < ulCourses.children.length; i++) {
+         var liCourse = ulCourses.children[i];
+         if (liCourse.children[0].innerText == state.course) {
+            populateCourse(liCourse.children[0], state);
+            break;
+         }
+      }
+   }
+   else
+      populateCourse(semEl.parentElement.children[1].children[0].children[0]);
 }
 
 //  Sorts the semesters and returns a new version of the array in reverse order

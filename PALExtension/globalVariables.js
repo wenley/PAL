@@ -31,17 +31,17 @@ var folderTrace = new Array();
 //  current states easier
 function setSelectedCourse(c) {
    selectedCourse = c;
-   //  saveState();
+   saveState();
 }
 function setSelectedSemester(sem, s) {
    selectedSemester = sem;
    if (s != undefined)
       selectedSemName = s;
-   //  saveState();
+   saveState();
 }
 function setSelectedTab(t) {
    selectedTab = t;
-   //  saveState();
+   saveState();
 }
 
 //  - - - - - PERSISTENT VARIABLES - - - - -
