@@ -4,7 +4,7 @@
 function addTab(linkEl) {
 
    // need to get to the th tag
-   var tabEl = linkEl.parentElement.parentElement.parentElement.parentElement;
+   var tabEl = linkEl.parentElement.parentElement.parentElement.parentElement.parentElement;
    var semester = tabEl.getAttribute("semester");
    var name = tabEl.getAttribute("name");
    // The tab to be restored - this is the attribute
