@@ -77,7 +77,7 @@ function AssignmentToHTML(asgn) {
 
    if (asgn.memo != null)
    {
-      var iMemo = document.createElement("h3");
+      var iMemo = document.createElement("p");
       iMemo.innerText = asgn.memo;
       el.appendChild(iMemo);
    }
@@ -102,35 +102,35 @@ function InstructorToHTML(ins) {
 
    if (ins.email != null)
    {
-      var iEmail = document.createElement("h3");
+      var iEmail = document.createElement("p");
       iEmail.innerText = ins.email;
       el.appendChild(iEmail);
    }
 
    if (ins.office != null)
    {
-      var iOffice = document.createElement("h3");
+      var iOffice = document.createElement("p");
       iOffice.innerText = ins.office;
       el.appendChild(iOffice);
    }
 
    if (ins.hours != null)
    {
-      var iHours = document.createElement("h3");
+      var iHours = document.createElement("p");
       iHours.innerText = ins.hours;
       el.appendChild(iHours);
    }
 
    if (ins.phone != null)
    {
-      var iPhone = document.createElement("h3");
+      var iPhone = document.createElement("p");
       iPhone.innerText = ins.phone;
       el.appendChild(iPhone);
    }
 
    if (ins.notes != null)
    {
-      var iNotes = document.createElement("h3");
+      var iNotes = document.createElement("p");
       iNotes.innerText = ins.notes;
       el.appendChild(iNotes);
    }
@@ -149,7 +149,7 @@ function FolderToHTML(fol) {
    if (fol.name == null)
       fol.name = "Unnamed Folder";
 
-   var iName = document.createElement("p");
+   var iName = document.createElement("h3");
    if (fol.link != null) {
       var iLink = document.createElement("a");
       iLink.addEventListener("click", function() { populateFromFolder(this.innerText) }, false);
@@ -173,14 +173,14 @@ function AnnouncementToHTML(anc) {
 
    if (anc.postedBy != null)
    {
-      var iPostedBy = document.createElement("h3");
+      var iPostedBy = document.createElement("p");
       iPostedBy.innerText = anc.postedBy;
       el.appendChild(iPostedBy);
    }
 
    if (anc.postedTo != null)
    {
-      var iPostedTo = document.createElement("h3");
+      var iPostedTo = document.createElement("p");
       iPostedto.innerText = anc.postedTo;
       el.appendChild(iPostedTo);
    }
@@ -194,14 +194,14 @@ function AnnouncementToHTML(anc) {
 
    if (anc.date != null)
    {
-      var iDate = document.createElement("h3");
+      var iDate = document.createElement("p");
       iDate.innerText = anc.date;
       el.appendChild(iDate);
    }
 
    if (anc.message != null)
    {
-      var iMessage = document.createElement("h3");
+      var iMessage = document.createElement("p");
       iMessage.innerText = anc.message;
       el.appendChild(iMessage);
    }
@@ -240,7 +240,7 @@ function MaterialToHTML(mat) {
 
    if (mat.memo != null)
    {
-      var iMemo = document.createElement("h3");
+      var iMemo = document.createElement("p");
       iMemo.innerText = mat.memo;
       el.appendChild(iMemo);
    }

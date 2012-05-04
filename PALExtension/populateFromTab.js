@@ -204,15 +204,15 @@ function populateFromFolder(newFolderName) {
          if (parent == undefined) {
             //  Reached tab itself
             var tabs = document.getElementsByTagName("th");
-            var trueTab = null;
+/*            var trueTab = null;
             for (var i = 0; i < tabs.length; i++) {
                if (tabs[i].getAttribute("attribute") == attrName)
                   trueTab = tabs[i].children[1];
             }
             if (trueTab == null)
                console.warn("Tab " + selectedTab + " not found in tabs...");
-
-            populateFromTab(trueTab);
+*/
+            populateFromTab(selectedTab);
          }
          else {
             populateFromFolder(parent.name);
