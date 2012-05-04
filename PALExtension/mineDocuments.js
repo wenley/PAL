@@ -54,7 +54,7 @@ function mineDocuments(link, course, type) {
 
             //  Get stuff inside of <div class="details...> if it exists
             var docLinks = new Array();
-            var Memo;
+            var Memo = null;
             var check = text.indexOf("<h3>", end);
             var attempt = text.indexOf("<div class=\"details", end);
             if (attempt != -1 && (attempt < check || check == -1))
