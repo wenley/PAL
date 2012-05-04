@@ -36,7 +36,7 @@ function AssignmentToHTML(asgn) {
    cleanObj(asgn);
 
    var el = document.createElement("div");
-
+   el.setAttribute("class", "assignmentDiv");
    //  used Assignment objects to store links
    //  Apologies for making code messy
    if (asgn.isLink == "isLink") {
