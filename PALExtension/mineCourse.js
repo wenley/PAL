@@ -7,7 +7,7 @@ function mineSidebar(a, course) {
       switch(a[i][0]) {
          case "Announcements":
             console.log(course.key + "Mining Annoucenments");
-            //  mineAnnouncements(a[i][1], course);
+             mineAnnouncements(a[i][1], course);
             break;
          case "Syllabus":
             console.log(course.key + "Mining Syllabus");
