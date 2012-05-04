@@ -36,12 +36,12 @@ function AssignmentToHTML(asgn) {
    cleanObj(asgn);
 
    var el = document.createElement("div");
-   el.setAttribute("class", "assignmentDiv");
+   el.setAttribute("class", "documentDiv");
    //  used Assignment objects to store links
    //  Apologies for making code messy
    if (asgn.isLink == "isLink") {
       var a = document.createElement("a");
-      a.setAttribute("class", "assignmentLink");
+      a.setAttribute("class", "documentLink");
       a.innerText = asgn.name;
       a.setAttribute("href", asgn.submissionLink);
       el.appendChild(a);
@@ -51,7 +51,7 @@ function AssignmentToHTML(asgn) {
    if (asgn.name != null)
    {
       var iName = document.createElement("h3");
-      iName.setAttribute("class", "assignmentName");
+      iName.setAttribute("class", "documentName");
       iName.innerText = asgn.name;
       el.appendChild(iName);
    }
@@ -59,7 +59,7 @@ function AssignmentToHTML(asgn) {
    if (asgn.submissionLink != null)
    {
       var iSubLink = document.createElement("a");
-      iSubLink.setAttribute("class", "assignmentSubmissionLink");
+      iSubLink.setAttribute("class", "documentSubmissionLink");
       iSubLink.addEventListener("click", function() { populateIframeBack(asgn.submissionLink); }, false);
       iSubLink.innerText = "Submission Link";
       el.appendChild(iSubLink);
@@ -70,7 +70,7 @@ function AssignmentToHTML(asgn) {
       for (i = 0; i < asgn.contents.length; i++)
       {
          var iFileLink = document.createElement("a");
-         iFileLink.setAttribute("class", "assignmentFileLink");
+         iFileLink.setAttribute("class", "documentFileLink");
          iFileLink.setAttribute("href", asgn.contents[i].link);
          iFileLink.innerText = asgn.contents[i].name;
          var br = document.createElement("br");
@@ -82,7 +82,7 @@ function AssignmentToHTML(asgn) {
    if (asgn.memo != null)
    {
       var iMemo = document.createElement("p");
-      iMemo.setAttribute("class", "assignmentMemo");
+      iMemo.setAttribute("class", "documentMemo");
       iMemo.innerText = asgn.memo;
       el.appendChild(iMemo);
    }
@@ -97,45 +97,52 @@ function InstructorToHTML(ins) {
    cleanObj(ins);
 
    var el = document.createElement("div");
+   el.setAttribute("class", "documentDiv");
 
    if (ins.name != null)
    {
       var iName = document.createElement("h3");
-      iName.innerText = ins.name;
+      iName.setAttribute("class", "documentName");
+      iName.innerText = "Instructor Name: " + ins.name;
       el.appendChild(iName);
    }
 
    if (ins.email != null)
    {
       var iEmail = document.createElement("p");
-      iEmail.innerText = ins.email;
+      iEmail.setAttribute("class", "documentMemo");
+      iEmail.innerText = "Instructor Email: " + ins.email;
       el.appendChild(iEmail);
    }
 
    if (ins.office != null)
    {
       var iOffice = document.createElement("p");
-      iOffice.innerText = ins.office;
+      iOffice.setAttribute("class", "documentMemo");
+      iOffice.innerText = "Instructor Office: " + ins.office;
       el.appendChild(iOffice);
    }
 
    if (ins.hours != null)
    {
       var iHours = document.createElement("p");
-      iHours.innerText = ins.hours;
+      iHours.setAttribute("class", "documentMemo");
+      iHours.innerText = "Instructor Office Hours: " + ins.hours;
       el.appendChild(iHours);
    }
 
    if (ins.phone != null)
    {
       var iPhone = document.createElement("p");
-      iPhone.innerText = ins.phone;
+      iPhone.setAttribute("class", "documentMemo");
+      iPhone.innerText = "Instructor Phone: " + ins.phone;
       el.appendChild(iPhone);
    }
 
    if (ins.notes != null)
    {
       var iNotes = document.createElement("p");
+      iNotes.setAttribute("class", "documentMemo");
       iNotes.innerText = ins.notes;
       el.appendChild(iNotes);
    }
@@ -150,13 +157,16 @@ function FolderToHTML(fol) {
    cleanObj(fol);
 
    var el = document.createElement("div");
+   el.setAttribute("class", "documentDiv");
 
    if (fol.name == null)
       fol.name = "Unnamed Folder";
 
    var iName = document.createElement("h3");
+   iName.setAttribute("class", "documentName");
    if (fol.link != null) {
       var iLink = document.createElement("a");
+      iLink.setAttribute("class", "documentLink");
       iLink.addEventListener("click", function() { populateFromFolder(this.innerText) }, false);
       iLink.innerText = fol.name;
       iName.appendChild(iLink);
@@ -175,10 +185,12 @@ function AnnouncementToHTML(anc) {
    cleanObj(anc);
 
    var el = document.createElement("div");
+   el.setAttribute("class", "documentDiv");
 
    if (anc.heading != null)
    {
       var iHeading = document.createElement("h3");
+      iHeading.setAttribute("class", "documentName");
       iHeading.innerText = anc.heading;
       el.appendChild(iHeading);
    }
@@ -186,6 +198,7 @@ function AnnouncementToHTML(anc) {
    if (anc.postedBy != null || anc.date != null)
    {
       var postInfo = document.createElement("h5");
+      postInfo.setAttribute("class", "documentMiniName");
       postInfo.innerHTML = "";
       if (anc.postedBy != null)
          postInfo.innerHTML += anc.postedBy;
@@ -216,6 +229,7 @@ function AnnouncementToHTML(anc) {
    if (anc.message != null)
    {
       var iMessage = document.createElement("p");
+      iMessage.setAttribute("class", "documentMemo");
       iMessage.innerText = anc.message;
       el.appendChild(iMessage);
    }
@@ -230,10 +244,12 @@ function MaterialToHTML(mat) {
    cleanObj(mat);
 
    var el = document.createElement("div");
+   el.setAttribute("class", "documentDiv");
 
    if (mat.name != null)
    {
       var iName = document.createElement("h3");
+      iName.setAttribute("class", "documentName");
       iName.innerText = mat.name;
       el.appendChild(iName);
    }
@@ -243,6 +259,7 @@ function MaterialToHTML(mat) {
       for (i = 0; i < mat.contents.length; i++)
       {
          var iFileLink = document.createElement("a");
+         iFileLink.setAttribute("class", "documentLink");
          iFileLink.setAttribute("href", mat.contents[i].link);
          if (mat.contents[i].name != undefined)
             iFileLink.innerText = mat.contents[i].name;
@@ -255,6 +272,7 @@ function MaterialToHTML(mat) {
    if (mat.memo != null)
    {
       var iMemo = document.createElement("p");
+      iMemo.setAttribute("class", "documentMemo");
       iMemo.innerText = mat.memo;
       el.appendChild(iMemo);
    }
@@ -269,10 +287,13 @@ function ToolToHTML(tool) {
    cleanObj(tool);
 
    var el = document.createElement("div");
+   el.setAttribute("class", "documentDiv");
    var iName = document.createElement("h3");
+   iName.setAttribute("class", "documentName");
    if (tool.link != null)
    {
       var iLink = document.createElement("a");
+      iLink.setAttribute("class", "documentLink");
 //      iLink.setAttribute("href", tool.link);
       iLink.setAttribute("link", tool.link);
       iLink.innerText = tool.name;
@@ -293,10 +314,12 @@ function DocumentToHTML(doc) {
    cleanObj(doc);
 
    var el = document.createElement("div");
+   el.setAttribute("class", "documentDiv");
 
    if (doc.name != null)
    {
       var iName = document.createElement("h3");
+      iName.setAttribute("class", "documentName");
       iName.innerText = doc.name;
       el.appendChild(iName);
    }
@@ -304,6 +327,7 @@ function DocumentToHTML(doc) {
    if (doc.link != null)
    {
       var iLink = document.createElement("a");
+      iLink.setAttribute("class", "documentLink");
       iLink.setAttribute("href", doc.link);
       iLink.innerText = doc.name;
       el.appendChild(iLink);

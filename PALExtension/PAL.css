@@ -45,38 +45,44 @@ div#notTabBar {
 
 }
 
-.assignmentDiv {
-    background-color: green;
+.documentDiv {
+    background-color: black;
 }
 
-.assignmentLink {
+.documentLink {
     font-family:helvetica;
-    font-size:15px;
-    color:orange;
-}
-
-.assignmentName {
-    font-family:monospace;
-    font-size:20px;
-    color:black;
-}
-
-.assignmentSubmissionLink {
-    font-family:helvetica;  
     font-size:15px;
     color:red;
 }
-.assignmentFileLink {
-    font-family:helvetica;
-    font-size:15px;
-    color:orange;
 
+.documentName {
+    font-family:monospace;
+    font-size:20px;
+    color:black;
+    color:orange;
 }
 
-.assignmentMemo {
+.documentMiniName {
+    font-family:monospace;
+    font-size:18px;
+    color:red;
+}
+
+.documentSubmissionLink {
+    font-family:helvetica;  
+    font-size:15px;
+    color:#FFB661;
+}
+.documentFileLink {
+    font-family:helvetica;
+    font-size:15px;
+    color:white;
+
+}
+.documentMemo {
     font-family:helvetica;
     font-size:10px;
-    color:black;
+    color:white;
 }
 
 
