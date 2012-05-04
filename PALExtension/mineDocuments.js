@@ -32,11 +32,16 @@ function mineDocuments(link, course, type) {
             //  Get Name of <li> entry
             var Name;
             var start = text.indexOf("<h3>", loc);
+            if (start == -1)
+               break;
             var end = text.indexOf("<\/h3>", start);
+            if (end == -1)
+               break;
             var current = text.slice(start, end);
             current = current.concat("<\/h3>");
-            if (imgType == "release") //  !!!
+            if (imgType == "release") { //  !!!
                console.log(current); //  !!!
+            }
             
             var miniDoc = parser.parseFromString(current, "text/xml");
             if (miniDoc.getElementsByTagName("span").length > 1)
