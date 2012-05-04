@@ -37,12 +37,16 @@ div#notSideBar {
 }
 
 div#notTabBar {
-    background-color: gray;
+    background-color: #FFB661;
     position:absolute;
     left:0px;
     top:120px;
     width:100%;
 
+}
+
+div.assignmentDiv {
+    background-color: green;
 }
 
 div#backElem { 
@@ -131,7 +135,7 @@ table.tabTable {
 }
 
 th.tabTable {
-    background-color:#FF9C42;
+    background-color:#FD912C;
     top:20px;
     height:30px;
     border:2px solid #E65C00;

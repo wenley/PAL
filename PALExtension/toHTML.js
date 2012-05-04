@@ -36,7 +36,7 @@ function AssignmentToHTML(asgn) {
    cleanObj(asgn);
 
    var el = document.createElement("div");
-
+   el.setAttribute("class", "assignmentDiv");
    //  used Assignment objects to store links
    //  Apologies for making code messy
    if (asgn.isLink == "isLink") {
@@ -171,20 +171,6 @@ function AnnouncementToHTML(anc) {
 
    var el = document.createElement("div");
 
-   if (anc.postedBy != null)
-   {
-      var iPostedBy = document.createElement("p");
-      iPostedBy.innerText = anc.postedBy;
-      el.appendChild(iPostedBy);
-   }
-
-   if (anc.postedTo != null)
-   {
-      var iPostedTo = document.createElement("p");
-      iPostedto.innerText = anc.postedTo;
-      el.appendChild(iPostedTo);
-   }
-
    if (anc.heading != null)
    {
       var iHeading = document.createElement("h3");
@@ -192,12 +178,35 @@ function AnnouncementToHTML(anc) {
       el.appendChild(iHeading);
    }
 
+   if (anc.postedBy != null || anc.date != null)
+   {
+      var postInfo = document.createElement("h5");
+      postInfo.innerHTML = "";
+      if (anc.postedBy != null)
+         postInfo.innerHTML += anc.postedBy;
+      if (anc.date != null) {
+         if (postInfo.innerText.length > 0)
+            postInfo.innerHTML += "<br/>";
+         postInfo.innerHTML += anc.date;
+      }
+      el.appendChild(postInfo);
+   }
+
+/* Not supported anymore
+   if (anc.postedTo != null)
+   {
+      var iPostedTo = document.createElement("p");
+      iPostedto.innerText = anc.postedTo;
+      el.appendChild(iPostedTo);
+      } */
+
+/*  Combined with postedBy
    if (anc.date != null)
    {
       var iDate = document.createElement("p");
       iDate.innerText = anc.date;
       el.appendChild(iDate);
-   }
+      } */
 
    if (anc.message != null)
    {
