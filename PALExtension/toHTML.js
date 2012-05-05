@@ -71,7 +71,16 @@ function AssignmentToHTML(asgn) {
       {
          var iFileLink = document.createElement("a");
          iFileLink.setAttribute("class", "documentFileLink");
-         iFileLink.setAttribute("href", asgn.contents[i].link);
+         if (isPDF(asgn.contents[i].link))
+         {
+            console.log("Assignment link is a PDF");
+            iFileLink.addEventListener("click", function() { populateIframeBack(asgn.contents[i].link); }, false);
+         }
+         else
+         {
+            console.log("Assignment link is not a PDF");
+            iFileLink.setAttribute("href", asgn.contents[i].link);
+         }
          iFileLink.innerText = asgn.contents[i].name;
          var br = document.createElement("br");
          el.appendChild(br);
@@ -262,7 +271,16 @@ function MaterialToHTML(mat) {
       {
          var iFileLink = document.createElement("a");
          iFileLink.setAttribute("class", "documentLink");
-         iFileLink.setAttribute("href", mat.contents[i].link);
+         if (isPDF(mat.contents[i].link))
+         {
+            console.log("Material link is a PDF");
+            iFileLink.addEventListener("click", function () { populateIframeBack(mat.contents[i].link) ;}, false);
+         }
+         else
+         {
+            console.log("Material link is not a PDF");
+            iFileLink.setAttribute("href", mat.contents[i].link);
+         }
          if (mat.contents[i].name != undefined)
             iFileLink.innerText = mat.contents[i].name;
          else
@@ -332,7 +350,16 @@ function DocumentToHTML(doc) {
    {
       var iLink = document.createElement("a");
       iLink.setAttribute("class", "documentLink");
-      iLink.setAttribute("href", doc.link);
+      if (isPDF(doc.link))
+      {
+         console.log("Document link is a PDF");
+         iLink.addEventListener("click", function() {populateIframeBack(doc.link);}, false);
+      }
+      else
+      {
+         console.log("Document link is not a PDF");
+         iLink.setAttribute("href", doc.link);
+      }
       iLink.innerText = doc.name;
       el.appendChild(iLink);
    }
