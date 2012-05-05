@@ -297,7 +297,7 @@ function removedPopup(semester, name) {
    {
       console.log("no removed tabs...");
       var subLi = document.createElement("li");
-      subLi.innerText = "There are no removed tabs!";
+      subLi.innerText = "There are no removed tabs.";
       subMenu.appendChild(subLi);
    }
    else

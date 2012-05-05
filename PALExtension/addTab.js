@@ -80,6 +80,11 @@ function addTab(linkEl) {
       }
    }
 
+   if (currentCourse.tabOrder == null || currentCourse.tabOrder == undefined)
+   {
+      currentCourse.tabOrder = new Array();
+   }
+
    currentCourse.tabOrder.push(attribute);
 
    removedPopup(semester, name);

@@ -169,6 +169,8 @@ function FolderToHTML(fol) {
       iLink.setAttribute("class", "documentLink");
       iLink.addEventListener("click", function() { populateFromFolder(this.innerText) }, false);
       iLink.innerText = fol.name;
+      var br = document.createElement("br");
+      el.appendChild(br);
       iName.appendChild(iLink);
    }
    else
@@ -213,18 +215,18 @@ function AnnouncementToHTML(anc) {
 /* Not supported anymore
    if (anc.postedTo != null)
    {
-      var iPostedTo = document.createElement("p");
-      iPostedto.innerText = anc.postedTo;
-      el.appendChild(iPostedTo);
-      } */
+   var iPostedTo = document.createElement("p");
+   iPostedto.innerText = anc.postedTo;
+   el.appendChild(iPostedTo);
+   } */
 
 /*  Combined with postedBy
-   if (anc.date != null)
-   {
-      var iDate = document.createElement("p");
-      iDate.innerText = anc.date;
-      el.appendChild(iDate);
-      } */
+    if (anc.date != null)
+    {
+    var iDate = document.createElement("p");
+    iDate.innerText = anc.date;
+    el.appendChild(iDate);
+    } */
 
    if (anc.message != null)
    {
@@ -265,6 +267,8 @@ function MaterialToHTML(mat) {
             iFileLink.innerText = mat.contents[i].name;
          else
             iFileLink.innerText = "Material Link";
+         var br = document.createElement("br");
+         el.appendChild(br);
          el.appendChild(iFileLink);
       }
    }
@@ -293,7 +297,7 @@ function ToolToHTML(tool) {
    if (tool.link != null)
    {
       var iLink = document.createElement("a");
-      iLink.setAttribute("class", "documentLink");
+      iLink.setAttribute("class", "documentListLink");
 //      iLink.setAttribute("href", tool.link);
       iLink.setAttribute("link", tool.link);
       iLink.innerText = tool.name;

@@ -1,10 +1,10 @@
 body {
-    background-color: #333333;
+    background-color: #F87217; 
 }
 
 div#sideBar {
  
-    background-color:#333333;
+    background-color:#F87217; 
     position:absolute;
     left:0px;
     top:0px;
@@ -28,7 +28,7 @@ div#sideBar {
 }
 
 div#notSideBar {
-    background-color:#333333;;
+    background-color:#333333;
     position:absolute;
     left:180px;
     top:0px;
@@ -37,7 +37,7 @@ div#notSideBar {
 }
 
 div#notTabBar {
-    background-color: #333333;
+    background-color: #999999;
     position:absolute;
     left:0px;
     top:120px;
@@ -46,52 +46,66 @@ div#notTabBar {
 }
 
 .documentDiv {
-    background-color: #888888;
+    background-color: #AAAAAA;
+    padding:0px;
 }
 
 .documentLink {
     font-family:helvetica;
-    font-size:15px;
-    color:red;
+    font-size:14px;
+    color:#cc7700;
+    padding:0px;
 }
 
 .documentName {
     font-family:monospace;
-    font-size:20px;
-    color:black;
-    color:orange;
+    font-size:18px;
+    color:#cc8833;
+    padding:0px;
+    margin-top:0px;
+    margin-bottom:0px;
 }
+
+.documentListLink {
+    font-family:helvetica;
+    font-size:14px;
+    color:white;
+    padding:0px;
+}    
 
 .documentMiniName {
     font-family:monospace;
-    font-size:18px;
-    color:red;
+    font-size:14px;
+    color:#CC660;
+    padding:0px;
 }
 
 .documentSubmissionLink {
     font-family:helvetica;  
-    font-size:15px;
+    font-size:14px;
     color:#FFB661;
+    padding:0px;
 }
 .documentFileLink {
     font-family:helvetica;
-    font-size:15px;
+    font-size:14px;
     color:white;
-
+    padding:0px;
 }
 .documentMemo {
     font-family:helvetica;
     font-size:10px;
     color:white;
+    padding:0px;
 }
 
 
 
 div#backElem { 
-    background-color:#E8600A;
+    background-color:#cc4411;
     color:white;
-    font-family:monospace;
-    font-size:15px;
+    font-family:helvetica;
+    font-size:18px;
 }
 
 div#tabBar {
