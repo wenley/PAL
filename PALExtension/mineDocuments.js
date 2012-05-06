@@ -67,6 +67,13 @@ function mineDocuments(link, course, type) {
                   current = current.concat("<\/div><\/div>");
                else current = current.concat("<\/div>");
                current = current.replace(/<img[^>]*>/g,"");
+               while (current.indexOf("<style") != -1) {
+                  console.log("Going to kill style...");
+                  var styleStart = current.indexOf("<style");
+                  var styleEnd = current.indexOf("</style>");
+                  current = current.substr(0, styleStart) + current.substr(styleEnd + 8);
+                  break; //  !!!
+               }
                var success = false;
                for (var q = 0; q < 2; q++) {
                   try {
