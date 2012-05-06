@@ -4,7 +4,7 @@
 function addTab(linkEl) {
 
    // need to get to the th tag
-   var tabEl = linkEl.parentElement.parentElement.parentElement.parentElement;
+   var tabEl = linkEl.parentElement.parentElement.parentElement.parentElement.parentElement;
    var semester = tabEl.getAttribute("semester");
    var name = tabEl.getAttribute("name");
    // The tab to be restored - this is the attribute
@@ -78,6 +78,11 @@ function addTab(linkEl) {
          currentCourse.removedTabs.pop()
          break;
       }
+   }
+
+   if (currentCourse.tabOrder == null || currentCourse.tabOrder == undefined)
+   {
+      currentCourse.tabOrder = new Array();
    }
 
    currentCourse.tabOrder.push(attribute);
