@@ -236,5 +236,17 @@ function populateFromFolder(newFolderName) {
 
 //  Detects whether a particular link is a PDF
 function isPDF(link) {
-   return link.match(/\.pdf$/) != null;
+   //  Make proper
+   var stripped = strip(link);
+   if (link.substr(0, 4) != "http")
+      stripped = bbDomain + link;
+
+   if (stripped.match(/\.pdf$/) != null)
+      return true;
+   else {
+      var req = new XMLHttpRequest();
+      req.open("GET", stripped, false);
+      req.send();
+      return req.responseText.substr(0, 4) == "%PDF";
+   }
 }
