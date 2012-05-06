@@ -72,7 +72,6 @@ function mineDocuments(link, course, type) {
                   var styleStart = current.indexOf("<style");
                   var styleEnd = current.indexOf("</style>");
                   current = current.substr(0, styleStart) + current.substr(styleEnd + 8);
-                  break; //  !!!
                }
                var success = false;
                for (var q = 0; q < 2; q++) {
