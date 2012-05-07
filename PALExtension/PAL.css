@@ -62,7 +62,7 @@ div#notTabBar {
     font-size:18px;
     color:#cc8833;
     padding:0px;
-    margin-top:0px;
+    margin-top:5px;
     margin-bottom:0px;
 }
 
@@ -234,7 +234,7 @@ tr#mainLinkBottom {
 
 th#notButton {
   width:90%;
-    height:100%
+    height:100%;
 }
 
 th#xButton {
@@ -245,7 +245,7 @@ th#xButton {
 
 th#mainLinkBottomDiv {
     width:100%;
-    height:100%
+    height:100%;
 }
 
 th#removeTabTable {
@@ -261,7 +261,7 @@ th#removeTabTable {
 }
     
 div#menuDiv {
-    background-color:white;
+    background-color:#E8600A;
     height:100%;
     width:100%;
     padding:0px;
@@ -270,7 +270,7 @@ div#menuDiv {
 #removeMenu,
 #removeMenu {
     list-style:none;
-    background-color: brown;
+    background-color: #E8600A;
     text-align:center;
     font-family:helvetica;
     color:white;
@@ -284,7 +284,7 @@ div#menuDiv {
 #removeMenu {
     align:right;
     list-style:none;
-    background-color: yellow;
+    background-color: #E8600A;
     vetical-align: middle;
     margin-top:0px;
     margin-bottom:0px;
