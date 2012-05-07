@@ -26,7 +26,7 @@ function saveToLocal() {
 
    localStorage[user + "OldCourses"] = JSON.stringify(prepareForStringify(OldCourses));
    localStorage[user + "NewCourses"] = JSON.stringify(prepareForStringify(NewCourses));
-   localStorage[user + "states"] = JSON.stringify(states);
+   localStorage[user + "state"] = JSON.stringify(state);
 }
 
 //  Loads previous state from local storage
@@ -34,7 +34,7 @@ function openFromLocal() {
    //  User hasn't been seen before
    if (localStorage[user + "OldCourses"] == undefined &&
        localStorage[user + "NewCourses"] == undefined &&
-       localStorage[user + "states"] == undefined) {
+       localStorage[user + "state"] == undefined) {
       console.warn("User " + user + " is new!");
       OldCourses = null;
       NewCourses = null;
@@ -67,28 +67,28 @@ function openFromLocal() {
    }
    console.log(NewCourses); //  Leave for debugging until release
 
-   if (localStorage[user + "states"] == undefined) {
-      console.warn("User " + user + " has no existing states");
-      states = null;
+   if (localStorage[user + "state"] == undefined) {
+      console.warn("User " + user + " has no existing state");
+      state = null;
    }
    else {
-      states = JSON.parse(localStorage[user + "states"]);
-      if (states == undefined) {
-         console.warn("Load states from local failed");
-         states = null;
+      state = JSON.parse(localStorage[user + "state"]);
+      if (state == undefined) {
+         console.warn("Load state from local failed");
+         state = null;
       }
    }
-   console.log(states);
+   console.log(state);
 }
 
 //  Clears the local storage state to allow for fresh mining
 function clearLocal() {
    delete localStorage[user + "OldCourses"];
    delete localStorage[user + "NewCourses"];
-   delete localStorage[user + "states"];
+   delete localStorage[user + "state"];
    OldCourses = null;
    NewCourses = null;
-   states = null;
+   state = null;
 }
 
 //  Loads the user and her courses

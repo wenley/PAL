@@ -113,7 +113,7 @@ function saveStateHandler(msg, portId) {
       return { error: "Misrouted message"};
    }
 
-   states[portId] = msg.state;
+   state = msg.state;
    saveToLocal();
 }
 
