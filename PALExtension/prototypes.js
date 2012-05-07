@@ -52,6 +52,20 @@ function restorePrototype(obj) {
       obj.__proto__ = findPrototype(obj.type);
       for (var entry in obj) {
          restorePrototype(obj[entry]);
+         
+         //  Deal with the fact arrays don't have names when transferred over JSON
+         //  Need to restore the name 
+         if (entry == "otherLinks") {
+            console.log("Fixing names");
+            var otherLinks = obj[entry];
+            if (otherLinks == null)
+               continue;
+            console.log("Got past continue");
+            for (var i = 0; i < otherLinks.length; i++) {
+               if (isArray(otherLinks[i]))
+                  otherLinks[i].name = otherLinks[i][0];
+            }
+         }
       }
    }
    else if (isArray(obj) || isObject(obj)) {
