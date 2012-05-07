@@ -4,7 +4,7 @@
 // Function to strip HTML tags from passed text
 // Credit: Ryan Stemkoski, http://www.stemkoski.com/what-is-javascript%E2%80%99s-equivalent-to-php-strip_tags/
 function strip_tags(html){
- 
+
    //PROCESS STRING
    if(arguments.length < 3) {
       html=html.replace(/<\/?(?!\!)[^>]*>/gi, '');
@@ -19,10 +19,10 @@ function strip_tags(html){
          html=html.replace(new RegExp(regex, 'gi'), '');
       }
    }
- 
-   //CHANGE NAME TO CLEAN JUST BECAUSE 
+
+   //CHANGE NAME TO CLEAN JUST BECAUSE
    var clean_string = html;
- 
+
    //RETURN THE CLEAN STRING
    return clean_string;
 }
@@ -32,11 +32,11 @@ function strip_tags(html){
 function mineAnnouncements (link, course) {
    var req = new XMLHttpRequest();
    req.open("GET", link, true);
-   
+
    req.onreadystatechange = function () {
       if(req.readyState == 4 && req.status == 200) {
          XMLdecrement();
-         
+
          var announcements = new Array();
          var store = req.responseText;
          var startAnnouncements = 0;
@@ -63,7 +63,7 @@ function mineAnnouncements (link, course) {
          //  Grab chunk containing all announcements
          annChunk = store.slice(startAnnouncements, endAnnouncements) + "</ul>";
          startEachAnnouncement = annChunk.indexOf("<li class=\"clearfix");
-         
+
          while (startEachAnnouncement != -1) {
             var a = new Announcement();
 
@@ -86,7 +86,7 @@ function mineAnnouncements (link, course) {
                console.warn(e);
             }
 
-            //  
+            //
             if (miniDoc == null || miniDoc.getElementsByTagName("parsererror").length > 0) {
                console.log("Couldn't parse correctly");
             }
@@ -103,7 +103,17 @@ function mineAnnouncements (link, course) {
                   if (elClass != null && elClass[0] == "v") {
                      var parentClass = divEl.parentElement.getAttribute("class");
                      if (parentClass == undefined || parentClass[0] != "v") {
-                        a.message = divEl.textContent;
+                        // a.message = divEl.textContent;
+                        var  messages = new Array();
+                        var children = divEl.childNodes;
+                        var length = children.length;
+                        for (var i = 0; i < length; i++) {
+                           if(children[i].textContent != null && children[i].textContent != undefined) {
+                              messages.push(children[i].textContent);
+                           }
+                           var message = messages.join("<br/>");
+                           a.message = message;
+                        }
                      }
                   }
                   else if (elClass == "details") {
