@@ -56,11 +56,9 @@ function restorePrototype(obj) {
          //  Deal with the fact arrays don't have names when transferred over JSON
          //  Need to restore the name 
          if (entry == "otherLinks") {
-            console.log("Fixing names");
             var otherLinks = obj[entry];
             if (otherLinks == null)
                continue;
-            console.log("Got past continue");
             for (var i = 0; i < otherLinks.length; i++) {
                if (isArray(otherLinks[i]))
                   otherLinks[i].name = otherLinks[i][0];
