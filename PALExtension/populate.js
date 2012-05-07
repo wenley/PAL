@@ -18,7 +18,7 @@ function populate(state) {
    liteRefreshButton.setAttribute("id", "liteRefreshButton");
    
    liteRefreshButton.innerText = "Light Refresh Courses";
-   liteRefreshButton.addEventListener("clcik", function() { mineFromLinks();}, false);
+   liteRefreshButton.addEventListener("click", function() { mineFromLinks();}, false);
    sideBar.appendChild(liteRefreshButton);
 
    var iceButton = document.createElement("button");
