@@ -8,7 +8,7 @@
 
 //  The current user
 var user = null;
-var state = null;
+var states = new Object();
 
 //  Saves current state to local storage
 function saveToLocal() {

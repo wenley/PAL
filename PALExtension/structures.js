@@ -63,7 +63,7 @@ function Course() {
    this.contacts = new Array();
 
    //  Array of Tool Objects
-   this.tools = new Array();
+   this.tools = null;
 
    //  Array of other sidebar element links
    this.otherLinks = new Array();

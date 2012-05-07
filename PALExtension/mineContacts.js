@@ -54,6 +54,7 @@ function extractContacts(textArea, course, isFolder) {
          var miniDoc = parser.parseFromString(cleanLink(aTag[0]), "text/xml");
          var f = new Folder();
          f.name = name;
+         f.key = course.key;
          f.link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
          f.contents = new Array();
          mineContacts(f.link, f, "isFolder");

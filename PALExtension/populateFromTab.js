@@ -77,7 +77,13 @@ function populateFromTab(tabLinkEl) {
       populateIframe(course.piazzaLink);
    }
    else if (attribute == "otherLinks") {
-      populateIframe(attr.link);
+      if (isArray(attr)) {
+         //  Start from 1 since 0 is the name
+         for (var i = 1; i < attr.length; i++)
+            space.appendChild(toHTML(attr[i]));
+      }
+      else
+         populateIframe(attr.link);
    }
    else {
       console.warn("Unrecognized attribute: " + attribute);
@@ -246,7 +252,11 @@ function isPDF(link) {
    else {
       var req = new XMLHttpRequest();
       req.open("GET", stripped, false);
-      req.send();
-      return req.responseText.substr(0, 4) == "%PDF";
+      try {
+         req.send();
+         return req.responseText.substr(0, 4) == "%PDF";
+      } catch (e) {
+         return false;
+      }
    }
 }

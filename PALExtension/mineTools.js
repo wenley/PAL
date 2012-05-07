@@ -1,11 +1,15 @@
 //  Author: Wenley Tong
 //  Written: 9 April 2012
 
-function mineTools(toolsLink, course) {
+function mineTools(toolsLink, course, other, name) {
     var req = new XMLHttpRequest();
     req.open("GET", toolsLink, true);
     req.onreadystatechange = function () {
         if (req.readyState == 4 && req.status == 200) {
+            XMLdecrement();
+
+            var tools = new Array();
+
             var startFirst = req.responseText.indexOf("<div class=\"landingPageColumn");
             var endFirst = req.responseText.indexOf("</div>", startFirst);
             var endSecond = req.responseText.indexOf("</div>", endFirst + 1); 5
@@ -34,7 +38,7 @@ function mineTools(toolsLink, course) {
                try {
                    t.name = strip(miniDoc.getElementsByTagName("a")[0].textContent);
                    t.link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
-                   course.tools[course.tools.length] = t;
+                   tools.push(t);
                } catch (e) { //  Some bits from split aren't good documents
                    // The last bit is always bad, but want to detect others
                    if (i < a.length - 1) {
@@ -45,7 +49,13 @@ function mineTools(toolsLink, course) {
                    }
                }
             }
-            XMLdecrement();
+
+            if (other == "other") {
+               tools.unshift(name);
+               course.otherLinks.push(tools);
+            }
+            else
+               course.tools = tools;
         }
         else if (req.readyState == 4 && req.status != 200) {
            console.warn(course.key + ": ERROR, status is " + req.status);

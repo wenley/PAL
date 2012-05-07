@@ -1,4 +1,4 @@
-function mineDocuments(link, course, type) {
+function mineDocuments(link, course, type, name) {
 
    var req = new XMLHttpRequest();
    req.open("GET", link, true);
@@ -201,6 +201,10 @@ function mineDocuments(link, course, type) {
                console.warn("No syllabus.");
                course.syllabusDoc = null;
             }
+         }
+         if (type == "other") {
+            docs.unshift(name);
+            course.otherLinks.push(docs);
          }
       }
       else if (req.readyState == 4 && req.status != 200)
