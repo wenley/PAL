@@ -106,7 +106,22 @@ function mineDocuments(link, course, type) {
                   docLinks[j] = doc;
                }
                if (miniDoc.getElementsByTagName("div").length > 1)
-                  Memo = miniDoc.getElementsByTagName("div")[1].textContent;
+               {
+                  var memoArray = new Array();
+                  var children = new Array();
+                  children = miniDoc.getElementsByTagName("div")[1].childNodes;
+                  var length = children.length;
+                  for (var i = 0; i < length; i++)
+                  {
+                     if (children[i].textContent != null && children[i].textContent != undefined)
+                     {
+                        console.log("THERE IS CONTENT!");
+                        memoArray.push(children[i].textContent);
+                     }
+                  }
+                  Memo = memoArray.join("<br/>");
+               }
+//                  Memo = miniDoc.getElementsByTagName("div")[1].textContent;
             }
 
             if (imgType == "folder") {

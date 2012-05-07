@@ -86,7 +86,7 @@ function AssignmentToHTML(asgn) {
    {
       var iMemo = document.createElement("p");
       iMemo.setAttribute("class", "documentMemo");
-      iMemo.innerText = asgn.memo;
+      iMemo.innerHTML = asgn.memo;
       el.appendChild(iMemo);
    }
 
@@ -283,7 +283,7 @@ function MaterialToHTML(mat) {
    {
       var iMemo = document.createElement("p");
       iMemo.setAttribute("class", "documentMemo");
-      iMemo.innerText = mat.memo;
+      iMemo.innerHTML = mat.memo;
       el.appendChild(iMemo);
    }
 
