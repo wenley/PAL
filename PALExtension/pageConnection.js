@@ -18,7 +18,7 @@ function pushRequest(req) {
     NewCourses = restorePrototype(req.courses);
     var checkDiff = setTimeout(runDiff, 1000);
     console.log(NewCourses); //  !!!
-    saveToLocal();
+//    saveToLocal();
     return {note: "good"};
 }
 
@@ -37,7 +37,7 @@ function pushSingleRequest(msg) {
        NewCourses[msg.course.semester] = {};
     NewCourses[msg.course.semester][msg.course.key] = restorePrototype(msg.course);
     var checkDiff = setTimeout(runDiff, 1000);
-    saveToLocal();
+//    saveToLocal();
     return {note: "good"};
 }
 
@@ -107,20 +107,19 @@ function setUserHandler(msg) {
           template: document.body.innerHTML };
 }
 
-function saveStateHandler(msg) {
+function saveStateHandler(msg, portId) {
    if (msg.note == undefined || msg.note != "state") {
       console.warn("Misrouted message. state when " + msg.note);
       return { error: "Misrouted message"};
    }
 
-   console.log("Saving state...");
-   state = msg.state;
+   states[portId] = msg.state;
    saveToLocal();
 }
 
 //  var expected = 0; //  Number of courses expected to be mined
 //  Will route requests from content scripts to proper functions
-function handleMessage(msg) {
+function handleMessage(msg, portId) {
     var response;
     switch (msg.note) {
         case "push":
@@ -145,7 +144,7 @@ function handleMessage(msg) {
             response = setUserHandler(msg);
             break;
         case "state":
-            response = saveStateHandler(msg);
+            response = saveStateHandler(msg, portId);
             break;
         default:
             console.warn("Unknown note from foreground: " + msg.note);
@@ -165,12 +164,14 @@ chrome.extension.onConnect.addListener(function(newPort) {
       //  Temporary handle
       var port = newPort;
       port.onMessage.addListener(function(msg) {
-            var response = handleMessage(msg);
+            var response = handleMessage(msg, port.portId_);
             if (response != null)
                port.postMessage(response);
          });
       port.onDisconnect.addListener(function() {
+            delete states[port.portId_];
             delete ports[port.portId_];
+            saveToLocal();
          });
    });
 

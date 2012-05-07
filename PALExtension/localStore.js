@@ -8,7 +8,7 @@
 
 //  The current user
 var user = null;
-var state = null;
+var states = new Object();
 
 //  Saves current state to local storage
 function saveToLocal() {
@@ -26,7 +26,7 @@ function saveToLocal() {
 
    localStorage[user + "OldCourses"] = JSON.stringify(prepareForStringify(OldCourses));
    localStorage[user + "NewCourses"] = JSON.stringify(prepareForStringify(NewCourses));
-   localStorage[user + "state"] = JSON.stringify(state);
+   localStorage[user + "states"] = JSON.stringify(states);
 }
 
 //  Loads previous state from local storage
@@ -34,7 +34,7 @@ function openFromLocal() {
    //  User hasn't been seen before
    if (localStorage[user + "OldCourses"] == undefined &&
        localStorage[user + "NewCourses"] == undefined &&
-       localStorage[user + "state"] == undefined) {
+       localStorage[user + "states"] == undefined) {
       console.warn("User " + user + " is new!");
       OldCourses = null;
       NewCourses = null;
@@ -67,28 +67,28 @@ function openFromLocal() {
    }
    console.log(NewCourses); //  Leave for debugging until release
 
-   if (localStorage[user + "state"] == undefined) {
-      console.warn("User " + user + " has no existing state");
-      state = null;
+   if (localStorage[user + "states"] == undefined) {
+      console.warn("User " + user + " has no existing states");
+      states = null;
    }
    else {
-      state = JSON.parse(localStorage[user + "state"]);
-      if (state == undefined) {
-         console.warn("Load state from local failed");
-         state = null;
+      states = JSON.parse(localStorage[user + "states"]);
+      if (states == undefined) {
+         console.warn("Load states from local failed");
+         states = null;
       }
    }
-   console.log(state);
+   console.log(states);
 }
 
 //  Clears the local storage state to allow for fresh mining
 function clearLocal() {
    delete localStorage[user + "OldCourses"];
    delete localStorage[user + "NewCourses"];
-   delete localStorage[user + "state"];
+   delete localStorage[user + "states"];
    OldCourses = null;
    NewCourses = null;
-   state = null;
+   states = null;
 }
 
 //  Loads the user and her courses
