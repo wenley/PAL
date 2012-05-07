@@ -104,12 +104,13 @@ function mineAnnouncements (link, course) {
                      var parentClass = divEl.parentElement.getAttribute("class");
                      if (parentClass == undefined || parentClass[0] != "v") {
                         // a.message = divEl.textContent;
-                        var  messages = new Array();
+                        var messages = new Array();
                         var children = divEl.childNodes;
                         var length = children.length;
                         for (var i = 0; i < length; i++) {
                            if(children[i].textContent != null && children[i].textContent != undefined) {
                               messages.push(children[i].textContent);
+                              console.log(children[i].textContent);
                            }
                            var message = messages.join("<br/>");
                            a.message = message;
