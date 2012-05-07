@@ -40,9 +40,10 @@ function mineSidebar(a, course) {
 
             if (course.otherLinks == null)
                course.otherLinks = new Array();
+            var index = course.otherLinks.push(t);
 
             //  Will replace below
-            mineOther(t.link, course, t.name);
+            mineOther(t.link, course, t.name, index - 1);
 
             //  course.otherLinks.push(t);
             break;

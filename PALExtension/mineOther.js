@@ -4,7 +4,7 @@
 //  Generalizes mining procedures to tabs with unknown names
 
 //  Handles unknown tab names
-function mineOther(link, course, name) {
+function mineOther(link, course, name, index) {
    var req = new XMLHttpRequest();
    req.open("GET", link, true);
    req.onreadystatechange = function () {
@@ -28,9 +28,9 @@ function mineOther(link, course, name) {
          console.log(course.key + ": " + name + ": " + file);
 
          if (file == "folder")
-            mineDocuments(link, course, "other", name);
+            mineDocuments(link, course, "other", name, index);
          else if (file == "blackboard")
-            mineTools(link, course, "other", name);
+            mineTools(link, course, "other", name, index);
       }
       else if (req.readyState == 4) {
          XMLdecrement();

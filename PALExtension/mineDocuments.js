@@ -1,4 +1,4 @@
-function mineDocuments(link, course, type, name) {
+function mineDocuments(link, course, type, name, index) {
 
    var req = new XMLHttpRequest();
    req.open("GET", link, true);
@@ -73,18 +73,16 @@ function mineDocuments(link, course, type, name) {
                   current = current.substr(0, styleStart) + current.substr(styleEnd + 8);
                }
                var success = false;
-               for (var q = 0; q < 2; q++) {
-                  try {
-                     var temp = HTMLtoXML(current);
-                     current = temp;
-                     success = true;
-                     break;
-                  } catch (e) {
-                     current = current.replace(/<o:[^>]*>[^<]*<\/o:[^>]*>/g, ""); //  Take out funky tags
-                     current = current.replace(/<\s+/g, ""); //  Take out leading white-space in tags
-                     console.warn(course.key + ":: " + type + ":: ERROR");
-                     console.warn(e);
-                  }
+               try {
+                  current = current.replace(/<o:[^>]*>[^<]*<\/o:[^>]*>/g, ""); //  Take out funky tags
+                  current = current.replace(/<\s+/g, ""); //  Take out leading white-space in tags
+
+                  var temp = HTMLtoXML(current);
+                  current = temp;
+                  success = true;
+               } catch (e) {
+                  console.warn(course.key + ":: " + type + ":: ERROR");
+                  console.warn(e);
                }
                if (success == false)
                   console.warn("Failed to parse correctly");
@@ -202,7 +200,7 @@ function mineDocuments(link, course, type, name) {
          }
          if (type == "other") {
             docs.unshift(name);
-            course.otherLinks.push(docs);
+            course.otherLinks[index] = docs;
          }
       }
       else if (req.readyState == 4 && req.status != 200)

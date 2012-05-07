@@ -139,7 +139,7 @@ function mineBB() {
        return;
        }
     }
-    var reMine = setTimeout(mineBB, 300000); //  5 minutes later
+    var reMine = setTimeout(mineBB, 60000); //  5 minutes later
 }
 
 function showLoadingBar() {
@@ -178,14 +178,11 @@ function mineFromLinks() {
       return;
    }
 
-   setXMLcallback(function() {
-         pushCourses(Courses);
-      });
-
    //  Build an array with course objects and their respective content page links
    var info = new Array();
-   var NewCourses = new Array();
+   var NewCourses = new Object();
    for (var semester in Courses) {
+      NewCourses[semester] = new Object();
       for (var courseKey in Courses[semester]) {
          var course = Courses[semester][courseKey];
          var c = new Course();
@@ -193,7 +190,13 @@ function mineFromLinks() {
          c.key = course.key;
          c.contentLink = course.contentLink;
          getContentDoc(course.contentLink, mineCourse, c);
-         NewCourses[NewCourses.length] = c;
+         NewCourses[semester][courseKey] = c;
       }
    }
+
+   setXMLcallback(function() {
+         console.log("Pushing...");
+         console.log(NewCourses);
+         pushCourses(NewCourses);
+      });
 }

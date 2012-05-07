@@ -1,7 +1,7 @@
 //  Author: Wenley Tong
 //  Written: 9 April 2012
 
-function mineTools(toolsLink, course, other, name) {
+function mineTools(toolsLink, course, other, name, index) {
     var req = new XMLHttpRequest();
     req.open("GET", toolsLink, true);
     req.onreadystatechange = function () {
@@ -52,7 +52,7 @@ function mineTools(toolsLink, course, other, name) {
 
             if (other == "other") {
                tools.unshift(name);
-               course.otherLinks.push(tools);
+               course.otherLinks[index] = tools;
             }
             else
                course.tools = tools;
