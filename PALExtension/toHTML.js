@@ -235,7 +235,7 @@ function AnnouncementToHTML(anc) {
    {
       var iMessage = document.createElement("p");
       iMessage.setAttribute("class", "documentMemo");
-      iMessage.innerText = anc.message;
+      iMessage.innerHTML = anc.message;
       el.appendChild(iMessage);
    }
 

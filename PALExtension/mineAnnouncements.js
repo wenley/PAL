@@ -103,6 +103,7 @@ function mineAnnouncements (link, course) {
                   if (elClass != null && elClass[0] == "v") {
                      var parentClass = divEl.parentElement.getAttribute("class");
                      if (parentClass == undefined || parentClass[0] != "v") {
+                        
                         // a.message = divEl.textContent;
                         var  messages = new Array();
                         var children = divEl.childNodes;
