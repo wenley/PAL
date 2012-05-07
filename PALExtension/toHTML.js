@@ -71,16 +71,10 @@ function AssignmentToHTML(asgn) {
       {
          var iFileLink = document.createElement("a");
          iFileLink.setAttribute("class", "documentFileLink");
-         if (isPDF(asgn.contents[i].link))
-         {
-            console.log("Assignment link is a PDF");
-            iFileLink.addEventListener("click", function() { populateIframeBack(asgn.contents[i].link); }, false);
-         }
-         else
-         {
-            console.log("Assignment link is not a PDF");
-            iFileLink.setAttribute("href", asgn.contents[i].link);
-         }
+         iFileLink.setAttribute("link", asgn.contents[i].link);
+
+         iFileLink.addEventListener("click", function() { if (isPDF(this.getAttribute("link"))) {populateIframeBack(this.getAttribute("link"));} else window.open(this.getAttribute("link"));}, false);
+
          iFileLink.innerText = asgn.contents[i].name;
          var br = document.createElement("br");
          el.appendChild(br);
@@ -271,16 +265,10 @@ function MaterialToHTML(mat) {
       {
          var iFileLink = document.createElement("a");
          iFileLink.setAttribute("class", "documentLink");
-         if (isPDF(mat.contents[i].link))
-         {
-            console.log("Material link is a PDF");
-            iFileLink.addEventListener("click", function () { populateIframeBack(mat.contents[i].link) ;}, false);
-         }
-         else
-         {
-            console.log("Material link is not a PDF");
-            iFileLink.setAttribute("href", mat.contents[i].link);
-         }
+         iFileLink.setAttribute("link", mat.contents[i].link);
+
+         iFileLink.addEventListener("click", function() { if (isPDF(this.getAttribute("link"))) {populateIframeBack(this.getAttribute("link"));} else window.open(this.getAttribute("link"));}, false);
+
          if (mat.contents[i].name != undefined)
             iFileLink.innerText = mat.contents[i].name;
          else
@@ -350,16 +338,10 @@ function DocumentToHTML(doc) {
    {
       var iLink = document.createElement("a");
       iLink.setAttribute("class", "documentLink");
-      if (isPDF(doc.link))
-      {
-         console.log("Document link is a PDF");
-         iLink.addEventListener("click", function() {populateIframeBack(doc.link);}, false);
-      }
-      else
-      {
-         console.log("Document link is not a PDF");
-         iLink.setAttribute("href", doc.link);
-      }
+      iLink.setAttribute("link", doc.link);
+
+      iLink.addEventListener("click", function() { if (isPDF(this.getAttribute("link"))) {populateIframeBack(this.getAttribute("link"));} else window.open(this.getAttribute("link"));}, false);
+      
       iLink.innerText = doc.name;
       el.appendChild(iLink);
    }
