@@ -2,6 +2,11 @@ body {
     background-color: #F87217; 
 }
 
+.changed {
+    background-color:yellow;
+    color:blue;
+}
+
 div#sideBar {
  
     background-color:#F87217; 
@@ -375,6 +380,20 @@ a:active {
 }
 
 #refreshButton {
+    background-color:#E8600A;
+    color:white;
+    font-family:monospace;
+    font-size:15px;
+    padding-left:20px;
+    padding-right:20px;
+    align:center;
+    text-align:center; 
+    border:0px;
+    cursor: hand;
+    cursor: pointer;
+}
+
+#liteRefreshButton {
     background-color:#E8600A;
     color:white;
     font-family:monospace;
