@@ -250,9 +250,10 @@ th#notButton {
 }
 
 th#xButton {
-    width:10%;
+    width:100%;
     height:100%;
     background-color:#666666;
+    border-radius:25% 50%;
 }
 
 th#mainLinkBottomDiv {
@@ -429,6 +430,7 @@ a:active {
     border:0px;
     cursor: hand;
     cursor: pointer;
+    border-radius: 10px 10px;
 }
 
 #piazzaButton {
