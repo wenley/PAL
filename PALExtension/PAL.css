@@ -273,6 +273,7 @@ th#removeTabTable {
     width:20px;
     font-size:10px;
     padding:0px;
+    border-radius:8.5px 8.5px;
 }
     
 div#menuDiv {
@@ -406,6 +407,7 @@ a:active {
     border:0px;
     cursor: hand;
     cursor: pointer;
+    border-radius: 6.5px 6.5px;
 }
 
 #liteRefreshButton {
@@ -419,6 +421,7 @@ a:active {
     border:0px;
     cursor: hand;
     cursor: pointer;
+    border-radius: 6.5px 6.5px;
 }
 
 #iceButton {
@@ -432,7 +435,7 @@ a:active {
     border:0px;
     cursor: hand;
     cursor: pointer;
-    border-radius: 10px 10px;
+    border-radius: 6.5px 6.5px;
 }
 
 #piazzaButton {
@@ -446,6 +449,7 @@ a:active {
     border:0px;
     cursor: hand;
     cursor: pointer;
+    border-radius: 6.5px 6.5px;
 }
 
 
