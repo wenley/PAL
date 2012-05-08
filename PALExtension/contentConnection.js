@@ -12,7 +12,7 @@ port.onMessage.addListener(function(msg) {
          port.postMessage(response);
    });
 port.onDisconnect.addListener(function() {
-      port.post = function() { console.log("Dead port. Reload to try again."); };
+      port.postMessage = function() { console.log("Dead port. Reload to try again."); };
    });
 
 
@@ -26,26 +26,6 @@ function handleMessage(msg) {
    var response;
    switch (msg.note) {
       case "good": //  Indicates proper push
-         response = null;
-         break;
-      case "courses": //  Indicates response to pull
-         Courses = restorePrototype(msg.courses);
-         if (Courses == null) {
-            mineBB();
-         }
-         else {
-            console.log(Courses);
-            var reMine = setTimeout(mineBB, 60000); //  !!! 5 minutes, should be semi-instant
-            copyFromBackground();
-         }
-         response = null;
-         break;
-      case "template":
-         if (msg.template == undefined || msg.template == null)
-            console.warn("Empty template body from background");
-         else
-            clearPage(msg.template);
-         populate();
          response = null;
          break;
       case "update": //  Indicates difference; need to update page
@@ -62,14 +42,10 @@ function handleMessage(msg) {
          }
          else {
             console.log(Courses);
-            var reMine = setTimeout(mineBB, 60000); //  !!! 5 minutes, should be semi-instant
+            var reMine = setTimeout(mineBB, 60000); //  1 minute remine
 
-            if (msg.template == undefined || msg.template == null)
-               copyFromBackground();
-            else {
-               clearPage(msg.template);
-               populate(msg.state);
-            }
+            clearPage(msg.template);
+            populate(msg.state);
          }
          response = null;
          break;
@@ -114,16 +90,6 @@ function pushCourses(NewCourses) {
 //  Updates a single course in background
 function pushCourse(c) {
    port.postMessage({note: "pushSingle", course: c});
-}
-
-//  Start attempt to get courses
-function pullCourses() {
-   port.postMessage({note: "pull"});
-}
-
-//  Gets template from background
-function copyTemplate() {
-   port.postMessage({note: "template"});
 }
 
 //  Starts a completely new mining sequence
