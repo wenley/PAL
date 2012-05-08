@@ -41,21 +41,6 @@ function pushSingleRequest(msg) {
     return {note: "good"};
 }
 
-//  Forms proper response to a pullCourses request
-function pullRequest(req) {
-    //  Error checking
-    if (req.note == undefined || req.note != "pull") {
-        console.warn("Misrouted message. pull when " + req.note);
-        return {error: "Misrouted message"};
-    }
-    
-    //  !!! Need to change back to OldCourses
-    return {note: "courses",
-          courses: NewCourses,
-          state: state,
-          template: document.body.innerHTML };
-}
-
 //  Updates OldCourses with NewCourses according to the contents
 //  of the msg
 function clickHandler(msg) {
@@ -71,15 +56,6 @@ function sendToForeground(msg) {
    for (var id in ports) {
       ports[id].postMessage(msg);
    }
-}
-
-function templateHandler(msg) {
-   if (msg.note == undefined || msg.note != "template") {
-      console.warn("Misrouted message. template when " + msg.note);
-      return {error: "Misrouted message"};
-   }
-
-   return {note: "template", template: document.body.innerHTML};
 }
 
 //  Clears local storage when requested
@@ -128,14 +104,8 @@ function handleMessage(msg, portId) {
         case "pushSingle":
             response = pushSingleRequest(msg);
             break;
-        case "pull":
-            response = pullRequest(msg);
-            break;
         case "click":
             response = clickHandler(msg);
-            break;
-        case "template":
-            response = templateHandler(msg);
             break;
         case "clear":
             response = clearHandler(msg);

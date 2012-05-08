@@ -139,7 +139,7 @@ function mineBB() {
        return;
        }
     }
-    var reMine = setTimeout(mineBB, 60000); //  5 minutes later
+    var reMine = setTimeout(mineBB, 300000); //  5 minutes later
 }
 
 function showLoadingBar() {
