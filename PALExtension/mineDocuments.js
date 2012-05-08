@@ -178,6 +178,13 @@ function mineDocuments(link, course, type, name, index) {
                l.isLink = "isLink";
                docs[docs.length] = l;
             }
+            else if (imgType == "survey") {
+               var s = new Survey();
+               s.name = Name;
+               s.link = h3link;
+               s.memo = Memo;
+               docs[docs.length] = s;
+            }
             else
                console.warn(course.key + ":: Unrecognized image type: " + imgType);
             loc = end;

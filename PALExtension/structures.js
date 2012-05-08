@@ -105,3 +105,11 @@ function Document() {
    this.link = "";
    this.type = this.constructor.name;
 }
+
+//  A Survey Object
+function Survey() {
+   this.name = "";
+   this.link = "";
+   this.memo = "";
+   this.type = this.constructor.name;
+}
