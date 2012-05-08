@@ -296,27 +296,8 @@ function ToolToHTML(tool) {
 
    cleanObj(tool);
 
-   console.log("THE TOOO00000OOOOL:");
-   console.log(tool);
-
    var el = document.createElement("div");
    el.setAttribute("class", "documentDiv");
-   var iName = document.createElement("h3");
-   iName.setAttribute("class", "documentName");
-   if (tool.link != null)
-   {
-      var iLink = document.createElement("a");
-      iLink.setAttribute("class", "documentListLink");
-//      iLink.setAttribute("href", tool.link);
-      iLink.setAttribute("link", tool.link);
-      iLink.innerText = tool.name;
-      iLink.addEventListener("click", function() { populateBodyFromLink(this.getAttribute("link")); }, false);
-      iName.appendChild(iLink);
-   }
-   else {
-      iName.innerText = tool.name;
-   }
-   el.appendChild(iName);
 
    var semester = selectedTab.parentElement.parentElement.parentElement.getAttribute("semester");
    console.log(selectedTab);
@@ -346,7 +327,7 @@ function ToolToHTML(tool) {
       }
    }
 
-   var iToolTabButton = document.createElement("button");
+   var iToolTabButton = document.createElement("a");
 
    if (selectedSemName != null && selectedCourse != null && selectedTab != null)
    {
@@ -355,7 +336,7 @@ function ToolToHTML(tool) {
    }
 
    iToolTabButton.setAttribute("class", "toolTabButton");
-   iToolTabButton.innerHTML = "&uArr;"
+   iToolTabButton.innerHTML = "&Delta;"
       iToolTabButton.addEventListener("click", function () {
             if (currentCourse.otherLinks == null || currentCourse.otherLinks == undefined)
             {currentCourse.otherLinks = new Array();}
@@ -382,10 +363,27 @@ function ToolToHTML(tool) {
          }
    }
 
+   var iName = document.createElement("h3");
+   iName.setAttribute("class", "documentName");
    if (exists == false)
    {
-      el.appendChild(iToolTabButton);
+      iName.appendChild(iToolTabButton);
    }
+   if (tool.link != null)
+   {
+      var iLink = document.createElement("a");
+      iLink.setAttribute("class", "documentListLink");
+//      iLink.setAttribute("href", tool.link);
+      iLink.setAttribute("link", tool.link);
+      iLink.innerText = tool.name;
+      iLink.addEventListener("click", function() { populateBodyFromLink(this.getAttribute("link")); }, false);
+      iName.appendChild(iLink);
+   }
+   else {
+      iName.innerText = tool.name;
+   }
+   el.appendChild(iName);
+
    return el;
 }
 

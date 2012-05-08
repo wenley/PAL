@@ -32,7 +32,7 @@ div#sideBar {
 }
 
 div#notSideBar {
-    background-color:#AAAAAA;
+    background-color:#999999;
     position:absolute;
     left:185px;
     top:0px;
@@ -79,6 +79,7 @@ div#notTabBar {
     font-size:14px;
     color:white;
     padding:0px;
+    padding-top:2px;
 }    
 
 .documentMiniName {
@@ -108,8 +109,9 @@ div#notTabBar {
 }
 
 .toolTabButton {
-    font-size:10px;
-    color:white;
+    font-size:15px;
+    color:#333333;
+    padding-right:10px;
 }
 
 div#backElem { 
