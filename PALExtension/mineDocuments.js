@@ -126,14 +126,14 @@ function mineDocuments(link, course, type, name, index) {
                f.key = course.key;
                f.link = h3link;
                mineDocuments(h3link, f, "Folder");
-               docs[docs.length] = f;
+               docs.push(f);
             }
             else if (imgType == "document") {
                var m = new Material();
                m.name = Name;
                m.contents = docLinks;
                m.memo = Memo;
-               docs[docs.length] = m;
+               docs.push(m);
             }
             else if (imgType == "assignment") {
                var a = new Assignment();
@@ -151,20 +151,20 @@ function mineDocuments(link, course, type, name, index) {
                }
                a.contents = docLinks;
                a.memo = Memo;
-               docs[docs.length] = a;
+               docs.push(a);
             }
             else if (imgType == "file") {
                var d = new Document();
                d.name = Name;
                d.link = h3link;
-               docs[docs.length] = d;
+               docs.push(d);
             }
             else if (imgType == "generic") { //  No image; skipped over
                var g = new Assignment();
                g.name = Name;
                g.submissionLink = h3link;
                g.contents = docLinks;
-               docs[docs.length] = g;
+               docs.push(g);
             }
             else if (imgType == "link") {
                var l = new Assignment();
@@ -176,14 +176,14 @@ function mineDocuments(link, course, type, name, index) {
                }
                l.memo = Memo;
                l.isLink = "isLink";
-               docs[docs.length] = l;
+               docs.push(l);
             }
             else if (imgType == "survey") {
                var s = new Survey();
                s.name = Name;
                s.link = h3link;
                s.memo = Memo;
-               docs[docs.length] = s;
+               docs.push(s);
             }
             else
                console.warn(course.key + ":: Unrecognized image type: " + imgType);

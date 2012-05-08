@@ -57,8 +57,8 @@ function extractContacts(textArea, course, isFolder) {
          f.key = course.key;
          f.link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
          f.contents = new Array();
-         mineContacts(f.link, f, "isFolder");
-         course.contacts[course.contacts.length] = f;
+         var index = course.contacts.push(f);
+         mineContacts(f.link, course.contacts[index - 1], "isFolder");
          continue;
       }
 
@@ -84,7 +84,7 @@ function extractContacts(textArea, course, isFolder) {
          details[q] = details[q].slice(1, -1);
          var s = strip(details[q]);
          if (s != "") {
-            cleanDetails[cleanDetails.length] = s;
+            cleanDetails.push(s);
          }
       }
 
@@ -122,9 +122,9 @@ function extractContacts(textArea, course, isFolder) {
             console.warn(course.key + ": Unknown Instructor detail: " + s);
       }
       if (isFolder != undefined)
-         course.contents[course.contents.length] = i;
+         course.contents.push(i); //  Contents
       else
-         course.contacts[course.contacts.length] = i;
+         course.contacts.push(i); //  Contacts
       j = j + 1;
    } while (j < 100);    //  !!! Make true
 }
