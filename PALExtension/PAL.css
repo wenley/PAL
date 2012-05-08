@@ -34,91 +34,10 @@ div#sideBar {
 div#notSideBar {
     background-color:#999999;
     position:absolute;
-    left:185px;
+    left:180px;
     top:0px;
     width:84.5%;
     height:100%;   
-}
-
-div#notTabBar {
-    background-color: #999999;
-    position:absolute;
-    left:0px;
-    top:120px;
-    width:100%;
-    border-top:7px solid #999999; 
-}
-
-.documentDiv {
-    background-color: #AAAAAA;
-    border-left:7px solid #999999;
-    border-right:7px solid #999999;
-    border-bottom:7px solid #999999;
-    padding:0px;
-}
-
-.documentLink {
-    font-family:helvetica;
-    font-size:14px;
-    color:#cc7700;
-    padding:0px;
-}
-
-.documentName {
-    font-family:monospace;
-    font-size:18px;
-    color:#cc8833;
-    padding:0px;
-    margin-top:0px;
-    margin-bottom:0px;
-    padding-left:20px;
-}
-
-.documentListLink {
-    font-family:helvetica;
-    font-size:14px;
-    color:white;
-    padding:0px;
-    padding-top:2px;
-}    
-
-.documentMiniName {
-    font-family:monospace;
-    font-size:14px;
-    color:#CC660;
-    padding:0px;
-}
-
-.documentSubmissionLink {
-    font-family:helvetica;  
-    font-size:14px;
-    color:#FFB661;
-    padding:0px;
-}
-.documentFileLink {
-    font-family:helvetica;
-    font-size:14px;
-    color:white;
-    padding:0px;
-}
-.documentMemo {
-    font-family:helvetica;
-    font-size:10px;
-    color:white;
-    padding:0px;
-}
-
-.toolTabButton {
-    font-size:15px;
-    color:#333333;
-    padding-right:10px;
-}
-
-div#backElem { 
-    background-color:#cc4411;
-    color:white;
-    font-family:helvetica;
-    font-size:18px;
 }
 
 div#tabBar {
@@ -370,6 +289,89 @@ display: block;
     cursor: hand;
     cursor: pointer;
 }
+
+div#notTabBar {
+    background-color: #999999;
+    position:absolute;
+    left:0px;
+    top:120px;
+    width:100%;
+    border-top:7px solid #999999; 
+}
+
+.documentDiv {
+    background-color: #AAAAAA;
+    border-left:7px solid #999999;
+    border-right:7px solid #999999;
+    border-bottom:7px solid #999999;
+    padding:0px;
+}
+
+.documentLink {
+    font-family:helvetica;
+    font-size:14px;
+    color:#cc7700;
+    padding:0px;
+}
+
+.documentName {
+    font-family:monospace;
+    font-size:18px;
+    color:#cc8833;
+    padding:0px;
+    margin-top:0px;
+    margin-bottom:0px;
+    padding-left:20px;
+}
+
+.documentListLink {
+    font-family:helvetica;
+    font-size:14px;
+    color:white;
+    padding:0px;
+    padding-top:2px;
+}    
+
+.documentMiniName {
+    font-family:monospace;
+    font-size:14px;
+    color:#CC660;
+    padding:0px;
+}
+
+.documentSubmissionLink {
+    font-family:helvetica;  
+    font-size:14px;
+    color:#FFB661;
+    padding:0px;
+}
+.documentFileLink {
+    font-family:helvetica;
+    font-size:14px;
+    color:white;
+    padding:0px;
+}
+.documentMemo {
+    font-family:helvetica;
+    font-size:10px;
+    color:white;
+    padding:0px;
+}
+
+.toolTabButton {
+    font-size:15px;
+    color:#333333;
+    padding-right:10px;
+}
+
+div#backElem { 
+    background-color:#cc4411;
+    color:white;
+    padding-left:10px;
+    font-family:helvetica;
+    font-size:18px;
+}
+
 
 a:link {
     color:#FFFFFF;
