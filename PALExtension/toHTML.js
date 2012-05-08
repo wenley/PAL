@@ -296,6 +296,9 @@ function ToolToHTML(tool) {
 
    cleanObj(tool);
 
+   console.log("THE TOOO00000OOOOL:");
+   console.log(tool);
+
    var el = document.createElement("div");
    el.setAttribute("class", "documentDiv");
    var iName = document.createElement("h3");
@@ -314,6 +317,75 @@ function ToolToHTML(tool) {
       iName.innerText = tool.name;
    }
    el.appendChild(iName);
+
+   var semester = selectedTab.parentElement.parentElement.parentElement.getAttribute("semester");
+   console.log(selectedTab);
+   console.log(semester);
+   var name = selectedTab.parentElement.parentElement.parentElement.getAttribute("name");
+   console.log(name);
+
+   if (Courses[semester] == null || Courses[semester] == undefined)
+      throw "Improper usage: invalid semester name";
+   if (Courses[semester][name] == null || Courses[semester][name] == undefined)
+      throw "Improper usage: invalid course name";
+
+   var currentCourse = Courses[semester][name];
+   cleanObj(currentCourse);
+
+   var courseElParent = document.getElementsByClassName("sideBarSemesters")[0];
+   var aLinks = courseElParent.getElementsByTagName("a");
+   var length = aLinks.length;
+   for (var i = 0; i < length; i++)
+   {
+      if (aLinks[i].getAttribute("semester") != null && aLinks[i].getAttribute("semester") != undefined)
+      {
+         if (aLinks[i].innerText == name)
+         {
+            var courseEl = aLinks[i];
+         }
+      }
+   }
+
+   var iToolTabButton = document.createElement("button");
+
+   if (selectedSemName != null && selectedCourse != null && selectedTab != null)
+   {
+      var state = {semester: selectedSemName, course: selectedCourse.key,
+                   tab: selectedTab.parentElement.parentElement.parentElement.getAttribute("attribute")};
+   }
+
+   iToolTabButton.setAttribute("class", "toolTabButton");
+   iToolTabButton.innerHTML = "&uArr;"
+      iToolTabButton.addEventListener("click", function () {
+            if (currentCourse.otherLinks == null || currentCourse.otherLinks == undefined)
+            {currentCourse.otherLinks = new Array();}
+            currentCourse.otherLinks.push(tool);
+            currentCourse.tabOrder.push(tool.name);
+            if (state != undefined)
+            {
+               populateCourse(courseEl, state);
+            }
+            else {
+               populateCourse(courseEl);
+            }
+         }, false);
+
+   var exists = false;
+
+   if (currentCourse.tabOrder != null && currentCourse.tabOrder != undefined)
+   {
+      var length = currentCourse.tabOrder.length
+         for (var j = 0; j < length; j++)
+         {
+            if (currentCourse.tabOrder[j] == tool.name)
+               exists = true;
+         }
+   }
+
+   if (exists == false)
+   {
+      el.appendChild(iToolTabButton);
+   }
    return el;
 }
 
@@ -341,7 +413,7 @@ function DocumentToHTML(doc) {
       iLink.setAttribute("link", doc.link);
 
       iLink.addEventListener("click", function() { if (isPDF(this.getAttribute("link"))) {populateIframeBack(this.getAttribute("link"));} else window.open(this.getAttribute("link"));}, false);
-      
+
       iLink.innerText = doc.name;
       el.appendChild(iLink);
    }

@@ -118,6 +118,9 @@ function populateCourse(courseEl, state) {
       }
    }
 
+   console.log("----WOOHOOO OTHERLINKS!-----");
+   console.log(currentCourse.otherLinks);
+
    console.log("****** fooo ****");
    console.log(currentCourse.tabOrder);
    console.log(currentCourse.removedTabs);
