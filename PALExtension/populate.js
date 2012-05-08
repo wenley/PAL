@@ -10,14 +10,14 @@ function populate(state) {
    var refreshButton = document.createElement("button");
    refreshButton.setAttribute("id", "refreshButton");
 
-   refreshButton.innerText = "Deep Refresh Courses";
+   refreshButton.innerText = "Restart PAL";
    refreshButton.addEventListener("click", function() { refresh(); }, false);
    sideBar.appendChild(refreshButton);
 
    var liteRefreshButton = document.createElement("button");
    liteRefreshButton.setAttribute("id", "liteRefreshButton");
    
-   liteRefreshButton.innerText = "Light Refresh Courses";
+   liteRefreshButton.innerText = "Refresh Courses";
    liteRefreshButton.addEventListener("click", function() { mineFromLinks();}, false);
    sideBar.appendChild(liteRefreshButton);
 
