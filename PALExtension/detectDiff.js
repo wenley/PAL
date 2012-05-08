@@ -52,14 +52,19 @@ function diffObj(one, two) {
 function diffAttr(newAttr, oldAttr) {
    var newString = JSON.stringify(newAttr);
    var oldString = JSON.stringify(oldAttr);
-   
+
    if (newString != oldString) {
-      console.log("Difference found: [New] [Old]");
+      for (var i = 0; i < newString.length && i < oldString.length; i++) {
+         if (newString[i] != oldString[i])
+            break;
+      }
+      console.log(newString.substr(i));
+      console.log(oldString.substr(i));
       console.log(newAttr);
-      console.log(oldAttr);
-      return true;
+      console.log(cleanObj(newAttr));
    }
-   return false;
+   
+   return newString != oldString;
 }
 
 //  Checks for differences between two courses
@@ -67,16 +72,23 @@ function diffCourse(newC, oldC) {
    var diff = new Array();
 
    for (var attr in newC) {
+      if (attr == "tabOrder")
+         continue;
+
       var newAttr = newC[attr];
       var oldAttr = oldC[attr];
       if (oldAttr == undefined && newAttr != null) {
          console.log(newC.key + ": New attr: " + attr);
-         console.log(newAttr);
-         console.log(oldC);
+         diff.push(attr);
          continue;
       }
-      if (diffAttr(newAttr, oldAttr))
+      if (diffAttr(newAttr, oldAttr)) {
+         console.log(newC.key + ": Difference found in " + attr + ": [New] [Old]");
+         console.log(newAttr);
+         console.log(oldAttr);
+
          diff.push(attr);
+      }
    }
    return diff.join(',');
 }
@@ -123,6 +135,7 @@ function runDiff() {
          diff.push(semester + "'" + diffS);
    }
 //   if (diff.length > 0)
-      sendToForeground({note: "update", update: diff.join('/')});
-   OldCourses = NewCourses;
+   console.log(diff.join('/'));
+   sendToForeground({note: "update", update: diff.join('/')});
+//   OldCourses = NewCourses;
 }

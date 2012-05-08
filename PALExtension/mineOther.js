@@ -25,7 +25,6 @@ function mineOther(link, course, name, index) {
          var file = src.match(/\/[^\/]*$/)[0];
          file = file.substr(1);
          file = file.match(/^[^_]*/)[0];
-         console.log(course.key + ": " + name + ": " + file);
 
          if (file == "folder")
             mineDocuments(link, course, "other", name, index);

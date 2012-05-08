@@ -35,7 +35,7 @@ function handleMessage(msg) {
          }
          else {
             console.log(Courses);
-            var reMine = setTimeout(mineBB, 300000); //  !!! 5 minutes, should be semi-instant
+            var reMine = setTimeout(mineBB, 60000); //  !!! 5 minutes, should be semi-instant
             copyFromBackground();
          }
          response = null;
@@ -62,7 +62,7 @@ function handleMessage(msg) {
          }
          else {
             console.log(Courses);
-            var reMine = setTimeout(mineBB, 300000); //  !!! 5 minutes, should be semi-instant
+            var reMine = setTimeout(mineBB, 60000); //  !!! 5 minutes, should be semi-instant
 
             if (msg.template == undefined || msg.template == null)
                copyFromBackground();
@@ -104,8 +104,11 @@ function handleUpdate(diffString) {
 }
 
 //  Stores the compiled history of courses to the background
-function pushCourses() {
-   port.postMessage({note: "push", courses: Courses});
+function pushCourses(NewCourses) {
+   if (NewCourses != undefined)
+      port.postMessage({note: "push", courses: NewCourses});
+   else
+      port.postMessage({note: "push", courses: Courses});
 }
 
 //  Updates a single course in background

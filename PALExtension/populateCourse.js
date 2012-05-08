@@ -66,12 +66,12 @@ function populateCourse(courseEl, state) {
    // Sets the intial values for tabOrder for the course, if they have
    // not yet been set.
 
-   if (currentCourse.tabOrder == undefined)
+   if (currentCourse.tabOrder == undefined || currentCourse.tabOrder == null)
    {
       currentCourse.tabOrder = new Array();
       currentCourse.removedTabs = new Array();
    }
-   if (currentCourse.tabOrder[0] == undefined)
+   if (currentCourse.tabOrder[0] == undefined || currentCourse.tabOrder[0] == null)
    {
       var k = 0;
       if (currentCourse.announcements != null)
