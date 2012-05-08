@@ -8,7 +8,6 @@ body {
 }
 
 div#sideBar {
- 
     background-color:#F87217; 
     position:absolute;
     left:0px;
@@ -35,7 +34,7 @@ div#sideBar {
 div#notSideBar {
     background-color:#AAAAAA;
     position:absolute;
-    left:180px;
+    left:185px;
     top:0px;
     width:84.5%;
     height:100%;   
@@ -153,7 +152,7 @@ div#logoutButtonElem {
 
 #logoutButton {
     text-transform:uppercase;
-    background-color:red;
+    background-color:black;
     color:white;
     font-family:monospace;
     font-size:10px;
@@ -167,7 +166,7 @@ div#logoutButtonElem {
 
 #casLogoutButton {
     text-transform:uppercase;
-    background-color:red;
+    background-color:black;
     color:white;
     font-family:monospace;
     font-size:10px;
@@ -384,8 +383,7 @@ a:active {
     color:white;
     font-family:monospace;
     font-size:15px;
-    padding-left:20px;
-    padding-right:20px;
+    width:97%;
     align:center;
     text-align:center; 
     border:0px;
@@ -398,8 +396,7 @@ a:active {
     color:white;
     font-family:monospace;
     font-size:15px;
-    padding-left:20px;
-    padding-right:20px;
+    width:97%;
     align:center;
     text-align:center; 
     border:0px;
@@ -412,8 +409,7 @@ a:active {
     color:black;
     font-family:monospace;
     font-size:15px;
-    padding-left:15px;
-    padding-right:15px;
+    width:97%;
     align:center;
     text-align:center; 
     border:0px;
@@ -426,8 +422,7 @@ a:active {
     color:white;
     font-family:monospace;
     font-size:15px;
-    padding-left:63px;
-    padding-right:63px;
+    width:97%;
     align:center;
     text-align:center; 
     border:0px;
