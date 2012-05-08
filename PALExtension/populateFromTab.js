@@ -93,70 +93,18 @@ function populateFromTab(tabLinkEl) {
 //  Replaces the body of the template with the content text
 //  of the link
 function populateBodyFromLink(url) {
+   var body = document.getElementById("notTabBar");
+
    var link = url;
    if (link.substr(0, bbDomain.length) != bbDomain)
       link = bbDomain + link;
 
-   var req = new XMLHttpRequest();
-   req.open("GET", link, true);
-   req.onreadystatechange = function () {
-      if (req.readyState == 4 && req.status == 200) {
-         XMLdecrement();
-         var body = document.getElementById("notTabBar");
-         var text = cleanLink(req.responseText);
-         text = text.replace(/<img[^>]*>/g, "");
-         var locStart = text.indexOf("<div class=\"locationPane");
-         var locEnd = text.indexOf("</div", locStart);
-         var next = text.indexOf("</div", locStart);
-         do {
-            locEnd = next;
-            next = text.indexOf("</div", locEnd + 1);
-         } while (next != -1);
-         text = text.slice(locStart, locEnd) + "</div>";
-         try {
-            var cleanText = HTMLtoXML(text);
-         } catch (e) {
-            var iframe = document.createElement("iframe");
-            iframe.setAttribute("src", link);
-            iframe.setAttribute("class", "tool");
-            body.innerHTML = "";
-            addBackLink();
-            body.appendChild(iframe);
-            return;
-         }
-         var miniDoc = parser.parseFromString(cleanText, "text/xml");
-
-         var contentDiv = miniDoc.getElementById("containerdiv");
-         console.log(contentDiv);
-         var children = contentDiv.childNodes;
-         var content = null;
-         for (var i = 0; i < children.length; i++) {
-            if (children[i].getAttribute != undefined) {
-               if (children[i].getAttribute("class") == "clearfix") {
-                  content = children[i];
-               }
-            }
-         }
-
-         if (content == null) {
-            console.warn("Content clearfix not found...");
-            body.innerHTML = "";
-            addBackLink();
-            body.appendChild(contentDiv);
-         }
-         else {
-            body.innerHTML = "";
-            addBackLink();
-            body.appendChild(content);
-         }
-      }
-      else if (req.readyState == 4 && req.status != 200) {
-         console.warn(course.key + ": ERROR, status is " + req.status);
-         XMLdecrement();
-      }
-   }
-   req.send();
-   XMLincrement();
+   var iframe = document.createElement("iframe");
+   iframe.setAttribute("src", link);
+   iframe.setAttribute("class", "tool");
+   body.innerHTML = "";
+   addBackLink();
+   body.appendChild(iframe);
 }
 
 //  Replaces the body of the template with the contents of
