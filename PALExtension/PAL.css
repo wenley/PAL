@@ -47,11 +47,14 @@ div#notTabBar {
     left:0px;
     top:120px;
     width:100%;
-
+    border-top:7px solid #999999; 
 }
 
 .documentDiv {
     background-color: #AAAAAA;
+    border-left:7px solid #999999;
+    border-right:7px solid #999999;
+    border-bottom:7px solid #999999;
     padding:0px;
 }
 
@@ -67,8 +70,9 @@ div#notTabBar {
     font-size:18px;
     color:#cc8833;
     padding:0px;
-    margin-top:5px;
+    margin-top:0px;
     margin-bottom:0px;
+    padding-left:20px;
 }
 
 .documentListLink {
@@ -278,17 +282,21 @@ div#menuDiv {
 #removeMenu,
 #removeMenu {
     list-style:none;
-    background-color: #E8600A;
     text-align:center;
     font-family:helvetica;
-    color:white;
-    font-size:15px;
-    padding:0px;
     margin-top:0px;
     margin-bottom:0px;
     margin-right:0px;
     margin-left:0px;
+    background-color:#FD912C;
+    border:2px solid #E65C00;
+    list-style-type:none;
+    text-align:center;
+    color:white;
+    font-size:10px;
+    padding:0px;
 }
+
 #removeMenu {
     align:right;
     list-style:none;
@@ -314,7 +322,7 @@ div#menuDiv {
 #removeMenu li a {
 display: block;
     list-style:none;
-    background-color: green;
+    background-color:#FD912C;
     top:20px;
     height:30px;
     border:2px solid #E65C00;
@@ -326,7 +334,7 @@ display: block;
 }
 #removeMenu ul {
     display: none;
-    background-color:black;
+    background-color:#FD912C;
     float: left;
     z-index: 900;
     margin-top:0px;
@@ -339,7 +347,7 @@ display: block;
     display: block;
     float: down;
     border:2px solid #E65C00;
-    background-color: #FBB117;
+    background-color: #FD912C;
     cursor: hand;
     cursor: pointer;  
 }
@@ -350,9 +358,11 @@ display: block;
     right:0px;
     list-style:none;
     border:2px solid #E65C00;
-    background-color: #FBB117;
-    background-color: #FBB117;
-    padding:0px;
+    background-color: #FD912C;
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-left:5px;
+    padding-right:5px;
     cursor: hand;
     cursor: pointer;
 }
@@ -458,6 +468,7 @@ a.button:hover {
      border-color:#FFFFFF;
 }
 } 
+
 
 ul.sideBarSemesters {
     font-family:helvetica;

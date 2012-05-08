@@ -32,10 +32,10 @@ function createTab(semester, name, currentTable, attribute, tagText) {
 
    var mainLinkBottomDiv = document.createElement("th");
    mainLinkBottomDiv.setAttribute("id", "mainLinkBottomDiv");
-   var mainLink = document.createElement("a");
-   mainLink.setAttribute("id", "mainLink");
-   mainLink.innerText = tagText;
-   mainLinkBottomDiv.appendChild(mainLink);
+   //var mainLink = document.createElement("a");
+   //mainLink.setAttribute("id", "mainLink");
+   mainLinkBottomDiv.innerText = tagText;
+   //mainLinkBottomDiv.appendChild(mainLink);
    mainLinkBottomDiv.addEventListener("click", function() { populateFromTab(this); }, false);
    mainLinkBottom.appendChild(mainLinkBottomDiv);
 
