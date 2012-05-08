@@ -355,14 +355,22 @@ function ToolToHTML(tool) {
 
    if (currentCourse.tabOrder != null && currentCourse.tabOrder != undefined)
    {
-      var length = currentCourse.tabOrder.length
+      var length = currentCourse.tabOrder.length;
          for (var j = 0; j < length; j++)
          {
             if (currentCourse.tabOrder[j] == tool.name)
                exists = true;
          }
    }
-
+   if (currentCourse.removedTabs != null && currentCourse.removedTabs != undefined)
+   {
+      length = currentCourse.removedTabs.length;
+      for (var j = 0; j < length; j++)
+      {
+         if (currentCourse.removedTabs[j] == tool.name)
+            exists = true;
+      }
+   }
    var iName = document.createElement("h3");
    iName.setAttribute("class", "documentName");
    if (exists == false)
