@@ -88,7 +88,7 @@ function mineAnnouncements (link, course) {
 
             //
             if (miniDoc == null || miniDoc.getElementsByTagName("parsererror").length > 0) {
-               console.log("Couldn't parse correctly");
+               console.warn("Couldn't parse correctly");
             }
             else {
                var heading = miniDoc.getElementsByTagName("h3")[0];

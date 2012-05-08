@@ -12,7 +12,7 @@ port.onMessage.addListener(function(msg) {
          port.postMessage(response);
    });
 port.onDisconnect.addListener(function() {
-      port.postMessage = function() { console.log("Dead port. Reload to try again."); };
+      port.postMessage = function() { console.warn("Dead port. Reload to try again."); };
    });
 
 
