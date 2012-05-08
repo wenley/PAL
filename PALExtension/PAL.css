@@ -103,7 +103,10 @@ div#notTabBar {
     padding:0px;
 }
 
-
+.toolTabButton {
+    font-size:10px;
+    color:white;
+}
 
 div#backElem { 
     background-color:#cc4411;
