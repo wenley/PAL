@@ -38,14 +38,12 @@ function populate(state) {
       sems.push(entry);
    }
    sems = sortSemesters(sems);
-   console.log(sems);
    for (var i = 0; i < sems.length; i++) {
       var entry = sems[i];
       var li = document.createElement("li");
       var iLink = document.createElement("a");
 
       iLink.innerText = entry;
-      console.log("This is the populate entry" + entry);
       iLink.addEventListener("click", function() { expandSemester(this); }, false);
       li.appendChild(iLink);
       ul.appendChild(li);

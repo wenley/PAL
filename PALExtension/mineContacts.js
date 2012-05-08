@@ -58,7 +58,6 @@ function extractContacts(textArea, course, isFolder) {
          f.link = miniDoc.getElementsByTagName("a")[0].getAttribute("href");
          f.contents = new Array();
          var index = course.contacts.push(f);
-         console.log(course.key + ": " + index);
          mineContacts(course.contacts[index - 1].link, course.contacts[index - 1], "isFolder");
          continue;
       }

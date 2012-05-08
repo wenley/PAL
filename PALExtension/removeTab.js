@@ -6,7 +6,6 @@ function removeTab(buttonEl) {
    var semester = tabEl.getAttribute("semester");
    var name = tabEl.getAttribute("name");
    var attribute = tabEl.getAttribute("attribute");
-   console.log(semester, name, attribute);
 
    if (Courses[semester] == null || Courses[semester] == undefined)
       throw "Improper usage: invalid semester name: " + semester;
@@ -15,10 +14,6 @@ function removeTab(buttonEl) {
 
    var currentCourse = Courses[semester][name];
    cleanObj(currentCourse);
-
-   console.log("From the removeTab function Beginning");
-   console.log(currentCourse.tabOrder);
-   console.log(currentCourse.removedTabs);
 
    //  Note that the tab has been removed
    var currentTab = tabEl;
@@ -45,13 +40,8 @@ function removeTab(buttonEl) {
 
    // delete the desired tab
    var popped = currentCourse.tabOrder.pop();
-   console.log("popped" + popped);
 
    removedPopup(semester, name);
-
-   console.log("From the RemoveTab function");
-   console.log(currentCourse.tabOrder);
-   console.log(currentCourse.removedTabs);
 
    pushCourse(currentCourse);
 }
