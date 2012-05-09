@@ -106,7 +106,6 @@ function populateCourse(courseEl, state) {
       }
       if (currentCourse.piazzaLink != null)
       {
-         console.log("there is a piazza link!");
          currentCourse.tabOrder[k] = "piazzaLink";
          k++;
       }
@@ -118,24 +117,11 @@ function populateCourse(courseEl, state) {
       }
    }
 
-   console.log("----WOOHOOO OTHERLINKS!-----");
-   console.log(currentCourse.otherLinks);
-
-   console.log("****** fooo ****");
-   console.log(currentCourse.tabOrder);
-   console.log(currentCourse.removedTabs);
-   console.log("****** barrr ******");
    var currentTable = document.getElementById("courseTabTable");
    currentTable = currentTable.getElementsByTagName("tbody")[0];
    currentTable = currentTable.getElementsByTagName("tr")[0];
    while (currentTable.children.length > 0)
       currentTable.removeChild(currentTable.children[0]);
-
-   console.log("****** fooo ****");
-   console.log(currentCourse.tabOrder);
-   console.log(currentCourse.removedTabs);
-   console.log("****** barrr ******");
-
 
    for (var i = 0; i < 1000; i++)
    {
@@ -209,18 +195,6 @@ function populateCourse(courseEl, state) {
             }
             break;
 
-         case "piazzaLink":
-            console.log("going to see if there's a piazza link");
-            // Make the Piazza link
-            if (currentCourse.piazzaLink != null)
-            {
-               if (!isRemoved(semester, name, "piazzaLink"))
-               {
-                  createTab(semester, name, currentTable, "piazzaLink", "Piazza");
-               }
-            }
-            break;
-
          default:
             //  Try to find an otherLink to match
             var tabName = currentCourse.tabOrder[i];
@@ -262,7 +236,6 @@ function populateCourse(courseEl, state) {
 
 function removedPopup(semester, name) {
 
-   console.log("I'm in the removed popup");
    if (Courses[semester] == null || Courses[semester] == undefined)
       throw "Improper usage: invalid semester name";
    if (Courses[semester][name] == null || Courses[semester][name] == undefined)
@@ -298,7 +271,6 @@ function removedPopup(semester, name) {
 
    if (currentCourse.removedTabs == null)
    {
-      console.log("no removed tabs...");
       var subLi = document.createElement("li");
       subLi.innerText = "There are no removed tabs.";
       subMenu.appendChild(subLi);
@@ -347,7 +319,6 @@ function removedPopup(semester, name) {
          subMenu.appendChild(subLi);
       }
    }
-   console.log("Got down to here");
    mainLi.appendChild(subMenu);
    menuUl.appendChild(mainLi);
    menuDiv.appendChild(menuUl);

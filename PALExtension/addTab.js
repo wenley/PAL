@@ -10,7 +10,6 @@ function addTab(linkEl) {
    // The tab to be restored - this is the attribute
    var attribute  = linkEl.getAttribute("attribute");
 
-   console.log("Trying to add...." + attribute);
    // This is a course
    if (Courses[semester] == null || Courses[semester] == undefined)
       throw "Improper usage: invalid semester name";
@@ -19,10 +18,6 @@ function addTab(linkEl) {
 
    var currentCourse = Courses[semester][name];
    cleanObj(currentCourse);
-
-   console.log("From the addTab function Begining");
-   console.log(currentCourse.tabOrder);
-   console.log(currentCourse.removedTabs);
 
    // First, put it back in the table
    var currentTable = document.getElementById("courseTabTable");
@@ -88,9 +83,6 @@ function addTab(linkEl) {
    currentCourse.tabOrder.push(attribute);
 
    removedPopup(semester, name);
-   console.log("From the addTab function");
-   console.log(currentCourse.tabOrder);
-   console.log(currentCourse.removedTabs);
 
    pushCourse(currentCourse);
 }

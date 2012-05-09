@@ -5,7 +5,6 @@
 //  Performs population of the page when a tab is clicked
 
 function populateFromTab(tabLinkEl) {
-   console.log("In populatefromtab with " + tabLinkEl);
    var tabEl = tabLinkEl.parentElement.parentElement.parentElement; 
    var semester = tabEl.getAttribute("semester");
    var courseKey = tabEl.getAttribute("name");

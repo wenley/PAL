@@ -97,16 +97,13 @@ function populateIframeBack(link) {
 
 function addBackLink() { 
 
-   console.log(selectedTab);
-
    var spaceToPopulate = document.getElementById("notTabBar");
 
    var backElem = document.createElement("div");
    backElem.setAttribute("id", "backElem");
    var backLink = document.createElement("a");
-   console.log(selectedTab);
    backLink.innerText = "Return to " + selectedTab.parentElement.parentElement.children[1].children[0].innerText;
-   backLink.addEventListener("click", function() {console.log(selectedTab); populateFromTab(selectedTab); }, false);
+   backLink.addEventListener("click", function() { populateFromTab(selectedTab); }, false);
    backElem.appendChild(backLink);
    spaceToPopulate.appendChild(backElem);   
 }                            
@@ -135,11 +132,3 @@ function cropRegistrar(iframeEl) {
    console.log(cDoc);
 }
 
-/*
-var cropper = document.createElement("script");
-cropper.setAttribute("language", "javascript");
-cropper.setAttribute("type", "text/javascript");
-cropper.innerText = cropRegistrar.toString();
-document.documentElement.appendChild(cropper);
-document.documentElement.removeChild(cropper);
-*/
