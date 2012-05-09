@@ -76,6 +76,7 @@ function runDiff() {
    if (OldCourses == null) {
       console.log("Everything is new");
       OldCourses = NewCourses;
+      saveToLocal();
       return;
    }
 

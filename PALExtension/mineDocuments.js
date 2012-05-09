@@ -61,11 +61,13 @@ function mineDocuments(link, course, type, name, index) {
             {
                start = attempt;
                end = text.indexOf("<\/div>", start);
-               current = text.slice(start, end);
-               if (text.indexOf("<div class=\"vtbegenerated", attempt) != -1 &&
-                   text.indexOf("<div class=\"vtbegenerated", attempt) < end)
-                  current = current.concat("<\/div><\/div>");
-               else current = current.concat("<\/div>");
+               var otherDiv = text.indexOf("<div", start + 1);
+               while (otherDiv < end) {
+                  end = text.indexOf("</div", end + 1);
+                  otherDiv = text.indexOf("<div", otherDiv + 1);
+               } //  Get true end of details
+               current = text.slice(start, end) + "</div>";
+
                current = current.replace(/<img[^>]*>/g,"");
                while (current.indexOf("<style") != -1) {
                   var styleStart = current.indexOf("<style");
@@ -171,7 +173,7 @@ function mineDocuments(link, course, type, name, index) {
                l.name = Name;
                l.submissionLink = h3link;
                if (docLinks.length > 0) {
-                  console.warn("docsLinks for a link image is not empty");
+                  console.warn(course.key + ": " + type + ": docsLinks for a link image is not empty");
                   console.log(docLinks);
                }
                l.memo = Memo;

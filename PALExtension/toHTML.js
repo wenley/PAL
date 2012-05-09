@@ -90,7 +90,7 @@ function AssignmentToHTML(asgn) {
       el.appendChild(iMemo);
    }
    else {
-      var space = document.createElement("br");
+      var space = document.createElement("p");
       el.appendChild(space);
    }
 
@@ -183,7 +183,7 @@ function FolderToHTML(fol) {
    else
       iName.innerText = fol.name;
    el.appendChild(iName);
-   var space = document.createElement("br");
+   var space = document.createElement("p");
    el.appendChild(space);
 
    return el;
@@ -245,7 +245,7 @@ function AnnouncementToHTML(anc) {
       el.appendChild(iMessage);
    }
    else {
-      var space = document.createElement("br");
+      var space = document.createElement("p");
       el.appendChild(space);
    }
 
@@ -535,5 +535,8 @@ function DocumentToHTML(doc) {
       iLink.innerText = doc.name;
       el.appendChild(iLink);
    }
+   var space = document.createElement("p");
+   el.appendChild(space);
+
    return el;
 }

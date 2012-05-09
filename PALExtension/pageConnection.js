@@ -17,8 +17,8 @@ function pushRequest(req) {
     
     NewCourses = restorePrototype(req.courses);
     var checkDiff = setTimeout(runDiff, 1000);
-    console.log(NewCourses); //  !!!
-//    saveToLocal();
+    console.log(NewCourses);
+    saveToLocal();
     return {note: "good"};
 }
 
@@ -84,7 +84,7 @@ function setUserHandler(msg) {
    }
 
    loadUser(msg.user);
-   return { note: "loaded", courses: NewCourses,
+   return { note: "loaded", courses: OldCourses,
           state: state,
           template: document.body.innerHTML };
 }
@@ -155,9 +155,7 @@ chrome.extension.onConnect.addListener(function(newPort) {
                port.postMessage(response);
          });
       port.onDisconnect.addListener(function() {
-            delete states[port.portId_];
             delete ports[port.portId_];
-            saveToLocal();
          });
    });
 

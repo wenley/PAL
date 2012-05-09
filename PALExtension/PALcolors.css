@@ -8,7 +8,7 @@
 }
 
 /* Pretty much everything */
-div.loadingStatus, th.tabTable, div#sideBar, div#tabBar,
+th.tabTable, div#sideBar, div#tabBar,
 #CourseHeader, #removeMenu, #logoutButton, #casLogoutButton,
 th#removeTabTable, #refreshButton, #liteRefreshButton, #removeMenu li a,
 .documentListLink, .documentFileLink, .documentMemo, ul.sideBarSemesters,
@@ -41,6 +41,9 @@ div#notTabBar {
 }
 .documentDiv {
     border-color:  #FFE1A7;
+}
+div.loadingStatus {
+    color: #FFE1A7;
 }
 
 /* Background Orange */
