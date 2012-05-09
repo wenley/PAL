@@ -270,6 +270,10 @@ div#notTabBar {
     border-top-style:solid;
 }
 
+
+/* ********************** *
+ * CONTENT                *
+ * ********************** */
 .documentDiv {
     border-left-width:7px;
     border-left-style:solid;
@@ -280,28 +284,34 @@ div#notTabBar {
     padding:0px;
 }
 
-.documentLink {
-    font-family:helvetica;
+.documentLink, .documentName, .documentMiniName, .documentSubmissionLink,
+.documentFileLink, .documentMemo {
     font-size:14px;
     padding:0px;
+    padding-left:20px;
+}
+
+.documentLink, .documentListLink, .documentSubmissionLink,
+.documentMemo, .documentFileLink {
+    font-family:helvetica;
+}
+
+.documentName, .documentMiniName {
+    font-family:monospace;
 }
 
 .documentName {
-    font-family:monospace;
     font-size:18px;
-    padding:0px;
     margin-top:0px;
     margin-bottom:0px;
     padding-left:20px;
 }
 
 .documentListLink {
-    font-family:helvetica;
-    font-size:14px;
-    padding:0px;
     padding-top:2px;
 }    
 
+<<<<<<< HEAD
 .documentMiniName {
     font-family:monospace;
     font-size:14px;
@@ -312,17 +322,20 @@ div#notTabBar {
     font-family:helvetica;  
     font-size:14px;
     padding:0px;
+    color:#330066;
 }
 .documentFileLink {
     font-family:helvetica;
     font-size:14px;
     padding:0px;
 }
+=======
+>>>>>>> wenley
 .documentMemo {
-    font-family:helvetica;
     font-size:15px;
-    padding:0px;
 }
+
+
 
 .toolTabButton {
     font-size:15px;

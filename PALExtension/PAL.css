@@ -116,17 +116,10 @@ table.tabTable {
 }
 
 th.tabTable {
-<<<<<<< HEAD
-    background-color:#FD912C;
     top:30px;
     height:20px;
-    border:2px solid #E65C00;
-=======
-    top:20px;
-    height:30px;
     border-width:2px;
     border-style:solid;
->>>>>>> 4e8a780bfd39f1af9897c1a2bc6ceadd5b10228f
     list-style-type:none;
     text-align:center;
     font-family:helvetica;
@@ -157,11 +150,7 @@ th#notButton {
 th#xButton {
     width:100%;
     height:100%;
-<<<<<<< HEAD
-    background-color:#666666;
     border-radius:25% 50%;
-=======
->>>>>>> 4e8a780bfd39f1af9897c1a2bc6ceadd5b10228f
 }
 
 th#mainLinkBottomDiv {
@@ -270,6 +259,10 @@ div#notTabBar {
     border-top-style:solid;
 }
 
+
+/* ********************** *
+ * CONTENT                *
+ * ********************** */
 .documentDiv {
     border-left-width:7px;
     border-left-style:solid;
@@ -280,50 +273,38 @@ div#notTabBar {
     padding:0px;
 }
 
-.documentLink {
-    font-family:helvetica;
+.documentLink, .documentName, .documentMiniName, .documentSubmissionLink,
+.documentFileLink, .documentMemo {
     font-size:14px;
     padding:0px;
+    padding-left:20px;
+}
+
+.documentLink, .documentListLink, .documentSubmissionLink,
+.documentMemo, .documentFileLink {
+    font-family:helvetica;
+}
+
+.documentName, .documentMiniName {
+    font-family:monospace;
 }
 
 .documentName {
-    font-family:monospace;
     font-size:18px;
-    padding:0px;
     margin-top:0px;
     margin-bottom:0px;
     padding-left:20px;
 }
 
 .documentListLink {
-    font-family:helvetica;
-    font-size:14px;
-    padding:0px;
     padding-top:2px;
 }    
 
-.documentMiniName {
-    font-family:monospace;
-    font-size:14px;
-    padding:0px;
+.documentMemo {
+    font-size:15px;
 }
 
-.documentSubmissionLink {
-    font-family:helvetica;  
-    font-size:14px;
-    padding:0px;
-    color:#330066;
-}
-.documentFileLink {
-    font-family:helvetica;
-    font-size:14px;
-    padding:0px;
-}
-.documentMemo {
-    font-family:helvetica;
-    font-size:15px;
-    padding:0px;
-}
+
 
 .toolTabButton {
     font-size:15px;
