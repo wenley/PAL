@@ -77,6 +77,12 @@ function setUserHandler(msg) {
       return { error: "Misrouted message"};
    }
    
+   //  Previously attempted to logout
+   if (logout == true) {
+      logout = false;
+      return { note: "logout" };
+   }
+
    loadUser(msg.user);
    return { note: "loaded", courses: NewCourses,
           state: state,
@@ -91,6 +97,13 @@ function saveStateHandler(msg, portId) {
 
    state = msg.state;
    saveToLocal();
+}
+
+//  Allows for single button logout
+var logout = false;
+function logoutHandler(msg) {
+   if (logout == false)
+      logout = true;
 }
 
 //  var expected = 0; //  Number of courses expected to be mined
@@ -115,6 +128,9 @@ function handleMessage(msg, portId) {
             break;
         case "state":
             response = saveStateHandler(msg, portId);
+            break;
+        case "logout":
+            response = logoutHandler(msg);
             break;
         default:
             console.warn("Unknown note from foreground: " + msg.note);

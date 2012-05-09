@@ -89,6 +89,10 @@ function AssignmentToHTML(asgn) {
       iMemo.innerHTML = asgn.memo;
       el.appendChild(iMemo);
    }
+   else {
+      var space = document.createElement("br");
+      el.appendChild(space);
+   }
 
    return el;
 }
@@ -179,6 +183,8 @@ function FolderToHTML(fol) {
    else
       iName.innerText = fol.name;
    el.appendChild(iName);
+   var space = document.createElement("br");
+   el.appendChild(space);
 
    return el;
 }
@@ -238,6 +244,10 @@ function AnnouncementToHTML(anc) {
       iMessage.innerHTML = anc.message;
       el.appendChild(iMessage);
    }
+   else {
+      var space = document.createElement("br");
+      el.appendChild(space);
+   }
 
    return el;
 }
@@ -285,6 +295,10 @@ function MaterialToHTML(mat) {
       iMemo.setAttribute("class", "documentMemo");
       iMemo.innerHTML = mat.memo;
       el.appendChild(iMemo);
+   }
+   else {
+      var space = document.createElement("p");
+      el.appendChild(space);
    }
 
    return el;

@@ -49,6 +49,9 @@ function handleMessage(msg) {
          }
          response = null;
          break;
+      case "logout": //  Indicates previously attempted to logout
+         document.location.href = "https://blackboard.princeton.edu/webapps/login?action=logout";
+         break;
       default:
          console.warn("Unknown note from background: " + msg.note);
          response = null;

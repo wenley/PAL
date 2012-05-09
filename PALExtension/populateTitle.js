@@ -46,20 +46,16 @@ function populateTitle(semester, name) {
   // make the logout button
    var logoutButtonElem = document.createElement("div");
    logoutButtonElem.setAttribute("id", "logoutButtonElem");
-   var logoutButton = document.createElement("button");
-   logoutButton.setAttribute("id", "logoutButton");
-   var logoutLink = document.createElement("a");
-   logoutLink.setAttribute("href", "https://blackboard.princeton.edu/webapps/login?action=logout");
-   logoutLink.innerText = "BlackBoard Logout";
-   logoutButton.appendChild(logoutLink);
-   logoutButtonElem.appendChild(logoutButton);
  
 // make the logout of CAS button
    var casLogoutButton = document.createElement("button");
    casLogoutButton.setAttribute("id", "casLogoutButton");
    var casLogoutLink = document.createElement("a");
-   casLogoutLink.setAttribute("href", "https://fed.princeton.edu/cas/logout");
-   casLogoutLink.innerText = "CAS Logout";
+   casLogoutLink.addEventListener("click", function () {
+         port.postMessage({ note: "logout" });
+         document.location.href = "https://fed.princeton.edu/cas/logout";
+      }, false);
+   casLogoutLink.innerText = "Logout";
    casLogoutButton.appendChild(casLogoutLink);
    logoutButtonElem.appendChild(casLogoutButton); //!!
 
@@ -77,8 +73,6 @@ function populateTitle(semester, name) {
    titleElem.appendChild(titleTextElem);
  
    tabBar.appendChild(titleElem);
-
-
 }
 
 function populateIframeBack(link) {
