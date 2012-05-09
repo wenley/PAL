@@ -1,14 +1,8 @@
-body{
-   background-color: #F87217; 
-}
-
-.changed {
-    background-color:yellow;
-    color:blue;
-}
+/* ************************************************************** *
+ * OTHER FORMATTING                                               *
+ * ************************************************************** */
 
 div#sideBar {
-    background-color:#F87217; 
     position:absolute;
     left:0px;
     top:0px;
@@ -16,13 +10,10 @@ div#sideBar {
     height:100%;
     text-align:center;
     font-family:helvetica;
-    color:white;
     font-size:15px;
 }
 
 #CourseHeader {
-    background-color:#E8600A;
-    color:white;
     font-family:monospace;
     font-size:20px;
     padding-left:18px;
@@ -32,7 +23,6 @@ div#sideBar {
 }
 
 div#notSideBar {
-    background-color:#999999;
     position:absolute;
     left:180px;
     top:0px;
@@ -41,7 +31,6 @@ div#notSideBar {
 }
 
 div#tabBar {
-    background-color:#F87217; 
     position:absolute;
     top:0px;
     left:0px;   
@@ -49,7 +38,6 @@ div#tabBar {
     height:120px;
     text-align:center;
     font-family:helvetica;
-    color:white;
     font-size:20px;
     text-transform:uppercase;
     padding:0px;
@@ -63,7 +51,6 @@ div#mainTitle {
     text-align:center;
     height:65px;
     width:100%;
-    background-color:#F87217;
     background-image:url('http://image.51diy.org/UniPicture/US/Universities/Princeton%20University/princeton%20halls.jpg');
     background-position:center;
     font-family:monospace;
@@ -80,8 +67,6 @@ div#logoutButtonElem {
 
 #logoutButton {
     text-transform:uppercase;
-    background-color:black;
-    color:white;
     font-family:monospace;
     font-size:10px;
     padding-left:0px;
@@ -94,8 +79,6 @@ div#logoutButtonElem {
 
 #casLogoutButton {
     text-transform:uppercase;
-    background-color:black;
-    color:white;
     font-family:monospace;
     font-size:10px;
     padding-left:0px;
@@ -122,7 +105,6 @@ div#mainTitleCourseDescription {
 div.loadingStatus {
     align: center;
     text-align: center;
-    color:#DEADBE;
     font-size: 40px;
     width:100%;
     height:100%;
@@ -134,20 +116,15 @@ table.tabTable {
 }
 
 th.tabTable {
-    background-color:#FD912C;
     top:20px;
     height:30px;
-    border:2px solid #E65C00;
+    border-width:2px;
+    border-style:solid;
     list-style-type:none;
     text-align:center;
     font-family:helvetica;
-    color:white;
     font-size:10px;
     padding:0px;
-}
-
-th.tabTable:hover {
-    background-color:#EE8505;
 }
 
 table#mainLinkTable {
@@ -172,7 +149,6 @@ th#notButton {
 th#xButton {
     width:10%;
     height:100%;
-    background-color:#666666;
 }
 
 th#mainLinkBottomDiv {
@@ -181,11 +157,10 @@ th#mainLinkBottomDiv {
 }
 
 th#removeTabTable {
-    background-color:yellow;
-    border:2px solid #E65C00;
+    border-width:2px;
+    border-style: solid;
     text-align:center;
     font-family:helvetica;
-    color:white;
     height:30px;
     width:20px;
     font-size:10px;
@@ -193,35 +168,23 @@ th#removeTabTable {
 }
     
 div#menuDiv {
-    background-color:#E8600A;
     height:100%;
     width:100%;
     padding:0px;
 }
 
-#removeMenu,
 #removeMenu {
     list-style:none;
     text-align:center;
     font-family:helvetica;
-    margin-top:0px;
-    margin-bottom:0px;
-    margin-right:0px;
-    margin-left:0px;
-    background-color:#FD912C;
-    border:2px solid #E65C00;
+    border-width:2px;
+    border-style: solid;
     list-style-type:none;
     text-align:center;
-    color:white;
     font-size:10px;
     padding:0px;
-}
-
-#removeMenu {
     align:right;
-    list-style:none;
-    background-color: #E8600A;
-    vetical-align: middle;
+    vertical-align: middle;
     margin-top:0px;
     margin-bottom:0px;
     margin-right:0px;
@@ -229,7 +192,6 @@ div#menuDiv {
 }
 #removeMenu > li {
     align: center;
-    background-color:#E8600A;
     padding-left:20px;
     padding-right:20px;
     padding-top:12px;
@@ -240,21 +202,19 @@ div#menuDiv {
     margin-left:0px;
 }
 #removeMenu li a {
-display: block;
+    display: block;
     list-style:none;
-    background-color:#FD912C;
     top:20px;
     height:30px;
-    border:2px solid #E65C00;
+    border-width:2px;
+    border-style: solid;
     text-align:center;
     font-family:helvetica;
-    color:white;
     font-size:10px;
     padding:2px;
 }
 #removeMenu ul {
     display: none;
-    background-color:#FD912C;
     float: left;
     z-index: 900;
     margin-top:0px;
@@ -266,8 +226,8 @@ display: block;
 #removeMenu ul li a {
     display: block;
     float: down;
-    border:2px solid #E65C00;
-    background-color: #FD912C;
+    border-width:2px;
+    border-style: solid;
     cursor: hand;
     cursor: pointer;  
 }
@@ -277,8 +237,8 @@ display: block;
     position: absolute;
     right:0px;
     list-style:none;
-    border:2px solid #E65C00;
-    background-color: #FD912C;
+    border-width:2px;
+    border-style: solid;
     padding-top:20px;
     padding-bottom:20px;
     padding-left:5px;
@@ -288,33 +248,33 @@ display: block;
 }
 
 div#notTabBar {
-    background-color: #999999;
     position:absolute;
     left:0px;
     top:120px;
     width:100%;
-    border-top:7px solid #999999; 
+    border-top-width:7px;
+    border-top-style:solid;
 }
 
 .documentDiv {
-    background-color: #AAAAAA;
-    border-left:7px solid #999999;
-    border-right:7px solid #999999;
-    border-bottom:7px solid #999999;
+    border-left-width:7px;
+    border-left-style:solid;
+    border-right-width:7px;
+    border-right-style:solid;
+    border-bottom-width:7px;
+    border-bottom-style:solid;
     padding:0px;
 }
 
 .documentLink {
     font-family:helvetica;
     font-size:14px;
-    color:#cc7700;
     padding:0px;
 }
 
 .documentName {
     font-family:monospace;
     font-size:18px;
-    color:#cc8833;
     padding:0px;
     margin-top:0px;
     margin-bottom:0px;
@@ -324,7 +284,6 @@ div#notTabBar {
 .documentListLink {
     font-family:helvetica;
     font-size:14px;
-    color:white;
     padding:0px;
     padding-top:2px;
 }    
@@ -332,72 +291,58 @@ div#notTabBar {
 .documentMiniName {
     font-family:monospace;
     font-size:14px;
-    color:#CC660;
     padding:0px;
 }
 
 .documentSubmissionLink {
     font-family:helvetica;  
     font-size:14px;
-    color:#FFB661;
     padding:0px;
 }
 .documentFileLink {
     font-family:helvetica;
     font-size:14px;
-    color:white;
     padding:0px;
 }
 .documentMemo {
     font-family:helvetica;
-    font-size:10px;
-    color:white;
+    font-size:15px;
     padding:0px;
 }
 
 .toolTabButton {
     font-size:15px;
-    color:#333333;
     padding-right:10px;
 }
 
 div#backElem { 
-    background-color:#cc4411;
-    color:white;
     padding-left:10px;
     font-family:helvetica;
     font-size:18px;
 }
 
-
 a:link {
-    color:#FFFFFF;
     text-decoration:none;
     cursore: pointer;
     cursor: hand;
 }
 a:visited {
     text-decoration:none;
-    color:#FFFFFF;
     cursor: pointer;
     cursor: hand;
 }
 a:hover {
-    color:#FF6600;
     text-decoration:none;
     cursor: pointer;
     cursor: hand;
 } 
 a:active {
-    color:#FF6600;
     text-decoration:none;
     cursor: pointer;
     cursor: hand;
 }
 
 #refreshButton {
-    background-color:#E8600A;
-    color:white;
     font-family:monospace;
     font-size:15px;
     width:97%;
@@ -409,8 +354,6 @@ a:active {
 }
 
 #liteRefreshButton {
-    background-color:#E8600A;
-    color:white;
     font-family:monospace;
     font-size:15px;
     width:97%;
@@ -422,8 +365,6 @@ a:active {
 }
 
 #iceButton {
-    background-color:#66ffff;
-    color:black;
     font-family:monospace;
     font-size:15px;
     width:97%;
@@ -435,8 +376,6 @@ a:active {
 }
 
 #piazzaButton {
-    background-color:#447eac;
-    color:white;
     font-family:monospace;
     font-size:15px;
     width:97%;
@@ -447,31 +386,24 @@ a:active {
     cursor: pointer;
 }
 
-
 a.button {
      font-size:10px;
-     color:#fff;
      text-decoration:none;
      display:block;
      width:10px;
      height:10px;
      padding:0px;
-     border:1px solid #EE8D07;
+     border-width:1px;
+    border-style: solid;
      -moz-border-radius:5px;
      -webkit-border-radius:5px;
      -o-border-radius:5px;
      border-radius:5px;
 }
-a.button:hover {
-     color:#fff;
-     border-color:#FFFFFF;
-}
-} 
 
 
 ul.sideBarSemesters {
     font-family:helvetica;
-    color:white;
     font-size:15px;
     padding:10px;
     list-style-type:none;
@@ -479,7 +411,6 @@ ul.sideBarSemesters {
 
 ul.sideBarCourses {
     font-family:helvetica;
-    color:yellow;
     text-indent:50px;
     font-size:10px;
     padding:10px;

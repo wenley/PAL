@@ -1,0 +1,138 @@
+/* ************************************************************** *
+ * COLORS                                                         *
+ * ************************************************************** */
+
+.changed {
+    background-color:yellow;
+    color:blue;
+}
+
+/* Pretty much everything */
+div.loadingStatus, th.tabTable, div#sideBar, div#tabBar,
+#CourseHeader, #removeMenu, #logoutButton, #casLogoutButton,
+th#removeTabTable, #refreshButton, #liteRefreshButton, #removeMenu li a,
+.documentListLink, .documentFileLink, .documentMemo, ul.sideBarSemesters,
+div#backElem {
+    color:white;
+}
+
+/* ********************** *
+ * ORANGES                *
+ * ********************** */
+
+/* Darker Orange */
+#CourseHeader, #refreshButton, #liteRefreshButton {
+    background-color:#E8600A;
+}
+
+/* Peachy Cream */
+div#notSideBar {
+    background-color:#FFE1A7;
+}
+div#notTabBar {
+    background-color: #FFE1A7;
+    border-top-color: #FFE1A7;
+}
+
+/* Main Orange */
+body, div#sideBar, div#tabBar, div#mainTitle {
+    background-color:#F87217;
+}
+
+/* ********************** *
+ * BUTTONS                *
+ * ********************** */
+
+/* Custom for ICE button */
+#iceButton {
+    background-color:#66ffff;
+    color:black;
+}
+
+/* Taken from Piazza's page */
+#piazzaButton {
+    background-color:#447eac;
+    color:white;
+}
+
+/* Logout Buttons */
+#logoutButton, #casLogoutButton {
+    background-color:black;
+}
+
+/* ********************** *
+ * TABS                   *
+ * ********************** */
+th.tabTable, #removeMenu ul, #removeMenu li a, #removeMenu ul li a, #removeMenu li:hover ul {
+    background-color:#FD912C;
+    border-color: #E65C00;
+}
+
+th.tabTable:hover {
+    background-color:#EE8505;
+}
+
+th#xButton {
+    background-color:#666666;
+}
+
+div#menuDiv, #removeMenu {
+    background-color:#E8600A;
+}
+
+#removeMenu, th#removeTabTable {
+    border-color: #E65C00;
+}
+
+/* ********************** *
+ * CONTENT                *
+ * ********************** */
+.documentDiv {
+    background-color: #FD912C;
+    border-color:  #FFE1A7;
+}
+
+.documentLink {
+    color:#000;
+}
+
+.documentName {
+    color:#000;
+}
+
+.documentMiniName {
+    color:#CC660;
+}
+
+.documentSubmissionLink {
+    color:#FFB661;
+}
+
+.toolTabButton {
+    color:#333333;
+}
+
+/* Back Element */
+div#backElem { 
+    background-color:#cc4411;
+}
+
+/* ********************** *
+ * <A> TAGS               *
+ * ********************** */
+a:link, a:visited {
+    color:#FFFFFF;
+}
+
+a:hover, a:active {
+    color:#fff;
+}
+
+a.button, a.button:hover {
+    color:#fff;
+    border-color: #EE8D07;
+}
+
+a.button:hover {
+     border-color:#FFFFFF;
+}
