@@ -1,0 +1,465 @@
+body {
+    background-color: #F87217; 
+}
+
+div#sideBar {
+ 
+    background-color:#F87217; 
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:180px;
+    height:100%;
+    text-align:center;
+    font-family:helvetica;
+    color:white;
+    font-size:15px;
+}
+
+#CourseHeader {
+    background-color:#E8600A;
+    color:white;
+    font-family:monospace;
+    font-size:20px;
+    padding-left:18px;
+    padding-right:18px;
+    align:center;
+    text-align:center; 
+}
+
+div#notSideBar {
+    background-color:#AAAAAA;
+    position:absolute;
+    left:180px;
+    top:0px;
+    width:84.5%;
+    height:100%;   
+}
+
+div#notTabBar {
+    background-color: #999999;
+    position:absolute;
+    left:0px;
+    top:120px;
+    width:100%;
+
+}
+
+.documentDiv {
+    background-color: #AAAAAA;
+    padding:0px;
+}
+
+.documentLink {
+    font-family:helvetica;
+    font-size:14px;
+    color:#cc7700;
+    padding:0px;
+}
+
+.documentName {
+    font-family:monospace;
+    font-size:18px;
+    color:#cc8833;
+    padding:0px;
+    margin-top:5px;
+    margin-bottom:0px;
+}
+
+.documentListLink {
+    font-family:helvetica;
+    font-size:14px;
+    color:white;
+    padding:0px;
+}    
+
+.documentMiniName {
+    font-family:monospace;
+    font-size:14px;
+    color:#CC660;
+    padding:0px;
+}
+
+.documentSubmissionLink {
+    font-family:helvetica;  
+    font-size:14px;
+    color:#FFB661;
+    padding:0px;
+}
+.documentFileLink {
+    font-family:helvetica;
+    font-size:14px;
+    color:white;
+    padding:0px;
+}
+.documentMemo {
+    font-family:helvetica;
+    font-size:10px;
+    color:white;
+    padding:0px;
+}
+
+
+
+div#backElem { 
+    background-color:#cc4411;
+    color:white;
+    font-family:helvetica;
+    font-size:18px;
+}
+
+div#tabBar {
+    background-color:#F87217; 
+    position:absolute;
+    top:0px;
+    left:0px;   
+    width:100%;
+    height:120px;
+    text-align:center;
+    font-family:helvetica;
+    color:white;
+    font-size:20px;
+    text-transform:uppercase;
+    padding:0px;
+    cursor: hand;
+    cursor: pointer;
+}
+
+div#mainTitle {
+    position:absolute;
+    top:0px;
+    text-align:center;
+    height:65px;
+    width:100%;
+    background-color:#F87217;
+    background-image:url('http://image.51diy.org/UniPicture/US/Universities/Princeton%20University/princeton%20halls.jpg');
+    background-position:center;
+    font-family:monospace;
+    text-transform:uppercase;
+    font-size:30px;
+    padding-left:0px;
+}
+
+div#logoutButtonElem {
+    text-align:right;
+    align:right;
+    top:0px;
+}
+
+#logoutButton {
+    text-transform:uppercase;
+    background-color:red;
+    color:white;
+    font-family:monospace;
+    font-size:10px;
+    padding-left:0px;
+    padding-right:15px;
+    align:right;
+    top:0px;
+    text-align:right; 
+    border:0px;
+}
+
+#casLogoutButton {
+    text-transform:uppercase;
+    background-color:red;
+    color:white;
+    font-family:monospace;
+    font-size:10px;
+    padding-left:0px;
+    padding-right:0px;
+    align:right;
+    top:0px;
+    text-align:right; 
+    border:0px;
+}
+
+
+div#mainTitleCourseDescription {
+    top:0px;
+    text-align:center;
+    font-size:12px;
+    padding-top:0px;
+    padding-bottom:0px;
+    padding-left:0px;
+    padding-right:0px;
+    cursor: hand;
+    cursor: pointer;
+}
+
+div.loadingStatus {
+    align: center;
+    text-align: center;
+    color:#DEADBE;
+    font-size: 40px;
+    width:100%;
+    height:100%;
+}
+
+table.tabTable {
+    top:30px;
+    width:100%;
+}
+
+th.tabTable {
+    background-color:#FD912C;
+    top:20px;
+    height:30px;
+    border:2px solid #E65C00;
+    list-style-type:none;
+    text-align:center;
+    font-family:helvetica;
+    color:white;
+    font-size:10px;
+    padding:0px;
+}
+
+th.tabTable:hover {
+    background-color:#EE8505;
+}
+
+table#mainLinkTable {
+    position:relative;
+    height:100%;
+    width:100%;
+}
+
+tr#mainLinkTop {
+    height:10%;
+}
+
+tr#mainLinkBottom {
+    height:90%;
+}
+
+th#notButton {
+  width:90%;
+    height:100%;
+}
+
+th#xButton {
+    width:10%;
+    height:100%;
+    background-color:#666666;
+}
+
+th#mainLinkBottomDiv {
+    width:100%;
+    height:100%;
+}
+
+th#removeTabTable {
+    background-color:yellow;
+    border:2px solid #E65C00;
+    text-align:center;
+    font-family:helvetica;
+    color:white;
+    height:30px;
+    width:20px;
+    font-size:10px;
+    padding:0px;
+}
+    
+div#menuDiv {
+    background-color:#E8600A;
+    height:100%;
+    width:100%;
+    padding:0px;
+}
+
+#removeMenu,
+#removeMenu {
+    list-style:none;
+    background-color: #E8600A;
+    text-align:center;
+    font-family:helvetica;
+    color:white;
+    font-size:15px;
+    padding:0px;
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-right:0px;
+    margin-left:0px;
+}
+#removeMenu {
+    align:right;
+    list-style:none;
+    background-color: #E8600A;
+    vetical-align: middle;
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-right:0px;
+    margin-left:0px;
+}
+#removeMenu > li {
+    align: center;
+    background-color:#E8600A;
+    padding-left:20px;
+    padding-right:20px;
+    padding-top:12px;
+    padding-bottom:12px;
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-right:0px;
+    margin-left:0px;
+}
+#removeMenu li a {
+display: block;
+    list-style:none;
+    background-color: green;
+    top:20px;
+    height:30px;
+    border:2px solid #E65C00;
+    text-align:center;
+    font-family:helvetica;
+    color:white;
+    font-size:10px;
+    padding:2px;
+}
+#removeMenu ul {
+    display: none;
+    background-color:black;
+    float: left;
+    z-index: 900;
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-right:0px;
+    margin-left:0px;
+}
+
+#removeMenu ul li a {
+    display: block;
+    float: down;
+    border:2px solid #E65C00;
+    background-color: #FBB117;
+    cursor: hand;
+    cursor: pointer;  
+}
+
+#removeMenu li:hover ul {
+    display: block;
+    position: absolute;
+    right:0px;
+    list-style:none;
+    border:2px solid #E65C00;
+    background-color: #FBB117;
+    background-color: #FBB117;
+    padding:0px;
+    cursor: hand;
+    cursor: pointer;
+}
+
+a:link {
+    color:#FFFFFF;
+    text-decoration:none;
+    cursore: pointer;
+    cursor: hand;
+}
+a:visited {
+    text-decoration:none;
+    color:#FFFFFF;
+    cursor: pointer;
+    cursor: hand;
+}
+a:hover {
+    color:#FF6600;
+    text-decoration:none;
+    cursor: pointer;
+    cursor: hand;
+} 
+a:active {
+    color:#FF6600;
+    text-decoration:none;
+    cursor: pointer;
+    cursor: hand;
+}
+
+#refreshButton {
+    background-color:#E8600A;
+    color:white;
+    font-family:monospace;
+    font-size:15px;
+    padding-left:20px;
+    padding-right:20px;
+    align:center;
+    text-align:center; 
+    border:0px;
+    cursor: hand;
+    cursor: pointer;
+}
+
+#iceButton {
+    background-color:#66ffff;
+    color:black;
+    font-family:monospace;
+    font-size:15px;
+    padding-left:15px;
+    padding-right:15px;
+    align:center;
+    text-align:center; 
+    border:0px;
+    cursor: hand;
+    cursor: pointer;
+}
+
+#piazzaButton {
+    background-color:#447eac;
+    color:white;
+    font-family:monospace;
+    font-size:15px;
+    padding-left:63px;
+    padding-right:63px;
+    align:center;
+    text-align:center; 
+    border:0px;
+    cursor: hand;
+    cursor: pointer;
+}
+
+
+a.button {
+     font-size:10px;
+     color:#fff;
+     text-decoration:none;
+     display:block;
+     width:10px;
+     height:10px;
+     padding:0px;
+     border:1px solid #EE8D07;
+     -moz-border-radius:5px;
+     -webkit-border-radius:5px;
+     -o-border-radius:5px;
+     border-radius:5px;
+}
+a.button:hover {
+     color:#fff;
+     border-color:#FFFFFF;
+}
+} 
+
+ul.sideBarSemesters {
+    font-family:helvetica;
+    color:white;
+    font-size:15px;
+    padding:10px;
+    list-style-type:none;
+}
+
+ul.sideBarCourses {
+    font-family:helvetica;
+    color:yellow;
+    text-indent:50px;
+    font-size:10px;
+    padding:10px;
+    list-style-type:none;
+}
+
+
+iframe.tool {
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    overflow-y:hidden;
+    scrolling:off;
+}
+
