@@ -336,31 +336,31 @@ function ToolToHTML(tool) {
    }
 
    iToolTabButton.setAttribute("class", "toolTabButton");
-   iToolTabButton.innerHTML = "&Delta;"
-      iToolTabButton.addEventListener("click", function () {
-            if (currentCourse.otherLinks == null || currentCourse.otherLinks == undefined)
-            {currentCourse.otherLinks = new Array();}
-            currentCourse.otherLinks.push(tool);
-            currentCourse.tabOrder.push(tool.name);
-            if (state != undefined)
-            {
-               populateCourse(courseEl, state);
-            }
-            else {
-               populateCourse(courseEl);
-            }
-         }, false);
+   iToolTabButton.innerHTML = "&Delta;";
+   iToolTabButton.addEventListener("click", function () {
+         if (currentCourse.otherLinks == null || currentCourse.otherLinks == undefined)
+         {currentCourse.otherLinks = new Array();}
+         currentCourse.otherLinks.push(tool);
+         currentCourse.tabOrder.push(tool.name);
+         if (state != undefined)
+         {
+            populateCourse(courseEl, state);
+         }
+         else {
+            populateCourse(courseEl);
+         }
+      }, false);
 
    var exists = false;
 
    if (currentCourse.tabOrder != null && currentCourse.tabOrder != undefined)
    {
       var length = currentCourse.tabOrder.length;
-         for (var j = 0; j < length; j++)
-         {
-            if (currentCourse.tabOrder[j] == tool.name)
-               exists = true;
-         }
+      for (var j = 0; j < length; j++)
+      {
+         if (currentCourse.tabOrder[j] == tool.name)
+            exists = true;
+      }
    }
    if (currentCourse.removedTabs != null && currentCourse.removedTabs != undefined)
    {
@@ -371,11 +371,109 @@ function ToolToHTML(tool) {
             exists = true;
       }
    }
+
+   var iToolRemoveTabButton = document.createElement("a");
+
+   iToolRemoveTabButton.setAttribute("class", "toolTabButton");
+   iToolRemoveTabButton.innerHTML = "&nabla;";
+   iToolRemoveTabButton.addEventListener("click", function () {
+         var index = 0;
+         if (currentCourse.otherLinks != null && currentCourse.otherLinks != undefined)
+         {
+            while (currentCourse.otherLinks[index] != null && currentCourse.otherLinks[index] != undefined)
+            {
+               if (currentCourse.otherLinks[index] == tool)
+                  break;
+               index++;
+            }
+
+            // now move all of the other tabs over
+            while (currentCourse.otherLinks[index + 1] != null && currentCourse.otherLinks[index + 1] != undefined)
+            {
+               currentCourse.otherLinks[index] = currentCourse.otherLinks[index + 1];
+               index++;
+            }
+
+            // delete the desired tab
+            var popped = currentCourse.otherLinks.pop();
+         }
+
+         if (currentCourse.tabOrder != null && currentCourse.tabOrder != undefined)
+         {
+            index = 0;
+            var tabOrderFound = false;
+            while (currentCourse.tabOrder[index] != null && currentCourse.tabOrder[index] != undefined)
+            {
+               if (currentCourse.tabOrder[index] == tool.name)
+               {
+                  tabOrderFound = true;
+                  break;
+               }
+               index++;
+            }
+
+            // now move all of the other tabs over
+            while (currentCourse.tabOrder[index + 1] != null && currentCourse.tabOrder[index + 1] != undefined)
+            {
+               currentCourse.tabOrder[index] = currentCourse.tabOrder[index + 1];
+               index++;
+            }
+
+            // delete the desired tab
+            if (tabOrderFound == true)
+            {
+            popped = currentCourse.tabOrder.pop();
+            }
+         }
+
+         if (currentCourse.removedTabs != null && currentCourse.removedTabs != undefined)
+         {
+            index = 0;
+            var removedTabsFound = false;
+            while (currentCourse.removedTabs[index] != null && currentCourse.removedTabs[index] != undefined)
+            {
+               if (currentCourse.removedTabs[index] == tool.name)
+               {
+                  removedTabsFound = true;
+                  break;
+               }
+               index++;
+            }
+
+            // now move all of the other tabs over
+            while (currentCourse.removedTabs[index + 1] != null && currentCourse.removedTabs[index + 1] != undefined)
+            {
+               currentCourse.removedTabs[index] = currentCourse.removedTabs[index + 1];
+               index++;
+            }
+
+            // delete the desired tab
+            if (removedTabsFound == true)
+            {
+            popped = currentCourse.removedTabs.pop();
+            }
+         }
+            
+
+         if (state != undefined)
+         {
+            populateCourse(courseEl, state);
+         }
+         else {
+            populateCourse(courseEl);
+         }
+      }, false);
+
+
    var iName = document.createElement("h3");
    iName.setAttribute("class", "documentName");
    if (exists == false)
    {
       iName.appendChild(iToolTabButton);
+   }
+   if (exists == true)
+   {
+      iName.appendChild(iToolRemoveTabButton);
    }
    if (tool.link != null)
    {

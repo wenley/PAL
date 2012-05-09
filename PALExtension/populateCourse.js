@@ -117,6 +117,10 @@ function populateCourse(courseEl, state) {
       }
    }
 
+   console.log(currentCourse.otherLinks);
+   console.log(currentCourse.removedTabs);
+   console.log(currentCourse.tabOrder);
+   
    var currentTable = document.getElementById("courseTabTable");
    currentTable = currentTable.getElementsByTagName("tbody")[0];
    currentTable = currentTable.getElementsByTagName("tr")[0];
