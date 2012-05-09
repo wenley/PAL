@@ -21,8 +21,14 @@ div#backElem {
  * ********************** */
 
 /* Darker Orange */
-#CourseHeader, #refreshButton, #liteRefreshButton {
-    background-color:#E8600A;
+#CourseHeader, #refreshButton, #liteRefreshButton,
+div#menuDiv, #removeMenu, div#backElem {
+    background-color:#D65300;
+}
+
+th.tabTable, #removeMenu ul, #removeMenu li a, #removeMenu ul li a,
+#removeMenu li:hover ul, #removeMenu, th#removeTabTable {
+    border-color: #D65300;
 }
 
 /* Peachy Cream */
@@ -33,12 +39,19 @@ div#notTabBar {
     background-color: #FFE1A7;
     border-top-color: #FFE1A7;
 }
+.documentDiv {
+    border-color:  #FFE1A7;
+}
 
-/* Main Orange */
+/* Background Orange */
 body, div#sideBar, div#tabBar, div#mainTitle {
     background-color:#F87217;
 }
 
+/* Main Orange */
+.documentDiv, th.tabTable, #removeMenu ul, #removeMenu li a, #removeMenu ul li a, #removeMenu li:hover ul {
+    background-color:#FD912C;
+}
 /* ********************** *
  * BUTTONS                *
  * ********************** */
@@ -63,10 +76,6 @@ body, div#sideBar, div#tabBar, div#mainTitle {
 /* ********************** *
  * TABS                   *
  * ********************** */
-th.tabTable, #removeMenu ul, #removeMenu li a, #removeMenu ul li a, #removeMenu li:hover ul {
-    background-color:#FD912C;
-    border-color: #E65C00;
-}
 
 th.tabTable:hover {
     background-color:#EE8505;
@@ -76,22 +85,9 @@ th#xButton {
     background-color:#666666;
 }
 
-div#menuDiv, #removeMenu {
-    background-color:#E8600A;
-}
-
-#removeMenu, th#removeTabTable {
-    border-color: #E65C00;
-}
-
 /* ********************** *
  * CONTENT                *
  * ********************** */
-.documentDiv {
-    background-color: #FD912C;
-    border-color:  #FFE1A7;
-}
-
 .documentLink {
     color:#000;
 }
@@ -110,11 +106,6 @@ div#menuDiv, #removeMenu {
 
 .toolTabButton {
     color:#333333;
-}
-
-/* Back Element */
-div#backElem { 
-    background-color:#cc4411;
 }
 
 /* ********************** *
