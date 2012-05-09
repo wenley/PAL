@@ -5,7 +5,7 @@
 // Populates template.html
 function populate(state) {
    var ul = document.body.getElementsByClassName("sideBarSemesters")[0];
-   var sideBar = document.getElementById("sideBar");
+   var sideBar = document.getElementById("sideBarContainer");
 
    var refreshButton = document.createElement("button");
    refreshButton.setAttribute("id", "refreshButton");
