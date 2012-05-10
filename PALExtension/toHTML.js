@@ -314,10 +314,7 @@ function ToolToHTML(tool) {
    el.setAttribute("class", "documentDiv");
 
    var semester = selectedTab.parentElement.parentElement.parentElement.getAttribute("semester");
-   console.log(selectedTab);
-   console.log(semester);
    var name = selectedTab.parentElement.parentElement.parentElement.getAttribute("name");
-   console.log(name);
 
    if (Courses[semester] == null || Courses[semester] == undefined)
       throw "Improper usage: invalid semester name";
