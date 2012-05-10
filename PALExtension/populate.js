@@ -33,6 +33,12 @@ function populate(state) {
    piazzaButton.addEventListener("click", function() { populateIframeBack("http://piazza.com/");}, false);
    sideBar.appendChild(piazzaButton);
 
+   var scoreButton = document.createElement("button");
+   scoreButton.setAttribute("id", "scoreButton");
+   scoreButton.innerText = "Score";
+   scoreButton.addEventListener("click", function() { populateIframeBack("https://puaccess.princeton.edu/oasa/loginPage.jsp");}, false);
+   sideBar.appendChild(scoreButton);
+
   var sems = new Array();
    for(var entry in Courses) {
       sems.push(entry);

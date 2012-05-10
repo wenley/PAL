@@ -61,7 +61,7 @@ body, div#sideBar, div#tabBar, div#mainTitle {
 
 /* Custom for ICE button */
 #iceButton {
-    background-color:#66ffff;
+    background-color:#dbe6f4;
     color:black;
 }
 
@@ -71,6 +71,10 @@ body, div#sideBar, div#tabBar, div#mainTitle {
     color:white;
 }
 
+#scoreButton {
+    background-color:#4a598c;
+    color:white;
+    }
 /* Logout Buttons */
 #logoutButton, #casLogoutButton {
     background-color:black;

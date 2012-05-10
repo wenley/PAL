@@ -149,6 +149,8 @@ th#notButton {
 }
 
 th#xButton {
+    top:0px;
+    right:0px;
     width:100%;
     height:100%;
     border-radius:25% 50%;
@@ -387,6 +389,19 @@ a:active {
     cursor: pointer;
     border-radius: 6.5px 6.5px;
 }
+
+#scoreButton {
+    font-family:monospace;
+    font-size:15px;
+    width:97%;
+    align:center;
+    text-align:center; 
+    border:0px;
+    cursor: hand;
+    cursor: pointer;
+    border-radius: 6.5px 6.5px;
+}
+
 
 a.button {
      font-size:10px;
