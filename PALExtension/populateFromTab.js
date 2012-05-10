@@ -72,9 +72,6 @@ function populateFromTab(tabLinkEl) {
       for (var entry in attr)
          space.appendChild(toHTML(attr[entry]));
    }
-   else if (attribute == "piazzaLink") {
-      populateIframe(course.piazzaLink);
-   }
    else if (attribute == "otherLinks") {
       if (isArray(attr)) {
          //  Start from 1 since 0 is the name
