@@ -104,11 +104,6 @@ function populateCourse(courseEl, state) {
          currentCourse.tabOrder[k] = "tools";
          k++;
       }
-      if (currentCourse.piazzaLink != null)
-      {
-         currentCourse.tabOrder[k] = "piazzaLink";
-         k++;
-      }
       var i = 0;
       if (currentCourse.otherLinks != null) {
          for (; currentCourse.otherLinks[i] != undefined && i < currentCourse.otherLinks.length ; i++) {
@@ -311,9 +306,6 @@ function removedPopup(semester, name) {
                break;
             case "tools":
                subLi.innerText = "Tools";
-               break;
-            case "piazzaLink":
-               subLi.innerText = "Piazza";
                break;
             default:
                subLi.innerText = attribute;

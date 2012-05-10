@@ -125,6 +125,13 @@ function diffClick() {
    delete course[this.getAttribute("attribute")];
    cleanDiff();
    showDiff();
+
+   port.postMessage({
+        note: "click",
+            semseter: this.getAttribute("semester"),
+            course: this.getAttribute("name"),
+            tab: this.getAttribute("attribute")
+            });
 }
 
 //  Clears the current page and replaces with s
