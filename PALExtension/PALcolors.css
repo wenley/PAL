@@ -130,3 +130,12 @@ a.button, a.button:hover {
 a.button:hover {
      border-color:#FFFFFF;
 }
+
+/* ********************** *
+ * DIFFERENCES            *
+ * ********************** */
+
+.diffSem, .diffCourse, .diffAttr {
+    color: black;
+    font-weight:bold;
+}

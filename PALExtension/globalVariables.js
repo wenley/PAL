@@ -12,6 +12,8 @@ var parser = new DOMParser();
 
 var Courses = null;
 
+var Diffs = new Object();
+
 // - - - - - IMAGE STATE VARIABLES - - - - -
 
 //  Current course object whose content is being displayed

@@ -25,4 +25,6 @@ function expandSemester(semesterEl) {
      ul.appendChild(li);
    }
    semesterEl.parentElement.appendChild(ul);
+
+   showDiff();
 }

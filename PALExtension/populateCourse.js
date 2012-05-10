@@ -116,10 +116,6 @@ function populateCourse(courseEl, state) {
          }
       }
    }
-
-   console.log(currentCourse.otherLinks);
-   console.log(currentCourse.removedTabs);
-   console.log(currentCourse.tabOrder);
    
    var currentTable = document.getElementById("courseTabTable");
    currentTable = currentTable.getElementsByTagName("tbody")[0];
@@ -236,6 +232,8 @@ function populateCourse(courseEl, state) {
 //   selectedCourse = currentCourse;
    setSelectedSemester(Courses[semester], semester);
    setSelectedCourse(currentCourse);
+
+   showDiff();
 }
 
 function removedPopup(semester, name) {

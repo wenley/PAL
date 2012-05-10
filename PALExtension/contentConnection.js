@@ -69,17 +69,26 @@ function handleUpdate(diffString) {
    for (var i = 0; i < semDiffs.length; i++) {
       var split1 = semDiffs[i].split("'");
       var sem = split1[0];
+      if (Diffs[sem] == undefined)
+         Diffs[sem] = new Object();
+
       var courseDiffs = split1[1].split(';');
       for (var j = 0; j < courseDiffs.length; j++) {
          var split2 = courseDiffs[j].split(':');
          var courseKey = split2[0];
+         if (Diffs[sem][courseKey] == undefined)
+            Diffs[sem][courseKey] = new Object();
+
          var attrDiffs = split2[1].split(',');
          for (var k = 0; k < attrDiffs.length; k++) {
             var attr = attrDiffs[k];
             console.log("Diff in " + sem + ": " + courseKey + ": " + attr);
+
+            Diffs[sem][courseKey][attr] = true;
          }
       }
-   }  
+   }
+   showDiff();
 }
 
 //  Stores the compiled history of courses to the background
