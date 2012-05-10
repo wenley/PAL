@@ -29,7 +29,7 @@ function diffCourse(newC, oldC) {
    var diff = new Array();
 
    for (var attr in newC) {
-      if (attr == "tabOrder" || attr == "contacts")
+      if (attr == "tabOrder" || attr == "contacts" || attr == "removedTabs")
          continue;
 
       var newAttr = newC[attr];

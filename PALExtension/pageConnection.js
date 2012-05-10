@@ -44,12 +44,12 @@ function pushSingleRequest(msg) {
 //  Updates OldCourses with NewCourses according to the contents
 //  of the msg
 function clickHandler(msg) {
-   console.log("clickHandler not implemented"); //  !!!
-   console.log("Message contents: "); //  !!!
-   for (var entry in msg) {
-      console.log(entry + ": " + msg[entry]); //  !!!
-   }
-   return null;
+   var sem = msg.semester;
+   var course = msg.course;
+   var tab = msg.tab;
+
+   OldCourses[sem][course][tab] = NewCourses[sem][course][tab];
+   saveToLocal();
 }
 
 function sendToForeground(msg) {
