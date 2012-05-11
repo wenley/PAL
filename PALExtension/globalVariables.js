@@ -5,8 +5,8 @@
 var bbDomain = "https://blackboard.princeton.edu";
 
 var MasterCourseListClass = "portletList-img courseListing coursefakeclass";
-var CoursesTabContentSrc = "/webapps/portal/execute/tabs/tabAction?tab_tab_group_id=_2_1";
-var CoursesTabLink = bbDomain + "/webapps/portal/frameset.jsp?tab_tab_group_id=_2_1";
+var CoursesTabContentSrc = "/webapps/portal/execute/tabs/tabAction?tab_tab_group_id=_121_1";
+var CoursesTabLink = bbDomain + "/webapps/portal/frameset.jsp?tab_tab_group_id=_121_1";
 
 var parser = new DOMParser();
 
