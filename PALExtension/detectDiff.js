@@ -15,12 +15,34 @@ function diffAttr(newAttr, oldAttr) {
    var oldString = JSON.stringify(oldAttr);
 
    if (newString != oldString) {
-      for (var i = 0; i < newString.length && i < oldString.length; i++) {
-         if (newString[i] != oldString[i])
-            break;
+      if (isArray(newAttr)) {
+         for (var i = 0; i < newAttr.length; i++) {
+            var newSub = JSON.stringify(newAttr[i]);
+            var oldSub = JSON.stringify(oldAttr[i]);
+
+            if (newSub != oldSub) {
+               console.log("First Difference in entry " + i);
+               console.log(newAttr[i]);
+               console.log(oldAttr[i]);
+               break;
+            }
+         }
+      }
+      else if (isObject(newAttr)) {
+         for (var entry in newAttr) {
+            var newSub = JSON.stringify(newAttr[entry]);
+            var oldSub = JSON.stringify(oldAttr[entry]);
+
+            if (newSub != oldSub) {
+               console.log("First difference in entry " + entry);
+               console.log(newAttr[entry]);
+               console.log(oldAttr[entry]);
+               break;
+            }
+         }
       }
    }
-   
+
    return newString != oldString;
 }
 
@@ -29,22 +51,72 @@ function diffCourse(newC, oldC) {
    var diff = new Array();
 
    for (var attr in newC) {
-      if (attr == "tabOrder" || attr == "contacts" || attr == "removedTabs" || attr == "otherLinks")
+      if (attr == "tabOrder" || attr == "contacts" || attr == "removedTabs")
          continue;
 
-      var newAttr = newC[attr];
-      var oldAttr = oldC[attr];
-      if (oldAttr == undefined && newAttr != null) {
-         console.log(newC.key + ": New attr: " + attr);
-         diff.push(attr);
-         continue;
+      if (attr == "otherLinks") {
+         var newOther = newC[attr];
+         var oldOther = oldC[attr];
+
+         //  Go through otherLinks
+         if (newOther == null && oldOther == null)
+            continue;
+         else if (newOther == null) {
+            console.log("new lost otherLinks...");
+            continue;
+         }
+         else if (oldOther == null) {
+            console.log(newC.key + ": New otherlinks");
+            continue;
+         }
+            
+         for (var i = 0; i < newOther.length; i++) {
+            var newAttr = newOther[i];
+            var name = newAttr.name;
+
+            //  Find corresponding otherLink in old version
+            var oldAttr = null;
+            for (var j = 0; j < oldOther.length; j++) {
+               if (name == oldOther[j].name) {
+                  oldAttr = oldOther[j];
+                  break;
+               }
+            }
+
+            //  If doesn't exist, mark as new
+            if (oldAttr == null) {
+               console.log(newC.key + ": New attr: " + name);
+               diff.push(attr);
+               continue;
+            }
+
+            //  Otherwise, note as different
+            if (diffAttr(newAttr, oldAttr)) {
+               console.log(newC.key + ": Difference found in " + name + ": [New] [Old]");
+               console.log(newAttr);
+               console.log(oldAttr);
+
+               diff.push(name);
+            }
+         }
       }
-      if (diffAttr(newAttr, oldAttr)) {
-         console.log(newC.key + ": Difference found in " + attr + ": [New] [Old]");
-         console.log(newAttr);
-         console.log(oldAttr);
 
-         diff.push(attr);
+      //  For other attributes, simply compare
+      else {
+         var newAttr = newC[attr];
+         var oldAttr = oldC[attr];
+         if (oldAttr == undefined && newAttr != null) {
+            console.log(newC.key + ": New attr: " + attr);
+            diff.push(attr);
+            continue;
+         }
+         if (diffAttr(newAttr, oldAttr)) {
+            console.log(newC.key + ": Difference found in " + attr + ": [New] [Old]");
+            console.log(newAttr);
+            console.log(oldAttr);
+
+            diff.push(attr);
+         }
       }
    }
    return diff.join(',');
@@ -95,5 +167,4 @@ function runDiff() {
 //   if (diff.length > 0)
    console.log(diff.join('/'));
    sendToForeground({note: "update", update: diff.join('/')});
-//   OldCourses = NewCourses;
 }

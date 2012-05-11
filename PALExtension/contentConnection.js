@@ -42,7 +42,7 @@ function handleMessage(msg) {
          }
          else {
             console.log(Courses);
-            var reMine = setTimeout(mineBB, 60000); //  1 minute remine
+            var reMine = setTimeout(mineBB, 60000); //  1 minute remine to refresh
 
             clearPage(msg.template);
             populate(msg.state);

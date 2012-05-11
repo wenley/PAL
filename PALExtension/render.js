@@ -110,7 +110,7 @@ function showDiff() {
 
 //  Function that gets called when tabs is clicked
 function diffClick() {
-   //  Reset class
+  //  Reset class
    var thEl = this.children[0].children[1].children[0];
    var previous = thEl.getAttribute("class");
    if (previous != null)
@@ -128,7 +128,7 @@ function diffClick() {
 
    port.postMessage({
         note: "click",
-            semseter: this.getAttribute("semester"),
+            semester: this.getAttribute("semester"),
             course: this.getAttribute("name"),
             tab: this.getAttribute("attribute")
             });

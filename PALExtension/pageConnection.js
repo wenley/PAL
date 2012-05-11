@@ -37,7 +37,7 @@ function pushSingleRequest(msg) {
        NewCourses[msg.course.semester] = {};
     NewCourses[msg.course.semester][msg.course.key] = restorePrototype(msg.course);
     var checkDiff = setTimeout(runDiff, 1000);
-//    saveToLocal();
+    saveToLocal();
     return {note: "good"};
 }
 
@@ -48,7 +48,45 @@ function clickHandler(msg) {
    var course = msg.course;
    var tab = msg.tab;
 
-   OldCourses[sem][course][tab] = NewCourses[sem][course][tab];
+   var oldC = OldCourses[sem][course];
+   var newC = NewCourses[sem][course];
+   
+   //  Not in standard keys; try otherLinks
+   if (oldC[tab] == undefined || newC[tab] == undefined) {
+      var oldOther = oldC.otherLinks;
+      var newOther = newC.otherLinks;
+
+      var newAttr = null;
+      for (var i = 0; i < newOther.length; i++) {
+         if (newOther[i].name == tab) {
+            newAttr = newOther[i];
+            break;
+         }
+      }
+      if (newAttr == null) {
+         console.log(sem + ": " + course + ": Clicked unknown tab: " + tab);
+         return;
+      }
+
+      if (oldOther == null)
+         oldOther = new Array();
+      for (var i = 0; i < oldOther.length; i++) {
+         //  Update existing array entry
+         if (oldOther[i].name == newAttr.name) {
+            oldOther[i] = newAttr;
+            oldC.otherLinks = oldOther;
+            saveToLocal();
+            console.log("Getting out of existing other link");
+            return;
+         }
+      }
+      //  If here, no existing entry; just append
+      oldOther.push(newAttr);
+      oldC.otherLinks = oldOther;
+   }
+   else
+      OldCourses[sem][course][tab] = NewCourses[sem][course][tab];
+
    saveToLocal();
 }
 
