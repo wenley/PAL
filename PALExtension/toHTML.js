@@ -73,7 +73,7 @@ function AssignmentToHTML(asgn) {
          iFileLink.setAttribute("class", "documentFileLink");
          iFileLink.setAttribute("link", asgn.contents[i].link);
 
-         iFileLink.addEventListener("click", function() { if (isPDF(this.getAttribute("link"))) {populateIframeBack(this.getAttribute("link"));} else window.open(this.getAttribute("link"));}, false);
+         iFileLink.addEventListener("click", function() { window.open(this.getAttribute("link"));}, false);
 
          iFileLink.innerText = asgn.contents[i].name;
          var br = document.createElement("br");
@@ -277,7 +277,7 @@ function MaterialToHTML(mat) {
          iFileLink.setAttribute("class", "documentLink");
          iFileLink.setAttribute("link", mat.contents[i].link);
 
-         iFileLink.addEventListener("click", function() { if (isPDF(this.getAttribute("link"))) {populateIframeBack(this.getAttribute("link"));} else window.open(this.getAttribute("link"));}, false);
+         iFileLink.addEventListener("click", function() { window.open(this.getAttribute("link"));}, false);
 
          if (mat.contents[i].name != undefined)
             iFileLink.innerText = mat.contents[i].name;
@@ -527,7 +527,7 @@ function DocumentToHTML(doc) {
       iLink.setAttribute("class", "documentLink");
       iLink.setAttribute("link", doc.link);
 
-      iLink.addEventListener("click", function() { if (isPDF(this.getAttribute("link"))) {populateIframeBack(this.getAttribute("link"));} else window.open(this.getAttribute("link"));}, false);
+      iLink.addEventListener("click", function() { window.open(this.getAttribute("link"));}, false);
 
       iLink.innerText = doc.name;
       el.appendChild(iLink);
