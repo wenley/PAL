@@ -269,7 +269,6 @@ function removedPopup(semester, name) {
          var attribute = currentCourse.removedTabs[i];
          if (attribute == null || attribute == undefined)
          {
-            console.log("boop");
             break;
          }
          var subLi = document.createElement("li");
