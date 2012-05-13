@@ -88,8 +88,9 @@ th.tabTable:hover {
     background-color:#EE8505;
 }
 
-th#xButton {
+button#xButton {
     background-color:#666666;
+    color:#ffffff;
 }
 
 /* ********************** *

@@ -5,7 +5,7 @@
 //  Performs population of the page when a tab is clicked
 
 function populateFromTab(tabLinkEl) {
-   var tabEl = tabLinkEl.parentElement.parentElement.parentElement; 
+   var tabEl = tabLinkEl;
    var semester = tabEl.getAttribute("semester");
    var courseKey = tabEl.getAttribute("name");
    var attribute = tabEl.getAttribute("attribute");
@@ -107,7 +107,7 @@ function populateBodyFromLink(url) {
 //  the folder. Updates folderTrace.
 function populateFromFolder(newFolderName) {
    var course = selectedCourse;
-   var thEl = selectedTab.parentElement.parentElement.parentElement;
+   var thEl = selectedTab;
    var attrName = thEl.getAttribute("attribute");
    var attr = course[attrName];
    var body = document.getElementById("notTabBar");

@@ -2,7 +2,7 @@
 
 //  Removes the tab that contains buttonEl
 function removeTab(buttonEl) {
-   var tabEl = buttonEl.parentElement.parentElement.parentElement; 
+   var tabEl = buttonEl.parentElement.parentElement;
    var semester = tabEl.getAttribute("semester");
    var name = tabEl.getAttribute("name");
    var attribute = tabEl.getAttribute("attribute");
