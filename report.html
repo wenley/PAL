@@ -147,8 +147,34 @@ prevented too many fingers from stirring the CSS-pot.
 </p>
 
 <h3> Open Issues </h3>
-<p>One of the issues we encountered with Blackboard was dealing with links to downloadable files. Blackboard handles files in two different ways – either opening up the file or link in a separate window in Chrome or opening up a new page which starts the download process after a few seconds. PAL currently has some difficulty handling the latter version since it wipes the original Blackboard page clean before repainting, thereby stopping the download. We would like to explore this issue to find a more efficient and consistent way of downloading files.</p>
-<p>Another issue we confronted was dealing with sensitive Blackboard information such as grades. Currently, PAL opens the original BlackBoard grades page in an iFrame in the main element. It would have been more intuitive if we could have changed the formatting of a Blackboard page as widely used as "MyGrades", but scope and permissions issues prevented us from doing so.
+
+<p>One of the issues we encountered with Blackboard was dealing with links to downloadable files.
+Blackboard handles files in two different ways – either opening up the file or link in a separate
+window in Chrome or opening up a new page which starts the download process after a few seconds.
+PAL currently has some difficulty handling the latter version since it wipes the original
+Blackboard page clean before repainting, thereby stopping the download. We would like to explore
+this issue to find a more efficient and consistent way of downloading files.
+</p>
+
+<p>Another issue we confronted was dealing with sensitive Blackboard information such as grades.
+Currently, PAL opens the original BlackBoard grades page in an iFrame in the main element. It
+would have been more intuitive if we could have changed the formatting of a Blackboard page as
+widely used as "MyGrades", but scope and permissions issues prevented us from doing so.
+</p>
+
+<p>A third issue involves Blackboard's storage of documents. It appears that Blackboard uses some
+sort of hash as part of the URL of uploaded documents. Unfortunately, this hash also appears to
+change when something in that course is updated or even for seemingly no reason at all. This
+caused our difference detection system to go haywire, but we dealt with it by not diff'ing the
+links to documents.
+</p>
+
+<p>A fourth issue, though more peripheral, involves the quota on an extension's local storage
+in Chrome. It appears that an extension has about 3, maybe 4 users' worth of information in
+capacity. If this capacity is met, PAL will go into infinite mining loop.
+We do not expect this to be a problem in practice since we expect the users of PAL to
+have one copy per person/per computer/per browser instance.
+</p>
 
 <h3> Expansion </h3>
 <p>We have several ideas for expansion, which mainly have to do with user-specific customization and personalization. We would like to make the color palette, as well as the title picture user-customizable, giving the user the option to either select a picture from a given list or upload a chosen picture. Our current CSS structure, with color separation, moreover, could allow for such a feature.</p>
