@@ -23,6 +23,7 @@ function pushRequest(req) {
 }
 
 //  Forms proper response to a pushCourse request
+//  Currently only occurs when tab preferences change
 function pushSingleRequest(msg) {
     if (msg.note == undefined || msg.note != "pushSingle") {
         console.warn("Misrouted message. pushSingle when " + msg.note);
@@ -33,10 +34,10 @@ function pushSingleRequest(msg) {
 
     if (NewCourses == null)
        NewCourses = {};
-    if (NewCourses[msg.course.semester] == undefined)
-       NewCourses[msg.course.semester] = {};
-    NewCourses[msg.course.semester][msg.course.key] = restorePrototype(msg.course);
-    var checkDiff = setTimeout(runDiff, 1000);
+    if (NewCourses[msg.semester] == undefined)
+       NewCourses[msg.semester] = {};
+    NewCourses[msg.semester][msg.course.key] = restorePrototype(msg.course);
+    OldCourses[msg.semester][msg.course.key] = NewCourses[msg.semester][msg.course.key];
     saveToLocal();
     return {note: "good"};
 }

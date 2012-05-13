@@ -110,6 +110,20 @@ function populateFromFolder(newFolderName) {
    var thEl = selectedTab;
    var attrName = thEl.getAttribute("attribute");
    var attr = course[attrName];
+
+   //  Search through otherLinks
+   if (attr == undefined) {
+      var others = course.otherLinks;
+      for (var i = 0; i < others.length; i++) {
+         if (others[i].name == attrName) {
+            attr = others[i];
+            break;
+         }
+      }
+   }
+   if (attr == undefined)
+      console.warn(course.key + ": " + attrName + " not found");
+
    var body = document.getElementById("notTabBar");
 
    //  Find past object
@@ -123,6 +137,11 @@ function populateFromFolder(newFolderName) {
       pastFolder = { name: attrName };
       docs = attr;
    }
+   console.log(thEl);
+   console.log(attrName);
+   console.log(attr);
+   console.log(pastFolder);
+   console.log(docs);
 
    //  Find newFolder's object
    var newFolder = null;

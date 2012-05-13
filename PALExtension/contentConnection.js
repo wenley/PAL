@@ -102,8 +102,11 @@ function pushCourses(NewCourses) {
 }
 
 //  Updates a single course in background
-function pushCourse(c) {
-   port.postMessage({note: "pushSingle", course: c});
+//  Only occurs when a course's tabs get changed
+function pushCourse(s, c) {
+   port.postMessage({note: "pushSingle", 
+            semester: s,
+            course: c});
 }
 
 //  Starts a completely new mining sequence
