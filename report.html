@@ -106,11 +106,18 @@ Unfortunately, we could not simply ignore this problem since
 <h3> Strategies and Decisions </h3>
 
 <h3> Open Issues </h3>
+<p>One of the issues we encountered with Blackboard was dealing with links to downloadable files. Blackboard handles files in two different ways – either opening up the file or link in a separate window in Chrome or opening up a new page which starts the download process after a few seconds. PAL currently has some difficulty handling the latter version since it wipes the original Blackboard page clean before repainting, thereby stopping the download. We would like to explore this issue to find a more efficient and consistent way of downloading files.</p>
+<p>Another issue we confronted was dealing with sensitive Blackboard information such as grades. Currently, PAL opens the original BlackBoard grades page in an iFrame in the main element. It would have been more intuitive if we could have changed the formatting of a Blackboard page as widely used as "MyGrades", but scope and permissions issues prevented us from doing so.
 
 <h3> Expansion </h3>
+<p>We have several ideas for expansion, which mainly have to do with user-specific customization and personalization. We would like to make the color palette, as well as the title picture user-customizable, giving the user the option to either select a picture from a given list or upload a chosen picture. Our current CSS structure, with color separation, moreover, could allow for such a feature.</p>
+<p>We would also like better integration of ICE and Piazza, especially ICE since it uses CAS login. We would like PAL to automatically login to ICE rather than the user having to go through the CAS login process again, which seems to be happening due to ICE attempting to store cookies locally and not getting them when we open it up inside of PAL. Currently, we have not found a way around this issue.</p>
+<p>We would also like to continue improving the interface through user feedback, thereby assuring that we achieve our original motive of creating a highly intuitive and user-friendly interface for Blackboard.</p>
 
 <h3> Concluding Thoughts and Remarks </h3>
+<p>On the whole, we are quite happy with the way our project shaped up. We feel PAL accomplishes its intended purpose, making Blackboard navigation easier for student, quite well. Though there are features which were ultimately not accommodated either due to time or security issues, we feel our interface is much more intuitive than the version Blackboard currently presents to student. However, there are several issues thatthat we feel we could have handled better, such as speaking with OIT before Spring Break to fully understand the complications associated with our project, as well as spending a little more time on the UI.</p>
 
+<p>In terms of overall planning, we were pleased with our organization and meeting times, as well the work structure. Working on the back end first and then moving to the front-end and UI allowed and continues to allow us to change and customize the UI as necessary, with the back-end, the base of our project, firmly in place. Moreover, this timeline allowed us to ensure full intial functionality. While slightly better initial planning could have helped us avoid the steep learning curve at the beginning of the project, consistently meeting our deadlines throughout the rest of development helped assure everything worked out well in the end.</p>
 </body>
 
 </html>
