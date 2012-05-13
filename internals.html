@@ -32,6 +32,11 @@ couple of times when a group member accidentally ran <tt>rm *</tt> when trying t
 
 <h2> Backend </h2>
 
+<h4> Separation of Background Page from Content Page </h4>
+<p>Chrome extensions have the option of having a "background page" (Google's term) which is a virtual
+web page that exists from when Chrome opens to when Chrome is terminated.
+</p>
+
 <h4> Data Storage </h4>
 
 <p>Chrome Extensions have permission to store string in Chrome's local storage. Since javascript
@@ -123,7 +128,20 @@ the frame (these accept a link as an argument) and populate the frame with the c
 
 <h4> Use of Event Listeners</h4>
 
-<p>WENLEY DIS PARAGRF IZ 4 U!</p>
+<p>We use Event Listeners in order to modify the page as the user interacts with it. This decision was forced from our
+choice of implementation in another area, namely the choice of having our extension be a collection of "content scripts"
+(as Google chooses to call them). Content scripts of Chrome Extensions run in a different scope from a page's
+scripts; this helps with security and to prevent unanticipated interactions between web pages and extensions. However,
+this also means that scripts we inject into the page no longer have access to the information stored in our trees
+and in the background page.
+</p>
+
+<p>We needed a way for the script called upon a click event to have access to the necessary information. The only way
+for this to happen without excessive duplication of information
+and given our other choices was to attach Event Listeners to elements of the page as we built it.
+Content scripts can attach their own Listeners to elements on the DOM and those Listeners will run in the content
+scripts' context, solving our issues of scope.
+</p>
 
 
 </body>
