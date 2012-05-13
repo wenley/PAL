@@ -10,39 +10,22 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    mainEl.setAttribute("semester", semester);
    mainEl.setAttribute("attribute", attribute);
 
+   mainEl.addEventListener("click", function() { console.log("MAIN ELEMENT CLICK"); populateFromTab(this); }, false);
 
-   // Set the link
-   var mainLinkTable = document.createElement("table");
-   var mainLinkTop = document.createElement("tr");
-   var mainLinkBottom = document.createElement("tr");
-   mainLinkTop.setAttribute("id", "mainLinkTop");
-   mainLinkBottom.setAttribute("id", "mainLinkBottom");
-
-   // Create the remove button
-
-   var notButton = document.createElement("th");
-   notButton.setAttribute("id", "notButton");
-   notButton.addEventListener("click", function() { populateFromTab(this); }, false);
-   var buttonDiv = document.createElement("th");
+   var buttonHouse = document.createElement("div");
+   buttonHouse.setAttribute("id", "buttonHouse");
+   var buttonDiv = document.createElement("button");
    buttonDiv.setAttribute("id", "xButton");
    buttonDiv.innerText = "X";
-   buttonDiv.addEventListener("click", function() { removeTab(this); }, false);
-   mainLinkTop.appendChild(notButton);
-   mainLinkTop.appendChild(buttonDiv);
+   buttonDiv.addEventListener("click", function() { console.log("BUTTON CLICK!"); removeTab(this); }, false);
 
-   var mainLinkBottomDiv = document.createElement("th");
-   mainLinkBottomDiv.setAttribute("id", "mainLinkBottomDiv");
-   //var mainLink = document.createElement("a");
-   //mainLink.setAttribute("id", "mainLink");
-   mainLinkBottomDiv.innerText = tagText;
-   //mainLinkBottomDiv.appendChild(mainLink);
-   mainLinkBottomDiv.addEventListener("click", function() { populateFromTab(this); }, false);
-   mainLinkBottom.appendChild(mainLinkBottomDiv);
+   var notButtonHouse = document.createElement("div");
+   notButtonHouse.setAttribute("id", "notButtonHouse");
 
-   mainLinkTable.appendChild(mainLinkTop);
-   mainLinkTable.appendChild(mainLinkBottom);
-
-   mainEl.appendChild(mainLinkTable);
+   notButtonHouse.innerText = tagText;
+   buttonHouse.appendChild(buttonDiv);
+   mainEl.appendChild(buttonHouse);
+   mainEl.appendChild(notButtonHouse);
 
    currentTable.appendChild(mainEl);
 }
@@ -111,7 +94,7 @@ function populateCourse(courseEl, state) {
          }
       }
    }
-   
+
    var currentTable = document.getElementById("courseTabTable");
    currentTable = currentTable.getElementsByTagName("tbody")[0];
    currentTable = currentTable.getElementsByTagName("tr")[0];
@@ -210,12 +193,12 @@ function populateCourse(courseEl, state) {
    }
 
    if (state == undefined || state.tab == undefined)
-      populateFromTab(currentTable.children[0].children[0].children[0].children[0]);
+      populateFromTab(currentTable.children[0]);
    else {
       for (var i = 0; i < currentTable.children.length; i++) {
          var thTab = currentTable.children[i];
          if (thTab.getAttribute("attribute") == state.tab) {
-            populateFromTab(thTab.children[0].children[0].children[0]);
+            populateFromTab(thTab);
             break;
          }
       }

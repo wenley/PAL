@@ -118,6 +118,7 @@ table.tabTable {
 
 th.tabTable {
     top:30px;
+    width:50px;
     height:20px;
     border-width:2px;
     border-style:solid;
@@ -129,36 +130,27 @@ th.tabTable {
     border-radius: 10px 10px;
 }
 
-table#mainLinkTable {
-    position:relative;
-    height:100%;
+div#buttonHouse {
+    top:0px;
+    height:20%;
     width:100%;
 }
 
-tr#mainLinkTop {
-    height:10%;
-}
-
-tr#mainLinkBottom {
-    height:90%;
-}
-
-th#notButton {
-  width:90%;
-    height:100%;
-}
-
-th#xButton {
+button#xButton {
+    border:none;
+    align:right;
     top:0px;
     right:0px;
-    width:100%;
-    height:100%;
-    border-radius:25% 50%;
+    width:10px;
+    height:16px;
+    margin:0px;
+    padding:0px;
+    border-radius:25% 50% 25% 50%;
 }
 
-th#mainLinkBottomDiv {
+div#notButtonHouse {
+    height:80%;
     width:100%;
-    height:100%;
 }
 
 th#removeTabTable {
@@ -170,7 +162,7 @@ th#removeTabTable {
     width:20px;
     font-size:10px;
     padding:0px;
-    border-radius:8.5px 8.5px;
+ border-radius:8.5px 8.5px;
 }
     
 div#menuDiv {
@@ -227,7 +219,7 @@ div#menuDiv {
     margin-bottom:0px;
     margin-right:0px;
     margin-left:0px;
-    border-radius: 10px;
+border-radius: 10px;
 }
 
 #removeMenu ul li a {

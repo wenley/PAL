@@ -121,7 +121,7 @@ function saveState() {
         state: {
            semester: selectedSemName,
            course: selectedCourse.key,
-           tab: selectedTab.parentElement.parentElement.parentElement.getAttribute("attribute")
+           tab: selectedTab.getAttribute("attribute")
         }
    });
    }

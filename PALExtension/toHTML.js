@@ -313,8 +313,8 @@ function ToolToHTML(tool) {
    var el = document.createElement("div");
    el.setAttribute("class", "documentDiv");
 
-   var semester = selectedTab.parentElement.parentElement.parentElement.getAttribute("semester");
-   var name = selectedTab.parentElement.parentElement.parentElement.getAttribute("name");
+   var semester = selectedTab.getAttribute("semester");
+   var name = selectedTab.getAttribute("name");
 
    if (Courses[semester] == null || Courses[semester] == undefined)
       throw "Improper usage: invalid semester name";
@@ -343,7 +343,7 @@ function ToolToHTML(tool) {
    if (selectedSemName != null && selectedCourse != null && selectedTab != null)
    {
       var state = {semester: selectedSemName, course: selectedCourse.key,
-                   tab: selectedTab.parentElement.parentElement.parentElement.getAttribute("attribute")};
+                   tab: selectedTab.getAttribute("attribute")};
    }
 
    iToolTabButton.setAttribute("class", "toolTabButton");
