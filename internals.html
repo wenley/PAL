@@ -5,10 +5,72 @@
 </head>
 
 <body>
-<h3> Backend </h3>
 
+<h2> General Setup and Environment </h2>
 
-<h3> Frontend </h3>
+<p>The only real tools we used to develop PAL were emacs, Chrome itself, and git.
+No additional frameworks or development environments were necessary for the development of PAL. Chrome Extensions
+are entirely written in Javascript so we just used emacs to write our code. We originally tried to use
+a Javascript version of Eclipse, but Eclipse didn't play well with git so abandoned it.</p>
+
+<p>Chrome provides the following set of Developer Tools which proved to be immensely helpful:
+<ul>
+<li> <b>Elements</b>. This particular tool allowed us to inspect all the HTML elements in the visible
+page which allowed us to accurately tune our code in both the mining and rendering processes. In mining,
+knowledge of Blackboard's internal formatting was essential to our success. In rendering, verifying that
+our Javascript was correctly forming the page was very helpful for debugging.
+</li>
+<li> <b>Console</b>. The console provided by Chrome allowed us to interact with existing pages and
+try out snippets of Javascript code without needing to load a full extension first. This was essential
+during our initial steps in order to become familiar with Javascript and its built-in features.
+</li>
+</ul>
+
+<p>We used GitHub to organize, share, back-up, and separate our code. It was immensely helpful as there were a
+couple of times when a group member accidentally ran <tt>rm *</tt> when trying to <tt>rm *~</tt>.
+</p>
+
+<h2> Backend </h2>
+
+<h4> Data Storage </h4>
+
+<p>Chrome Extensions have permission to store string in Chrome's local storage. Since javascript
+has JSON translation built-in, we decided to take advantage of it to store our custom objects
+in the browser. Unfortunately, JSON storage and parsing does not preserve prototypes of non-standard
+objects so a separate function was needed to truly reverse the process of storing information in
+the browser.</p>
+
+<p>Since it was conceivable that multiple users would use the same instance of Chrome to access
+Blackboard, we stored a user's set of course information under their name (retrievable from the
+original Blackboard page that gets wiped clean) in local storage so that different user's won't see
+each other's courses.</p>
+
+<h4> Data Organization </h4>
+
+<p>Even though we collected a fair amount of information, there was no simple way of using an
+existing database system inside of an extension so we opted to not formally use any database. However, we did take advantage
+of Javascript's flexibility in accessing information within Objects to store a user's course
+information in a tree. Our Courses object first divided courses by their semester and then by their
+actual name in order to match our final representation to the user in PAL.
+</p>
+
+<p>Each Course object contains a set of pre-defined entries for attributes used in all courses (e.g. Tools)
+and those used most often by courses (e.g. Course Materials, Assignments, Announcements, Syllabus). There is
+also an entry (otherLinks) for storing information from either professor-made custom pages (courses with
+large lab components will often have a Lab page). Most of the time, these custom pages had the same formatting
+as another standard page and thus we were able to use the same mining and rendering proceses to collect and
+show the information in customized pages.
+</p>
+
+<h4> Mining </h4>
+
+<p>We started the mining process from the Courses tab of Blackboard in order to get URLs to every course
+of the current user. Once we had the URLs, the page is wiped to inform the user that PAL is active and in the
+process of mining. From there, each course used a series of XMLHttpRequests to get the content-containing
+pages (e.g. the Course Materials page, the Announcements page) and scrape the information from them. 
+</p>
+
+<h2> Frontend </h2>
 
 </body>
 
