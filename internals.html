@@ -76,27 +76,55 @@ fortunate in not needing to write a customized miner for each page a professor d
 <h2> Frontend </h2>
 
 <h4> CSS and HTML </h4>
-<p>populate using Javascript </p>
+<p>Because many of the PAL HTML elements feature similar HTML properties, we chose to use CSS and a minimal HTML template 
+(dividing the page into a side bar, tab bar with a tab table, and main element) which is then populated with 
+Javascript scripts. The CSS, moreover, is divided into a CSS color file and a general CSS file in order to make 
+changing colors easier (thus allowing for easier color customizability, should PAL evolve to include such a feature). </p>
 
-<h4> Adding and Removing Tabs </h4>
-<p></p>
+<h4> Tabs, Adding and Removing Tabs </h4>
+<p>PAL allows the user to add and remove tabs, which, upon intial mining, consist of all of the tabs present in
+Blackboard for a given course. Each tab element in the tab bar features an event listener (applied to the whole
+tab), which populates the main element with the appropriate content when clicked. Popular tabs, including 
+"Course Materials", "Assignments", "Contacts", "Syllabus", "Tools", and "Announcements" have their own specified
+populate functions, while course-specific tabs, such as "Cool Stuff" for ENG385, use an iFrame
+to include the actual Blackboard page. </p>
+<p>Each tab includes an "X" button with its own event listener, which, when clicked, first disables the event listener
+which would otherwise populate the main window, and then removes the tab. Each Course object contains an array of 
+removed tabs and an array of currently displayed tabs, and the element is then moved from the current tab array
+into the removed tab array. The PAL code, moreover, includes functions for checking whether a tab is removed. The
+removed tabs, then appear in a list under the "+" element, and can be added back in (thus moved to the current tab list)
+through a click event. Currently, the tab is added to the end of the displayed tabs, as it is popped onto the array</p>
 
 <h4> Adding and Removing Tools </h4>
-<p></p>
+<p>Adding and removing tools is slightly different than adding and removing tabs because tabs built from tools under
+"Tools" should be allowed to be permanently deleted. Thus, the "Tools" tab populates the main element with a list of
+tools, featuring up and down arrows which indicate whether the tool is currently in the tab bar (up) or not (down). When an
+up arrow is clicked, the tool is added to the list of current tabs, and the tab bar is repopulated to include this 
+new tab (like with the other tabs the "X" allows this tab to be added to the list of removed tabs). The up arrow is then
+rendered as a down arrow. On the other hand, when a down arrow is clicked, the tool is searched for in both the current
+tab list and the removed tab list, is removed, and the tab bar is repopulated so that it does not include this tool.</p>
 
 <h4> Populating Frames </h4>
-<p>Currently, PAL offers direct access to ICE, Piazza, Score. This is made possible throught the use of iFrames. When a
-function is called through an Event Listener, the  </p>
-
+<p>Currently, PAL offers direct access to ICE, Piazza, Score. This is made possible through the use of iFrames. When a
+function is called through an event listener, the main window (the area which is not the sidebar, the tab bar, or the
+title bar) is cleared of inner HTML and is populated with an iFrame which displays the webpages specified by the urls.
+For Score, we chose to populate the iFrame with the actual Score login page, rather than the registrar page with a link
+to the Score login in order to make one step of the Score process easier for users. </p>
+<p>The Course Description link, likewise, populates the main window with an iFrame containing the webpage from the 
+Registrar with the course description. The Syllabus tab, similarly, when clicked, calls a function which checks if
+the Syllabus is a PDF document, and, if so, populates the window with the PDF (if not, either a link to the syllabus is 
+provided or a download of the syllabus begins). Checking if documents are PDFs, however, is an expensive call since it
+requires a synchronous XMLHTTPRequest, and thus we only check using event listeners when demand for a course element is 
+present. </p>
+<p>While a similar mechanism may be set up for opening course materials and assignments that are PDFs, we chose not to 
+do this so that the user can open multiple PDFs at a time without running PAL or Blackboard in each open file. However, 
+should the need for such population arise in the future, the PAL Javascript code includes generic functions to populate
+the frame (these accept a link as an argument) and populate the frame with the currently selected tab as a backlink. </p> 
 
 <h4> Use of Event Listeners</h4>
 
-<p></p>
+<p>WENLEY DIS PARAGRF IZ 4 U!</p>
 
-
-- wipe page
-- event listeners instead of links
-- 
 
 </body>
 
