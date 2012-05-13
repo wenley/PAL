@@ -26,11 +26,11 @@ function createTab(semester, name, currentTable, attribute, tagText) {
 
    var notButtonHouse = document.createElement("div");
    notButtonHouse.setAttribute("id", "notButtonHouse");
-
-   notButtonHouse.innerText = tagText;
+ notButtonHouse.innerText = tagText;  
+  
    buttonHouse.appendChild(buttonDiv);
    mainEl.appendChild(buttonHouse);
-   mainEl.appendChild(notButtonHouse);
+ mainEl.appendChild(notButtonHouse);
 
    currentTable.appendChild(mainEl);
 }

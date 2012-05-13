@@ -118,7 +118,7 @@ table.tabTable {
 
 th.tabTable {
     top:30px;
-    width:50px;
+
     height:20px;
     border-width:2px;
     border-style:solid;
@@ -132,15 +132,15 @@ th.tabTable {
 
 div#buttonHouse {
     top:0px;
-    height:20%;
+    height:50%;
     width:100%;
 }
 
 button#xButton {
+    position:relative;
     border:none;
-    align:right;
+    float:right;
     top:0px;
-    right:0px;
     width:10px;
     height:16px;
     margin:0px;
@@ -149,7 +149,7 @@ button#xButton {
 }
 
 div#notButtonHouse {
-    height:80%;
+    height:50%;
     width:100%;
 }
 
