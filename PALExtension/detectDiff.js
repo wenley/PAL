@@ -10,6 +10,8 @@ var OldCourses = null;
 var NewCourses = null;
 
 function deleteLinks(obj) {
+   if (obj == null)
+      return obj;
    if (isArray(obj)) {
       for (var i = 0; i < obj.length; i++) {
          obj[i] = deleteLinks(obj[i]);
