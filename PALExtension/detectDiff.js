@@ -166,5 +166,5 @@ function runDiff() {
    }
 //   if (diff.length > 0)
    console.log(diff.join('`'));
-   sendToForeground({note: "update", update: diff.join('/')});
+   sendToForeground({note: "update", update: diff.join('`')});
 }
