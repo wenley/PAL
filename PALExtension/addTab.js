@@ -1,6 +1,7 @@
 // Author: Masha Okounkova
 // To add tabs back in 
 
+// Adds a tab back into the tab bar from the "+"
 function addTab(linkEl) {
 
    // need to get to the th tag

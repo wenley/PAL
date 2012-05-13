@@ -1,5 +1,6 @@
 // Author: Masha Okounkova
 
+// Formats the name for a course
 function formatName(name) {
    var a = name.substring(0,3);
    var b = name.substring(3,7);
@@ -7,6 +8,7 @@ function formatName(name) {
    return c;
 }
 
+// Formats the semester for a course
 function formatSemester(semester) {
    var season = semester.substring(0, 1);
    var seasonx = "";
@@ -19,6 +21,7 @@ function formatSemester(semester) {
    return c;
 }
 
+// Populates the title bar for a course
 function populateTitle(semester, name) {
 
    if (Courses[semester] == null || Courses[semester] == undefined)
@@ -75,6 +78,7 @@ function populateTitle(semester, name) {
    tabBar.appendChild(titleElem);
 }
 
+// Populates the iFrame with the link, includes a backlink to the selected tab
 function populateIframeBack(link) {
    
    var spaceToPopulate = document.getElementById("notTabBar");
@@ -89,6 +93,7 @@ function populateIframeBack(link) {
    spaceToPopulate.appendChild(f1);
 }  
 
+// Includes a backlink to the selected tab
 function addBackLink() { 
 
    var spaceToPopulate = document.getElementById("notTabBar");
@@ -102,6 +107,7 @@ function addBackLink() {
    spaceToPopulate.appendChild(backElem);   
 }                            
 
+// Populates the iFrame with the link
 function populateIframe(link) {
 
    var spaceToPopulate = document.getElementById("notTabBar");

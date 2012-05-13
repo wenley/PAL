@@ -2,10 +2,12 @@
 // Written 23 April 2012
 // populateCourse.js
 
+// Wrapper function 
 function populateFromTabWrapper() {
    populateFromTab(this);
 }
 
+// Creates a tab and adds it to the table
 function createTab(semester, name, currentTable, attribute, tagText) {
    // Create the main element
    var mainEl = document.createElement("th");
@@ -218,6 +220,7 @@ function populateCourse(courseEl, state) {
    showDiff();
 }
 
+// Populates the "+" with the removed tabs
 function removedPopup(semester, name) {
 
    if (Courses[semester] == null || Courses[semester] == undefined)
