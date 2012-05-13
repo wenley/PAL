@@ -1,3 +1,116 @@
 <html>
 
+<head>
+<title> PAL: Final Report </title>
+</head>
+
+<body>
+
+<h1>COS333: Final Project Report</h1>
+<h2>Group: PAL (Princeton Academic Link)</h2>
+<h2>Group Members: Masha Okounkova, Wenley Tong (Project Manager), Prerna Ramachandra</h2>
+
+<h3>Planning Overview</h3>
+<p>When constructing our initial ideal timeline for this project, planning was one
+of the biggest areas of focus. As will be discussed below, we had to make a major
+implementation switch part-way through the project from a website to a Chrome Extension,
+which set us back a couple of weeks in terms of progress. At the time of the switch, we
+set deadlines for finishing particular elements of our architecture and for the most part,
+were able to meet those deadlines on time.
+</p>
+
+<p>Though our group was small, each of us had very different schedules, making
+meeting on a frequent basis difficult. As a result, it was important to establish fixed
+meeting times when we could re-group, discuss our progress, and set targets to meet
+before the next meeting. We agreed to meet every Monday evening and Friday afternoon.
+Even though Friday was the only day schedules aligned enough to meet with Yida, our
+TA for the project, it ended up working out well because we would already be together
+and could wrap up particular goals and think about future ones before going into the
+meeting.
+</p>
+
+<p>As stated before, we each set ourselves specific parts of code to work on during
+the week between meetings. When major milestones were reached, emails notified other
+members to pull the changes off of GitHub so everyone could have the most recent
+stable versions of the code. When faced with a seemingly-unsolvable bug, emails and
+in-person meetings with other group members often provided the answer.
+</p>
+
+<p>One problem we encounctered was not correctly estimating how long a particular piece
+of code would take to write and debug. Most of the time it wasn't a problem, but there
+were a few times when it was getting too big and/or complicated for one person to handle.
+At those points, we divided the work among multiple people and it ended up working out 
+in time. If we hadn't set initial deadlines for all of our pieces of code, it would have
+been less clear when a part was taking "too long" and needed additional resources to
+get us to finsh on time.
+</p>
+
+<p>That all said, at the times of alpha and beta testing, we had met almost every milestone
+and deadline we had set for ourselves. There were some element that lagged behind others
+in progress, but overall, we were very happy with the pace at which we moved. The initial
+planning and establishing an ideal timeline along with good communication allowed us to
+do this.
+</p>
+
+<h3>Change of Project Implementation and Major Milestones</h3>
+
+<p>On the whole, we were able to meet all of our milestones in a timely manner. One major
+issue encountered soon after Spring Break
+was a change in the implementation of PAL from a website independent of
+Blackboard to a Chrome Extension. This change was necessary because a separate website would
+not have had the correct permissions to mine the information on Blackboard and would have
+introduced potential security issues with copy-righted materials and confidential information
+such as student grades. A Chrome Extension, on the other hand, could piggy-back the browser's
+authentication and could keep all its information local, solving both of these problems.
+Just as an additional security measure, to avoid keeping a copy of confidential information,
+ we didn't mine any potentially confidential information
+such as E-Reserves, instead electing to present Blackboard's version of the page to the user
+when asked. Upon this switch, we had to re-work our ideal timeline to deal with the fact that
+two weeks' worth of effort went in a now-useless direction. Fortunately, we were able to
+compensate for the loss in time by first establishing a solid backend mining process.
+</p>
+
+<p>One thing we did not anticipate was that the true testing of the mining process only
+happened once we had a rough UI in place and could see the results of our mining in a
+readable manner. Previously, we attempted to verify mining by looking through Javascript
+objects in the console or by doing a raw text dump to the webpage. Neither was actually
+useful in verifying content, though they did verify that some mining took place and thus
+the concept and architecture was correct. Once we found these bugs, we dealt with them
+while we continued to develop the UI and other core features so that we wouldn't fall
+behind in our schedule.
+<p>
+
+<h3> The Learning Curve </h3>
+
+<p>The learning curve was quite steep for us in this project mainy due to the fact that
+the change in implementation meant having to learn a whole other set of tools (i.e.
+Javascript and Chrome's developer tools) on top of starting from scratch. We had spent
+a fair amount of time over Spring Break learning to use Django and more Python, but when
+we switched to making a Chrome Extension, all we ended up using was Javascript and CSS. As
+mentioned above, the Console Developer Tool provided by Chrome was an immense help in the
+early stages of the project when we were just fiddling around with Javascript to become
+familiar with it. The project has been a huge learning experience for all of us since
+none of us had ever worked extensively with Javascript before and it certainly isn't
+the cleanest or nicest language to work with.
+</p>
+
+<o>Another extremely important experience was working with Blackboard. Our idea behind
+this project was to make Blackboard more user-friendly, but while working on this, we
+realized that Blackboard's HTML is incredibly difficult to work with from an outsider's
+perspective. While Chrome and other browsers are forgiving of ill-formed HTML, the parsers
+available to us did not have similar flexibility, which gave rise to some issues.
+Unfortunately, we could not simply ignore this problem since 
+
+<h3> Important Resources </h3>
+
+<h3> Strategies and Decisions </h3>
+
+<h3> Open Issues </h3>
+
+<h3> Expansion </h3>
+
+<h3> Concluding Thoughts and Remarks </h3>
+
+</body>
+
 </html>
