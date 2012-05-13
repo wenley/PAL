@@ -45,7 +45,7 @@ function removeTab(buttonEl) {
 
    removedPopup(semester, name);
 
-   pushCourse(currentCourse);
+   pushCourse(semester, currentCourse);
 }
 
 //  Is the tab with semester, name, and attribute 'tab' removed?
