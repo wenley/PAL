@@ -2,6 +2,11 @@
 // Written 23 April 2012
 // populateCourse.js
 
+function populateFromTabWrapper() {
+   console.log(this);
+   populateFromTab(this);
+}
+
 function createTab(semester, name, currentTable, attribute, tagText) {
    // Create the main element
    var mainEl = document.createElement("th");
@@ -10,14 +15,14 @@ function createTab(semester, name, currentTable, attribute, tagText) {
    mainEl.setAttribute("semester", semester);
    mainEl.setAttribute("attribute", attribute);
 
-   mainEl.addEventListener("click", function() { console.log("MAIN ELEMENT CLICK"); populateFromTab(this); }, false);
+   mainEl.addEventListener("click", populateFromTabWrapper, false);
 
    var buttonHouse = document.createElement("div");
    buttonHouse.setAttribute("id", "buttonHouse");
    var buttonDiv = document.createElement("button");
    buttonDiv.setAttribute("id", "xButton");
    buttonDiv.innerText = "X";
-   buttonDiv.addEventListener("click", function() { console.log("BUTTON CLICK!"); removeTab(this); }, false);
+   buttonDiv.addEventListener("click", function() { removeTab(this); }, false);
 
    var notButtonHouse = document.createElement("div");
    notButtonHouse.setAttribute("id", "notButtonHouse");
