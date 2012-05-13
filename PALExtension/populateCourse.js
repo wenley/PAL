@@ -3,7 +3,6 @@
 // populateCourse.js
 
 function populateFromTabWrapper() {
-   console.log(this);
    populateFromTab(this);
 }
 
