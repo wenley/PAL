@@ -9,10 +9,34 @@
 var OldCourses = null;
 var NewCourses = null;
 
+function deleteLinks(obj) {
+   if (isArray(obj)) {
+      for (var i = 0; i < obj.length; i++) {
+         obj[i] = deleteLinks(obj[i]);
+      }
+   }
+   else if (isObject(obj)) {
+      for (var entry in obj)
+         obj[entry] = deleteLinks(obj[entry]);
+   }
+   if (obj.link != undefined)
+      delete obj.link;
+   return obj;
+}
+
 //  Checks for differences between two fields of a course
 function diffAttr(newAttr, oldAttr) {
-   var newString = JSON.stringify(newAttr);
-   var oldString = JSON.stringify(oldAttr);
+   //  Make copies
+   var newCopy = restorePrototype(JSON.parse(JSON.stringify(newAttr)));
+   var oldCopy = restorePrototype(JSON.parse(JSON.stringify(oldAttr)));
+
+   //  Get rid of all links
+   var newClean = deleteLinks(newCopy);
+   var oldClean = deleteLinks(oldCopy);
+
+   //  Convert to strings
+   var newString = JSON.stringify(newClean);
+   var oldString = JSON.stringify(oldClean);
 
    if (newString != oldString) {
       if (isArray(newAttr)) {
