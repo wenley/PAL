@@ -12,7 +12,9 @@ port.onMessage.addListener(function(msg) {
          port.postMessage(response);
    });
 port.onDisconnect.addListener(function() {
-      port.postMessage = function() { console.warn("Dead port. Reload to try again."); };
+      port.postMessage = function() { 
+         console.warn("Dead port. Reload to try again.");
+      };
    });
 
 
@@ -65,7 +67,7 @@ function handleMessage(msg) {
 function handleUpdate(diffString) {
    if (diffString.length == 0)
       return;
-   var semDiffs = diffString.split('/');
+   var semDiffs = diffString.split('`');
    for (var i = 0; i < semDiffs.length; i++) {
       var split1 = semDiffs[i].split("'");
       var sem = split1[0];

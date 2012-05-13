@@ -26,7 +26,7 @@ during our initial steps in order to become familiar with Javascript and its bui
 </li>
 </ul>
 
-<p>We used GitHub to organize, share, back-up, and separate our code. It was immensely helpful as there were a
+<p>We used git and GitHub to organize, share, back-up, and separate our code. It was immensely helpful as there were a
 couple of times when a group member accidentally ran <tt>rm *</tt> when trying to <tt>rm *~</tt>.
 </p>
 
@@ -67,7 +67,10 @@ show the information in customized pages.
 <p>We started the mining process from the Courses tab of Blackboard in order to get URLs to every course
 of the current user. Once we had the URLs, the page is wiped to inform the user that PAL is active and in the
 process of mining. From there, each course used a series of XMLHttpRequests to get the content-containing
-pages (e.g. the Course Materials page, the Announcements page) and scrape the information from them. 
+pages (e.g. the Course Materials page, the Announcements page) and scrape the information from them. The collected
+information is packaged into Objects we defined (in structures.js) and stored in the appropriate Course object.
+We found that customized pages often shared the same formatting as other "standard" pages and thus we were
+fortunate in not needing to write a customized miner for each page a professor decided to create.
 </p>
 
 <h2> Frontend </h2>
