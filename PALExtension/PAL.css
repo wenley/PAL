@@ -58,7 +58,8 @@ div#mainTitle {
     text-align:center;
     height:85px;
     width:100%;
-    background-image:url('http://image.51diy.org/UniPicture/US/Universities/Princeton%20University/princeton%20halls.jpg');
+    color:white;
+    background-image:url('http://www.cs.princeton.edu:/~wenleyt/Patton.jpeg');
     background-position:center;
     font-family:monospace;
     text-transform:uppercase;
