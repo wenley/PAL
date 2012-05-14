@@ -3,9 +3,6 @@
     "version": "1.0",
     "manifest_version": 2,
     "description": "Princeton Academic Linker",
-    "icons": { "16": "PAL16.png",
-           "48": "PAL48.png",
-          "128": "PAL128.png" },
     "background": {
         "page": "template.html"
     },
