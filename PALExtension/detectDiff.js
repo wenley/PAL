@@ -28,6 +28,11 @@ function deleteLinks(obj) {
 
 //  Checks for differences between two fields of a course
 function diffAttr(newAttr, oldAttr) {
+   if (newAttr == null && oldAttr != null) {
+      incomplete = true;
+      return "";
+   }
+   
    //  Make copies
    var newCopy = restorePrototype(JSON.parse(JSON.stringify(newAttr)));
    var oldCopy = restorePrototype(JSON.parse(JSON.stringify(oldAttr)));
@@ -77,6 +82,9 @@ function diffCourse(newC, oldC) {
    var diff = new Array();
 
    for (var attr in newC) {
+      if (incomplete)
+         return "";
+
       if (attr == "tabOrder" || attr == "contacts" || attr == "removedTabs")
          continue;
 
@@ -97,6 +105,9 @@ function diffCourse(newC, oldC) {
          }
             
          for (var i = 0; i < newOther.length; i++) {
+            if (incomplete)
+               return "";
+
             var newAttr = newOther[i];
             var name = newAttr.name;
 
@@ -153,21 +164,34 @@ function diffSem(newS, oldS) {
    var diff = new Array();
 
    for (var courseKey in newS) {
+      if (incomplete)
+         break;
+
       var newC = newS[courseKey];
       var oldC = oldS[courseKey];
       if (oldC == undefined) {
          console.log("New Course: " + courseKey);
          continue;
       }
+      if (newC == null && oldC != null)
+         incomplete = true;
+         
       var diffC = diffCourse(newC, oldC);
+      if (incomplete)
+         return "";
       if (diffC != "" && diffC.length > 0)
          diff.push(courseKey + ":" + diffC);
    }
    return diff.join(';');
 }
 
+//  Global variable that indicates incomplete mine
+var incomplete = false;
+
 //  Checks for differences between OldCourses and NewCourses
 function runDiff() {
+   incomplete = false;
+
    OldCourses = cleanObj(OldCourses);
    NewCourses = cleanObj(NewCourses);
 
@@ -180,17 +204,27 @@ function runDiff() {
 
    var diff = new Array();
    for (var semester in NewCourses) {
+      if (incomplete)
+         break;
       var newS = NewCourses[semester];
       var oldS = OldCourses[semester];
       if (oldS == undefined) {
          console.log("New Semester: " + semester);
          continue;
       }
+      if (newS == null && oldS != null)
+         incomplete = true;
+
       var diffS = diffSem(newS, oldS);
       if (diffS != "" && diffS.length > 0)
          diff.push(semester + "'" + diffS);
    }
-//   if (diff.length > 0)
-   console.log(diff.join('`'));
-   sendToForeground({note: "update", update: diff.join('`')});
+   if (incomplete) {
+      console.log("Incomplete mine");
+      return;
+   }
+   if (diff.length > 0) {
+      console.log(diff.join('`'));
+      sendToForeground({note: "update", update: diff.join('`')});
+   }
 }
