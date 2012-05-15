@@ -8,7 +8,7 @@
 }
 
 /* Pretty much everything */
-th.tabTable, div#sideBar, div#tabBar,
+th, div#sideBar, div#tabBar,
 #CourseHeader, #removeMenu, #logoutButton, #casLogoutButton,
 th#removeTabTable, #refreshButton, #liteRefreshButton, #removeMenu li a,
 .documentListLink, .documentFileLink, .documentMemo, ul.sideBarSemesters,

@@ -30,6 +30,16 @@ function handleMessage(msg) {
       case "good": //  Indicates proper push
          response = null;
          break;
+      case "single": //  Indicates single course is updated silently
+         var sem = msg.semester;
+         var key = msg.course.key;
+         Courses[sem][key] = restorePrototype(msg.course);
+         if (sem == selectedSemName)
+            setSelectedSemester(Courses[sem]);
+         if (key == selectedCourse.key)
+            setSelectedCourse(Courses[sem][key]);
+         response = null;
+         break;
       case "update": //  Indicates difference; need to update page
          handleUpdate(msg.update);
          response = null;

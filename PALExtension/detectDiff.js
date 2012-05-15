@@ -78,7 +78,7 @@ function diffAttr(newAttr, oldAttr) {
 }
 
 //  Checks for differences between two courses
-function diffCourse(newC, oldC) {
+function diffCourse(newC, oldC, semester) {
    var diff = new Array();
 
    for (var attr in newC) {
@@ -156,11 +156,17 @@ function diffCourse(newC, oldC) {
          }
       }
    }
+   if (diff.length > 0) {
+      sendToForeground({note: "single",
+               course: newC,
+               semester: semester});
+   }
+
    return diff.join(',');
 }
 
 //  Checks for differences between two semesters
-function diffSem(newS, oldS) {
+function diffSem(newS, oldS, semester) {
    var diff = new Array();
 
    for (var courseKey in newS) {
@@ -176,7 +182,7 @@ function diffSem(newS, oldS) {
       if (newC == null && oldC != null)
          incomplete = true;
          
-      var diffC = diffCourse(newC, oldC);
+      var diffC = diffCourse(newC, oldC, semester);
       if (incomplete)
          return "";
       if (diffC != "" && diffC.length > 0)
@@ -215,7 +221,7 @@ function runDiff() {
       if (newS == null && oldS != null)
          incomplete = true;
 
-      var diffS = diffSem(newS, oldS);
+      var diffS = diffSem(newS, oldS, semester);
       if (diffS != "" && diffS.length > 0)
          diff.push(semester + "'" + diffS);
    }

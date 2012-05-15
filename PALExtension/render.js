@@ -96,7 +96,6 @@ function showDiff() {
          thEl.addEventListener("click", diffClick, false);
 
          //  Change class of most narrow element
-         thEl = thEl.children[0].children[1].children[0];
          var previous = thEl.getAttribute("class");
          if (previous != null)
             previous = previous.replace(/ diffAttr/, "");
@@ -111,7 +110,7 @@ function showDiff() {
 //  Function that gets called when tabs is clicked
 function diffClick() {
   //  Reset class
-   var thEl = this.children[0].children[1].children[0];
+   var thEl = this;
    var previous = thEl.getAttribute("class");
    if (previous != null)
       thEl.setAttribute("class", previous.replace(/ diffAttr/, ""));

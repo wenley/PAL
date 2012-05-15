@@ -16,7 +16,7 @@ function pushRequest(req) {
         return {error: "No courses pushed"};
     
     NewCourses = restorePrototype(req.courses);
-    var checkDiff = setTimeout(runDiff, 1000);
+    var checkDiff = setTimeout(runDiff, 50);
     console.log(NewCourses);
     saveToLocal();
     return {note: "good"};
